@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>test</title>
+      <link href="/2021/8/test/"/>
+      <url>/2021/8/test/</url>
+      
+        <content type="html"><![CDATA[<p>this is a test</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hugo漂亮主题</title>
       <link href="/2021/8/Hugo%E6%BC%82%E4%BA%AE%E4%B8%BB%E9%A2%98/"/>
       <url>/2021/8/Hugo%E6%BC%82%E4%BA%AE%E4%B8%BB%E9%A2%98/</url>
