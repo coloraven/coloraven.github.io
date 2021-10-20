@@ -73,7 +73,7 @@ def get_number():
     返回：{"data":24167214}
     """
     while 1:
-        _uuid = gen_UUID()
+        _uuid = "21EF467FDBF12FB2F29D462C543A851E" # gen_UUID()
         api = 'https://api.panhvhg.xyz/api/register/user-number'
         headers = {
             "accept": "application/json",
@@ -119,7 +119,7 @@ def trier_reg(_uuid,userNumber)->str:
                 "expireRemindType":"NEVER",
                 "leftDays":3
                     }
-                }"""
+            }"""
 
     api = 'https://api.panhvhg.xyz/api/register/trier-account-auto-generation'
     headers= {
@@ -149,7 +149,7 @@ def trier_reg(_uuid,userNumber)->str:
     r=requests.post(api,headers=headers,json=form)
     print(r.json())
     if r.status_code==200:
-        return r.json()['data']['accessToken']
+        return r.json()['data']['accessToken'],r.json()['data']['webAccessToken']
 
 
 def get_userinfo(_uuid):
@@ -178,7 +178,7 @@ def get_userinfo(_uuid):
         }
     r=requests.get(api,headers=headers)
     if r.status_code==200:
-        return r.json()['data']['accessToken']
+        return r.json()['data']['accessToken'],r.json()['data']['webAccessToken']
 
 
 def get_all_tagid(_uuid,accessToken)->dict:
@@ -199,7 +199,7 @@ def get_all_tagid(_uuid,accessToken)->dict:
         "Accept-Encoding": "gzip"
                     }
     r=requests.get(url,headers=headers)
-    return r.json()
+    print(r.json())
     # print('with-group:\t',r.json())
     # result=[]
     # if r.status_code == 200:
@@ -234,12 +234,7 @@ def get_server_config(_uuid,tagid,accessToken):
             }
     r = requests.post(url,headers=headers)
     print(r.json())
-    # if r.status_code==200:
-    #     encrypt_server_config_info=r.json()["data"]
-    #     decrypted_config=AESCipher("panda&beta#12345").decrypt(encrypt_server_config_info)
-    #     decrypted_config=json.loads(decrypted_config)
-    #     decrypted_config = {'method':decrypted_config['method'],'server':decrypted_config['server'][0],'server_port':decrypted_config['server_port'],'password':decrypted_config['password']}
-    #     return decrypted_config
+    return r.json()
 
 
 async def request(sem, _uuid,tag_id,accessToken):
@@ -296,7 +291,8 @@ def async_get_detail(args:list,uuid,access_token):
 if __name__ == "__main__":
     uuid,userNumber=get_number()
     print('uuid:\t',uuid,'userNumber:\t',userNumber)
-    accessToken=trier_reg(uuid,userNumber)
-    # accessToken=get_userinfo(uuid)
-    print('accessToken:\t',accessToken)
+    # accessToken,webAccessToken=trier_reg(uuid,userNumber)
+    accessToken,webAccessToken=get_userinfo(uuid)
+    print('accessToken:\t',accessToken,'webAccessToken:\t',webAccessToken)
+    get_all_tagid(uuid,accessToken)
     print(get_server_config(uuid,'1190',accessToken))
