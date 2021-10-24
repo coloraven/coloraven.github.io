@@ -74,7 +74,7 @@ def get_number():
     """
     while 1:
         _uuid = "21EF467FDBF12FB2F29D462C543A851E" # gen_UUID()
-        api = 'https://api.panhvhg.xyz/api/register/user-number'
+        api = 'http://api.panhvhg.xyz/api/register/user-number'
         headers = {
             "accept": "application/json",
             "Accept-Language": "zh-CN",
@@ -101,7 +101,7 @@ def get_number():
                 continue
 
 
-def trier_reg(_uuid,userNumber)->str:
+# def trier_reg(_uuid,userNumber)->str:
     """
     申请试用
     返回：accessToken
@@ -160,7 +160,7 @@ def get_userinfo(_uuid):
     GET https://api.panhvhg.xyz/api/users/info HTTP/1.1
     
     """
-    api = "https://api.panhvhg.xyz/api/users/info"
+    api = "http://api.panhvhg.xyz/api/users/info"
     headers={
         "accept": "application/json",
         "Content-Type": "application/json",
@@ -177,12 +177,13 @@ def get_userinfo(_uuid):
         "Accept-Encoding": "gzip",
         }
     r=requests.get(api,headers=headers)
+    print(r.json())
     if r.status_code==200:
         return r.json()['data']['accessToken'],r.json()['data']['webAccessToken']
 
 
 def get_all_tagid(_uuid,accessToken)->dict:
-    url ='https://api.panhvhg.xyz/api/v2/channels/with-group'
+    url ='http://api.panhvhg.xyz/api/v2/channels/with-group'
     headers = {
         "api-version": "v2.0",
         "accept": "application/json",
@@ -288,11 +289,35 @@ def async_get_detail(args:list,uuid,access_token):
         return results
 
 
+
+def inforegardingdeviceidentifier(uuid):
+    headers = {
+    'accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Accept-Language': 'zh-CN',
+    'api-version': 'v1.0',
+    'device-identifier': uuid,
+    'device-type': 'ANDROID',
+    'product-identifier': 'panda',
+    'User-Agent': 'okhttp/4.9.1 android/10(TAS-AN00) panda/5.5.7(98)',
+    'X-Timestamp': '1634780539',
+    'Host': 'api.pandaglen.pw',
+    'Connection': 'Keep-Alive',
+    'Accept-Encoding': 'gzip',
+}
+
+    response = requests.get(f'http://api.pandaglen.pw/api/device-user-infos/ANDROID/{uuid}', headers=headers)
+    # print(response.text)
+    print(response.json())
+
+
 if __name__ == "__main__":
-    uuid,userNumber=get_number()
-    print('uuid:\t',uuid,'userNumber:\t',userNumber)
+    # uuid,userNumber=get_number()
+    # print('uuid:\t',uuid,'userNumber:\t',userNumber)
     # accessToken,webAccessToken=trier_reg(uuid,userNumber)
-    accessToken,webAccessToken=get_userinfo(uuid)
-    print('accessToken:\t',accessToken,'webAccessToken:\t',webAccessToken)
-    get_all_tagid(uuid,accessToken)
-    print(get_server_config(uuid,'1190',accessToken))
+    uuid="21EF467FDBF12FB2F29D462C543A851E"
+    inforegardingdeviceidentifier(uuid)
+    # accessToken,webAccessToken=get_userinfo(uuid)
+    # print('accessToken:\t',accessToken,'webAccessToken:\t',webAccessToken)
+    # get_all_tagid(uuid,accessToken)
+    # print(get_server_config(uuid,'1190',accessToken))
