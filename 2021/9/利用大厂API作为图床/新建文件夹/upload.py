@@ -22,8 +22,8 @@ def login():
         _token = i['value']
     data = {
         '_token' : _token,
-        'username': 'sirliu110@gmail.com', # 账号
-        'password': 'KwN9NGC@F34s3Ed'  # 密码
+        'username': '***', # 账号
+        'password': '***'  # 密码
     }
     login_url = 'https://wallhaven.cc/auth/login'
     response = s.post(login_url, headers=header, data=data)
