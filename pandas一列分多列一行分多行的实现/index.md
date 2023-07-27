@@ -323,7 +323,7 @@ for member, groups in duplicate_members.iterrows():
 成员6089608在以下群出现: 群聊2, 群聊3
 ```
 ### 找出只出现在一个群的成员
-```py
+```python
 single_group_members = df[~df['群成员'].isin(duplicate_members.index)]
 
 print('只出现在一个群的成员:')
@@ -340,7 +340,7 @@ for member in single_group_members['群成员'].unique():
 6141414
 ```
 ### 给定另一个群成员number列表，查找其是否在前面的群成员列表中
-```py
+```python
 import pandas as pd
 
 df = pd.DataFrame({

@@ -914,7 +914,7 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">single_group_members</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;群成员&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">duplicate_members</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">single_group_members</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;群成员&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">duplicate_members</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;只出现在一个群的成员:&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">single_group_members</span><span class="p">[</span><span class="s1">&#39;群成员&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
@@ -957,7 +957,7 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;John&#34;</span><span class="p">,</span> <span class="s2">&#34;Alice&#34;</span><span class="p">,</span> <span class="s2">&#34;Bob&#34;</span><span class="p">,</span> <span class="s2">&#34;Jane&#34;</span><span class="p">],</span>

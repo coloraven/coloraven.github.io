@@ -118,7 +118,7 @@ jQuery193_1164({
 
 这里懒惰的小刘同学决定通过 python 执行这段 js 代码。将代码转换一下写法：
 
-```py
+```python
 import execjs
 
 js_code = execjs.compile("""
@@ -193,7 +193,7 @@ function _decode(s) {
 
 尝试用上面的加密内容测试这个解密方法：
 
-```py
+```python
 encodeStr = "bjcloudvod://xxx-xxxx"
 print(js_code.call("decodeUrl", encodeStr))
 
@@ -233,7 +233,7 @@ _: 16270000005// 修饰后 时间戳
 
 返回：
 
-```py
+```python
 {"code":0,"msg":"","ts":1600000004,"data":{"token":"xxxxxxxxxx-xxxxxxxxxxxx-xxxxx"}}
 ```
 
@@ -245,7 +245,7 @@ _: 16270000005// 修饰后 时间戳
 
 经过简单的百度搜索，小刘同学获取到了 API 中时间戳的构建方法：
 
-```py
+```python
 str(int(round(time.time() * 1000)))
 ```
 
@@ -253,7 +253,7 @@ str(int(round(time.time() * 1000)))
 
 自学了一段 python 时间的小刘同学，决定用 python 的 `requests` 库实现这两个方法。
 
-```py
+```python
 # 已购买课程可以使用videoPlayerToken，但是我测试时候只能
 def videoPlayerToken(courseId, video_id):
      url = "https://www.xxxxxx.com:xxxx/web/bjvod/videoPlayerToken"
@@ -287,7 +287,7 @@ def videoPlayerToken(courseId, video_id):
         return json_str['data']['token']
 ```
 
-```py
+```python
 def getAllFormatPlayUrl(vid, tk):
      url = "https://www.xxjiayun.com/vod/video/getAllFormatPlayUrl"
      headers = {
@@ -340,7 +340,7 @@ def getAllFormatPlayUrl(vid, tk):
 
 上面的结果保存到本地后，直接用 python 读取：
 
-```py
+```python
 def getCourseList():
     f = open('list1.json', encoding="utf8")
     t = json.load(f)
@@ -351,7 +351,7 @@ def getCourseList():
 
 让我们最后实现 main 方法吧：
 
-```py
+```python
 http = urllib3.PoolManager()    #下载视频使用urllib3库
     course_list = getCourseList()    # 获取全部课程
     # with open("test.txt", "w") as f:

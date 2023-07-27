@@ -1,7 +1,7 @@
 # 判断坐标集coordinates的几何类型
 
 
-```py
+```python
 import json
 
 import geojson

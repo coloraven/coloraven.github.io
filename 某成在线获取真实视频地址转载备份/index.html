@@ -424,7 +424,7 @@ EV1 文件是一种加密文件。下载文件查看器查看文件。
 </span><span class="lnt">70
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">execjs</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">execjs</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">js_code</span> <span class="o">=</span> <span class="n">execjs</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&#34;&#34;&#34;
 </span></span></span><span class="line"><span class="cl"><span class="s2">function decodeUrl(url) {
@@ -505,7 +505,7 @@ EV1 文件是一种加密文件。下载文件查看器查看文件。
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">encodeStr</span> <span class="o">=</span> <span class="s2">&#34;bjcloudvod://xxx-xxxx&#34;</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">encodeStr</span> <span class="o">=</span> <span class="s2">&#34;bjcloudvod://xxx-xxxx&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">js_code</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&#34;decodeUrl&#34;</span><span class="p">,</span> <span class="n">encodeStr</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 输出： https://dal4jd-video.baijiayun.com/8xxxxd4ca0/60x756/00-x-upload/video/xxxxxx.mp4</span>
@@ -554,7 +554,7 @@ EV1 文件是一种加密文件。下载文件查看器查看文件。
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="p">{</span><span class="s2">&#34;code&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">&#34;msg&#34;</span><span class="p">:</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="s2">&#34;ts&#34;</span><span class="p">:</span><span class="mi">1600000004</span><span class="p">,</span><span class="s2">&#34;data&#34;</span><span class="p">:{</span><span class="s2">&#34;token&#34;</span><span class="p">:</span><span class="s2">&#34;xxxxxxxxxx-xxxxxxxxxxxx-xxxxx&#34;</span><span class="p">}}</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">{</span><span class="s2">&#34;code&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">&#34;msg&#34;</span><span class="p">:</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="s2">&#34;ts&#34;</span><span class="p">:</span><span class="mi">1600000004</span><span class="p">,</span><span class="s2">&#34;data&#34;</span><span class="p">:{</span><span class="s2">&#34;token&#34;</span><span class="p">:</span><span class="s2">&#34;xxxxxxxxxx-xxxxxxxxxxxx-xxxxx&#34;</span><span class="p">}}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -568,7 +568,7 @@ EV1 文件是一种加密文件。下载文件查看器查看文件。
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)))</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)))</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="0x33-用-python-实现-getallformatplayurl-和-playertoken">0x3.3 用 python 实现 getAllFormatPlayUrl 和 playerToken</h3>
@@ -608,7 +608,7 @@ EV1 文件是一种加密文件。下载文件查看器查看文件。
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># 已购买课程可以使用videoPlayerToken，但是我测试时候只能</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 已购买课程可以使用videoPlayerToken，但是我测试时候只能</span>
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">videoPlayerToken</span><span class="p">(</span><span class="n">courseId</span><span class="p">,</span> <span class="n">video_id</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">     <span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;https://www.xxxxxx.com:xxxx/web/bjvod/videoPlayerToken&#34;</span>
 </span></span><span class="line"><span class="cl">     <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
@@ -673,7 +673,7 @@ EV1 文件是一种加密文件。下载文件查看器查看文件。
 </span><span class="lnt">28
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">getAllFormatPlayUrl</span><span class="p">(</span><span class="n">vid</span><span class="p">,</span> <span class="n">tk</span><span class="p">):</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">getAllFormatPlayUrl</span><span class="p">(</span><span class="n">vid</span><span class="p">,</span> <span class="n">tk</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">     <span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;https://www.xxjiayun.com/vod/video/getAllFormatPlayUrl&#34;</span>
 </span></span><span class="line"><span class="cl">     <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="s1">&#39;accept&#39;</span><span class="p">:</span> <span class="s1">&#39;*/*&#39;</span><span class="p">,</span>
@@ -735,7 +735,7 @@ EV1 文件是一种加密文件。下载文件查看器查看文件。
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">getCourseList</span><span class="p">():</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">getCourseList</span><span class="p">():</span>
 </span></span><span class="line"><span class="cl">    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;list1.json&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf8&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">t</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">t</span><span class="p">[</span><span class="s1">&#39;syllabus&#39;</span><span class="p">]</span>
@@ -840,7 +840,7 @@ EV1 文件是一种加密文件。下载文件查看器查看文件。
 </span><span class="lnt">93
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="n">http</span> <span class="o">=</span> <span class="n">urllib3</span><span class="o">.</span><span class="n">PoolManager</span><span class="p">()</span>    <span class="c1">#下载视频使用urllib3库</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">http</span> <span class="o">=</span> <span class="n">urllib3</span><span class="o">.</span><span class="n">PoolManager</span><span class="p">()</span>    <span class="c1">#下载视频使用urllib3库</span>
 </span></span><span class="line"><span class="cl">    <span class="n">course_list</span> <span class="o">=</span> <span class="n">getCourseList</span><span class="p">()</span>    <span class="c1"># 获取全部课程</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># with open(&#34;test.txt&#34;, &#34;w&#34;) as f:</span>
 </span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>

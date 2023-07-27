@@ -378,7 +378,7 @@ DuckDB 的新并行排序实现可以有效地对`超出内存容量`的数据�
 |18631569256|14280||
 |13807639997|15582||
 #### duckdb代码，花费6秒：
-```py
+```python
 import duckdb
 
 def find_all_son_phones(phone): 
@@ -498,7 +498,7 @@ with duckdb.connect('test.duckdb') as conn:
 print(count)
 ```
 #### Pandas代码，花费22+秒:
-```py
+```python
 import pandas as pd
 
 df = pd.read_csv(r"test.csv", encoding='utf-8', dtype='str',usecols=["name","phone","id","pid"])
@@ -552,7 +552,7 @@ gen_phone_trees(df)
 |18109707945|13254675670|
 |13254675670||
 #### Pandas代码，花费7.5秒
-```py
+```python
 import pandas as pd
 
 df = pd.read_csv(r"test.csv", encoding='utf-8', dtype='str',usecols=["name","phone","pphone"])
@@ -598,7 +598,7 @@ df[~df['path'].isnull()]
 ```
 
 #### DuckDB代码，花费3.3秒
-```py
+```python
 import duckdb
 # import functools
 

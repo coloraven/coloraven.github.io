@@ -56,7 +56,7 @@ print(df)
 
 请注意，`DataFrame.count()` 方法只会统计非空值，而不会统计 NaN 值。如果想要统计包括 NaN 值在内的每行非空的列数目，可以使用 `DataFrame.notnull()` 方法来代替 `DataFrame.count()` 方法。例如：
 
-```py
+```python
 import pandas as pd
 
 # 创建一个示例数据帧
