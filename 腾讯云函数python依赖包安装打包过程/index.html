@@ -5,16 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>腾讯云函数Python依赖包安装打包过程 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="腾讯云函数Python依赖包安装打包过程" />
-<meta property="og:description" content="官方文档：https://cloud.tencent.com/document/product/583/39780 通过官方文档可知，在云函数" />
+<meta property="og:description" content="官方文档：https://cloud.tencent.com/document/product/583/39780 通过官方文档可知，在云函数在线编辑器那里可以启动终端并在终端中进行包的安装&hellip;&hellip;.下文可以忽略了
+背景 腾讯云函数运行环境提供的库有限，有些库需要自行打包好后上传才能使脚本正常运行，而本地打包时又对打包所处的环境有要求，因为腾讯云函数运行环境为centos7&#43;python3.6.1，所以本地如果是windows&#43;python3.8等非centos7&#43;python3.6.1环境，可能会导致脚本不能运行，故需要临时使用centos7&#43;python3.6.1环境来打包。
+第一步：使用docker安装centos7&#43;python3.6环境 来源：docker学习2-快速搭建centos7-python3.6环境 docker search python
+此命令用来搜索与python有关的docker镜像 结果如下： [root@yoyo ~]# docker search python NAME DESCRIPTION STARS OFFICIAL AUTOMATED python Python is an interpreted, interactive, objec… 4288 [OK] django Django is a free web application framework, … 847 [OK] &hellip;..（人工省略） centos/python-36-centos7 Platform for building and running Python 3.6… 17 &hellip;..（人工省略） python 3.6.5 with requirements last update s… 0 openshift/python-33-centos7 DEPRECATED: A Centos7 based Python v3.3 imag… 0 [root@yoyo ~]#" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-11-08T23:08:46+00:00" />
 <meta property="article:modified_time" content="2021-11-08T23:08:46+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="腾讯云函数Python依赖包安装打包过程"/>
-<meta name="twitter:description" content="官方文档：https://cloud.tencent.com/document/product/583/39780 通过官方文档可知，在云函数"/>
+<meta name="twitter:description" content="官方文档：https://cloud.tencent.com/document/product/583/39780 通过官方文档可知，在云函数在线编辑器那里可以启动终端并在终端中进行包的安装&hellip;&hellip;.下文可以忽略了
+背景 腾讯云函数运行环境提供的库有限，有些库需要自行打包好后上传才能使脚本正常运行，而本地打包时又对打包所处的环境有要求，因为腾讯云函数运行环境为centos7&#43;python3.6.1，所以本地如果是windows&#43;python3.8等非centos7&#43;python3.6.1环境，可能会导致脚本不能运行，故需要临时使用centos7&#43;python3.6.1环境来打包。
+第一步：使用docker安装centos7&#43;python3.6环境 来源：docker学习2-快速搭建centos7-python3.6环境 docker search python
+此命令用来搜索与python有关的docker镜像 结果如下： [root@yoyo ~]# docker search python NAME DESCRIPTION STARS OFFICIAL AUTOMATED python Python is an interpreted, interactive, objec… 4288 [OK] django Django is a free web application framework, … 847 [OK] &hellip;..（人工省略） centos/python-36-centos7 Platform for building and running Python 3.6… 17 &hellip;..（人工省略） python 3.6.5 with requirements last update s… 0 openshift/python-33-centos7 DEPRECATED: A Centos7 based Python v3.3 imag… 0 [root@yoyo ~]#"/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +33,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B\/"
-        },"genre": "posts","keywords": "Python, 云函数, SCF","wordcount":  1188 ,
+        },"genre": "posts","keywords": "Python, 云函数, SCF","wordcount":  155 ,
         "url": "http:\/\/example.org\/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B\/","datePublished": "2021-11-08T23:08:46+00:00","dateModified": "2021-11-08T23:08:46+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,9 +106,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">腾讯云函数Python依赖包安装打包过程</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/python/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Python</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-11-08">2021-11-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1188 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/python/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Python</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-11-08">2021-11-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;155 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -186,7 +190,7 @@ docker cp ID全称:容器路径 本地文件路径</p>
                             <a class="link-to-markdown" href="/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/" data-title="腾讯云函数Python依赖包安装打包过程" data-via="xxxx" data-hashtags="Python,云函数,SCF"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/" data-title="腾讯云函数Python依赖包安装打包过程"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/" data-title="腾讯云函数Python依赖包安装打包过程"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/" data-title="腾讯云函数Python依赖包安装打包过程"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/" data-title="腾讯云函数Python依赖包安装打包过程" data-hashtags="Python,云函数,SCF"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/" data-title="腾讯云函数Python依赖包安装打包过程"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/" data-title="腾讯云函数Python依赖包安装打包过程"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/" data-title="腾讯云函数Python依赖包安装打包过程"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -204,7 +208,7 @@ docker cp ID全称:容器路径 本地文件路径</p>
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

@@ -7,9 +7,13 @@
     <title>NextCloud安装、改造，支持视频缩略图和、挂载Samba、上传加速</title>
     <link>http://example.org/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/</link>
     <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
-    <author>xxxx</author>
+    <author>五彩斑斓的黑</author>
     <guid>http://example.org/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/</guid>
-    <description><![CDATA[nextcloud安装 1 docker run -itd --name nextcloud -v /userdatas/Sandisk/nextcloud:/var/www/html --link mariadb -p 800:80 nextcloud https://zhuanlan.zhihu.com/p/353252517 解除文件上传时“块大小”的限制， 方法来源 1 docker exec --user www-data 容器ID php occ config:app:set files max_chunk_size --value 0 重建nextclo]]></description>
+    <description><![CDATA[nextcloud安装 1 docker run -itd --name nextcloud -v /userdatas/Sandisk/nextcloud:/var/www/html --link mariadb -p 800:80 nextcloud https://zhuanlan.zhihu.com/p/353252517
+解除文件上传时“块大小”的限制， 方法来源
+1 docker exec --user www-data 容器ID php occ config:app:set files max_chunk_size --value 0 重建nextcloud索引 针对通过非nextcloud客户端（手机、PC、网页端）途径放入nextcloud目录的文件
+1 docker exec -u www-data nextcloud php occ files:scan --all 使用该命令重建索引，如果报下面错误：
+1 2 3 4 5 6 7 8 Starting scan for user 1 out of 1 (xxx) Home storage for user xxx not writable Make sure you&#39;re running the scan command only as the user the web server runs as +---------+-------+--------------+ | Folders | Files | Elapsed time | +---------+-------+--------------+ | 0 | 0 | 00:00:00 | +---------+-------+--------------+ 那么，你需要将移入的文件（或目录）的所有这改为:33:tape。]]></description>
 </item>
 </channel>
 </rss>

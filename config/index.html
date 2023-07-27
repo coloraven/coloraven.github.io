@@ -5,16 +5,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Step.2 基本配置 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Step.2 基本配置" />
-<meta property="og:description" content=":::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 ::: 站点别称 1 alternate: Yume Shoka 这里设置的名称代替Logo，显示在页面顶部，以及页尾©️处 静态" />
+<meta property="og:description" content=":::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 :::
+站点别称 1 alternate: Yume Shoka 这里设置的名称代替Logo，显示在页面顶部，以及页尾©️处
+静态文件目录 1 statics: / #//cdn.jsdelivr.net/gh/amehime/shoka@latest/ 默认值是/，指使用本地静态文件 可以修改成//cdn.jsdelivr.net/gh/您的github用户名/您的项目名@latest/这种形式，以使用jsDelivr进行加速。 PS：jsDelivr并不是实时更新，重新生成文件后需要耐心等待
+1 2 3 css: css js: js images: images 静态文件所处目录的实际目录名，这些一般不改。
+夜间模式 1 darkmode: # true 默认情况下，是否开启夜间模式取决于（优先级从高到低）：
+访客点击页面头部切换按钮的自行选择 访客切换了浏览设备的主题色调 您的darkmode配置项 自动定位 1 auto_scroll: # false 默认情况下，再次打开页面时，会自动滚动到上次浏览的位置。 这个选项设为false时将停用此功能。
+加载动画 1 2 3 4 # 是否显示页面加载动画loading-cat loader: start: true # 当初次打开页面时，显示加载动画 switch: true # tab切换到其他页面时，显示加载动画 tab切换后只是显示loading动画，实际并未重新加载页面
+页面特效 单击页面的烟花效果配置如下" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/config/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/config/" /><meta property="article:section" content="posts" />
 
 <meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Step.2 基本配置"/>
-<meta name="twitter:description" content=":::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 ::: 站点别称 1 alternate: Yume Shoka 这里设置的名称代替Logo，显示在页面顶部，以及页尾©️处 静态"/>
+<meta name="twitter:description" content=":::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 :::
+站点别称 1 alternate: Yume Shoka 这里设置的名称代替Logo，显示在页面顶部，以及页尾©️处
+静态文件目录 1 statics: / #//cdn.jsdelivr.net/gh/amehime/shoka@latest/ 默认值是/，指使用本地静态文件 可以修改成//cdn.jsdelivr.net/gh/您的github用户名/您的项目名@latest/这种形式，以使用jsDelivr进行加速。 PS：jsDelivr并不是实时更新，重新生成文件后需要耐心等待
+1 2 3 css: css js: js images: images 静态文件所处目录的实际目录名，这些一般不改。
+夜间模式 1 darkmode: # true 默认情况下，是否开启夜间模式取决于（优先级从高到低）：
+访客点击页面头部切换按钮的自行选择 访客切换了浏览设备的主题色调 您的darkmode配置项 自动定位 1 auto_scroll: # false 默认情况下，再次打开页面时，会自动滚动到上次浏览的位置。 这个选项设为false时将停用此功能。
+加载动画 1 2 3 4 # 是否显示页面加载动画loading-cat loader: start: true # 当初次打开页面时，显示加载动画 switch: true # tab切换到其他页面时，显示加载动画 tab切换后只是显示loading动画，实际并未重新加载页面
+页面特效 单击页面的烟花效果配置如下"/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +41,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/config\/"
-        },"genre": "posts","keywords": "Hexo, 教程","wordcount":  3579 ,
+        },"genre": "posts","keywords": "Hexo, 教程","wordcount":  925 ,
         "url": "http:\/\/example.org\/config\/","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,9 +114,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Step.2 基本配置</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/theme-shoka-documentation/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Theme Shoka Documentation</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3579 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/theme-shoka-documentation/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Theme Shoka Documentation</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;925 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -791,7 +803,7 @@ PS：jsDelivr并不是实时更新，重新生成文件后需要耐心等待</p>
                             <a class="link-to-markdown" href="/config/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/config/" data-title="Step.2 基本配置" data-via="xxxx" data-hashtags="Hexo,教程"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/config/" data-hashtag="Hexo"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/config/" data-title="Step.2 基本配置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/config/" data-title="Step.2 基本配置"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/config/" data-title="Step.2 基本配置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/config/" data-title="Step.2 基本配置" data-hashtags="Hexo,教程"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/config/" data-hashtag="Hexo"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/config/" data-title="Step.2 基本配置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/config/" data-title="Step.2 基本配置"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/config/" data-title="Step.2 基本配置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -809,7 +821,7 @@ PS：jsDelivr并不是实时更新，重新生成文件后需要耐心等待</p>
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

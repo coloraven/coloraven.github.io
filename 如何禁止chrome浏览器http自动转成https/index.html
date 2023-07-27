@@ -5,16 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>如何禁止chrome浏览器http自动转成https - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="如何禁止chrome浏览器http自动转成https" />
-<meta property="og:description" content="转载自：https://blog.csdn.net/thewindkee/article/details/80668974 Chrome 浏览器 地址栏中输" />
+<meta property="og:description" content="转载自：https://blog.csdn.net/thewindkee/article/details/80668974
+Chrome 浏览器 地址栏中输入 chrome://net-internals/#hsts 在 Delete domain security policies 中输入项目的域名，并 Delete 删除 可以在 Query domain 测试是否删除成功 这里如果还是不行， 请清除浏览器缓存！
+参考文章 :如何关闭浏览器的HSTS功能
+Safari 浏览器 完全关闭 Safari 删除 ~/Library/Cookies/HSTS.plist 这个文件 重新打开 Safari 即可 极少数情况下，需要重启系统 Opera 浏览器 和 Chrome 方法一样
+Firefox 浏览器 关闭所有已打开的页面 清空历史记录和缓存 地址栏输入 about:permissions 搜索项目域名，并点击 Forget About This Site" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-11-03T06:44:58+00:00" />
 <meta property="article:modified_time" content="2021-11-03T06:44:58+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="如何禁止chrome浏览器http自动转成https"/>
-<meta name="twitter:description" content="转载自：https://blog.csdn.net/thewindkee/article/details/80668974 Chrome 浏览器 地址栏中输"/>
+<meta name="twitter:description" content="转载自：https://blog.csdn.net/thewindkee/article/details/80668974
+Chrome 浏览器 地址栏中输入 chrome://net-internals/#hsts 在 Delete domain security policies 中输入项目的域名，并 Delete 删除 可以在 Query domain 测试是否删除成功 这里如果还是不行， 请清除浏览器缓存！
+参考文章 :如何关闭浏览器的HSTS功能
+Safari 浏览器 完全关闭 Safari 删除 ~/Library/Cookies/HSTS.plist 这个文件 重新打开 Safari 即可 极少数情况下，需要重启系统 Opera 浏览器 和 Chrome 方法一样
+Firefox 浏览器 关闭所有已打开的页面 清空历史记录和缓存 地址栏输入 about:permissions 搜索项目域名，并点击 Forget About This Site"/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +35,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https\/"
-        },"genre": "posts","wordcount":  229 ,
+        },"genre": "posts","wordcount":  48 ,
         "url": "http:\/\/example.org\/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https\/","datePublished": "2021-11-03T06:44:58+00:00","dateModified": "2021-11-03T06:44:58+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,8 +108,8 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">如何禁止chrome浏览器http自动转成https</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-11-03">2021-11-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;229 words&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-11-03">2021-11-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;48 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
@@ -143,7 +149,7 @@ Opera 浏览器
                             <a class="link-to-markdown" href="/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https/" data-title="如何禁止chrome浏览器http自动转成https" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https/" data-title="如何禁止chrome浏览器http自动转成https"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https/" data-title="如何禁止chrome浏览器http自动转成https"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https/" data-title="如何禁止chrome浏览器http自动转成https"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https/" data-title="如何禁止chrome浏览器http自动转成https"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https/" data-title="如何禁止chrome浏览器http自动转成https"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https/" data-title="如何禁止chrome浏览器http自动转成https"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E5%A6%82%E4%BD%95%E7%A6%81%E6%AD%A2chrome%E6%B5%8F%E8%A7%88%E5%99%A8http%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%88%90https/" data-title="如何禁止chrome浏览器http自动转成https"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -161,7 +167,7 @@ Opera 浏览器
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

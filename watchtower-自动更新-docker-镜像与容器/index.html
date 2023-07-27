@@ -5,16 +5,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Watchtower - 自动更新 Docker 镜像与容器 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Watchtower - 自动更新 Docker 镜像与容器" />
-<meta property="og:description" content="转载自：https://p3terx.com/archives/docker-watchtower.html 前言 Docker 容器的部署有一种在手机上装" />
+<meta property="og:description" content="转载自：https://p3terx.com/archives/docker-watchtower.html
+前言 Docker 容器的部署有一种在手机上装 App 的感觉，但 Docker 容器并不会像手机 App 那样会自动更新，而如果我们需要更新容器一般需要以下四个步骤：
+停止容器：docker stop &lt;CONTAINER&gt; 删除容器：docker rm &lt;CONTAINER&gt; 更新镜像：docker pull &lt;IMAGE&gt; 启动容器：docker run &lt;ARG&gt; ... &lt;IMAGE&gt; 停止容器这个步骤可以在删除容器时使用 -f 参数来代替，即使这样还是需要三个步骤。如果部署了大量的容器需要更新使用这种传统的方式工作量是巨大的。
+Watchtower 是一个可以实现自动化更新 Docker 基础镜像与容器的实用工具。它监视正在运行的容器以及相关的镜像，当检测到 reg-istry 中的镜像与本地的镜像有差异时，它会拉取最新镜像并使用最初部署时相同的参数重新启动相应的容器，一切好像什么都没发生过，就像更新手机上的 App 一样。
+快速开始 Watch-tower 本身被打包为 Docker 镜像，因此可以像运行任何其他容器一样运行它：
+1 2 3 4 docker run -d \ --name watchtower \ -v /var/run/docker.sock:/var/run/docker.sock \ containrrr/watchtower 然后所有容器都会自动更新，也包括 Watch-tower 本身。
+选项参数 点击查看 自动清除旧镜像 官方给出的默认启动命令在长期使用后会堆积非常多的标签为 none 的旧镜像，如果放任不管会占用大量的磁盘空间。要避免这种情况可以加入 --cleanup 选项，这样每次更新都会把旧的镜像清理掉。
+1 2 3 4 5 6 docker run -d \ --name watchtower \ --restart unless-stopped \ -v /var/run/docker." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-08-14T15:42:45+00:00" />
 <meta property="article:modified_time" content="2021-08-14T15:42:45+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Watchtower - 自动更新 Docker 镜像与容器"/>
-<meta name="twitter:description" content="转载自：https://p3terx.com/archives/docker-watchtower.html 前言 Docker 容器的部署有一种在手机上装"/>
+<meta name="twitter:description" content="转载自：https://p3terx.com/archives/docker-watchtower.html
+前言 Docker 容器的部署有一种在手机上装 App 的感觉，但 Docker 容器并不会像手机 App 那样会自动更新，而如果我们需要更新容器一般需要以下四个步骤：
+停止容器：docker stop &lt;CONTAINER&gt; 删除容器：docker rm &lt;CONTAINER&gt; 更新镜像：docker pull &lt;IMAGE&gt; 启动容器：docker run &lt;ARG&gt; ... &lt;IMAGE&gt; 停止容器这个步骤可以在删除容器时使用 -f 参数来代替，即使这样还是需要三个步骤。如果部署了大量的容器需要更新使用这种传统的方式工作量是巨大的。
+Watchtower 是一个可以实现自动化更新 Docker 基础镜像与容器的实用工具。它监视正在运行的容器以及相关的镜像，当检测到 reg-istry 中的镜像与本地的镜像有差异时，它会拉取最新镜像并使用最初部署时相同的参数重新启动相应的容器，一切好像什么都没发生过，就像更新手机上的 App 一样。
+快速开始 Watch-tower 本身被打包为 Docker 镜像，因此可以像运行任何其他容器一样运行它：
+1 2 3 4 docker run -d \ --name watchtower \ -v /var/run/docker.sock:/var/run/docker.sock \ containrrr/watchtower 然后所有容器都会自动更新，也包括 Watch-tower 本身。
+选项参数 点击查看 自动清除旧镜像 官方给出的默认启动命令在长期使用后会堆积非常多的标签为 none 的旧镜像，如果放任不管会占用大量的磁盘空间。要避免这种情况可以加入 --cleanup 选项，这样每次更新都会把旧的镜像清理掉。
+1 2 3 4 5 6 docker run -d \ --name watchtower \ --restart unless-stopped \ -v /var/run/docker."/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +41,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8\/"
-        },"genre": "posts","keywords": "docker","wordcount":  1799 ,
+        },"genre": "posts","keywords": "docker","wordcount":  429 ,
         "url": "http:\/\/example.org\/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8\/","datePublished": "2021-08-14T15:42:45+00:00","dateModified": "2021-08-14T15:42:45+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,9 +114,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Watchtower - 自动更新 Docker 镜像与容器</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/docker/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Docker</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-14">2021-08-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1799 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/docker/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Docker</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-14">2021-08-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;429 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -408,7 +420,7 @@
                             <a class="link-to-markdown" href="/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-title="Watchtower - 自动更新 Docker 镜像与容器" data-via="xxxx" data-hashtags="docker"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-hashtag="docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-title="Watchtower - 自动更新 Docker 镜像与容器"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-title="Watchtower - 自动更新 Docker 镜像与容器"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-title="Watchtower - 自动更新 Docker 镜像与容器"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-title="Watchtower - 自动更新 Docker 镜像与容器" data-hashtags="docker"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-hashtag="docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-title="Watchtower - 自动更新 Docker 镜像与容器"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-title="Watchtower - 自动更新 Docker 镜像与容器"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-title="Watchtower - 自动更新 Docker 镜像与容器"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -426,7 +438,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

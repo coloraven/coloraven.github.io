@@ -5,16 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>DuckDB学习笔记 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="DuckDB学习笔记" />
-<meta property="og:description" content="概述 貌似duckdb能自动识别文件的encoding。 实现emeditor的列拆分功能 关键函数 regexp_matches，查询字符串是否包" />
+<meta property="og:description" content="概述 貌似duckdb能自动识别文件的encoding。
+实现emeditor的列拆分功能 关键函数 regexp_matches，查询字符串是否包含正则表达式字符 regexp_split_to_array，按给定的正则表达式字符进行拆分 unnest，将数组转为行 contains，判断是否包含特定字符（不支持正则表达式） 数据样本 phone introduce name 111 New York|Chicago Jean Vasquez 222 HK;Tokoy|USA Nakayama Yuito 333 Chinese Shanghai Jean Vasquez 以单个分隔符拆分 duckdb代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 --对包含;的列进行拆分，然后转为行。注意：UNION ALL 前后的列顺序必须一致 SELECT --与 UNION ALL 关键字 后面的列顺序必须一致 phone, UNNEST(regexp_split_to_array(introduce,	&#39;;&#39;)) introduce, name FROM read_csv(&#39;testfile.csv&#39;, delim=&#39;,&#39;, header=True, columns={&#39;phone&#39;:&#39;BIGINT&#39;,&#39;introduce&#39;:&#39;VARCHAR&#39;,&#39;name&#39;:&#39;VARCHAR&#39;}) WHERE contains(introduce,	&#39;;&#39;) UNION ALL -- 与不包含;的行进行合并，实际中要去掉 SELECT --与 UNION ALL 关键字 前面的列顺序必须一致 * FROM read_csv(&#39;testfile." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-05-29T10:55:39+00:00" />
 <meta property="article:modified_time" content="2023-05-29T10:55:39+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="DuckDB学习笔记"/>
-<meta name="twitter:description" content="概述 貌似duckdb能自动识别文件的encoding。 实现emeditor的列拆分功能 关键函数 regexp_matches，查询字符串是否包"/>
+<meta name="twitter:description" content="概述 貌似duckdb能自动识别文件的encoding。
+实现emeditor的列拆分功能 关键函数 regexp_matches，查询字符串是否包含正则表达式字符 regexp_split_to_array，按给定的正则表达式字符进行拆分 unnest，将数组转为行 contains，判断是否包含特定字符（不支持正则表达式） 数据样本 phone introduce name 111 New York|Chicago Jean Vasquez 222 HK;Tokoy|USA Nakayama Yuito 333 Chinese Shanghai Jean Vasquez 以单个分隔符拆分 duckdb代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 --对包含;的列进行拆分，然后转为行。注意：UNION ALL 前后的列顺序必须一致 SELECT --与 UNION ALL 关键字 后面的列顺序必须一致 phone, UNNEST(regexp_split_to_array(introduce,	&#39;;&#39;)) introduce, name FROM read_csv(&#39;testfile.csv&#39;, delim=&#39;,&#39;, header=True, columns={&#39;phone&#39;:&#39;BIGINT&#39;,&#39;introduce&#39;:&#39;VARCHAR&#39;,&#39;name&#39;:&#39;VARCHAR&#39;}) WHERE contains(introduce,	&#39;;&#39;) UNION ALL -- 与不包含;的行进行合并，实际中要去掉 SELECT --与 UNION ALL 关键字 前面的列顺序必须一致 * FROM read_csv(&#39;testfile."/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +29,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\/"
-        },"genre": "posts","keywords": "DuckDB, 数据库","wordcount":  8737 ,
+        },"genre": "posts","keywords": "DuckDB, 数据库","wordcount":  3687 ,
         "url": "http:\/\/example.org\/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0\/","datePublished": "2023-05-29T10:55:39+00:00","dateModified": "2023-05-29T10:55:39+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,8 +102,8 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">DuckDB学习笔记</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>数据库</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-29">2023-05-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;8737 words&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>数据库</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-29">2023-05-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3687 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;18 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
@@ -3102,7 +3102,7 @@ DuckDB 的新并行排序实现可以有效地对<code>超出内存容量</code>
                             <a class="link-to-markdown" href="/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-title="DuckDB学习笔记" data-via="xxxx" data-hashtags="DuckDB,数据库"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-hashtag="DuckDB"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-title="DuckDB学习笔记"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-title="DuckDB学习笔记"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-title="DuckDB学习笔记"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-title="DuckDB学习笔记" data-hashtags="DuckDB,数据库"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-hashtag="DuckDB"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-title="DuckDB学习笔记"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-title="DuckDB学习笔记"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-title="DuckDB学习笔记"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -3120,7 +3120,7 @@ DuckDB 的新并行排序实现可以有效地对<code>超出内存容量</code>
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

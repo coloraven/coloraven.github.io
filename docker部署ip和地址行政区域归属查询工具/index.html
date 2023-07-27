@@ -5,16 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Docker部署IP和地址行政区域归属查询工具 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Docker部署IP和地址行政区域归属查询工具" />
-<meta property="og:description" content="构建Dockerfile Dockerfile如下 1 2 3 4 5 6 7 8 9 10 FROM postgis/postgis:13-3.1-alpine WORKDIR /app RUN apk --update --no-cache add python3-dev libffi-dev gcc musl-dev make libevent-dev build-base py3-pip python3 \ &amp;&amp;pip install wheel \ &amp;&amp;pip install gevent \ &amp;&amp;pip install --no-cache-dir flask gunicorn shapely aiohttp psycopg2 \" />
+<meta property="og:description" content="构建Dockerfile Dockerfile如下
+1 2 3 4 5 6 7 8 9 10 FROM postgis/postgis:13-3.1-alpine WORKDIR /app RUN apk --update --no-cache add python3-dev libffi-dev gcc musl-dev make libevent-dev build-base py3-pip python3 \ &amp;&amp;pip install wheel \ &amp;&amp;pip install gevent \ &amp;&amp;pip install --no-cache-dir flask gunicorn shapely aiohttp psycopg2 \ &amp;&amp;apk del python3-dev libffi-dev gcc musl-dev make libevent-dev build-base COPY . . EXPOSE 8848 5432 CMD gunicorn app:app -c gunicorn.conf.py 因为构建镜像基于alpine，遇到安装上面代码中提到的python库文件错误时解放方案来源网络 alpine安装gevent成功：" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" /><meta property="article:section" content="posts" />
 
 <meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Docker部署IP和地址行政区域归属查询工具"/>
-<meta name="twitter:description" content="构建Dockerfile Dockerfile如下 1 2 3 4 5 6 7 8 9 10 FROM postgis/postgis:13-3.1-alpine WORKDIR /app RUN apk --update --no-cache add python3-dev libffi-dev gcc musl-dev make libevent-dev build-base py3-pip python3 \ &amp;&amp;pip install wheel \ &amp;&amp;pip install gevent \ &amp;&amp;pip install --no-cache-dir flask gunicorn shapely aiohttp psycopg2 \"/>
+<meta name="twitter:description" content="构建Dockerfile Dockerfile如下
+1 2 3 4 5 6 7 8 9 10 FROM postgis/postgis:13-3.1-alpine WORKDIR /app RUN apk --update --no-cache add python3-dev libffi-dev gcc musl-dev make libevent-dev build-base py3-pip python3 \ &amp;&amp;pip install wheel \ &amp;&amp;pip install gevent \ &amp;&amp;pip install --no-cache-dir flask gunicorn shapely aiohttp psycopg2 \ &amp;&amp;apk del python3-dev libffi-dev gcc musl-dev make libevent-dev build-base COPY . . EXPOSE 8848 5432 CMD gunicorn app:app -c gunicorn.conf.py 因为构建镜像基于alpine，遇到安装上面代码中提到的python库文件错误时解放方案来源网络 alpine安装gevent成功："/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +29,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7\/"
-        },"genre": "posts","keywords": "Docker, Python, Flask, alpine","wordcount":  722 ,
+        },"genre": "posts","keywords": "Docker, Python, Flask, alpine","wordcount":  243 ,
         "url": "http:\/\/example.org\/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7\/","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,8 +102,8 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Docker部署IP和地址行政区域归属查询工具</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/docker/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Docker</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;722 words&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/docker/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Docker</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;243 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
@@ -254,7 +254,7 @@ alpine安装gevent成功：</p>
                             <a class="link-to-markdown" href="/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-title="Docker部署IP和地址行政区域归属查询工具" data-via="xxxx" data-hashtags="Docker,Python,Flask,alpine"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-hashtag="Docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-title="Docker部署IP和地址行政区域归属查询工具"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-title="Docker部署IP和地址行政区域归属查询工具"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-title="Docker部署IP和地址行政区域归属查询工具"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-title="Docker部署IP和地址行政区域归属查询工具" data-hashtags="Docker,Python,Flask,alpine"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-hashtag="Docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-title="Docker部署IP和地址行政区域归属查询工具"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-title="Docker部署IP和地址行政区域归属查询工具"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-title="Docker部署IP和地址行政区域归属查询工具"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -272,7 +272,7 @@ alpine安装gevent成功：</p>
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

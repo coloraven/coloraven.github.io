@@ -5,16 +5,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Step.3 界面显示 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Step.3 界面显示" />
-<meta property="og:description" content=":::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 ::: 首页置顶文章 在文章的Front Matter设置sticky: true，则该文章" />
+<meta property="og:description" content=":::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 :::
+首页置顶文章 在文章的Front Matter设置sticky: true，则该文章将显示在首页最上方的置顶文章列。 多篇文章按照发布时间倒序排列，不分页。
+1 2 3 4 --- title: 置顶文章 sticky: true --- 首页精选分类 想要在首页显示分类翻转块，需要按照以下示例的方式，给需要显示的分类加上封面图。
+首先，修改站点配置： 找到category_map:，配置每个分类对应的英文映射，比如：
+1 2 3 4 5 6 7 8 category_map: 计算机科学: computer-science Java: java C&#43;&#43;: cpp 二进制杂谈: note 计算机程序设计（C&#43;&#43;）-西安交通大学: course-1 零基础学Java语言-浙江大学-翁恺: course-1 面向对象程序设计-Java语言-浙江大学-翁恺: course-2 注意：hexo会自动处理路径中的特殊字符，~`!@#$%^&amp;*()-_&#43;=[]{}|\;:&quot;&rsquo;&lt;&gt;,.?以及空格，这些全部会被替换成- 所以避免在设置中使用上述字符，否则可导致无法抓取到目录下的cover.jpg
+在&lt;root&gt;/source/_posts文件夹相应的目录里，存放封面图 例子：如 第1周 计算 这篇文章。 所处的分类是
+1 2 categories: - [计算机科学, Java, 零基础学Java语言-浙江大学-翁恺] 现在需要在首页显示零基础学Java语言-浙江大学-翁恺这个分类，翻转卡片后，显示这个分类下的文章们。 而该分类经过英文映射，它的路径将是/computer-science/java/course-1/。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/display/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/display/" /><meta property="article:section" content="posts" />
 
 <meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Step.3 界面显示"/>
-<meta name="twitter:description" content=":::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 ::: 首页置顶文章 在文章的Front Matter设置sticky: true，则该文章"/>
+<meta name="twitter:description" content=":::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 :::
+首页置顶文章 在文章的Front Matter设置sticky: true，则该文章将显示在首页最上方的置顶文章列。 多篇文章按照发布时间倒序排列，不分页。
+1 2 3 4 --- title: 置顶文章 sticky: true --- 首页精选分类 想要在首页显示分类翻转块，需要按照以下示例的方式，给需要显示的分类加上封面图。
+首先，修改站点配置： 找到category_map:，配置每个分类对应的英文映射，比如：
+1 2 3 4 5 6 7 8 category_map: 计算机科学: computer-science Java: java C&#43;&#43;: cpp 二进制杂谈: note 计算机程序设计（C&#43;&#43;）-西安交通大学: course-1 零基础学Java语言-浙江大学-翁恺: course-1 面向对象程序设计-Java语言-浙江大学-翁恺: course-2 注意：hexo会自动处理路径中的特殊字符，~`!@#$%^&amp;*()-_&#43;=[]{}|\;:&quot;&rsquo;&lt;&gt;,.?以及空格，这些全部会被替换成- 所以避免在设置中使用上述字符，否则可导致无法抓取到目录下的cover.jpg
+在&lt;root&gt;/source/_posts文件夹相应的目录里，存放封面图 例子：如 第1周 计算 这篇文章。 所处的分类是
+1 2 categories: - [计算机科学, Java, 零基础学Java语言-浙江大学-翁恺] 现在需要在首页显示零基础学Java语言-浙江大学-翁恺这个分类，翻转卡片后，显示这个分类下的文章们。 而该分类经过英文映射，它的路径将是/computer-science/java/course-1/。"/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +39,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/display\/"
-        },"genre": "posts","keywords": "Hexo, 教程","wordcount":  2703 ,
+        },"genre": "posts","keywords": "Hexo, 教程","wordcount":  240 ,
         "url": "http:\/\/example.org\/display\/","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,9 +112,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Step.3 界面显示</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/theme-shoka-documentation/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Theme Shoka Documentation</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2703 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/theme-shoka-documentation/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Theme Shoka Documentation</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;240 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -478,7 +488,7 @@
                             <a class="link-to-markdown" href="/display/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/display/" data-title="Step.3 界面显示" data-via="xxxx" data-hashtags="Hexo,教程"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/display/" data-hashtag="Hexo"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/display/" data-title="Step.3 界面显示"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/display/" data-title="Step.3 界面显示"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/display/" data-title="Step.3 界面显示"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/display/" data-title="Step.3 界面显示" data-hashtags="Hexo,教程"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/display/" data-hashtag="Hexo"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/display/" data-title="Step.3 界面显示"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/display/" data-title="Step.3 界面显示"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/display/" data-title="Step.3 界面显示"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -496,7 +506,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

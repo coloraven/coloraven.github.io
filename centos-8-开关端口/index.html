@@ -5,16 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>CentOS 8 开关端口 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="CentOS 8 开关端口" />
-<meta property="og:description" content="来源参考 查看防火墙某个端口是否开放 1 firewall-cmd --query-port=3306/tcp 开放防火墙端口3306 1 firewall-cmd --zone=public --add-port=3306/tcp --permanent 注意：开放端口后要重启防火墙生效 重启防火墙 1 systemctl restart firewalld 关闭防火墙端口 1 firewall-cmd" />
+<meta property="og:description" content="来源参考
+查看防火墙某个端口是否开放 1 firewall-cmd --query-port=3306/tcp 开放防火墙端口3306 1 firewall-cmd --zone=public --add-port=3306/tcp --permanent 注意：开放端口后要重启防火墙生效 重启防火墙 1 systemctl restart firewalld 关闭防火墙端口 1 firewall-cmd --remove-port=3306/tcp --permanent 查看防火墙状态 1 systemctl status firewalld 关闭防火墙 1 systemctl stop firewalld 打开防火墙 1 systemctl start firewalld 开放一段端口 1 firewall-cmd --zone=public --add-port=40000-45000/tcp --permanent 查看开放的端口列表 1 firewall-cmd --zone=public --list-ports 查看被监听Listen的端口 1 netstat -lntp 检查端口被哪个进程占用 1 netstat -lnp|grep 3306 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-08-14T15:42:45+00:00" />
 <meta property="article:modified_time" content="2021-08-14T15:42:45+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CentOS 8 开关端口"/>
-<meta name="twitter:description" content="来源参考 查看防火墙某个端口是否开放 1 firewall-cmd --query-port=3306/tcp 开放防火墙端口3306 1 firewall-cmd --zone=public --add-port=3306/tcp --permanent 注意：开放端口后要重启防火墙生效 重启防火墙 1 systemctl restart firewalld 关闭防火墙端口 1 firewall-cmd"/>
+<meta name="twitter:description" content="来源参考
+查看防火墙某个端口是否开放 1 firewall-cmd --query-port=3306/tcp 开放防火墙端口3306 1 firewall-cmd --zone=public --add-port=3306/tcp --permanent 注意：开放端口后要重启防火墙生效 重启防火墙 1 systemctl restart firewalld 关闭防火墙端口 1 firewall-cmd --remove-port=3306/tcp --permanent 查看防火墙状态 1 systemctl status firewalld 关闭防火墙 1 systemctl stop firewalld 打开防火墙 1 systemctl start firewalld 开放一段端口 1 firewall-cmd --zone=public --add-port=40000-45000/tcp --permanent 查看开放的端口列表 1 firewall-cmd --zone=public --list-ports 查看被监听Listen的端口 1 netstat -lntp 检查端口被哪个进程占用 1 netstat -lnp|grep 3306 "/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +29,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3\/"
-        },"genre": "posts","keywords": "Linux, CentOS, FireWall","wordcount":  157 ,
+        },"genre": "posts","keywords": "Linux, CentOS, FireWall","wordcount":  57 ,
         "url": "http:\/\/example.org\/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3\/","datePublished": "2021-08-14T15:42:45+00:00","dateModified": "2021-08-14T15:42:45+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,8 +102,8 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CentOS 8 开关端口</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-14">2021-08-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;157 words&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-14">2021-08-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;57 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
@@ -237,7 +237,7 @@
                             <a class="link-to-markdown" href="/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/" data-title="CentOS 8 开关端口" data-via="xxxx" data-hashtags="Linux,CentOS,FireWall"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/" data-hashtag="Linux"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/" data-title="CentOS 8 开关端口"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/" data-title="CentOS 8 开关端口"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/" data-title="CentOS 8 开关端口"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/" data-title="CentOS 8 开关端口" data-hashtags="Linux,CentOS,FireWall"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/" data-hashtag="Linux"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/" data-title="CentOS 8 开关端口"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/" data-title="CentOS 8 开关端口"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/" data-title="CentOS 8 开关端口"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -255,7 +255,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

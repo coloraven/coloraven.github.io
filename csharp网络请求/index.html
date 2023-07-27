@@ -5,16 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>CSharp网络请求 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="CSharp网络请求" />
-<meta property="og:description" content="已测试成功的 使用到的库using System.Net.Http; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 static void Main(string[] args) { using var client = new HttpClient(); client.BaseAddress = new Uri(&#34;http://restapi.amap.com&#34;); //client.DefaultRequestHeaders.Add(&#34;User-Agent&#34;, &#34;C# console program&#34;); client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(&#34;application/json&#34;)); var url = &#34;/v3/geo" />
+<meta property="og:description" content="已测试成功的 使用到的库using System.Net.Http;
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 static void Main(string[] args) { using var client = new HttpClient(); client.BaseAddress = new Uri(&#34;http://restapi.amap.com&#34;); //client.DefaultRequestHeaders.Add(&#34;User-Agent&#34;, &#34;C# console program&#34;); client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(&#34;application/json&#34;)); var url = &#34;/v3/geocode/geo?key=5d47448e3c3aceff5db10319829c5450&amp;address=长沙市芙蓉区解放西路长沙市公安局&amp;city=changsha&#34;; HttpResponseMessage response = await client.GetAsync(url); response.EnsureSuccessStatusCode(); var resp = await response.Content.ReadAsStringAsync(); //将json字符串解析为json对象 JObject jobj = (JObject)JsonConvert.DeserializeObject(resp); //访问json对象中的成员 string name2 = jobj[&#34;geocodes&#34;][0][&#34;location&#34;].ToString(); Console.WriteLine(name2); Console.ReadKey(); } 异步：https://blog.csdn.net/zzulishulei/article/details/77751436" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" /><meta property="article:section" content="posts" />
 
 <meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CSharp网络请求"/>
-<meta name="twitter:description" content="已测试成功的 使用到的库using System.Net.Http; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 static void Main(string[] args) { using var client = new HttpClient(); client.BaseAddress = new Uri(&#34;http://restapi.amap.com&#34;); //client.DefaultRequestHeaders.Add(&#34;User-Agent&#34;, &#34;C# console program&#34;); client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(&#34;application/json&#34;)); var url = &#34;/v3/geo"/>
+<meta name="twitter:description" content="已测试成功的 使用到的库using System.Net.Http;
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 static void Main(string[] args) { using var client = new HttpClient(); client.BaseAddress = new Uri(&#34;http://restapi.amap.com&#34;); //client.DefaultRequestHeaders.Add(&#34;User-Agent&#34;, &#34;C# console program&#34;); client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(&#34;application/json&#34;)); var url = &#34;/v3/geocode/geo?key=5d47448e3c3aceff5db10319829c5450&amp;address=长沙市芙蓉区解放西路长沙市公安局&amp;city=changsha&#34;; HttpResponseMessage response = await client.GetAsync(url); response.EnsureSuccessStatusCode(); var resp = await response.Content.ReadAsStringAsync(); //将json字符串解析为json对象 JObject jobj = (JObject)JsonConvert.DeserializeObject(resp); //访问json对象中的成员 string name2 = jobj[&#34;geocodes&#34;][0][&#34;location&#34;].ToString(); Console.WriteLine(name2); Console.ReadKey(); } 异步：https://blog.csdn.net/zzulishulei/article/details/77751436"/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +29,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82\/"
-        },"genre": "posts","keywords": "C#","wordcount":  284 ,
+        },"genre": "posts","keywords": "C#","wordcount":  70 ,
         "url": "http:\/\/example.org\/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82\/","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,8 +102,8 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CSharp网络请求</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href=""><i class="far fa-folder fa-fw" aria-hidden="true"></i></a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;284 words&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href=""><i class="far fa-folder fa-fw" aria-hidden="true"></i></a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;70 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
@@ -167,7 +167,7 @@
                             <a class="link-to-markdown" href="/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" data-title="CSharp网络请求" data-via="xxxx" data-hashtags="C#"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" data-hashtag="C#"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" data-title="CSharp网络请求"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" data-title="CSharp网络请求"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" data-title="CSharp网络请求"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" data-title="CSharp网络请求" data-hashtags="C#"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" data-hashtag="C#"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" data-title="CSharp网络请求"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" data-title="CSharp网络请求"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/csharp%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" data-title="CSharp网络请求"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -185,7 +185,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

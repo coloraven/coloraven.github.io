@@ -5,16 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Win10资源管理器默认大小设置 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Win10资源管理器默认大小设置" />
-<meta property="og:description" content="解决方案来源：https://bbs.pcbeta.com/forum.php?mod=viewthread&amp;tid=1785990" />
+<meta property="og:description" content="解决方案来源：https://bbs.pcbeta.com/forum.php?mod=viewthread&amp;tid=1785990
+终于解决了，方法在这里：http://www.oystd.com/blog/2010/10/15/32.html 打开注册表编辑器，定位到 HKEY_CURRENT_USER\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell
+将Bags删除，注销，或者下载Default-Windows-Size.zip。
+二、将IE8的窗口恢复到默认大小的方法。
+将IE8的窗口恢复到默认大小最简单的方法：新建文本文档，复制下面内容，以reg格式保存，双击导入注册表，重启IE8。其实就是将Window_Placement这个键删除，重启IE后自动重新生成并赋以默认值。
+1 2 3 4 5 Windows Registry Editor Version 5.00 [HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main] &#34;Window_Placement&#34;=- " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-09-19T14:58:23+00:00" />
 <meta property="article:modified_time" content="2021-09-19T14:58:23+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Win10资源管理器默认大小设置"/>
-<meta name="twitter:description" content="解决方案来源：https://bbs.pcbeta.com/forum.php?mod=viewthread&amp;tid=1785990"/>
+<meta name="twitter:description" content="解决方案来源：https://bbs.pcbeta.com/forum.php?mod=viewthread&amp;tid=1785990
+终于解决了，方法在这里：http://www.oystd.com/blog/2010/10/15/32.html 打开注册表编辑器，定位到 HKEY_CURRENT_USER\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell
+将Bags删除，注销，或者下载Default-Windows-Size.zip。
+二、将IE8的窗口恢复到默认大小的方法。
+将IE8的窗口恢复到默认大小最简单的方法：新建文本文档，复制下面内容，以reg格式保存，双击导入注册表，重启IE8。其实就是将Window_Placement这个键删除，重启IE后自动重新生成并赋以默认值。
+1 2 3 4 5 Windows Registry Editor Version 5.00 [HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main] &#34;Window_Placement&#34;=- "/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +37,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE\/"
-        },"genre": "posts","wordcount":  316 ,
+        },"genre": "posts","wordcount":  21 ,
         "url": "http:\/\/example.org\/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE\/","datePublished": "2021-09-19T14:58:23+00:00","dateModified": "2021-09-19T14:58:23+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,8 +110,8 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Win10资源管理器默认大小设置</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/windows/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Windows</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-09-19">2021-09-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;316 words&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/windows/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Windows</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-09-19">2021-09-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;21 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
@@ -150,7 +158,7 @@
                             <a class="link-to-markdown" href="/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/" data-title="Win10资源管理器默认大小设置" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/" data-title="Win10资源管理器默认大小设置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/" data-title="Win10资源管理器默认大小设置"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/" data-title="Win10资源管理器默认大小设置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/" data-title="Win10资源管理器默认大小设置"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/" data-title="Win10资源管理器默认大小设置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/" data-title="Win10资源管理器默认大小设置"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/" data-title="Win10资源管理器默认大小设置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -168,7 +176,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

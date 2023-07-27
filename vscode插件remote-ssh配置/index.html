@@ -5,16 +5,38 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>VSCODE插件Remote-SSH配置 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="VSCODE插件Remote-SSH配置" />
-<meta property="og:description" content="●Preface 服务器很多时候都是部署在 Linux 远程机器上的，我们通常是 SSH 连过去然后用 vim 或者 emacs 去修改源文件。 这种方式对我来说很麻烦，因为我已经习惯" />
+<meta property="og:description" content="●Preface 服务器很多时候都是部署在 Linux 远程机器上的，我们通常是 SSH 连过去然后用 vim 或者 emacs 去修改源文件。
+这种方式对我来说很麻烦，因为我已经习惯了全宇宙最好用的 C&#43;&#43;IDE Visual Studio，离开 IDE 写代码实在太痛苦了。
+所以我只能借助 samba&#43;sourceinsight 的组合来勉强度日。这个组合其实是比较好的，只不过配置特别麻烦，实在是不想折腾。
+这时，微软开发了一个 VSCode 的插件 Remote-SSH，可以说是目前比较完美的解决了在 windows 下开发 linux 程序的问题。
+Remote-SSH 配置简单，界面可视化，你可以把他看做是带 IDE 的 Putty。当然你也可以只把他当做一个远程 ssh 的连接工具来代替 putty，xshell。
+●安装 Remote-SSH （1）VSCode 左侧边栏上找到 Extensions 按钮，点击打开扩展插件面板。
+（2）在扩展搜索栏中搜索到 Remote-SSH 这个插件，然后点击下载安装这个插件。
+（3）此插件安装完毕后，侧边栏会出现一个名为 Remote-SSH 新的图标按钮。
+（4）点击 VSCode 左侧边栏上的 Remote-SSH 图标按钮，打开 Remote-SSH 面板。
+（5）在 CONNECTIONS 条目右边找到配置按钮图标 [Configure]，点击配置。
+（6）此时会弹出一个下拉框，选择 config 配置文件保存路径，比如 C:\Users\Administrator\.ssh\config
+（7）点击编辑这个 config 文件，编辑代码如下示例：
+1 2 3 4 5 Host njdaby #远程主机 1 别名 alias，注意主机别名不能包含 @符，否则会连接失败 HostName 117." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-02T22:06:09+00:00" />
 <meta property="article:modified_time" content="2022-03-02T22:06:09+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="VSCODE插件Remote-SSH配置"/>
-<meta name="twitter:description" content="●Preface 服务器很多时候都是部署在 Linux 远程机器上的，我们通常是 SSH 连过去然后用 vim 或者 emacs 去修改源文件。 这种方式对我来说很麻烦，因为我已经习惯"/>
+<meta name="twitter:description" content="●Preface 服务器很多时候都是部署在 Linux 远程机器上的，我们通常是 SSH 连过去然后用 vim 或者 emacs 去修改源文件。
+这种方式对我来说很麻烦，因为我已经习惯了全宇宙最好用的 C&#43;&#43;IDE Visual Studio，离开 IDE 写代码实在太痛苦了。
+所以我只能借助 samba&#43;sourceinsight 的组合来勉强度日。这个组合其实是比较好的，只不过配置特别麻烦，实在是不想折腾。
+这时，微软开发了一个 VSCode 的插件 Remote-SSH，可以说是目前比较完美的解决了在 windows 下开发 linux 程序的问题。
+Remote-SSH 配置简单，界面可视化，你可以把他看做是带 IDE 的 Putty。当然你也可以只把他当做一个远程 ssh 的连接工具来代替 putty，xshell。
+●安装 Remote-SSH （1）VSCode 左侧边栏上找到 Extensions 按钮，点击打开扩展插件面板。
+（2）在扩展搜索栏中搜索到 Remote-SSH 这个插件，然后点击下载安装这个插件。
+（3）此插件安装完毕后，侧边栏会出现一个名为 Remote-SSH 新的图标按钮。
+（4）点击 VSCode 左侧边栏上的 Remote-SSH 图标按钮，打开 Remote-SSH 面板。
+（5）在 CONNECTIONS 条目右边找到配置按钮图标 [Configure]，点击配置。
+（6）此时会弹出一个下拉框，选择 config 配置文件保存路径，比如 C:\Users\Administrator\.ssh\config
+（7）点击编辑这个 config 文件，编辑代码如下示例：
+1 2 3 4 5 Host njdaby #远程主机 1 别名 alias，注意主机别名不能包含 @符，否则会连接失败 HostName 117."/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +51,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE\/"
-        },"genre": "posts","keywords": "VSCODE","wordcount":  789 ,
+        },"genre": "posts","keywords": "VSCODE","wordcount":  106 ,
         "url": "http:\/\/example.org\/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE\/","datePublished": "2022-03-02T22:06:09+00:00","dateModified": "2022-03-02T22:06:09+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,9 +124,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">VSCODE插件Remote-SSH配置</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-02">2022-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;789 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-02">2022-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;106 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -166,7 +188,7 @@ Remote-SSH 配置简单，界面可视化，你可以把他看做是带 IDE 的 
                             <a class="link-to-markdown" href="/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" data-title="VSCODE插件Remote-SSH配置" data-via="xxxx" data-hashtags="VSCODE"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" data-hashtag="VSCODE"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" data-title="VSCODE插件Remote-SSH配置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" data-title="VSCODE插件Remote-SSH配置"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" data-title="VSCODE插件Remote-SSH配置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" data-title="VSCODE插件Remote-SSH配置" data-hashtags="VSCODE"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" data-hashtag="VSCODE"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" data-title="VSCODE插件Remote-SSH配置"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" data-title="VSCODE插件Remote-SSH配置"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" data-title="VSCODE插件Remote-SSH配置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -184,7 +206,7 @@ Remote-SSH 配置简单，界面可视化，你可以把他看做是带 IDE 的 
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

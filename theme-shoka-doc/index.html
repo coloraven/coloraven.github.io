@@ -5,16 +5,44 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明" />
-<meta property="og:description" content=":::info 跳票N久终于更新的简单的使用说明 hexo-theme-shoka ：本博客自用的主题 hexo-renderer-multi-markdown-it：配套的markdown" />
+<meta property="og:description" content=":::info 跳票N久终于更新的简单的使用说明
+hexo-theme-shoka ：本博客自用的主题 hexo-renderer-multi-markdown-it：配套的markdown渲染器 已经支持hexo 5。。。本文档和bug不定期更新中。 如果有什么功能需求，欢迎留言。 :::
+:::warning 当前版本更新至 0.2.5，更新记录点此 :::
+:::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 :::
+设计缘由 前几年在Bear和Evernote上整理了大量笔记，非常喜欢Bear默认的markdown渲染样式。 后来因为换了安卓手机，用不了Bear，四处搜寻替代品，没有满意的。 然后阴差阳错知道了Hexo，又得知Github也可以免费建私有仓库了，故再次转移阵地到了自建博客，并部署在Github Pages。
+因为这个博客是用来记笔记的，故起名书架。 对应的主题即Theme.Shoka，可以说是为了笔记阅读而生的主题。 样式严重参考Bear，部分代码严重参考NexT。
+Hexo的默认及常用渲染器均使用highlight.js进行代码高亮，而我喜欢Prism.js，故重写了一个渲染器配合主题食用。 渲染器取名multi，因为集成了很多很多很多markdown-it插件，以及压缩静态文件的功能。 （最新版的默认渲染器也支持Prism.js了，可喜可贺，但不想用，哈哈哈哈哈哈哈
+墙内Github Pages访问速度时而感人，所以用了jsDelivr加速，主要是因为它可以按需合并依赖文件。
+快速安装 1 2 # cd your-blog git clone https://github.com/amehime/hexo-theme-shoka.git ./themes/shoka 打开主题目录，内有example文件夹，提供了配置文件的demo供参考。
+安装依赖插件 在应用主题之前，必须至少安装 hexo-renderer-multi-markdown-it 渲染插件 和 hexo-autoprefixer。
+插件安装与配置教程戳此
+应用主题 修改站点配置 修改站点配置文件&lt;root&gt;/_config.yml，把主题改为 shoka
+1 theme: shoka 修改主题配置 主题配置的所有参数在&lt;root&gt;/themes/shoka/_config.yml文件中。
+为了方便主题升级，请在根目录新建一个yml文件，命名为_config.shoka.yml。 也就是说，所有主题的自定义配置均保存于&lt;root&gt;/_config.shoka.yml文件。
+主题的基础配置可以参考这里 界面显示相关的配置参考这里
+更新记录 标签含义： ❗ 需要手动操作的更新信息 ⚠️ 需要注意的更新信息 🔧 已修复的问题 ⌛ TODO" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/theme-shoka-doc/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/theme-shoka-doc/" /><meta property="article:section" content="posts" />
 
 <meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明"/>
-<meta name="twitter:description" content=":::info 跳票N久终于更新的简单的使用说明 hexo-theme-shoka ：本博客自用的主题 hexo-renderer-multi-markdown-it：配套的markdown"/>
+<meta name="twitter:description" content=":::info 跳票N久终于更新的简单的使用说明
+hexo-theme-shoka ：本博客自用的主题 hexo-renderer-multi-markdown-it：配套的markdown渲染器 已经支持hexo 5。。。本文档和bug不定期更新中。 如果有什么功能需求，欢迎留言。 :::
+:::warning 当前版本更新至 0.2.5，更新记录点此 :::
+:::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 :::
+设计缘由 前几年在Bear和Evernote上整理了大量笔记，非常喜欢Bear默认的markdown渲染样式。 后来因为换了安卓手机，用不了Bear，四处搜寻替代品，没有满意的。 然后阴差阳错知道了Hexo，又得知Github也可以免费建私有仓库了，故再次转移阵地到了自建博客，并部署在Github Pages。
+因为这个博客是用来记笔记的，故起名书架。 对应的主题即Theme.Shoka，可以说是为了笔记阅读而生的主题。 样式严重参考Bear，部分代码严重参考NexT。
+Hexo的默认及常用渲染器均使用highlight.js进行代码高亮，而我喜欢Prism.js，故重写了一个渲染器配合主题食用。 渲染器取名multi，因为集成了很多很多很多markdown-it插件，以及压缩静态文件的功能。 （最新版的默认渲染器也支持Prism.js了，可喜可贺，但不想用，哈哈哈哈哈哈哈
+墙内Github Pages访问速度时而感人，所以用了jsDelivr加速，主要是因为它可以按需合并依赖文件。
+快速安装 1 2 # cd your-blog git clone https://github.com/amehime/hexo-theme-shoka.git ./themes/shoka 打开主题目录，内有example文件夹，提供了配置文件的demo供参考。
+安装依赖插件 在应用主题之前，必须至少安装 hexo-renderer-multi-markdown-it 渲染插件 和 hexo-autoprefixer。
+插件安装与配置教程戳此
+应用主题 修改站点配置 修改站点配置文件&lt;root&gt;/_config.yml，把主题改为 shoka
+1 theme: shoka 修改主题配置 主题配置的所有参数在&lt;root&gt;/themes/shoka/_config.yml文件中。
+为了方便主题升级，请在根目录新建一个yml文件，命名为_config.shoka.yml。 也就是说，所有主题的自定义配置均保存于&lt;root&gt;/_config.shoka.yml文件。
+主题的基础配置可以参考这里 界面显示相关的配置参考这里
+更新记录 标签含义： ❗ 需要手动操作的更新信息 ⚠️ 需要注意的更新信息 🔧 已修复的问题 ⌛ TODO"/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +57,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/theme-shoka-doc\/"
-        },"genre": "posts","keywords": "Hexo, 教程","wordcount":  1819 ,
+        },"genre": "posts","keywords": "Hexo, 教程","wordcount":  169 ,
         "url": "http:\/\/example.org\/theme-shoka-doc\/","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,9 +130,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Hexo主题Shoka & multi-markdown-it渲染器使用说明</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/theme-shoka-documentation/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Theme Shoka Documentation</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1819 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/theme-shoka-documentation/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Theme Shoka Documentation</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;169 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -260,7 +288,7 @@
                             <a class="link-to-markdown" href="/theme-shoka-doc/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/theme-shoka-doc/" data-title="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明" data-via="xxxx" data-hashtags="Hexo,教程"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/theme-shoka-doc/" data-hashtag="Hexo"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/theme-shoka-doc/" data-title="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/theme-shoka-doc/" data-title="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/theme-shoka-doc/" data-title="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/theme-shoka-doc/" data-title="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明" data-hashtags="Hexo,教程"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/theme-shoka-doc/" data-hashtag="Hexo"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/theme-shoka-doc/" data-title="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/theme-shoka-doc/" data-title="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/theme-shoka-doc/" data-title="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -278,7 +306,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

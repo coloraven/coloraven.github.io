@@ -5,16 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>postgresql逻辑备份与恢复 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="postgresql逻辑备份与恢复" />
-<meta property="og:description" content="背景 拿到一个postgresql数据库导出的SQL备份文件（4.3G大小），需要重新导入数据库中开展后续工作。 弯路 使用postgresql官" />
+<meta property="og:description" content="背景 拿到一个postgresql数据库导出的SQL备份文件（4.3G大小），需要重新导入数据库中开展后续工作。
+弯路 使用postgresql官方管理工具pgAdmin及有名的Navicat进行导入操作，均报错。因工作急需将备份文件恢复到数据库，转而使用emeditor打开，并使用正则匹配的方式提取需要的字段，再导入数据库，因数据量庞大，硬件性能有限，整个过程花费将近3个小时。
+解决 虽然走弯路解决了问题，但是备份文件所承载的数据信息仍未完整呈现。于是不停地网上搜索，发现下面链接：https://www.xmmup.com/pgluojibeifenhuifuluojidaochudaoru.html
+找到psql.exe文件，运行如下命令。 psql --username=postgres --host=192.168.66.35 --port=15433 --dbname=sbtest --file=/bk/sbtest.sql" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-10-22T09:04:36+00:00" />
 <meta property="article:modified_time" content="2022-10-22T09:04:36+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="postgresql逻辑备份与恢复"/>
-<meta name="twitter:description" content="背景 拿到一个postgresql数据库导出的SQL备份文件（4.3G大小），需要重新导入数据库中开展后续工作。 弯路 使用postgresql官"/>
+<meta name="twitter:description" content="背景 拿到一个postgresql数据库导出的SQL备份文件（4.3G大小），需要重新导入数据库中开展后续工作。
+弯路 使用postgresql官方管理工具pgAdmin及有名的Navicat进行导入操作，均报错。因工作急需将备份文件恢复到数据库，转而使用emeditor打开，并使用正则匹配的方式提取需要的字段，再导入数据库，因数据量庞大，硬件性能有限，整个过程花费将近3个小时。
+解决 虽然走弯路解决了问题，但是备份文件所承载的数据信息仍未完整呈现。于是不停地网上搜索，发现下面链接：https://www.xmmup.com/pgluojibeifenhuifuluojidaochudaoru.html
+找到psql.exe文件，运行如下命令。 psql --username=postgres --host=192.168.66.35 --port=15433 --dbname=sbtest --file=/bk/sbtest.sql"/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +33,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D\/"
-        },"genre": "posts","wordcount":  326 ,
+        },"genre": "posts","wordcount":  13 ,
         "url": "http:\/\/example.org\/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D\/","datePublished": "2022-10-22T09:04:36+00:00","dateModified": "2022-10-22T09:04:36+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,8 +106,8 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">postgresql逻辑备份与恢复</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-10-22">2022-10-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;326 words&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-10-22">2022-10-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;13 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
@@ -142,7 +146,7 @@
                             <a class="link-to-markdown" href="/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" data-title="postgresql逻辑备份与恢复" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" data-title="postgresql逻辑备份与恢复"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" data-title="postgresql逻辑备份与恢复"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" data-title="postgresql逻辑备份与恢复"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" data-title="postgresql逻辑备份与恢复"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" data-title="postgresql逻辑备份与恢复"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" data-title="postgresql逻辑备份与恢复"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/postgresql%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" data-title="postgresql逻辑备份与恢复"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -160,7 +164,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

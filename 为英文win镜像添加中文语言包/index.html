@@ -5,16 +5,38 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>为英文WIN镜像添加中文语言包 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="为英文WIN镜像添加中文语言包" />
-<meta property="og:description" content="问: 已有精简版的windows镜像，镜像中不含简体中文语言包，我要怎么样将中文语言包添加进去，再封装成ISO ChatGPT 为了将简体中文语言包添加到精简" />
+<meta property="og:description" content="问: 已有精简版的windows镜像，镜像中不含简体中文语言包，我要怎么样将中文语言包添加进去，再封装成ISO
+ChatGPT 为了将简体中文语言包添加到精简版的Windows镜像中，并将其重新封装为ISO文件，请按照以下步骤操作：
+准备工具和文件： a. 下载 Windows ADK（Windows Assessment and Deployment Kit）工具包，它包含用于自定义和部署Windows映像的工具。下载地址：https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
+b. 下载简体中文语言包（请注意，选择与镜像相匹配的Windows版本）。语言包可以从以下链接下载：https://www.microsoft.com/en-us/language
+c. 准备一个精简版的Windows镜像。 2. 安装Windows ADK并选择Deployment Tools组件进行安装。 3. 以管理员身份运行“部署和映像工具环境”。 4. 将Windows镜像文件（install.wim）从原始ISO文件中提取出来。如果已有精简版的镜像文件，请跳过此步骤。 5. 创建一个新的文件夹，用于存放提取出的Windows映像文件和语言包文件。 6. 使用DISM（Deployment Image Servicing and Management）工具将Windows映像挂载到新创建的文件夹中：
+1 dism /Mount-Image /ImageFile:&#34;&lt;WIM文件路径&gt;\install.wim&#34; /Index:1 /MountDir:&#34;&lt;挂载目录路径&gt;&#34; 请将&lt;WIM文件路径&gt;替换为实际的WIM文件路径，将&lt;挂载目录路径&gt;替换为实际的挂载目录路径。 7. 将简体中文语言包添加到挂载的Windows映像中：
+1 dism /Image:&#34;&lt;挂载目录路径&gt;&#34; /Add-Package /PackagePath:&#34;&lt;语言包文件路径&gt;&#34; 请将&lt;挂载目录路径&gt;替换为实际的挂载目录路径，将&lt;语言包文件路径&gt;替换为实际的简体中文语言包文件路径。 8. 等待操作完成后，卸载Windows映像并提交更改：
+1 dism /Unmount-Image /MountDir:&#34;&lt;挂载目录路径&gt;&#34; /Commit 请将&lt;挂载目录路径&gt;替换为实际的挂载目录路径。 9. 用新生成的install.wim文件替换原始ISO中的install.wim文件。可以使用任何支持编辑ISO文件的工具，例如PowerISO、UltraISO等。 10. 保存修改后的ISO文件。
+现在你已经成功地将简体中文语言包添加到了精简版的Windows镜像中，并重新封装成了ISO文件。在安装时，可以选择简体中文作为系统语言。
+问: 完成以上步骤，系统默认设置是不是中文语言，默认“当前系统区域设置”是不是中文
+ChatGPT 完成以上步骤后，虽然已经将简体中文语言包添加到了Windows镜像中，但系统默认设置和“当前系统区域设置”仍然可能不是中文。要将默认设置更改为中文，您需要在安装过程中进行设置，或在系统安装完成后手动更改。
+如果您希望在安装过程中将默认设置更改为中文，可以创建一个自动应答文件（autounattend.xml），并将其放置在安装媒体（如U盘、ISO文件）的根目录中。以下是一个简化的autounattend.xml示例，用于设置系统默认语言为简体中文：
+1 2 3 4 5 6 7 8 9 10 11 &lt;?" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-03-17T17:37:10+00:00" />
 <meta property="article:modified_time" content="2023-03-17T17:37:10+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="为英文WIN镜像添加中文语言包"/>
-<meta name="twitter:description" content="问: 已有精简版的windows镜像，镜像中不含简体中文语言包，我要怎么样将中文语言包添加进去，再封装成ISO ChatGPT 为了将简体中文语言包添加到精简"/>
+<meta name="twitter:description" content="问: 已有精简版的windows镜像，镜像中不含简体中文语言包，我要怎么样将中文语言包添加进去，再封装成ISO
+ChatGPT 为了将简体中文语言包添加到精简版的Windows镜像中，并将其重新封装为ISO文件，请按照以下步骤操作：
+准备工具和文件： a. 下载 Windows ADK（Windows Assessment and Deployment Kit）工具包，它包含用于自定义和部署Windows映像的工具。下载地址：https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
+b. 下载简体中文语言包（请注意，选择与镜像相匹配的Windows版本）。语言包可以从以下链接下载：https://www.microsoft.com/en-us/language
+c. 准备一个精简版的Windows镜像。 2. 安装Windows ADK并选择Deployment Tools组件进行安装。 3. 以管理员身份运行“部署和映像工具环境”。 4. 将Windows镜像文件（install.wim）从原始ISO文件中提取出来。如果已有精简版的镜像文件，请跳过此步骤。 5. 创建一个新的文件夹，用于存放提取出的Windows映像文件和语言包文件。 6. 使用DISM（Deployment Image Servicing and Management）工具将Windows映像挂载到新创建的文件夹中：
+1 dism /Mount-Image /ImageFile:&#34;&lt;WIM文件路径&gt;\install.wim&#34; /Index:1 /MountDir:&#34;&lt;挂载目录路径&gt;&#34; 请将&lt;WIM文件路径&gt;替换为实际的WIM文件路径，将&lt;挂载目录路径&gt;替换为实际的挂载目录路径。 7. 将简体中文语言包添加到挂载的Windows映像中：
+1 dism /Image:&#34;&lt;挂载目录路径&gt;&#34; /Add-Package /PackagePath:&#34;&lt;语言包文件路径&gt;&#34; 请将&lt;挂载目录路径&gt;替换为实际的挂载目录路径，将&lt;语言包文件路径&gt;替换为实际的简体中文语言包文件路径。 8. 等待操作完成后，卸载Windows映像并提交更改：
+1 dism /Unmount-Image /MountDir:&#34;&lt;挂载目录路径&gt;&#34; /Commit 请将&lt;挂载目录路径&gt;替换为实际的挂载目录路径。 9. 用新生成的install.wim文件替换原始ISO中的install.wim文件。可以使用任何支持编辑ISO文件的工具，例如PowerISO、UltraISO等。 10. 保存修改后的ISO文件。
+现在你已经成功地将简体中文语言包添加到了精简版的Windows镜像中，并重新封装成了ISO文件。在安装时，可以选择简体中文作为系统语言。
+问: 完成以上步骤，系统默认设置是不是中文语言，默认“当前系统区域设置”是不是中文
+ChatGPT 完成以上步骤后，虽然已经将简体中文语言包添加到了Windows镜像中，但系统默认设置和“当前系统区域设置”仍然可能不是中文。要将默认设置更改为中文，您需要在安装过程中进行设置，或在系统安装完成后手动更改。
+如果您希望在安装过程中将默认设置更改为中文，可以创建一个自动应答文件（autounattend.xml），并将其放置在安装媒体（如U盘、ISO文件）的根目录中。以下是一个简化的autounattend.xml示例，用于设置系统默认语言为简体中文：
+1 2 3 4 5 6 7 8 9 10 11 &lt;?"/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +51,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85\/"
-        },"genre": "posts","wordcount":  2018 ,
+        },"genre": "posts","wordcount":  204 ,
         "url": "http:\/\/example.org\/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85\/","datePublished": "2023-03-17T17:37:10+00:00","dateModified": "2023-03-17T17:37:10+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,9 +124,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">为英文WIN镜像添加中文语言包</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-17">2023-03-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2018 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-17">2023-03-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;204 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -282,7 +304,7 @@
                             <a class="link-to-markdown" href="/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" data-title="为英文WIN镜像添加中文语言包" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" data-title="为英文WIN镜像添加中文语言包"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" data-title="为英文WIN镜像添加中文语言包"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" data-title="为英文WIN镜像添加中文语言包"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" data-title="为英文WIN镜像添加中文语言包"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" data-title="为英文WIN镜像添加中文语言包"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" data-title="为英文WIN镜像添加中文语言包"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" data-title="为英文WIN镜像添加中文语言包"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -300,7 +322,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

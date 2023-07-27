@@ -5,16 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Ubuntu修改SSH欢迎界面 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Ubuntu修改SSH欢迎界面" />
-<meta property="og:description" content="Ubuntu 与别的 Linux 不同，直接修改/etc/motd文件重登录后无效。因为这里 /etc/motd 是一个符号链接，指向 /var/run/motd，应该是一个启动后在生成" />
+<meta property="og:description" content="Ubuntu 与别的 Linux 不同，直接修改/etc/motd文件重登录后无效。因为这里 /etc/motd 是一个符号链接，指向 /var/run/motd，应该是一个启动后在生成的文件。在版本 10.04 中，找到生成的脚本在目录 /etc/update-motd.d/ 中，那几个有序号的文件就是，包括 00-header，20-cpu-checker ，90-updates-available， 98-reboot-required，10-help-text，50-landscape-sysinfo，91-release- upgrade，99-footer。修改这几个文件，可以得到自己想要的结果。我使用的是 Ubuntu 12.04 Server LTS，目录下有这几个文件：
+00-header 10-help-text 50-landscape-sysinfo 90-updates-available 91-release-upgrade 98-fsck-at-reboot 98-reboot-required 99-footer
+基于我的需求，我修改到了以下几个文件：
+00-header 50-landscape-sysinfo 90-updates-available
+例如显示系统相关信息：
+1 2 3 4 System load: 0.0 Processes: 75 Usage of /: 2.7% of 73.47GB Users logged in: 2 Memory usage: 48% IP address for eth0: 61.166.76.27 Swap usage: 0% 此信息就是文件 “50-landscape-sysinfo” 里面的如下语句控制的：/usr/bin/landscape-sysinfo在前面用 “#” 号将其注释，保存即可。修改后用sudo run-parts /etc/update-motd.d去执行就会立即见到效果，而不用反复注销登录。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-08-27T09:16:35+00:00" />
 <meta property="article:modified_time" content="2021-08-27T09:16:35+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Ubuntu修改SSH欢迎界面"/>
-<meta name="twitter:description" content="Ubuntu 与别的 Linux 不同，直接修改/etc/motd文件重登录后无效。因为这里 /etc/motd 是一个符号链接，指向 /var/run/motd，应该是一个启动后在生成"/>
+<meta name="twitter:description" content="Ubuntu 与别的 Linux 不同，直接修改/etc/motd文件重登录后无效。因为这里 /etc/motd 是一个符号链接，指向 /var/run/motd，应该是一个启动后在生成的文件。在版本 10.04 中，找到生成的脚本在目录 /etc/update-motd.d/ 中，那几个有序号的文件就是，包括 00-header，20-cpu-checker ，90-updates-available， 98-reboot-required，10-help-text，50-landscape-sysinfo，91-release- upgrade，99-footer。修改这几个文件，可以得到自己想要的结果。我使用的是 Ubuntu 12.04 Server LTS，目录下有这几个文件：
+00-header 10-help-text 50-landscape-sysinfo 90-updates-available 91-release-upgrade 98-fsck-at-reboot 98-reboot-required 99-footer
+基于我的需求，我修改到了以下几个文件：
+00-header 50-landscape-sysinfo 90-updates-available
+例如显示系统相关信息：
+1 2 3 4 System load: 0.0 Processes: 75 Usage of /: 2.7% of 73.47GB Users logged in: 2 Memory usage: 48% IP address for eth0: 61.166.76.27 Swap usage: 0% 此信息就是文件 “50-landscape-sysinfo” 里面的如下语句控制的：/usr/bin/landscape-sysinfo在前面用 “#” 号将其注释，保存即可。修改后用sudo run-parts /etc/update-motd.d去执行就会立即见到效果，而不用反复注销登录。"/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +37,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2\/"
-        },"genre": "posts","wordcount":  481 ,
+        },"genre": "posts","wordcount":  69 ,
         "url": "http:\/\/example.org\/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2\/","datePublished": "2021-08-27T09:16:35+00:00","dateModified": "2021-08-27T09:16:35+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,8 +110,8 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Ubuntu修改SSH欢迎界面</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-27">2021-08-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;481 words&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-27">2021-08-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;69 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
@@ -157,7 +165,7 @@
                             <a class="link-to-markdown" href="/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/" data-title="Ubuntu修改SSH欢迎界面" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/" data-title="Ubuntu修改SSH欢迎界面"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/" data-title="Ubuntu修改SSH欢迎界面"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/" data-title="Ubuntu修改SSH欢迎界面"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/" data-title="Ubuntu修改SSH欢迎界面"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/" data-title="Ubuntu修改SSH欢迎界面"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/" data-title="Ubuntu修改SSH欢迎界面"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/" data-title="Ubuntu修改SSH欢迎界面"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -175,7 +183,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

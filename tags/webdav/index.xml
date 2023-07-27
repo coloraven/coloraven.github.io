@@ -7,9 +7,10 @@
     <title>Docker搭建WebDAV服务</title>
     <link>http://example.org/docker%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1/</link>
     <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
-    <author>xxxx</author>
+    <author>五彩斑斓的黑</author>
     <guid>http://example.org/docker%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1/</guid>
-    <description><![CDATA[亲测可用的 1 2 3 4 5 6 7 8 9 10 docker run --name webdav -d \ --restart=unless-stopped \ -p 369:80 \ -v /mnt/data_part/webdav_server:/media \ -e USERNAME=你的账号 \ -e PASSWORD=你的密码 \ -e TZ=Aisa/Shanghai \ -e UDI=1000 \ -e GID=1000 \ ugeek/webdav:amd64]]></description>
+    <description><![CDATA[亲测可用的
+1 2 3 4 5 6 7 8 9 10 docker run --name webdav -d \ --restart=unless-stopped \ -p 369:80 \ -v /mnt/data_part/webdav_server:/media \ -e USERNAME=你的账号 \ -e PASSWORD=你的密码 \ -e TZ=Aisa/Shanghai \ -e UDI=1000 \ -e GID=1000 \ ugeek/webdav:amd64 ]]></description>
 </item>
 </channel>
 </rss>

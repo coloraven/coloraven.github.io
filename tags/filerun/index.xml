@@ -7,9 +7,12 @@
     <title>Docker 搭建Filerun</title>
     <link>http://example.org/docker-%E6%90%AD%E5%BB%BAfilerun/</link>
     <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
-    <author>xxxx</author>
+    <author>五彩斑斓的黑</author>
     <guid>http://example.org/docker-%E6%90%AD%E5%BB%BAfilerun/</guid>
-    <description><![CDATA[filerun 官方docker： https://hub.docker.com/r/afian/filerun/ 1、预先搭建好mariadb容器 2、使用以下命令运行filerun容器 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 docker run -itd --name filerun \ --restart=unless-stopped \]]></description>
+    <description><![CDATA[filerun 官方docker： https://hub.docker.com/r/afian/filerun/
+1、预先搭建好mariadb容器 2、使用以下命令运行filerun容器
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 docker run -itd --name filerun \ --restart=unless-stopped \ --link=mariadb -e FR_DB_HOST=数据库地址 \ -e FR_DB_PORT=数据库端口 \ -e FR_DB_NAME=数据库名称（需要先自行建好，filerun初始化时不会建立） \ -e FR_DB_USER=数据库用户名 \ -e FR_DB_PASS=数据库密码 \ -e APACHE_RUN_USER=www-data \ -e APACHE_RUN_USER_ID=33 \ -e APACHE_RUN_GROUP=www-data \ -e APACHE_RUN_GROUP_ID=33 \ -p 616:80 \ -v /userdatas/Sandisk/filerun/html:/var/www/html \ -v /userdatas/Sandisk/filerun/user-files:/user-files \ afian/filerun filerun默认监听80端口， 默认使用以下两个作为数据持久化的路径：
+/filerun/html:/var/www/html /filerun/user-files:/user-files 初始化的用户名密码均为：superuser]]></description>
 </item>
 </channel>
 </rss>

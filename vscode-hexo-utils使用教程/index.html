@@ -5,16 +5,40 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>vscode-hexo-utils使用教程 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="vscode-hexo-utils使用教程" />
-<meta property="og:description" content="前言 为了解决Typecho需要自建服务器，容易数据丢失的问题，从Typecho转移到Hexo，但是Hexo需要解决只能本地写博客，而且还要安" />
+<meta property="og:description" content="前言 为了解决Typecho需要自建服务器，容易数据丢失的问题，从Typecho转移到Hexo，但是Hexo需要解决只能本地写博客，而且还要安装一堆依赖的问题，又从网上学到了Hexo&#43;Github Acitons的组合，这样只要有浏览器就能登录Github写博客。
+最稳妥的的还是使用原生的Hexo环境（node.js），这样可以本地先预览博客最终效果，再发布，这样可以减少commit次数。
+只是本地写博客如果采用Hexo最原始的方式，即：先cd到Hexo目录-&gt;再hexo new post-&gt;再到_posts目录中找到新建的md文件进行编辑，就显得非常繁琐不友好了。
+经过一番折腾，终于找到了vscode-hexo-utils这款神器。
+介绍 vscode-hexo-utils是一款VSCODE插件，可以实现在VSCODE中方便的写Hexo博客（新建、编辑、管理MD文件），省去了先cd到Hexo目录-&gt;再hexo new post-&gt;再到_posts中找到新建的md文件进行编辑的步骤，而且支持粘贴图片后自动保存到相应目录并插入进MD中，简直美滋滋。 同时还支持按Draft、Post、Categories、Tags管理文章，具体效果如图： 安装 首先得安装VSCODE&hellip;此步略。 然后在VSCODE的插件市场（Ctrl&#43;Shift&#43;X调出）中搜索vscode-hexo-utils，找到并安装它。
+设置 安装完毕后，进入VSCODE的设置(Ctrl&#43;,)，在新界面顶部搜索框输入@ext:fantasy.vscode-hexo-utils将插件的设置项筛选出来。这里介绍几个重要的设置。
+Hexo: Generate Time Format 这里设置新建文章、插入图片时自动生成的时间格式，留空的话，生成的时间形如：2021-08-21T07:27:21&#43;08:00，可以自定义，具体变量参考，举个栗子：
+1、YYYY-MM-DD HH:mm:ss 生成的时间形如:2021-08-23 14:18:57 2、YYYY-MM-DD HH:mm 生成的时间形如:2021-08-23 14:18
+Hexo: Hexo Project Root 这里设置Hexo博客所在目录，建议留空，并设置为不同步。
+Hexo › Markdown: Resource 这个配置项会开启代码中的 markdown 插件，用于支持一些 hexo 自己的语法。
+Hexo: Upload 设置是否自动将图片上传到图床，支持路过图床和腾讯oss，下面的两个设置对应路过图床和腾讯OSS，点击在setting.json中编辑，将自己平台的账号密码填入：
+1 2 3 4 &#34;hexo.uploadImgchr&#34;: { &#34;username&#34;: &#34;用户名&#34;, &#34;password&#34;: &#34;密码&#34; } Hexo: Upload Type 选择默认的图床服务
+使用 首先使用VSCODE打开Hexo项目目录， 然后在VSCODE左侧找到vscode-hexo-utils插件图标。
+新建文章 鼠标放在POST栏目的Bar上，就能看到新增和刷新按钮，点击新增即可按照事先在Hexo设置的模板新建文章。 在文章中插入图片 1、使用图床 不知道是不是我设置的问题，路过图床总时提示失败，后来发现是路过图床更换了域名，已联系插件作者修复。 2、不使用图床 插件会自动将图片保存至MD文件所在目录的同名子目录中。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-08-21T07:27:21+08:00" />
 <meta property="article:modified_time" content="2021-08-23T07:27:21+08:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="vscode-hexo-utils使用教程"/>
-<meta name="twitter:description" content="前言 为了解决Typecho需要自建服务器，容易数据丢失的问题，从Typecho转移到Hexo，但是Hexo需要解决只能本地写博客，而且还要安"/>
+<meta name="twitter:description" content="前言 为了解决Typecho需要自建服务器，容易数据丢失的问题，从Typecho转移到Hexo，但是Hexo需要解决只能本地写博客，而且还要安装一堆依赖的问题，又从网上学到了Hexo&#43;Github Acitons的组合，这样只要有浏览器就能登录Github写博客。
+最稳妥的的还是使用原生的Hexo环境（node.js），这样可以本地先预览博客最终效果，再发布，这样可以减少commit次数。
+只是本地写博客如果采用Hexo最原始的方式，即：先cd到Hexo目录-&gt;再hexo new post-&gt;再到_posts目录中找到新建的md文件进行编辑，就显得非常繁琐不友好了。
+经过一番折腾，终于找到了vscode-hexo-utils这款神器。
+介绍 vscode-hexo-utils是一款VSCODE插件，可以实现在VSCODE中方便的写Hexo博客（新建、编辑、管理MD文件），省去了先cd到Hexo目录-&gt;再hexo new post-&gt;再到_posts中找到新建的md文件进行编辑的步骤，而且支持粘贴图片后自动保存到相应目录并插入进MD中，简直美滋滋。 同时还支持按Draft、Post、Categories、Tags管理文章，具体效果如图： 安装 首先得安装VSCODE&hellip;此步略。 然后在VSCODE的插件市场（Ctrl&#43;Shift&#43;X调出）中搜索vscode-hexo-utils，找到并安装它。
+设置 安装完毕后，进入VSCODE的设置(Ctrl&#43;,)，在新界面顶部搜索框输入@ext:fantasy.vscode-hexo-utils将插件的设置项筛选出来。这里介绍几个重要的设置。
+Hexo: Generate Time Format 这里设置新建文章、插入图片时自动生成的时间格式，留空的话，生成的时间形如：2021-08-21T07:27:21&#43;08:00，可以自定义，具体变量参考，举个栗子：
+1、YYYY-MM-DD HH:mm:ss 生成的时间形如:2021-08-23 14:18:57 2、YYYY-MM-DD HH:mm 生成的时间形如:2021-08-23 14:18
+Hexo: Hexo Project Root 这里设置Hexo博客所在目录，建议留空，并设置为不同步。
+Hexo › Markdown: Resource 这个配置项会开启代码中的 markdown 插件，用于支持一些 hexo 自己的语法。
+Hexo: Upload 设置是否自动将图片上传到图床，支持路过图床和腾讯oss，下面的两个设置对应路过图床和腾讯OSS，点击在setting.json中编辑，将自己平台的账号密码填入：
+1 2 3 4 &#34;hexo.uploadImgchr&#34;: { &#34;username&#34;: &#34;用户名&#34;, &#34;password&#34;: &#34;密码&#34; } Hexo: Upload Type 选择默认的图床服务
+使用 首先使用VSCODE打开Hexo项目目录， 然后在VSCODE左侧找到vscode-hexo-utils插件图标。
+新建文章 鼠标放在POST栏目的Bar上，就能看到新增和刷新按钮，点击新增即可按照事先在Hexo设置的模板新建文章。 在文章中插入图片 1、使用图床 不知道是不是我设置的问题，路过图床总时提示失败，后来发现是路过图床更换了域名，已联系插件作者修复。 2、不使用图床 插件会自动将图片保存至MD文件所在目录的同名子目录中。"/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +53,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B\/"
-        },"genre": "posts","keywords": "Hexo, VSCODE","wordcount":  1702 ,
+        },"genre": "posts","keywords": "Hexo, VSCODE","wordcount":  269 ,
         "url": "http:\/\/example.org\/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B\/","datePublished": "2021-08-21T07:27:21+08:00","dateModified": "2021-08-23T07:27:21+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,9 +126,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">vscode-hexo-utils使用教程</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/hexo/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Hexo</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-21">2021-08-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1702 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/hexo/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Hexo</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-21">2021-08-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;269 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -293,7 +317,7 @@
                             <a class="link-to-markdown" href="/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-title="vscode-hexo-utils使用教程" data-via="xxxx" data-hashtags="Hexo,VSCODE"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-hashtag="Hexo"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-title="vscode-hexo-utils使用教程"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-title="vscode-hexo-utils使用教程"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-title="vscode-hexo-utils使用教程"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-title="vscode-hexo-utils使用教程" data-hashtags="Hexo,VSCODE"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-hashtag="Hexo"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-title="vscode-hexo-utils使用教程"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-title="vscode-hexo-utils使用教程"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" data-title="vscode-hexo-utils使用教程"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -311,7 +335,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

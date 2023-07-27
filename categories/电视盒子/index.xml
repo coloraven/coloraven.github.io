@@ -7,9 +7,13 @@
     <title>slimbox折腾记录</title>
     <link>http://example.org/slimbox%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95/</link>
     <pubDate>Wed, 01 Sep 2021 09:23:17 &#43;0000</pubDate>
-    <author>xxxx</author>
+    <author>五彩斑斓的黑</author>
     <guid>http://example.org/slimbox%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95/</guid>
-    <description><![CDATA[tox1刷slimbox 工具使用Amlogic USB_Burning Tool v3.1.0.zip (点击下载) 其他版本在此 1.下载固件(点击进入下载页面)，导入UBT中 2.准备USB公对]]></description>
+    <description><![CDATA[tox1刷slimbox 工具使用Amlogic USB_Burning Tool v3.1.0.zip (点击下载)
+其他版本在此
+1.下载固件(点击进入下载页面)，导入UBT中 2.准备USB公对公线，一头先连接tox1，用牙签顶住tox1的复位按钮，再将USB公对公线另一头连接电脑，等UBT上显示连接成功后送掉牙签。
+刷入时记得将擦除Bootloader勾选去掉，否则不能刷入。
+slimbox配置记录 开启File Server后，手机需要用ES文件的网络 局域网进行扫描发现，PC端暂未测试如何连接。]]></description>
 </item>
 </channel>
 </rss>

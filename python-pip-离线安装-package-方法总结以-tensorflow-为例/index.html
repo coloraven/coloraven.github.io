@@ -5,16 +5,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Python pip 离线安装 package 方法总结（以 TensorFlow 为例） - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）" />
-<meta property="og:description" content="文章背景 Python 环境安装 package，一般采用 pip 命令在线从 PyPI 是安装，这也是最方便的途径。但在某些情况下，要为一台离线的机器（比如在内网运行的一台" />
+<meta property="og:description" content="文章背景 Python 环境安装 package，一般采用 pip 命令在线从 PyPI 是安装，这也是最方便的途径。但在某些情况下，要为一台离线的机器（比如在内网运行的一台生产服务器）安装 package，根本就连不上 PyPI。当然，大厂一般都有内网 PyPI 代理，只要改一下 --index-url 参数即可；但若代理也没有，只能手工将所有依赖到的 package 离线下载下来，放到离线的机器上安装。
+下面是说明了整个探索过程。最终总结的方法，直接看文末的 “推荐方法” 即可。
+心路历程 手工下载 之前我只是傻了吧唧，将要安装的 package（比如 tensorflow）从 PyPI 网站手工下载下来，放到内网机器直接安装，当然立马就会报 xxx 依赖不存在导致安装失败；根据报错提示再到 PyPI 上再下载这个 xxx 的 package 安装。而这个 xxx 可能又依赖另外一个 yyy。如此反复，整个过程有 30 个左右的多层依赖，搞了一下午，痛苦不堪。
+读取 requirement 后来，我发现这些 package 里面都有 requirements 的声明文件，于是我就先解压出来看 requirement，这样至少直接依赖的 package 一下子都知道了。总比根据报错再一个一个下载快了。
+但这还是不行，诉诸网络，发现了 pip download 可以解决这个问题，不过实际操作中还是有不少问题，下面以 TensorFlow 的离线安装为例说明。
+pip download 总的思路是:
+在 online 机器，通过 pip download tensorflow 命令（与 pip install 的区别就是，前者只下载不安装），将要安装的 xxx_package 以及所有依赖都下载到本地" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-02T22:12:44+00:00" />
 <meta property="article:modified_time" content="2022-03-02T22:12:44+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）"/>
-<meta name="twitter:description" content="文章背景 Python 环境安装 package，一般采用 pip 命令在线从 PyPI 是安装，这也是最方便的途径。但在某些情况下，要为一台离线的机器（比如在内网运行的一台"/>
+<meta name="twitter:description" content="文章背景 Python 环境安装 package，一般采用 pip 命令在线从 PyPI 是安装，这也是最方便的途径。但在某些情况下，要为一台离线的机器（比如在内网运行的一台生产服务器）安装 package，根本就连不上 PyPI。当然，大厂一般都有内网 PyPI 代理，只要改一下 --index-url 参数即可；但若代理也没有，只能手工将所有依赖到的 package 离线下载下来，放到离线的机器上安装。
+下面是说明了整个探索过程。最终总结的方法，直接看文末的 “推荐方法” 即可。
+心路历程 手工下载 之前我只是傻了吧唧，将要安装的 package（比如 tensorflow）从 PyPI 网站手工下载下来，放到内网机器直接安装，当然立马就会报 xxx 依赖不存在导致安装失败；根据报错提示再到 PyPI 上再下载这个 xxx 的 package 安装。而这个 xxx 可能又依赖另外一个 yyy。如此反复，整个过程有 30 个左右的多层依赖，搞了一下午，痛苦不堪。
+读取 requirement 后来，我发现这些 package 里面都有 requirements 的声明文件，于是我就先解压出来看 requirement，这样至少直接依赖的 package 一下子都知道了。总比根据报错再一个一个下载快了。
+但这还是不行，诉诸网络，发现了 pip download 可以解决这个问题，不过实际操作中还是有不少问题，下面以 TensorFlow 的离线安装为例说明。
+pip download 总的思路是:
+在 online 机器，通过 pip download tensorflow 命令（与 pip install 的区别就是，前者只下载不安装），将要安装的 xxx_package 以及所有依赖都下载到本地"/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +39,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B\/"
-        },"genre": "posts","keywords": "Python, pip, 编程","wordcount":  2590 ,
+        },"genre": "posts","keywords": "Python, pip, 编程","wordcount":  606 ,
         "url": "http:\/\/example.org\/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B\/","datePublished": "2022-03-02T22:12:44+00:00","dateModified": "2022-03-02T22:12:44+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,9 +112,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Python pip 离线安装 package 方法总结（以 TensorFlow 为例）</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%BC%96%E7%A8%8B/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>编程</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-02">2022-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2590 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%BC%96%E7%A8%8B/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>编程</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-02">2022-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;606 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -324,7 +334,7 @@
                             <a class="link-to-markdown" href="/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-title="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）" data-via="xxxx" data-hashtags="Python,pip,编程"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-title="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-title="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-title="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-title="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）" data-hashtags="Python,pip,编程"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-title="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-title="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-title="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -342,7 +352,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

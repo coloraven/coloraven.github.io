@@ -24,7 +24,8 @@ def delete_key(dictionary, old_key):
 
 def check_and_increase_header_level(markdown_text):
     """
-    检查Markdown文本中是否有1级标题，如果为true,增加标题的级别，同时要忽略代码块中的标题。
+    Check if there are level-1 headers in the markdown text and increase the level of the headers if true.
+    The function ignores headers inside code blocks.
     """
     # Replace code blocks with placeholders
     code_block_regex = r"```.*?```"
@@ -51,7 +52,6 @@ def check_and_increase_header_level(markdown_text):
 
 
 def read_markdown_with_frontmatter(md_file_path):
-    """读取markdown文件"""
     with open(md_file_path, 'r', encoding='utf-8') as file:
         # Read the entire file content
         md_content = file.read()
@@ -67,8 +67,7 @@ def read_markdown_with_frontmatter(md_file_path):
 
 
 def write_markdown_with_frontmatter(md_file_path, frontmatter_data, md_text):
-    """合并frontmatter与正文后写文件"""
-    # 排序frontmatter
+    # Create a new Frontmatter string with desired order of fields
     new_frontmatter = ""
     fields_order = ["title", "date", "lastmod", "tags", "categories", "description",
                     "hidden", "image", "license", "math", "comments", "draft"]
@@ -90,6 +89,10 @@ def write_markdown_with_frontmatter(md_file_path, frontmatter_data, md_text):
 
 def work(md_file_path):
     frontmatter_data, md_content = read_markdown_with_frontmatter(md_file_path)
+    if "tags" in frontmatter_data and type(frontmatter_data["tags"]) is str:
+        frontmatter_data["tags"] = [frontmatter_data["tags"]]
+    if "categories" in frontmatter_data and type(frontmatter_data["categories"]) is str:
+        frontmatter_data["categories"] = [frontmatter_data["categories"]]
     rename_key(frontmatter_data,'updated','lastmod')
     delete_key(frontmatter_data,'keywords')
     delete_key(frontmatter_data,"top_img")
@@ -111,8 +114,8 @@ if __name__ == "__main__":
     for file in files:
         try:
             work(file)
-        except:
-            print(file)
+        except Exception as e:
+            print(file,e)
 ```
 
 ## `hugo`主题收集

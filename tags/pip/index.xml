@@ -7,9 +7,15 @@
     <title>Python pip 离线安装 package 方法总结（以 TensorFlow 为例）</title>
     <link>http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/</link>
     <pubDate>Wed, 02 Mar 2022 22:12:44 &#43;0000</pubDate>
-    <author>xxxx</author>
+    <author>五彩斑斓的黑</author>
     <guid>http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/</guid>
-    <description><![CDATA[文章背景 Python 环境安装 package，一般采用 pip 命令在线从 PyPI 是安装，这也是最方便的途径。但在某些情况下，要为一台离线的机器（比如在内网运行的一台]]></description>
+    <description><![CDATA[文章背景 Python 环境安装 package，一般采用 pip 命令在线从 PyPI 是安装，这也是最方便的途径。但在某些情况下，要为一台离线的机器（比如在内网运行的一台生产服务器）安装 package，根本就连不上 PyPI。当然，大厂一般都有内网 PyPI 代理，只要改一下 --index-url 参数即可；但若代理也没有，只能手工将所有依赖到的 package 离线下载下来，放到离线的机器上安装。
+下面是说明了整个探索过程。最终总结的方法，直接看文末的 “推荐方法” 即可。
+心路历程 手工下载 之前我只是傻了吧唧，将要安装的 package（比如 tensorflow）从 PyPI 网站手工下载下来，放到内网机器直接安装，当然立马就会报 xxx 依赖不存在导致安装失败；根据报错提示再到 PyPI 上再下载这个 xxx 的 package 安装。而这个 xxx 可能又依赖另外一个 yyy。如此反复，整个过程有 30 个左右的多层依赖，搞了一下午，痛苦不堪。
+读取 requirement 后来，我发现这些 package 里面都有 requirements 的声明文件，于是我就先解压出来看 requirement，这样至少直接依赖的 package 一下子都知道了。总比根据报错再一个一个下载快了。
+但这还是不行，诉诸网络，发现了 pip download 可以解决这个问题，不过实际操作中还是有不少问题，下面以 TensorFlow 的离线安装为例说明。
+pip download 总的思路是:
+在 online 机器，通过 pip download tensorflow 命令（与 pip install 的区别就是，前者只下载不安装），将要安装的 xxx_package 以及所有依赖都下载到本地]]></description>
 </item>
 </channel>
 </rss>

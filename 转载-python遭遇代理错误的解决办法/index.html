@@ -5,16 +5,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>【转载】Python遭遇代理错误的解决办法 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="【转载】Python遭遇代理错误的解决办法" />
-<meta property="og:description" content="来源：https://zhuanlan.zhihu.com/p/350015032 最近遇到的一个问题，在搞清楚之后才发现这么多年的 HTTPS_PROXY 都配置错" />
+<meta property="og:description" content="来源：https://zhuanlan.zhihu.com/p/350015032
+最近遇到的一个问题，在搞清楚之后才发现这么多年的 HTTPS_PROXY 都配置错了！
+起因 想用 Python 在网上下载一些图片素材，结果 requests 报 requests.exceptions.ProxyError，具体的错误信息见下面。当然第一时间是把系统代理关了，结果访问就正常了。
+如果只是这样，可能我就觉得是代理有问题，然后关了用就行了，但是偏偏想要下载的资源里是必须要走代理的，所以只能想办法解决。
+下面先介绍一下具体的情况：
+解决过程 操作系统：Windows 10
+Python: 3.8（有虚拟环境）
+requests 通过代理访问外网时报错如下：
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 Traceback (most recent call last): File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connectionpool.py&#34;, line 696, in urlopen self._prepare_proxy(conn) File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connectionpool.py&#34;, line 964, in _prepare_proxy conn.connect() File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connection.py&#34;, line 359, in connect conn = self._connect_tls_proxy(hostname, conn) File &#34;E:\code\Python\." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-11-18T16:41:40+00:00" />
 <meta property="article:modified_time" content="2021-11-18T16:41:40+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="【转载】Python遭遇代理错误的解决办法"/>
-<meta name="twitter:description" content="来源：https://zhuanlan.zhihu.com/p/350015032 最近遇到的一个问题，在搞清楚之后才发现这么多年的 HTTPS_PROXY 都配置错"/>
+<meta name="twitter:description" content="来源：https://zhuanlan.zhihu.com/p/350015032
+最近遇到的一个问题，在搞清楚之后才发现这么多年的 HTTPS_PROXY 都配置错了！
+起因 想用 Python 在网上下载一些图片素材，结果 requests 报 requests.exceptions.ProxyError，具体的错误信息见下面。当然第一时间是把系统代理关了，结果访问就正常了。
+如果只是这样，可能我就觉得是代理有问题，然后关了用就行了，但是偏偏想要下载的资源里是必须要走代理的，所以只能想办法解决。
+下面先介绍一下具体的情况：
+解决过程 操作系统：Windows 10
+Python: 3.8（有虚拟环境）
+requests 通过代理访问外网时报错如下：
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 Traceback (most recent call last): File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connectionpool.py&#34;, line 696, in urlopen self._prepare_proxy(conn) File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connectionpool.py&#34;, line 964, in _prepare_proxy conn.connect() File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connection.py&#34;, line 359, in connect conn = self._connect_tls_proxy(hostname, conn) File &#34;E:\code\Python\."/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +43,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95\/"
-        },"genre": "posts","keywords": "Python, 代理","wordcount":  3074 ,
+        },"genre": "posts","keywords": "Python, 代理","wordcount":  713 ,
         "url": "http:\/\/example.org\/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95\/","datePublished": "2021-11-18T16:41:40+00:00","dateModified": "2021-11-18T16:41:40+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,9 +116,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">【转载】Python遭遇代理错误的解决办法</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E4%BB%A3%E7%90%86/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>代理</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-11-18">2021-11-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3074 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E4%BB%A3%E7%90%86/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>代理</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-11-18">2021-11-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;713 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -564,7 +578,7 @@
                             <a class="link-to-markdown" href="/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-title="【转载】Python遭遇代理错误的解决办法" data-via="xxxx" data-hashtags="Python,代理"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-title="【转载】Python遭遇代理错误的解决办法"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-title="【转载】Python遭遇代理错误的解决办法"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-title="【转载】Python遭遇代理错误的解决办法"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-title="【转载】Python遭遇代理错误的解决办法" data-hashtags="Python,代理"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-title="【转载】Python遭遇代理错误的解决办法"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-title="【转载】Python遭遇代理错误的解决办法"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-title="【转载】Python遭遇代理错误的解决办法"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -582,7 +596,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

@@ -7,9 +7,9 @@
     <title>centos安装zsh及其插件</title>
     <link>http://example.org/centos%E5%AE%89%E8%A3%85zsh%E5%8F%8A%E5%85%B6%E6%8F%92%E4%BB%B6/</link>
     <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
-    <author>xxxx</author>
+    <author>五彩斑斓的黑</author>
     <guid>http://example.org/centos%E5%AE%89%E8%A3%85zsh%E5%8F%8A%E5%85%B6%E6%8F%92%E4%BB%B6/</guid>
-    <description><![CDATA[1 2 3 4 5 6 7 8 9 10 11 12 dnf install util-linux-user -y yum update &amp;&amp; yum install -y zsh git sh -c &#34;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&#34; chsh -s $(which zsh) sed -i &#39;/^ZSH_THEME=/c\ZSH_THEME=&#34;ys&#34;&#39; ~/.zshrc source ~/.zshrc git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions git clone https://github.com/zsh-users/zsh-completions $ZSH_CUSTOM/plugins/zsh-completions [ -z &#34;`grep &#34;autoload -U compinit &amp;&amp; compinit&#34; ~/.zshrc`&#34; ] &amp;&amp; echo &#34;autoload -U compinit &amp;&amp; compinit&#34; &gt;&gt; ~/.zshrc]]></description>
+    <description><![CDATA[1 2 3 4 5 6 7 8 9 10 11 12 dnf install util-linux-user -y yum update &amp;&amp; yum install -y zsh git sh -c &#34;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&#34; chsh -s $(which zsh) sed -i &#39;/^ZSH_THEME=/c\ZSH_THEME=&#34;ys&#34;&#39; ~/.zshrc source ~/.zshrc git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions git clone https://github.com/zsh-users/zsh-completions $ZSH_CUSTOM/plugins/zsh-completions [ -z &#34;`grep &#34;autoload -U compinit &amp;&amp; compinit&#34; ~/.zshrc`&#34; ] &amp;&amp; echo &#34;autoload -U compinit &amp;&amp; compinit&#34; &gt;&gt; ~/.]]></description>
 </item>
 </channel>
 </rss>

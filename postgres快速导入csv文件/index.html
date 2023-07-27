@@ -5,16 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Postgres快速导入csv文件 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Postgres快速导入csv文件" />
-<meta property="og:description" content="psql的copy命令导入 第一步 连接数据库： psql -U &lt;user_name&gt; -d &lt;database_name&gt; -h 远程数据库IP地址 -p 端口， psql位于安装目录的bin目录下，建议将路径X:\XXX" />
+<meta property="og:description" content="psql的copy命令导入 第一步 连接数据库： psql -U &lt;user_name&gt; -d &lt;database_name&gt; -h 远程数据库IP地址 -p 端口， psql位于安装目录的bin目录下，建议将路径X:\XXX\PostgreSQL\15\bin\添加到环境变量中 如果想免密码，则需要设置环境变量 PGPASSWORD
+第二步 使用\copy命令导入，该命令必须在服务端运行，不能通过pg_admin、dbeaver等数据库管理客户端的sql命令执行。 \copy bbb FROM &#39;D:\NavicatExports\aaa.csv&#39; DELIMITER &#39;,&#39; NULL &#39;&#39; CSV HEADER; 其中bbb是事先创建好的表的名称，下同
+常见错误 报错: ERROR: character with byte sequence 0xba 0x22 in encoding &quot;GBK&quot; has no equivalent in encoding &quot;UTF8&quot; 原因: csv文件内容为utf-8 no bom编码，其中有中文。 解决方案: \encoding UTF8
+其他 启用计时功能——可查看导入等操作的耗时 \timing
+切换数据库 \c 目标数据库名
+导入时的目标表名不能是中文，csv文件名可以是中文 通过实践，目标表名不能是中文，但文件名可以是中文。 \copy bbb FROM &#39;C:\我是中文.csv&#39; WITH (FORMAT CSV,DELIMITER &#39;,&#39; , HEADER TRUE);" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-07-07T12:54:33+00:00" />
 <meta property="article:modified_time" content="2023-07-07T12:54:33+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Postgres快速导入csv文件"/>
-<meta name="twitter:description" content="psql的copy命令导入 第一步 连接数据库： psql -U &lt;user_name&gt; -d &lt;database_name&gt; -h 远程数据库IP地址 -p 端口， psql位于安装目录的bin目录下，建议将路径X:\XXX"/>
+<meta name="twitter:description" content="psql的copy命令导入 第一步 连接数据库： psql -U &lt;user_name&gt; -d &lt;database_name&gt; -h 远程数据库IP地址 -p 端口， psql位于安装目录的bin目录下，建议将路径X:\XXX\PostgreSQL\15\bin\添加到环境变量中 如果想免密码，则需要设置环境变量 PGPASSWORD
+第二步 使用\copy命令导入，该命令必须在服务端运行，不能通过pg_admin、dbeaver等数据库管理客户端的sql命令执行。 \copy bbb FROM &#39;D:\NavicatExports\aaa.csv&#39; DELIMITER &#39;,&#39; NULL &#39;&#39; CSV HEADER; 其中bbb是事先创建好的表的名称，下同
+常见错误 报错: ERROR: character with byte sequence 0xba 0x22 in encoding &quot;GBK&quot; has no equivalent in encoding &quot;UTF8&quot; 原因: csv文件内容为utf-8 no bom编码，其中有中文。 解决方案: \encoding UTF8
+其他 启用计时功能——可查看导入等操作的耗时 \timing
+切换数据库 \c 目标数据库名
+导入时的目标表名不能是中文，csv文件名可以是中文 通过实践，目标表名不能是中文，但文件名可以是中文。 \copy bbb FROM &#39;C:\我是中文.csv&#39; WITH (FORMAT CSV,DELIMITER &#39;,&#39; , HEADER TRUE);"/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +37,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6\/"
-        },"genre": "posts","keywords": "Postgres, 数据库, csv","wordcount":  857 ,
+        },"genre": "posts","keywords": "Postgres, 数据库, csv","wordcount":  191 ,
         "url": "http:\/\/example.org\/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6\/","datePublished": "2023-07-07T12:54:33+00:00","dateModified": "2023-07-07T12:54:33+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,9 +110,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Postgres快速导入csv文件</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/postgres/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Postgres</a>&nbsp;<a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>数据库</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-07-07">2023-07-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;857 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/postgres/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Postgres</a>&nbsp;<a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>数据库</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-07-07">2023-07-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;191 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -256,7 +264,7 @@
                             <a class="link-to-markdown" href="/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-title="Postgres快速导入csv文件" data-via="xxxx" data-hashtags="Postgres,数据库,csv"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-hashtag="Postgres"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-title="Postgres快速导入csv文件"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-title="Postgres快速导入csv文件"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-title="Postgres快速导入csv文件"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-title="Postgres快速导入csv文件" data-hashtags="Postgres,数据库,csv"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-hashtag="Postgres"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-title="Postgres快速导入csv文件"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-title="Postgres快速导入csv文件"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-title="Postgres快速导入csv文件"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -274,7 +282,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

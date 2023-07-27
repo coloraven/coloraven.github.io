@@ -8,10 +8,8 @@
         <title>我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="我的全新 Hugo 网站" />
 <meta property="og:description" content="这是我的全新 Hugo 网站" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="http://example.org/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta property="og:url" content="http://example.org/" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="我的全新 Hugo 网站"/>
 <meta name="twitter:description" content="这是我的全新 Hugo 网站"/>
 <meta name="application-name" content="我的网站">
@@ -26,11 +24,11 @@
         "@type": "WebSite",
         "url": "http:\/\/example.org\/","inLanguage": "zh-CN","author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": "这是我的全新 Hugo 网站","name": "我的全新 Hugo 网站"
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -90,39 +88,71 @@
     <div class="search-dropdown mobile">
         <div id="search-dropdown-mobile"></div>
     </div><main class="main">
-                <div class="container"><div class="page home" data-home="posts"><div class="home-profile"><div class="home-avatar"><a href="/posts/" title="文章"><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/avatar.png"
-        data-srcset="/images/avatar.png, /images/avatar.png 1.5x, /images/avatar.png 2x"
-        data-sizes="auto"
-        alt="/images/avatar.png"
-        title="/images/avatar.png" /></a></div><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/xxxx" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="https://twitter.com/xxxx" title="Twitter" target="_blank" rel="noopener noreffer me"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="https://www.instagram.com/xxxx" title="Instagram" target="_blank" rel="noopener noreffer me"><i class="fab fa-instagram fa-fw" aria-hidden="true"></i></a><a href="https://facebook.com/xxxx" title="facebook" target="_blank" rel="noopener noreffer me"><i class="fab fa-facebook fa-fw" aria-hidden="true"></i></a><a href="https://t.me/xxxx" title="Telegram" target="_blank" rel="noopener noreffer me"><i class="fab fa-telegram-plane fa-fw" aria-hidden="true"></i></a><a href="mailto:xxxx@xxxx.com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a><a href="/index.xml" title="RSS" target="_blank" rel="noopener noreffer me"><i class="fas fa-rss fa-fw" aria-hidden="true"></i></a></div></div>
+                <div class="container"><div class="page home" data-home="posts"><div class="home-profile"><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/shoka%E9%85%8D%E7%BD%AE%E7%AC%94%E8%AE%B0/">shoka配置笔记</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">published on <time datetime="2021-08-25">2021-08-25</time></span>&nbsp;<span class="post-category">included in <a href="/categories/hexo/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Hexo</a></span></div><div class="content">shoka主题的魔改笔记 首页卡片 shoka\source\css\_mixins.styl 1 2 3 4 5 shadow-box(border = true, radius = .5rem) { border-radius: radius; border: .0625rem solid var(--grey-2) if border == true; box-shadow: 0 .625rem 1.875rem -.9375rem var(--box-bg-shadow); } 0 0.1rem 1.9rem -0.1rem #191717 右侧滚动条颜色 themes\shoka\source\css\_common\scaffolding\scrollbar.styl 1 2 3 4 5 ::-webkit-scrollbar { width: .3125rem; height: .3125rem;</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-publish">published on <time datetime="2021-08-25">2021-08-25</time></span>&nbsp;<span class="post-category">included in <a href="/categories/hexo/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Hexo</a></span></div><div class="content">shoka主题的魔改笔记
+首页卡片 shoka\source\css\_mixins.styl
+1 2 3 4 5 shadow-box(border = true, radius = .5rem) { border-radius: radius; border: .0625rem solid var(--grey-2) if border == true; box-shadow: 0 .625rem 1.875rem -.9375rem var(--box-bg-shadow); } 0 0.1rem 1.9rem -0.1rem #191717
+右侧滚动条颜色 themes\shoka\source\css\_common\scaffolding\scrollbar.styl
+1 2 3 4 5 ::-webkit-scrollbar { width: .3125rem; height: .3125rem; background: 0 FIREBRICK; } 首页卡片鼠标滑过时边框阴影-249行 themes\shoka\source\css\_common\components\pages\home.styl
+1 2 3 4 5 6 7 8 +mobile() { flex-direction: column; height: fit-content; max-height: fit-content; } &amp;:hover { box-shadow: 0 0 2rem #000;// var(--box-bg-shadow); 标签后台时显示的文字 themes\shoka\languages\zh-CN.</div><div class="post-footer">
         <a href="/shoka%E9%85%8D%E7%BD%AE%E7%AC%94%E8%AE%B0/">Read More</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA%E5%AE%89%E8%A3%85google%E6%A1%86%E6%9E%B6/">华为手机安装Google框架</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">published on <time datetime="2021-08-24">2021-08-24</time></span>&nbsp;<span class="post-category">included in <a href="/categories/%E6%89%8B%E6%9C%BA/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>手机</a></span></div><div class="content">从 EMUI 11 回滚到 EMUI 10 华为网站下载适用于 Windows PC 的华为 HiSuite 软件（虽然Mac上有HiSuite，但这个版本不允许软件回滚） 允许通过 HDB 进行 USB 连接，为此，请转</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-publish">published on <time datetime="2021-08-24">2021-08-24</time></span>&nbsp;<span class="post-category">included in <a href="/categories/%E6%89%8B%E6%9C%BA/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>手机</a></span></div><div class="content">从 EMUI 11 回滚到 EMUI 10 华为网站下载适用于 Windows PC 的华为 HiSuite 软件（虽然Mac上有HiSuite，但这个版本不允许软件回滚）
+允许通过 HDB 进行 USB 连接，为此，请转到“设置”“安全性”“更多设置” 然后打开 HDB 的开关
+通过 USB 数据线将您的华为设备连接到您的计算机
+选择“传输文件”
+同意请求的权限
+HiSuite 将要求您输入验证码以确认同步，在您插入手机后不久，该验证码将显示在您的华为设备屏幕上
+在 HiSuite 主屏幕上，点击“更新”按钮
+然后点击“切换到其他版本”按钮
+点击“恢复”
+点击“回滚”
+根据您的互联网连接和一天中的时间，回滚过程可能需要 20 分钟到 45 分钟不等。完成后，您的华为设备将重新启动，重新启动后，您将返回 EMUI 10
+下载Googlefier 下载地址：Download 备用地址：备用地址
+使用 下面是对Googlefier操作步骤的英文翻译 1、停止并卸载弹出来的应用 2、然后Googlefier会启动一个安装，确认并安装它， 3、开关几次Playstore，同时观察账号同步情况， 4、上述操作完，继续“步骤三”
+在此安装之后，重试开、关Playstore几次，在Playstore中下载安装应用试试，然后继续下一步
+Google Play Services设置界面将会打开,强制停止并卸载它 ,然后另一个安装进行会自动启动
+在此安装之后，重试开、关Playstore几次，在Playstore中下载安装应用试试，然后继续下一步
+Google Services Framework 的设置会被打开，按下停止直到它变灰，然后双清，再重启手机，重启之后，开关商店几次，然后继续“步奏三”
+Google Play Services设置界面将会打开,强制停止并卸载它 ,然后另一个安装进行会自动启动
+在此“安装”之后，重启手机（不要在意当前打开了什么APP），如果商店仍然可以用，那就成功了，
+注意，你可以更新google services 请记住，如果这个APP可以实现你的功能，请让我们知道，在帮助按钮里有两个选项
+来自XDA上的视频教程，结合YouTube翻译插件食用。 {% youtube t4sSdzwVhKk %}</div><div class="post-footer">
         <a href="/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA%E5%AE%89%E8%A3%85google%E6%A1%86%E6%9E%B6/">Read More</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/cloud-studio%E5%8A%A0%E8%BD%BDhexo-utils%E6%8F%92%E4%BB%B6%E9%94%99%E8%AF%AF/">cloud studio加载hexo-utils插件错误</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">published on <time datetime="2021-08-24">2021-08-24</time></span></div><div class="content"></div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-publish">published on <time datetime="2021-08-24">2021-08-24</time></span></div><div class="content"></div><div class="post-footer">
         <a href="/cloud-studio%E5%8A%A0%E8%BD%BDhexo-utils%E6%8F%92%E4%BB%B6%E9%94%99%E8%AF%AF/">Read More</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/hugo%E6%BC%82%E4%BA%AE%E4%B8%BB%E9%A2%98/">Hugo漂亮主题</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">published on <time datetime="2021-08-21">2021-08-21</time></span></div><div class="content">主题名：stack 演示站：https://theme-stack.jimmycai.com/p/test-chinese/ 第一次看到：htt</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-publish">published on <time datetime="2021-08-21">2021-08-21</time></span></div><div class="content">主题名：stack 演示站：https://theme-stack.jimmycai.com/p/test-chinese/ 第一次看到：https://zhixuan666.github.io/</div><div class="post-footer">
         <a href="/hugo%E6%BC%82%E4%BA%AE%E4%B8%BB%E9%A2%98/">Read More</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/hugo/">Hugo</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">vscode-hexo-utils使用教程</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">published on <time datetime="2021-08-21">2021-08-21</time></span>&nbsp;<span class="post-category">included in <a href="/categories/hexo/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Hexo</a></span></div><div class="content">前言 为了解决Typecho需要自建服务器，容易数据丢失的问题，从Typecho转移到Hexo，但是Hexo需要解决只能本地写博客，而且还要安</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-publish">published on <time datetime="2021-08-21">2021-08-21</time></span>&nbsp;<span class="post-category">included in <a href="/categories/hexo/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Hexo</a></span></div><div class="content">前言 为了解决Typecho需要自建服务器，容易数据丢失的问题，从Typecho转移到Hexo，但是Hexo需要解决只能本地写博客，而且还要安装一堆依赖的问题，又从网上学到了Hexo+Github Acitons的组合，这样只要有浏览器就能登录Github写博客。
+最稳妥的的还是使用原生的Hexo环境（node.js），这样可以本地先预览博客最终效果，再发布，这样可以减少commit次数。
+只是本地写博客如果采用Hexo最原始的方式，即：先cd到Hexo目录-&gt;再hexo new post-&gt;再到_posts目录中找到新建的md文件进行编辑，就显得非常繁琐不友好了。
+经过一番折腾，终于找到了vscode-hexo-utils这款神器。
+介绍 vscode-hexo-utils是一款VSCODE插件，可以实现在VSCODE中方便的写Hexo博客（新建、编辑、管理MD文件），省去了先cd到Hexo目录-&gt;再hexo new post-&gt;再到_posts中找到新建的md文件进行编辑的步骤，而且支持粘贴图片后自动保存到相应目录并插入进MD中，简直美滋滋。 同时还支持按Draft、Post、Categories、Tags管理文章，具体效果如图： 安装 首先得安装VSCODE&hellip;此步略。 然后在VSCODE的插件市场（Ctrl+Shift+X调出）中搜索vscode-hexo-utils，找到并安装它。
+设置 安装完毕后，进入VSCODE的设置(Ctrl+,)，在新界面顶部搜索框输入@ext:fantasy.vscode-hexo-utils将插件的设置项筛选出来。这里介绍几个重要的设置。
+Hexo: Generate Time Format 这里设置新建文章、插入图片时自动生成的时间格式，留空的话，生成的时间形如：2021-08-21T07:27:21+08:00，可以自定义，具体变量参考，举个栗子：
+1、YYYY-MM-DD HH:mm:ss 生成的时间形如:2021-08-23 14:18:57 2、YYYY-MM-DD HH:mm 生成的时间形如:2021-08-23 14:18
+Hexo: Hexo Project Root 这里设置Hexo博客所在目录，建议留空，并设置为不同步。
+Hexo › Markdown: Resource 这个配置项会开启代码中的 markdown 插件，用于支持一些 hexo 自己的语法。
+Hexo: Upload 设置是否自动将图片上传到图床，支持路过图床和腾讯oss，下面的两个设置对应路过图床和腾讯OSS，点击在setting.json中编辑，将自己平台的账号密码填入：
+1 2 3 4 &#34;hexo.uploadImgchr&#34;: { &#34;username&#34;: &#34;用户名&#34;, &#34;password&#34;: &#34;密码&#34; } Hexo: Upload Type 选择默认的图床服务
+使用 首先使用VSCODE打开Hexo项目目录， 然后在VSCODE左侧找到vscode-hexo-utils插件图标。
+新建文章 鼠标放在POST栏目的Bar上，就能看到新增和刷新按钮，点击新增即可按照事先在Hexo设置的模板新建文章。 在文章中插入图片 1、使用图床 不知道是不是我设置的问题，路过图床总时提示失败，后来发现是路过图床更换了域名，已联系插件作者修复。 2、不使用图床 插件会自动将图片保存至MD文件所在目录的同名子目录中。</div><div class="post-footer">
         <a href="/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">Read More</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/hexo/">Hexo</a>,&nbsp;<a href="/tags/vscode/">vscode</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/vscode%E5%86%99hexo%E5%8D%9A%E5%AE%A2%E6%97%B6%E8%87%AA%E5%8A%A8%E6%8F%92%E5%85%A5frontmatter%E7%9A%84%E5%AE%9E%E7%8E%B0/">VSCODE写HEXO博客时自动插入FrontMatter的实现</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-publish">published on <time datetime="2021-08-20">2021-08-20</time></span>&nbsp;<span class="post-category">included in <a href="/categories/hexo/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Hexo</a></span></div><div class="content">第一步 首先点VSCODE的文件-&gt;首选项-&gt;用户片段，在弹出来的对话框中选择markdown.json。输入以下内容： 1 2 3 4 5</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-publish">published on <time datetime="2021-08-20">2021-08-20</time></span>&nbsp;<span class="post-category">included in <a href="/categories/hexo/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Hexo</a></span></div><div class="content">第一步 首先点VSCODE的文件-&gt;首选项-&gt;用户片段，在弹出来的对话框中选择markdown.json。输入以下内容：
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 { &#34;Hexo Front Matter&#34;: { &#34;prefix&#34;: &#34;---&#34;, # 触发代码块的输入字符 &#34;body&#34;: [ &#34;---&#34;, &#34;title: ${TM_FILENAME_BASE}&#34;, # 自动将文件名作为标题 &#34;date: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE} ${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}&#34;, # 自动输入当前时间 &#34;update: ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE} ${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}&#34;, # 自动输入当前时间 &#34;tags:&#34;, &#34; - &#34;, &#34; - &#34;, &#34;categories:&#34;, &#34; - &#34;, &#34; - &#34;,	&#34;description: &#34;, &#34;cover: &#34;, &#34;keywords: &#34;, &#34;---\r&#34; ], &#34;description&#34;: &#34;Hexo Front Matter&#34; } } 第二步 然后在VSCODE的设置中添加配置：</div><div class="post-footer">
         <a href="/vscode%E5%86%99hexo%E5%8D%9A%E5%AE%A2%E6%97%B6%E8%87%AA%E5%8A%A8%E6%8F%92%E5%85%A5frontmatter%E7%9A%84%E5%AE%9E%E7%8E%B0/">Read More</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/vscode/">vscode</a>,&nbsp;<a href="/tags/hexo/">Hexo</a>,&nbsp;<a href="/tags/frontmatter/">FrontMatter</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
@@ -160,7 +190,7 @@
                 </li></ul></div></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
@@ -169,5 +199,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/index.umd.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"这是我的全新 Hugo 网站"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/index.umd.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"潛龍勿用"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

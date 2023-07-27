@@ -7,17 +7,29 @@
     <title>Python实现对大文件的增量读取</title>
     <link>http://example.org/python%E5%AE%9E%E7%8E%B0%E5%AF%B9%E5%A4%A7%E6%96%87%E4%BB%B6%E7%9A%84%E5%A2%9E%E9%87%8F%E8%AF%BB%E5%8F%96/</link>
     <pubDate>Wed, 01 Dec 2021 13:15:51 &#43;0000</pubDate>
-    <author>xxxx</author>
+    <author>五彩斑斓的黑</author>
     <guid>http://example.org/python%E5%AE%9E%E7%8E%B0%E5%AF%B9%E5%A4%A7%E6%96%87%E4%BB%B6%E7%9A%84%E5%A2%9E%E9%87%8F%E8%AF%BB%E5%8F%96/</guid>
-    <description><![CDATA[背景 前段时间在做一个算法测试，需要对源于日志的数据进行分析才能获取到结果；日志文件较大，所以想要获取数据的变化曲线，增量读取是最好的方式。 网]]></description>
+    <description><![CDATA[背景 前段时间在做一个算法测试，需要对源于日志的数据进行分析才能获取到结果；日志文件较大，所以想要获取数据的变化曲线，增量读取是最好的方式。
+网上有很多人的技术博客都是写的用for循环readline以及一个计数器去增量读取，假如文件很大，遍历一次太久。而且对于很多大文件的增量读取，如果遍历每一行比对历史记录的输出或者全都加载到内存通过历史记录的索引查找，是非常浪费资源的，
+获取文件句柄的基本理论中就包含指针操作。linux的文件描述符的struct里有一个f_pos的这么个属性，里面存着文件当前读取位置，通过这个东东经过vfs的一系列映射就会得到硬盘存储的位置了，所以很直接，很快。
+在Python中的读取文件的方法也有类似的属性。
+具体实现 Python中相关方法的核心函数如下：
+函数 作用 tell() 返回文件当前位置 seek() 从指定位置开始读取信息 其中seek()有三种模式：
+f.seek(p,0) 移动当文件第p个字节处，绝对位置 f.seek(p,1) 移动到相对于当前位置之后的p个字节 f.seek(p,2) 移动到相对文章尾之后的p个字节 参考代码：
+1 2 3 4 5 6 7 8 9 10 #!/usr/bin/python fd=open(&#34;test.txt&#34;,&#39;r&#39;) #获得一个句柄 for i in xrange(1,3): #读取三行数据 fd.readline() label=fd.tell() #记录读取到的位置 fd.close() #关闭文件 #再次阅读文件 fd=open(&#34;test.txt&#34;,&#39;r&#39;) #获得一个句柄 fd.seek(label,0)# 把文件读取指针移动到之前记录的位置 fd.readline() #接着上次的位置继续向下读取 拓展 如何得知这个大文件行数，以及变化 我的想法：
+方式1： 遍历\n字符。
+方式2： 开始时就在for循环中对fd.readline()计数，变化的部分（用上文说的seek、tell函数做）再用for循环fd.readline()进行统计。
+如何避免文件读取时，内存溢出 可以通过 read 函数的chunk关键字来指定每次读区数据的大小 使用生成器确保只有在数据被调用时才会生成 具体方法封装如下：
+1 2 3 4 5 6 7 8 9 def read_in_chunks(file_path, chunk=100 * 100): # 通过chunk指定每次读取文件的大小防止内存占用过大 file_object = open(file_path, &#34;r&#34;) while True: data = file_object.]]></description>
 </item>
 <item>
     <title>Python计算大文件行数方法及性能比较</title>
     <link>http://example.org/python%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%96%87%E4%BB%B6%E8%A1%8C%E6%95%B0%E6%96%B9%E6%B3%95%E5%8F%8A%E6%80%A7%E8%83%BD%E6%AF%94%E8%BE%83/</link>
     <pubDate>Wed, 01 Dec 2021 13:01:57 &#43;0000</pubDate>
-    <author>xxxx</author>
+    <author>五彩斑斓的黑</author>
     <guid>http://example.org/python%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%96%87%E4%BB%B6%E8%A1%8C%E6%95%B0%E6%96%B9%E6%B3%95%E5%8F%8A%E6%80%A7%E8%83%BD%E6%AF%94%E8%BE%83/</guid>
-    <description><![CDATA[如何使用Python快速高效地统计出大文件的总行数, 下面是一些实现方法和性能的比较。 实现方法 readlines方法读所有行 1 2 def readline_count(file_name): return len(open(file_name).readlines()) 依次读]]></description>
+    <description><![CDATA[如何使用Python快速高效地统计出大文件的总行数, 下面是一些实现方法和性能的比较。
+实现方法 readlines方法读所有行 1 2 def readline_count(file_name): return len(open(file_name).readlines()) 依次读取每行 1 2 3 4 5 def simple_count(file_name): lines = 0 for _ in open(file_name): lines += 1 return lines 使用sum函数计数 1 2 def sum_count(file_name): return sum(1 for _ in open(file_name)) enumerate枚举计数 1 2 3 4 5 def enumerate_count(file_name): with open(file_name) as f: for count, _ in enumerate(f, 1): pass return count buff+count每次读取固定大小,然后统计行数 1 2 3 4 5 6 7 8 9 def buff_count(file_name): with open(file_name, &#39;rb&#39;) as f: count = 0 buf_size = 1024 * 1024 buf = f.]]></description>
 </item>
 </channel>
 </rss>

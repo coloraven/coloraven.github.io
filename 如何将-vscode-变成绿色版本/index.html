@@ -5,16 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>如何将 VSCode 变成绿色版本 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="如何将 VSCode 变成绿色版本" />
-<meta property="og:description" content="介绍 指导性文章 : Portable Mode in Visual Studio Code 为什么要设置成绿色版 移植方便，到了新的电脑环境，直接拷贝文件夹就完成 VSCode 环境搭建 管理方便，原来的插件，配置文件不在" />
+<meta property="og:description" content="介绍 指导性文章 : Portable Mode in Visual Studio Code
+为什么要设置成绿色版 移植方便，到了新的电脑环境，直接拷贝文件夹就完成 VSCode 环境搭建
+管理方便，原来的插件，配置文件不在一个地方，而且路径藏的过深 如图，绿色版本的结构很清晰，除了应用程序之外就是一个存放 扩展 (extensions) 和 用户数据 (user-data) 的 数据文件夹 (code-portable-data). 当我使用新的一台电脑的时候，只需要将 VSCode 文件夹 拷贝到新电脑就装有 相同配置，相同扩展的一模一样的 VSCode 编辑器，无需额外下载和配置. 如何将 VSCode 编程绿色版本 第一种情况：从零开始配置 VSCode 下载压缩包 下载地址 : Download Visual Studio Code - Mac, Linux, Windows 最后一个支持Win7的版本：VSCode-win32-x64-1.70.3.zip 下载完毕，解压到任意文件夹 创建数据文件夹 (放置插件以及用户设置) Mac 在 VSCode 同一层级的目录下创建文件夹 code-portable-data Windows 在解压后的文件夹内 创建文件夹 data 绿色版制作完成 第二种情况：在 VSCode 已经有配置的前提下变成绿色版 下载压缩包 下载地址 : Download Visual Studio Code - Mac, Linux, Windows 最后一个支持Win7的版本：VSCode-win32-x64-1." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-07-13T11:08:59+00:00" />
 <meta property="article:modified_time" content="2023-07-13T11:08:59+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="如何将 VSCode 变成绿色版本"/>
-<meta name="twitter:description" content="介绍 指导性文章 : Portable Mode in Visual Studio Code 为什么要设置成绿色版 移植方便，到了新的电脑环境，直接拷贝文件夹就完成 VSCode 环境搭建 管理方便，原来的插件，配置文件不在"/>
+<meta name="twitter:description" content="介绍 指导性文章 : Portable Mode in Visual Studio Code
+为什么要设置成绿色版 移植方便，到了新的电脑环境，直接拷贝文件夹就完成 VSCode 环境搭建
+管理方便，原来的插件，配置文件不在一个地方，而且路径藏的过深 如图，绿色版本的结构很清晰，除了应用程序之外就是一个存放 扩展 (extensions) 和 用户数据 (user-data) 的 数据文件夹 (code-portable-data). 当我使用新的一台电脑的时候，只需要将 VSCode 文件夹 拷贝到新电脑就装有 相同配置，相同扩展的一模一样的 VSCode 编辑器，无需额外下载和配置. 如何将 VSCode 编程绿色版本 第一种情况：从零开始配置 VSCode 下载压缩包 下载地址 : Download Visual Studio Code - Mac, Linux, Windows 最后一个支持Win7的版本：VSCode-win32-x64-1.70.3.zip 下载完毕，解压到任意文件夹 创建数据文件夹 (放置插件以及用户设置) Mac 在 VSCode 同一层级的目录下创建文件夹 code-portable-data Windows 在解压后的文件夹内 创建文件夹 data 绿色版制作完成 第二种情况：在 VSCode 已经有配置的前提下变成绿色版 下载压缩包 下载地址 : Download Visual Studio Code - Mac, Linux, Windows 最后一个支持Win7的版本：VSCode-win32-x64-1."/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +31,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC\/"
-        },"genre": "posts","keywords": "VSCode","wordcount":  666 ,
+        },"genre": "posts","keywords": "VSCode","wordcount":  107 ,
         "url": "http:\/\/example.org\/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC\/","datePublished": "2023-07-13T11:08:59+00:00","dateModified": "2023-07-13T11:08:59+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,9 +104,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">如何将 VSCode 变成绿色版本</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-07-13">2023-07-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;666 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-07-13">2023-07-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;107 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -206,7 +208,7 @@
                             <a class="link-to-markdown" href="/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-title="如何将 VSCode 变成绿色版本" data-via="xxxx" data-hashtags="VSCode"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-hashtag="VSCode"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-title="如何将 VSCode 变成绿色版本"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-title="如何将 VSCode 变成绿色版本"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-title="如何将 VSCode 变成绿色版本"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-title="如何将 VSCode 变成绿色版本" data-hashtags="VSCode"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-hashtag="VSCode"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-title="如何将 VSCode 变成绿色版本"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-title="如何将 VSCode 变成绿色版本"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-title="如何将 VSCode 变成绿色版本"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -224,7 +226,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

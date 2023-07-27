@@ -5,16 +5,56 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>翻墙协议链接解析 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="翻墙协议链接解析" />
-<meta property="og:description" content="ss、ssr、v2ray链接解析 ?&gt; 网上有很多人会分享一些免费的 ss、ssr 免费账号，也有少数分享v2ray的；有的会直接把服务、端口、ip、" />
+<meta property="og:description" content="ss、ssr、v2ray链接解析 ?&gt; 网上有很多人会分享一些免费的 ss、ssr 免费账号，也有少数分享v2ray的；有的会直接把服务、端口、ip、协议等展示出来，直接手动输入相应参数就可以了，有的则直接显示二维码，直接用客户端软件扫一下就可以使用。
+不过，也有很多是直接以链接的形式展示出来，比如 ss://xxxxx 或 ssr://xxxx,对于这种链接的方式，复制链接后，直接使用ss 、ssr客户端右键从粘贴板导入url链接即可。
+SS链接 以ss链接为例，链接如下：
+ss://YWVzLTI1Ni1jZmI6S1NYTmhuWnBqd0M2UGM2Q0A1NC4xNjkuMzUuMjI4OjMxNDQ0
+用base64解码站长工具（此工具存在和谐因素，仅为演示方便）进行解码
+从这两幅图也不难看出格式其实是这样的 ss://method:password@server:port，按照这个格式的写法并进行base64编码，就能将ss分享给对方使用。
+若是分享二维码，可以用二维码生成器将ss链接嵌入二维码中扫描分享
+SSR链接 再来看ssr的url，链接如下：
+1 ssr://NjQuMTM3LjIyOC4zNTo1NzYwOmF1dGhfc2hhMV92NDpjaGFjaGEyMDp0bHMxLjJfdGlja2V0X2F1dGg6Wkc5MVlpNXBieTl6YzNwb1puZ3ZLalUzTmpBLz9yZW1hcmtzPTVweXM1WVdONkxTNTZMU201WS0zNXAybDZJZXFPbVJ2ZFdJdWFXOHZjM042YUdaNEx3 使用base64工具解码
+字符串包含–，需在解码前把–这个字符通通替换为&#43;字符
+效果如下
+再来看ssr链接导入的截图
+由此得知，格式如下
+ssr://ip:port:protocol:method:blending:password/?remarks=other text
+有时也会看到部分解码后，这样的格式
+159.65.1.189:5252:auth_sha1_v4:rc4-md5:http_simple:NTJzc3IubmV0/?obfsparam=&amp;protoparam=&amp;group=d3d3LnNzcnNoYXJlLmNvbQ&amp;remarks=RE1fTm9kZQ
+这其中obfsparam、protoparam、group、remarks等都是可选的，也可不填。
+v2ray链接 其实v2ray链接与相关二维码生成与上述方法是差不多的，只是配置参数格式大同小异而已。v2ray不像ss那样有统一规定的url格式，所以各个v2ray图形客户端的分享链接或是二维码不一定通用
+v2ray的链接如下
+1 vmess://ew0KICAicHMiOiAicnVzc2lhbi1jbG91ZCIsDQogICJhZGQiOiAiMTg1LjE3Ny4yMTYuMTM0IiwNCiAgInBvcnQiOiAiMjI1MzUiLA0KICAiaWQiOiAiNTIwNTAwNTctZjVlMS00YjllLWI3OGItNWY0OWI1NDlmZDIxIiwNCiAgImFpZCI6ICI2NCIsDQogICJuZXQiOiAia2NwIiwNCiAgInR5cGUiOiAic3J0cCIsDQogICJob3N0IjogIiIsDQogICJ0bHMiOiAiIg0KfQ== 进行base64解码之后再对比v2ray客户端的参数配置就显得一目了然
+可以说大体是这么一个格式
+1 2 3 4 5 6 7 8 9 10 11 { &#34;ps&#34;: &#34;别名&#34;, &#34;add&#34;: &#34;ip地址&#34;, &#34;port&#34;: &#34;端口&#34;, &#34;id&#34;: &#34;uuid&#34;, &#34;aid&#34;: &#34;alterid&#34;, &#34;net&#34;: &#34;传输协议&#34;, &#34;type&#34;: &#34;伪装类型&#34;, &#34;host&#34;: &#34; http header参数&#34;, &#34;tls&#34;: &#34;底层传输安全&#34; } 除别名外，可以说服务器与客户端的参数必须要相互对应，别名、留空的是可以省略的。按照这个相关格式生成base64编码。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-05-17T17:36:12+00:00" />
 <meta property="article:modified_time" content="2022-05-17T17:36:12+00:00" /><meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="翻墙协议链接解析"/>
-<meta name="twitter:description" content="ss、ssr、v2ray链接解析 ?&gt; 网上有很多人会分享一些免费的 ss、ssr 免费账号，也有少数分享v2ray的；有的会直接把服务、端口、ip、"/>
+<meta name="twitter:description" content="ss、ssr、v2ray链接解析 ?&gt; 网上有很多人会分享一些免费的 ss、ssr 免费账号，也有少数分享v2ray的；有的会直接把服务、端口、ip、协议等展示出来，直接手动输入相应参数就可以了，有的则直接显示二维码，直接用客户端软件扫一下就可以使用。
+不过，也有很多是直接以链接的形式展示出来，比如 ss://xxxxx 或 ssr://xxxx,对于这种链接的方式，复制链接后，直接使用ss 、ssr客户端右键从粘贴板导入url链接即可。
+SS链接 以ss链接为例，链接如下：
+ss://YWVzLTI1Ni1jZmI6S1NYTmhuWnBqd0M2UGM2Q0A1NC4xNjkuMzUuMjI4OjMxNDQ0
+用base64解码站长工具（此工具存在和谐因素，仅为演示方便）进行解码
+从这两幅图也不难看出格式其实是这样的 ss://method:password@server:port，按照这个格式的写法并进行base64编码，就能将ss分享给对方使用。
+若是分享二维码，可以用二维码生成器将ss链接嵌入二维码中扫描分享
+SSR链接 再来看ssr的url，链接如下：
+1 ssr://NjQuMTM3LjIyOC4zNTo1NzYwOmF1dGhfc2hhMV92NDpjaGFjaGEyMDp0bHMxLjJfdGlja2V0X2F1dGg6Wkc5MVlpNXBieTl6YzNwb1puZ3ZLalUzTmpBLz9yZW1hcmtzPTVweXM1WVdONkxTNTZMU201WS0zNXAybDZJZXFPbVJ2ZFdJdWFXOHZjM042YUdaNEx3 使用base64工具解码
+字符串包含–，需在解码前把–这个字符通通替换为&#43;字符
+效果如下
+再来看ssr链接导入的截图
+由此得知，格式如下
+ssr://ip:port:protocol:method:blending:password/?remarks=other text
+有时也会看到部分解码后，这样的格式
+159.65.1.189:5252:auth_sha1_v4:rc4-md5:http_simple:NTJzc3IubmV0/?obfsparam=&amp;protoparam=&amp;group=d3d3LnNzcnNoYXJlLmNvbQ&amp;remarks=RE1fTm9kZQ
+这其中obfsparam、protoparam、group、remarks等都是可选的，也可不填。
+v2ray链接 其实v2ray链接与相关二维码生成与上述方法是差不多的，只是配置参数格式大同小异而已。v2ray不像ss那样有统一规定的url格式，所以各个v2ray图形客户端的分享链接或是二维码不一定通用
+v2ray的链接如下
+1 vmess://ew0KICAicHMiOiAicnVzc2lhbi1jbG91ZCIsDQogICJhZGQiOiAiMTg1LjE3Ny4yMTYuMTM0IiwNCiAgInBvcnQiOiAiMjI1MzUiLA0KICAiaWQiOiAiNTIwNTAwNTctZjVlMS00YjllLWI3OGItNWY0OWI1NDlmZDIxIiwNCiAgImFpZCI6ICI2NCIsDQogICJuZXQiOiAia2NwIiwNCiAgInR5cGUiOiAic3J0cCIsDQogICJob3N0IjogIiIsDQogICJ0bHMiOiAiIg0KfQ== 进行base64解码之后再对比v2ray客户端的参数配置就显得一目了然
+可以说大体是这么一个格式
+1 2 3 4 5 6 7 8 9 10 11 { &#34;ps&#34;: &#34;别名&#34;, &#34;add&#34;: &#34;ip地址&#34;, &#34;port&#34;: &#34;端口&#34;, &#34;id&#34;: &#34;uuid&#34;, &#34;aid&#34;: &#34;alterid&#34;, &#34;net&#34;: &#34;传输协议&#34;, &#34;type&#34;: &#34;伪装类型&#34;, &#34;host&#34;: &#34; http header参数&#34;, &#34;tls&#34;: &#34;底层传输安全&#34; } 除别名外，可以说服务器与客户端的参数必须要相互对应，别名、留空的是可以省略的。按照这个相关格式生成base64编码。"/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +69,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90\/"
-        },"genre": "posts","keywords": "VPN","wordcount":  2051 ,
+        },"genre": "posts","keywords": "VPN","wordcount":  188 ,
         "url": "http:\/\/example.org\/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90\/","datePublished": "2022-05-17T17:36:12+00:00","dateModified": "2022-05-17T17:36:12+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,9 +142,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">翻墙协议链接解析</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-17">2022-05-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2051 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-17">2022-05-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;188 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -475,7 +515,7 @@
                             <a class="link-to-markdown" href="/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-title="翻墙协议链接解析" data-via="xxxx" data-hashtags="VPN"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-hashtag="VPN"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-title="翻墙协议链接解析"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-title="翻墙协议链接解析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-title="翻墙协议链接解析"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-title="翻墙协议链接解析" data-hashtags="VPN"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-hashtag="VPN"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-title="翻墙协议链接解析"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-title="翻墙协议链接解析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-title="翻墙协议链接解析"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -493,7 +533,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

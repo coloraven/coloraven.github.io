@@ -7,9 +7,14 @@
     <title>Github Actions Artifacts（Github工件）下载加速思路</title>
     <link>http://example.org/github-actions-artifactsgithub%E5%B7%A5%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%8A%A0%E9%80%9F%E6%80%9D%E8%B7%AF/</link>
     <pubDate>Thu, 20 Jan 2022 16:17:17 &#43;0000</pubDate>
-    <author>xxxx</author>
+    <author>五彩斑斓的黑</author>
     <guid>http://example.org/github-actions-artifactsgithub%E5%B7%A5%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%8A%A0%E9%80%9F%E6%80%9D%E8%B7%AF/</guid>
-    <description><![CDATA[背景 用Github Actions build 带谷歌框架和root权限的安卓子系统，结果build出来的artifacts有将近4个G，挂代理（US和HK切换都一样]]></description>
+    <description><![CDATA[背景 用Github Actions build 带谷歌框架和root权限的安卓子系统，结果build出来的artifacts有将近4个G，挂代理（US和HK切换都一样）下载只有500K / S的速度，平时release可以跑满10M/S代理速度。
+解决思路 不管是什么原因，思路是先利用国外VPS下载好再从VPS下回来，经过实验，这回可以跑满10M了。
+要解决的问题 wget不能直接下载，原因也不多说，估计是headers或者账号验证之类的。 通过搜索：首先登录网站https://nightly.link，对相应仓库进行授权&hellip;. 然后将欲下载工件地址填入，比如：
+1 https://github.com/LSPosed/MagiskOnWSA/suites/4908840299/artifacts/141256770 这个网站会自动将链接转换成如下：
+1 https://nightly.link/LSPosed/MagiskOnWSA/suites/4998111090/artifacts/146483433 这个转换出来的URL就可以直接在VPS上wget进行下载：
+1 wget https://nightly.link/LSPosed/MagiskOnWSA/suites/4998111090/artifacts/146483433 ]]></description>
 </item>
 </channel>
 </rss>

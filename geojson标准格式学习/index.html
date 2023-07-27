@@ -5,16 +5,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>GEOJSON标准格式学习 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="GEOJSON标准格式学习" />
-<meta property="og:description" content="转载自：https://www.jianshu.com/p/852d7ad081b3 最近做的项目需要详细了解geojson，因此查了一些资料" />
+<meta property="og:description" content="转载自：https://www.jianshu.com/p/852d7ad081b3
+最近做的项目需要详细了解geojson，因此查了一些资料，现在整理一份标准格式的记录，要理解本文需要首先了解json的基本知识，这里不过多展开，可以去参考w3school上的教程，简言之，json是通过键值对表示数据对象的一种格式，可以很好地表达数据，其全称为JavaScript Object Notation（JavaScript Object Notation），正如这个名称，JavaScript和json联系紧密，但是json可以应用的范围很广，不止于前端，它比XML数据更轻量、更容易解析（某种角度上说xml可以更自由地封装更多的数据）。很多编程语言都有对应的json解析库，例如Python的json库，C#的Newtonsoft.Json，Java的org.json。geojson是用json的语法表达和存储地理数据，可以说是json的子集。
+例如下面就是一个点数据：
+1 2 3 4 5 6 7 8 9 10 11 12 { &#34;type&#34;: &#34;FeatureCollection&#34;, &#34;features&#34;: [ {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;Point&#34;, &#34;coordinates&#34;:[105.380859375,31.57853542647338] } } ] } 例子图片
+（注：以下geojson的效果截图都来自geojson.io在线生成）
+geojson将所有的地理要素分为Point、MultiPoint、LineString、MultiLineString、Polygon、MultiPolygon、GeometryCollection。首先是将这些要素封装到单个的geometry里，然后作为一个个的Feature（也就是要素）；要素放到一个要素集合里，从树状结构来理解FeatureCollection就是根节点，表示为：
+1 2 3 4 { &#34;type&#34;: &#34;FeatureCollection&#34;, &#34;features&#34;: [] } 所有地理要素放在features的列表里。
+点要素Point 点要素是最简单的，类型type对应Point，然后坐标是一个1维的数组，里面有两个元素（如果是立体的坐标就是三维x,y,z），分别为经度和纬度。properties里面可以封装各种属性，例如名称、标识颜色等等。
+1 2 3 4 5 6 7 {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;Point&#34;, &#34;coordinates&#34;:[105.380859375,31.57853542647338] } } 多点要素MultiPoint 1 2 3 4 5 6 7 8 9 {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;MultiPoint&#34;, &#34;coordinates&#34;:[[105." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" /><meta property="article:section" content="posts" />
 
 <meta property="og:site_name" content="我的网站" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://example.org/logo.png"/>
-
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="GEOJSON标准格式学习"/>
-<meta name="twitter:description" content="转载自：https://www.jianshu.com/p/852d7ad081b3 最近做的项目需要详细了解geojson，因此查了一些资料"/>
+<meta name="twitter:description" content="转载自：https://www.jianshu.com/p/852d7ad081b3
+最近做的项目需要详细了解geojson，因此查了一些资料，现在整理一份标准格式的记录，要理解本文需要首先了解json的基本知识，这里不过多展开，可以去参考w3school上的教程，简言之，json是通过键值对表示数据对象的一种格式，可以很好地表达数据，其全称为JavaScript Object Notation（JavaScript Object Notation），正如这个名称，JavaScript和json联系紧密，但是json可以应用的范围很广，不止于前端，它比XML数据更轻量、更容易解析（某种角度上说xml可以更自由地封装更多的数据）。很多编程语言都有对应的json解析库，例如Python的json库，C#的Newtonsoft.Json，Java的org.json。geojson是用json的语法表达和存储地理数据，可以说是json的子集。
+例如下面就是一个点数据：
+1 2 3 4 5 6 7 8 9 10 11 12 { &#34;type&#34;: &#34;FeatureCollection&#34;, &#34;features&#34;: [ {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;Point&#34;, &#34;coordinates&#34;:[105.380859375,31.57853542647338] } } ] } 例子图片
+（注：以下geojson的效果截图都来自geojson.io在线生成）
+geojson将所有的地理要素分为Point、MultiPoint、LineString、MultiLineString、Polygon、MultiPolygon、GeometryCollection。首先是将这些要素封装到单个的geometry里，然后作为一个个的Feature（也就是要素）；要素放到一个要素集合里，从树状结构来理解FeatureCollection就是根节点，表示为：
+1 2 3 4 { &#34;type&#34;: &#34;FeatureCollection&#34;, &#34;features&#34;: [] } 所有地理要素放在features的列表里。
+点要素Point 点要素是最简单的，类型type对应Point，然后坐标是一个1维的数组，里面有两个元素（如果是立体的坐标就是三维x,y,z），分别为经度和纬度。properties里面可以封装各种属性，例如名称、标识颜色等等。
+1 2 3 4 5 6 7 {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;Point&#34;, &#34;coordinates&#34;:[105.380859375,31.57853542647338] } } 多点要素MultiPoint 1 2 3 4 5 6 7 8 9 {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;MultiPoint&#34;, &#34;coordinates&#34;:[[105."/>
 <meta name="application-name" content="我的网站">
 <meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -29,16 +43,16 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0\/"
-        },"genre": "posts","keywords": "GIS","wordcount":  1821 ,
+        },"genre": "posts","keywords": "GIS","wordcount":  446 ,
         "url": "http:\/\/example.org\/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0\/","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
-                "name": "xxxx"
+                "name": "五彩斑斓的黑"
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
@@ -102,9 +116,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">GEOJSON标准格式学习</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/gis/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>GIS</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1821 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/gis/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>GIS</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;446 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -645,7 +659,7 @@
                             <a class="link-to-markdown" href="/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-title="GEOJSON标准格式学习" data-via="xxxx" data-hashtags="GIS"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-hashtag="GIS"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-title="GEOJSON标准格式学习"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-title="GEOJSON标准格式学习"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-title="GEOJSON标准格式学习"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-title="GEOJSON标准格式学习" data-hashtags="GIS"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-hashtag="GIS"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-title="GEOJSON标准格式学习"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-title="GEOJSON标准格式学习"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-title="GEOJSON标准格式学习"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -663,7 +677,7 @@
 </article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 
