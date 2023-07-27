@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Postgres快速导入csv文件 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Postgres快速导入csv文件" />
+<meta property="og:description" content="psql的copy命令导入 第一步 连接数据库： psql -U &lt;user_name&gt; -d &lt;database_name&gt; -h 远程数据库IP地址 -p 端口， psql位于安装目录的bin目录下，建议将路径X:\XXX" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-07-07T12:54:33+00:00" />
+<meta property="article:modified_time" content="2023-07-07T12:54:33+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="Postgres快速导入csv文件"/>
+<meta name="twitter:description" content="psql的copy命令导入 第一步 连接数据库： psql -U &lt;user_name&gt; -d &lt;database_name&gt; -h 远程数据库IP地址 -p 端口， psql位于安装目录的bin目录下，建议将路径X:\XXX"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" /><link rel="prev" href="http://example.org/%E4%BF%AE%E6%94%B9docker%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98%E4%BD%8D%E7%BD%AE/" /><link rel="next" href="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Postgres快速导入csv文件",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6\/"
+        },"genre": "posts","keywords": "Postgres, 数据库, csv","wordcount":  857 ,
+        "url": "http:\/\/example.org\/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6\/","datePublished": "2023-07-07T12:54:33+00:00","dateModified": "2023-07-07T12:54:33+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "xxxx"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Postgres快速导入csv文件</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/postgres/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Postgres</a>&nbsp;<a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>数据库</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-07-07">2023-07-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;857 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#psql的copy命令导入"><code>psql</code>的<code>copy</code>命令导入</a>
+      <ul>
+        <li><a href="#第一步">第一步</a></li>
+        <li><a href="#第二步">第二步</a></li>
+        <li><a href="#常见错误">常见错误</a></li>
+        <li><a href="#其他">其他</a>
+          <ul>
+            <li><a href="#启用计时功能可查看导入等操作的耗时">启用计时功能——可查看导入等操作的耗时</a></li>
+            <li><a href="#切换数据库">切换数据库</a></li>
+            <li><a href="#导入时的目标表名不能是中文csv文件名可以是中文">导入时的目标表名不能是中文，csv文件名可以是中文</a></li>
+            <li><a href="#csv文件的分隔符为tab符的表达">csv文件的分隔符为Tab符的表达</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#另外的方式">另外的方式</a>
+      <ul>
+        <li><a href="#pgfutter--自动建表">pgfutter&ndash;自动建表</a></li>
+        <li><a href="#pgloader">pgloader</a>
+          <ul>
+            <li><a href="#支持从文件加载或迁移数据库">支持从文件加载或迁移数据库</a></li>
+            <li><a href="#其他特色亮点">其他特色亮点</a></li>
+            <li><a href="#缺点">缺点</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="psql的copy命令导入"><code>psql</code>的<code>copy</code>命令导入</h2>
+<h3 id="第一步">第一步</h3>
+<p>连接数据库：
+<code>psql -U &lt;user_name&gt; -d &lt;database_name&gt; -h 远程数据库IP地址 -p 端口</code>，
+<code>psql</code>位于安装目录的bin目录下，建议将路径<code>X:\XXX\PostgreSQL\15\bin\</code>添加到环境变量中
+如果想免密码，则需要设置环境变量 PGPASSWORD</p>
+<h3 id="第二步">第二步</h3>
+<p>使用<code>\copy</code>命令导入，该命令必须在服务端运行，不能通过<code>pg_admin</code>、<code>dbeaver</code>等数据库管理客户端的<code>sql</code>命令执行。
+<code>\copy bbb FROM 'D:\NavicatExports\aaa.csv' DELIMITER ',' NULL '' CSV HEADER;</code>
+其中<code>bbb</code>是事先创建好的表的名称，下同</p>
+<h3 id="常见错误">常见错误</h3>
+<p><strong>报错:</strong> <code>ERROR:  character with byte sequence 0xba 0x22 in encoding &quot;GBK&quot; has no equivalent in encoding &quot;UTF8&quot;</code>
+<strong>原因:</strong> <code>csv</code>文件内容为<code>utf-8 no bom</code>编码，其中有中文。
+<strong>解决方案:</strong> <code>\encoding UTF8</code></p>
+<h3 id="其他">其他</h3>
+<h4 id="启用计时功能可查看导入等操作的耗时">启用计时功能——可查看导入等操作的耗时</h4>
+<p><code>\timing</code></p>
+<h4 id="切换数据库">切换数据库</h4>
+<p><code>\c 目标数据库名</code></p>
+<h4 id="导入时的目标表名不能是中文csv文件名可以是中文">导入时的目标表名不能是中文，csv文件名可以是中文</h4>
+<p>通过实践，目标表名不能是中文，但文件名可以是中文。
+<code>\copy bbb FROM 'C:\我是中文.csv' WITH (FORMAT CSV,DELIMITER ',' , HEADER TRUE);</code></p>
+<h4 id="csv文件的分隔符为tab符的表达">csv文件的分隔符为Tab符的表达</h4>
+<p><code>\copy bbb FROM 'C:\我是中文.csv' WITH (FORMAT CSV,DELIMITER E'\t' , HEADER TRUE);</code></p>
+<h2 id="另外的方式">另外的方式</h2>
+<h3 id="pgfutter--自动建表">pgfutter&ndash;自动建表</h3>
+<p>专用于<code>postgresql</code>的导入工具<a href="https://github.com/lukasmartinelli/pgfutter" target="_blank" rel="noopener noreffer "><code>pgfutter</code></a>，支持 <code>CSV</code> 和 <code>JSON</code> 格式数据的导入。
+使用方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pgfutter --host <span class="s2">&#34;地址&#34;</span> --db <span class="s2">&#34;数据库&#34;</span> --port <span class="s2">&#34;端口&#34;</span> --user <span class="s2">&#34;用户名&#34;</span> --pw <span class="s2">&#34;密码&#34;</span> --schema <span class="s2">&#34;public&#34;</span> --table <span class="s2">&#34;表名&#34;</span> csv 待导入的csv文件.csv
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Database connection details can be provided via environment variables or as separate flags.</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DB_NAME</code></td>
+<td><code>postgres</code></td>
+<td>database name</td>
+</tr>
+<tr>
+<td><code>DB_HOST</code></td>
+<td><code>localhost</code></td>
+<td>host name</td>
+</tr>
+<tr>
+<td><code>DB_PORT</code></td>
+<td><code>5432</code></td>
+<td>port</td>
+</tr>
+<tr>
+<td><code>DB_SCHEMA</code></td>
+<td><code>import</code></td>
+<td>schema to create tables for</td>
+</tr>
+<tr>
+<td><code>DB_USER</code></td>
+<td><code>postgres</code></td>
+<td>database user</td>
+</tr>
+<tr>
+<td><code>DB_PASS</code></td>
+<td></td>
+<td>password (or empty if none)</td>
+</tr>
+</tbody>
+</table>
+<p>更多用法参见<a href="https://github.com/lukasmartinelli/pgfutter/blob/master/README.md" target="_blank" rel="noopener noreffer ">官方文档</a></p>
+<p>经测试，导入时对第一行最后一列为空的数据的数据导入出错。</p>
+<h3 id="pgloader">pgloader</h3>
+<h4 id="支持从文件加载或迁移数据库">支持从文件加载或迁移数据库</h4>
+<p>其中数据库迁移包括：</p>
+<ul>
+<li>从 MySQL 迁移到 PostgreSQL</li>
+<li>从 SQLite 迁移到 PostgreSQL</li>
+<li>从 MS SQL Server® 迁移到 PostgreSQL
+其中文件包括：</li>
+<li>CSV 系列</li>
+<li>固定列格式&mdash;作者也不清楚是什么</li>
+<li>dBase 文件 ( db3)</li>
+<li>IBM IXF 文件</li>
+</ul>
+<h4 id="其他特色亮点">其他特色亮点</h4>
+<ul>
+<li>pgloader 支持存档格式zip、tar和gzip ：直接在临时文件中提取存档，然后加载扩展文件。</li>
+<li>支持<code>出错时停止</code>或者<code>出错时继续</code></li>
+</ul>
+<h4 id="缺点">缺点</h4>
+<ul>
+<li>导入参数必须通过脚本文件定义，然后再通过pgloader加载脚本来导入。</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-07-07</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-title="Postgres快速导入csv文件" data-via="xxxx" data-hashtags="Postgres,数据库,csv"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-hashtag="Postgres"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-title="Postgres快速导入csv文件"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-title="Postgres快速导入csv文件"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" data-title="Postgres快速导入csv文件"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/postgres/">Postgres</a>,&nbsp;<a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>,&nbsp;<a href="/tags/csv/">csv</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E4%BF%AE%E6%94%B9docker%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98%E4%BD%8D%E7%BD%AE/" class="prev" rel="prev" title="修改Docker默认数据保存位置"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>修改Docker默认数据保存位置</a>
+            <a href="/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" class="next" rel="next" title="如何将 VSCode 变成绿色版本">如何将 VSCode 变成绿色版本<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

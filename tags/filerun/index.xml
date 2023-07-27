@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>filerun - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/filerun/</link>
+        <description>filerun - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/filerun/" rel="self" type="application/rss+xml" /><item>
+    <title>Docker 搭建Filerun</title>
+    <link>http://example.org/docker-%E6%90%AD%E5%BB%BAfilerun/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/docker-%E6%90%AD%E5%BB%BAfilerun/</guid>
+    <description><![CDATA[filerun 官方docker： https://hub.docker.com/r/afian/filerun/ 1、预先搭建好mariadb容器 2、使用以下命令运行filerun容器 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 docker run -itd --name filerun \ --restart=unless-stopped \]]></description>
+</item>
+</channel>
+</rss>

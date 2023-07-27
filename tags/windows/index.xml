@@ -1,0 +1,23 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Windows - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/windows/</link>
+        <description>Windows - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 16 Mar 2023 13:57:13 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/windows/" rel="self" type="application/rss+xml" /><item>
+    <title>Windows下恢复Linux格式硬盘数据记录</title>
+    <link>http://example.org/windows%E4%B8%8B%E6%81%A2%E5%A4%8Dlinux%E6%A0%BC%E5%BC%8F%E7%A1%AC%E7%9B%98%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/</link>
+    <pubDate>Thu, 16 Mar 2023 13:57:13 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/windows%E4%B8%8B%E6%81%A2%E5%A4%8Dlinux%E6%A0%BC%E5%BC%8F%E7%A1%AC%E7%9B%98%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/</guid>
+    <description><![CDATA[背景 小主机（CentOS 7）挂载移动固态硬盘，有次重启系统后，突然开不了机，发现硬盘盒不亮灯了，平时数据都存在挂载的移动固态硬盘里，所以估计]]></description>
+</item>
+<item>
+    <title>修改Windows显示字体</title>
+    <link>http://example.org/%E4%BF%AE%E6%94%B9windows%E6%98%BE%E7%A4%BA%E5%AD%97%E4%BD%93%E5%85%BC%E5%85%B6%E4%BB%96windows%E7%BE%8E%E5%8C%96/</link>
+    <pubDate>Fri, 30 Dec 2022 10:24:16 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E4%BF%AE%E6%94%B9windows%E6%98%BE%E7%A4%BA%E5%AD%97%E4%BD%93%E5%85%BC%E5%85%B6%E4%BB%96windows%E7%BE%8E%E5%8C%96/</guid>
+    <description><![CDATA[最终显示效果如图： {height=&ldquo;400px&rdquo;} 背景 最近将笔记本装上了Phoenix团队精简的系统X-Lite，其默认显示语言为英文，可以下载安装中文语言包，但是貌似有]]></description>
+</item>
+</channel>
+</rss>

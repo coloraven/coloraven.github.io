@@ -1,0 +1,39 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>VPN - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/vpn/</link>
+        <description>VPN - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 17 Oct 2021 21:02:06 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/vpn/" rel="self" type="application/rss+xml" /><item>
+    <title>PandaVPN后端替换与搭建</title>
+    <link>http://example.org/pandavpn%E5%90%8E%E7%AB%AF%E6%9B%BF%E6%8D%A2/</link>
+    <pubDate>Sun, 17 Oct 2021 21:02:06 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/pandavpn%E5%90%8E%E7%AB%AF%E6%9B%BF%E6%8D%A2/</guid>
+    <description><![CDATA[分析通信过程 一、节点组列表 明文返回json 二、单个节点详情——貌似只在服务端进行了校验 1、如果无会员，则返回： 1 {&#34;code&#34;: &#34;006&#34;, &#34;message&#34;: &#34;此线路仅供V]]></description>
+</item>
+<item>
+    <title>转载-Kali Linux科学上网</title>
+    <link>http://example.org/kali-linux%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</link>
+    <pubDate>Fri, 27 Aug 2021 09:29:58 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/kali-linux%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</guid>
+    <description><![CDATA[转载自：https://wsxq2.55555.io/blog/2018/10/20/Kali-Linux科学上网/ 用于备份该文章，以免源博]]></description>
+</item>
+<item>
+    <title>Panda核心程序设置成开机自动运行</title>
+    <link>http://example.org/panda%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BA%8F%E8%AE%BE%E7%BD%AE%E6%88%90%E5%BC%80%E6%9C%BA%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C/</link>
+    <pubDate>Fri, 27 Aug 2021 09:20:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/panda%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BA%8F%E8%AE%BE%E7%BD%AE%E6%88%90%E5%BC%80%E6%9C%BA%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C/</guid>
+    <description><![CDATA[自建开机启动脚本 将ss-local和bypass-lan-china.acl放入/usr/bin/（环境变量path）中 在 /etc/init.d/ 中创建自己的开机]]></description>
+</item>
+<item>
+    <title>Linux设置全局代理</title>
+    <link>http://example.org/linux%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E4%BB%A3%E7%90%86/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/linux%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E4%BB%A3%E7%90%86/</guid>
+    <description><![CDATA[cover: 所有shell 这种情况可以修改/etc/profile、/etc/environment、、HOME/.bashrc、HOME/.zshr]]></description>
+</item>
+</channel>
+</rss>

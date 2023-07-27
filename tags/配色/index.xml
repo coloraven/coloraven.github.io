@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>配色 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E9%85%8D%E8%89%B2/</link>
+        <description>配色 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 16 Aug 2021 22:26:06 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/%E9%85%8D%E8%89%B2/" rel="self" type="application/rss+xml" /><item>
+    <title>一些配色网站</title>
+    <link>http://example.org/%E9%85%8D%E8%89%B2/</link>
+    <pubDate>Mon, 16 Aug 2021 22:26:06 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E9%85%8D%E8%89%B2/</guid>
+    <description><![CDATA[来源：酷安评论 分享一些配色网站 转载自公众号：平面课程表，下面是原链接 查看链接 文字我都放在这里了，有些加载会比较慢，需要xx （给出的图片是在最]]></description>
+</item>
+</channel>
+</rss>

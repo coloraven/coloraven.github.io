@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明" />
+<meta property="og:description" content=":::info 跳票N久终于更新的简单的使用说明 hexo-theme-shoka ：本博客自用的主题 hexo-renderer-multi-markdown-it：配套的markdown" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/theme-shoka-doc/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+
+<meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明"/>
+<meta name="twitter:description" content=":::info 跳票N久终于更新的简单的使用说明 hexo-theme-shoka ：本博客自用的主题 hexo-renderer-multi-markdown-it：配套的markdown"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/theme-shoka-doc/" /><link rel="prev" href="http://example.org/ip%E8%8C%83%E5%9B%B4%E8%BD%ACcidr/" /><link rel="next" href="http://example.org/hello-world/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Hexo主题Shoka \u0026 multi-markdown-it渲染器使用说明",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/theme-shoka-doc\/"
+        },"genre": "posts","keywords": "Hexo, 教程","wordcount":  1819 ,
+        "url": "http:\/\/example.org\/theme-shoka-doc\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "xxxx"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Hexo主题Shoka & multi-markdown-it渲染器使用说明</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/theme-shoka-documentation/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Theme Shoka Documentation</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1819 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#修改站点配置">修改站点配置</a></li>
+    <li><a href="#修改主题配置">修改主题配置</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#024--025">0.2.4 👉 0.2.5</a></li>
+    <li><a href="#023--024">0.2.3 👉 0.2.4</a></li>
+    <li><a href="#022--023">0.2.2 👉 0.2.3</a></li>
+    <li><a href="#021--022">0.2.1 👉 0.2.2</a></li>
+    <li><a href="#02--021">0.2 👉 0.2.1</a></li>
+    <li><a href="#019--02">0.1.9 👉 0.2</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>:::info
+跳票N久终于更新的简单的使用说明</p>
+<ul>
+<li><a href="https://github.com/amehime/hexo-theme-shoka" target="_blank" rel="noopener noreffer ">hexo-theme-shoka</a> ：本博客自用的主题</li>
+<li><a href="https://github.com/amehime/hexo-renderer-multi-markdown-it" target="_blank" rel="noopener noreffer ">hexo-renderer-multi-markdown-it</a>：配套的markdown渲染器</li>
+</ul>
+<p>已经支持hexo 5。。。本文档和bug不定期更新中。
+如果有什么功能需求，欢迎留言。
+:::</p>
+<p>:::warning
+当前版本更新至 0.2.5，<a href="#%e6%9b%b4%e6%96%b0%e8%ae%b0%e5%bd%95" rel="">更新记录点此</a>
+:::</p>
+<p>:::primary
+<a href="/computer-science/note/theme-shoka-doc/" rel=""><strong>🚀快速开始</strong></a> - <a href="/computer-science/note/theme-shoka-doc/dependents/" rel="">💌依赖插件</a> - <a href="/computer-science/note/theme-shoka-doc/config/" rel="">📌基本配置</a> - <a href="/computer-science/note/theme-shoka-doc/display/" rel="">🌈界面显示</a> - <a href="/computer-science/note/theme-shoka-doc/special/" rel="">🦄特殊功能</a>
+:::</p>
+<h1 id="设计缘由">设计缘由</h1>
+<p>前几年在Bear和Evernote上整理了大量笔记，非常喜欢Bear默认的markdown渲染样式。
+后来因为换了安卓手机，用不了Bear，四处搜寻替代品，没有满意的。
+然后阴差阳错知道了Hexo，又得知Github也可以免费建私有仓库了，故再次转移阵地到了自建博客，并部署在Github Pages。</p>
+<p>因为这个博客是用来记笔记的，故起名<code>书架</code>。
+对应的主题即<code>Theme.Shoka</code>，可以说是为了笔记阅读而生的主题。
+样式严重参考Bear，部分代码严重参考<a href="https://github.com/theme-next/" target="_blank" rel="noopener noreffer ">NexT</a>。</p>
+<p>Hexo的默认及常用渲染器均使用<code>highlight.js</code>进行代码高亮，而我喜欢<code>Prism.js</code>，故重写了一个渲染器配合主题食用。
+渲染器取名<code>multi</code>，因为集成了很多很多很多<code>markdown-it</code>插件，以及压缩静态文件的功能。
+（最新版的默认渲染器也支持<code>Prism.js</code>了，可喜可贺，但不想用，哈哈哈哈哈哈哈</p>
+<p>墙内Github Pages访问速度时而感人，所以用了<a href="http://www.jsdelivr.com/" target="_blank" rel="noopener noreffer ">jsDelivr</a>加速，主要是因为它可以按需合并依赖文件。</p>
+<h1 id="快速安装">快速安装</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># cd your-blog</span>
+</span></span><span class="line"><span class="cl">git clone https://github.com/amehime/hexo-theme-shoka.git ./themes/shoka
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>打开主题目录，内有<code>example</code>文件夹，提供了配置文件的demo供参考。</p>
+<h1 id="安装依赖插件">安装依赖插件</h1>
+<p>在应用主题之前，必须至少安装 <a href="https://github.com/amehime/hexo-renderer-multi-markdown-it" target="_blank" rel="noopener noreffer ">hexo-renderer-multi-markdown-it</a> 渲染插件 和 <a href="https://www.npmjs.com/package/hexo-autoprefixer" target="_blank" rel="noopener noreffer ">hexo-autoprefixer</a>。</p>
+<p><a href="dependents/" rel="">插件安装与配置教程戳此</a></p>
+<h1 id="应用主题">应用主题</h1>
+<h2 id="修改站点配置">修改站点配置</h2>
+<p>修改站点配置文件<code>&lt;root&gt;/_config.yml</code>，把主题改为 <code>shoka</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">theme</span><span class="p">:</span><span class="w"> </span><span class="l">shoka</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="修改主题配置">修改主题配置</h2>
+<p>主题配置的所有参数在<code>&lt;root&gt;/themes/shoka/_config.yml</code>文件中。</p>
+<p>为了方便主题升级，请在根目录新建一个yml文件，命名为<code>_config.shoka.yml</code>。
+也就是说，所有主题的自定义配置均保存于<code>&lt;root&gt;/_config.shoka.yml</code>文件。</p>
+<p><a href="config/" rel="">主题的基础配置可以参考这里</a>
+<a href="display/" rel="">界面显示相关的配置参考这里</a></p>
+<h1 id="更新记录">更新记录</h1>
+<p>标签含义：
+❗ 需要手动操作的更新信息
+⚠️ 需要注意的更新信息
+🔧 已修复的问题
+⌛ TODO</p>
+<h2 id="024--025">0.2.4 👉 0.2.5</h2>
+<p>💡  避免直接修改主题文件，添加各种自定义：</p>
+<ul>
+<li><a href="display/#%e8%87%aa%e5%ae%9a%e4%b9%89%e9%a1%b5%e9%9d%a2%e9%85%8d%e8%89%b2" rel="">样式</a>：包括配色、<a href="config/#iconfont%e5%9b%be%e6%a0%87" rel="">icon</a>、其他自定义样式</li>
+<li>图片：包括<a href="display/#%e8%87%aa%e5%ae%9a%e4%b9%89%e4%b8%bb%e9%a2%98%e5%9b%be%e7%89%87" rel="">主题图片</a>、<a href="config/#%e9%9a%8f%e6%9c%ba%e5%9b%be%e5%ba%93" rel="">随机图库</a></li>
+</ul>
+<p>🔧 修复一些BUG</p>
+<h2 id="023--024">0.2.3 👉 0.2.4</h2>
+<p>⚠️ <strong>评论功能更新</strong></p>
+<ul>
+<li>MiniValine魔改版更新至beta10，修改过主题默认<code>_config.yml</code>的同学，记得更新末尾的<code>vendors</code>到最新哦</li>
+<li>❗ 评论相关的配置有更新，<a href="config/#%e6%96%87%e7%ab%a0%e8%af%84%e8%ae%ba" rel="">配置戳此</a>
+<ul>
+<li>主要增加的Tag配置，现在可以各种自定义啦</li>
+</ul>
+</li>
+</ul>
+<p>⚠️ 配置新增</p>
+<ul>
+<li>夜间模式<code>darkmode</code>，<a href="config/#%e5%a4%9c%e9%97%b4%e6%a8%a1%e5%bc%8f" rel="">配置戳此</a></li>
+<li>自动定位<code>auto_scroll</code>，<a href="config/#%e8%87%aa%e5%8a%a8%e5%ae%9a%e4%bd%8d" rel="">配置戳此</a></li>
+<li>图床API设置<code>image_server</code>，<a href="config/#%e9%9a%8f%e6%9c%ba%e5%9b%be%e5%ba%93" rel="">配置戳此</a></li>
+</ul>
+<p>⚠️ 背景音乐功能增强，<a href="config/#%e8%83%8c%e6%99%af%e9%9f%b3%e4%b9%90" rel="">配置戳此</a></p>
+<ul>
+<li>可以添加多个播放列表</li>
+<li>加了一些控制按钮</li>
+</ul>
+<p>⚠️ 增加<code>media</code>标签，在文章中插入音频和视频播放列表，<a href="special/#media%e5%a4%9a%e5%aa%92%e4%bd%93" rel="">方法戳此</a>
+⌛  视频播放器有待增强（显示分段标签，字幕）</p>
+<p>🔧 随机图库支持非渣浪图床的任意图片
+🔧 还有许多小BUG</p>
+<h2 id="022--023">0.2.2 👉 0.2.3</h2>
+<p>❗ 增加主题文件外自定义语言包的功能，<a href="display/#%e8%87%aa%e5%ae%9a%e4%b9%89%e8%af%ad%e8%a8%80%e5%8c%85" rel="">配置戳此</a>
+🔧 提高低版本浏览器兼容性</p>
+<h2 id="021--022">0.2.1 👉 0.2.2</h2>
+<p>⚠️ 弃用<code>mediumzoom</code>，改成<code>fancybox</code>，<a href="display/#%e5%9b%be%e7%89%87%e5%b1%95%e7%a4%ba%e4%b8%8e%e7%9b%b8%e5%86%8c" rel="">配置戳此</a>
+💡  增加语言包：<code>繁体中文</code>和<code>日语</code>
+💡  quiz功能优化，根据语言显示题型标签
+🔧 修复评论功能中反复初始化leancloud-storage
+🔧 修复<code>audio: false</code>时不能隐藏播放按钮、停止播放</p>
+<h2 id="02--021">0.2 👉 0.2.1</h2>
+<p>⚠️ 配置文件添加 <code>loader</code> 参数，<a href="config/#%e5%8a%a0%e8%bd%bd%e5%8a%a8%e7%94%bb" rel="">配置戳此</a>
+💡  二级list区别显示
+🔧 修复浏览位置定位BUG
+🔧 修复firework动画延迟
+🔧 优化评论功能</p>
+<h2 id="019--02">0.1.9 👉 0.2</h2>
+<p>⚠️  <strong>评论功能大改</strong></p>
+<ul>
+<li>弃用不开源的Valine，改用MiniValine，并且进行了魔改，<a href="https://github.com/amehime/MiniValine" target="_blank" rel="noopener noreffer ">项目戳此</a>
+主要是大量压缩了代码，弃用一些花里胡哨的功能，又加了一些别的花里胡哨的功能。</li>
+<li>为防止泄露用户邮箱、IP等隐私信息，弃用QQ号获取昵称及头像。
+❗ 同时需要手动进行一些迁移，<a href="https://github.com/imaegoo/Valine" target="_blank" rel="noopener noreffer ">具体步骤戳此</a></li>
+<li>❗ 评论相关的配置亦有更新，<a href="config/#%e6%96%87%e7%ab%a0%e8%af%84%e8%ae%ba" rel="">配置戳此</a></li>
+</ul>
+<p>⚠️ 增加单击页面烟花效果，<a href="config/#%e9%a1%b5%e9%9d%a2%e7%89%b9%e6%95%88" rel="">配置戳此</a>
+💡  弃用Velocity，改用anime.js，方便未来添加更多!!花里胡哨的!!功能!!严重拖慢页面滑行速度!!
+🔧 新增多枚icon，包括豆瓣<code>i-douban</code>等
+🔧 一些显示问题</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 0001-01-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/theme-shoka-doc/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/theme-shoka-doc/" data-title="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明" data-via="xxxx" data-hashtags="Hexo,教程"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/theme-shoka-doc/" data-hashtag="Hexo"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/theme-shoka-doc/" data-title="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/theme-shoka-doc/" data-title="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/theme-shoka-doc/" data-title="Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/hexo/">Hexo</a>,&nbsp;<a href="/tags/%E6%95%99%E7%A8%8B/">教程</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/ip%E8%8C%83%E5%9B%B4%E8%BD%ACcidr/" class="prev" rel="prev" title="IP范围转CIDR"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>IP范围转CIDR</a>
+            <a href="/hello-world/" class="next" rel="next" title="Hello World">Hello World<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

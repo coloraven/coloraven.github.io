@@ -1,0 +1,63 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>CentOS - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/centos/</link>
+        <description>CentOS - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/centos/" rel="self" type="application/rss+xml" /><item>
+    <title>CentOS 8 开关端口</title>
+    <link>http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/</guid>
+    <description><![CDATA[来源参考 查看防火墙某个端口是否开放 1 firewall-cmd --query-port=3306/tcp 开放防火墙端口3306 1 firewall-cmd --zone=public --add-port=3306/tcp --permanent 注意：开放端口后要重启防火墙生效 重启防火墙 1 systemctl restart firewalld 关闭防火墙端口 1 firewall-cmd]]></description>
+</item>
+<item>
+    <title>CentOS挂载NTFS分区</title>
+    <link>http://example.org/centos%E6%8C%82%E8%BD%BDntfs%E5%88%86%E5%8C%BA/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/centos%E6%8C%82%E8%BD%BDntfs%E5%88%86%E5%8C%BA/</guid>
+    <description><![CDATA[CentOS挂载NTFS分区：https://my.oschina.net/u/4364192/blog/3326016 先安装ntfspro]]></description>
+</item>
+<item>
+    <title>将CentOS、RHEL 7/8引导到紧急模式（Emergency mode）/恢复模式（Recovery mode）</title>
+    <link>http://example.org/%E5%B0%86centos-78rhel-78%E5%BC%95%E5%AF%BC%E5%88%B0%E7%B4%A7%E6%80%A5%E6%A8%A1%E5%BC%8F%E6%81%A2%E5%A4%8D%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E5%B0%86centos-78rhel-78%E5%BC%95%E5%AF%BC%E5%88%B0%E7%B4%A7%E6%80%A5%E6%A8%A1%E5%BC%8F%E6%81%A2%E5%A4%8D%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+    <description><![CDATA[作为Linux管理员，您可能需要对某些实例进行故障排除和修复引导问题，这通常是通过从Grub菜单将系统引导到紧急模式（Emergency mo]]></description>
+</item>
+<item>
+    <title>CF默认转发的端口列表</title>
+    <link>http://example.org/cf%E9%BB%98%E8%AE%A4%E8%BD%AC%E5%8F%91%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%88%97%E8%A1%A8/</link>
+    <pubDate>Wed, 14 Jul 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/cf%E9%BB%98%E8%AE%A4%E8%BD%AC%E5%8F%91%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%88%97%E8%A1%A8/</guid>
+    <description><![CDATA[...]]></description>
+</item>
+<item>
+    <title>CentOS“连接被对方重设”的解决方法</title>
+    <link>http://example.org/centos%E8%BF%9E%E6%8E%A5%E8%A2%AB%E5%AF%B9%E6%96%B9%E9%87%8D%E8%AE%BE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/centos%E8%BF%9E%E6%8E%A5%E8%A2%AB%E5%AF%B9%E6%96%B9%E9%87%8D%E8%AE%BE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
+    <description><![CDATA[curl: 56 Recv failure: 连接被对方重设 curl56 Recv failure: Connection reset by peer 1 2 systemctl disable firewalld systemctl stop firewalld]]></description>
+</item>
+<item>
+    <title>centos8修改网络配置</title>
+    <link>http://example.org/centos8%E4%BF%AE%E6%94%B9%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/centos8%E4%BF%AE%E6%94%B9%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/</guid>
+    <description><![CDATA[centos8已经发布了，下载了一个体验一下，新安装好的centos8默认网卡是没有启动的，安装好后需要先配置网络。在/etc/syscon]]></description>
+</item>
+<item>
+    <title>centos安装zsh及其插件</title>
+    <link>http://example.org/centos%E5%AE%89%E8%A3%85zsh%E5%8F%8A%E5%85%B6%E6%8F%92%E4%BB%B6/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/centos%E5%AE%89%E8%A3%85zsh%E5%8F%8A%E5%85%B6%E6%8F%92%E4%BB%B6/</guid>
+    <description><![CDATA[1 2 3 4 5 6 7 8 9 10 11 12 dnf install util-linux-user -y yum update &amp;&amp; yum install -y zsh git sh -c &#34;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&#34; chsh -s $(which zsh) sed -i &#39;/^ZSH_THEME=/c\ZSH_THEME=&#34;ys&#34;&#39; ~/.zshrc source ~/.zshrc git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions git clone https://github.com/zsh-users/zsh-completions $ZSH_CUSTOM/plugins/zsh-completions [ -z &#34;`grep &#34;autoload -U compinit &amp;&amp; compinit&#34; ~/.zshrc`&#34; ] &amp;&amp; echo &#34;autoload -U compinit &amp;&amp; compinit&#34; &gt;&gt; ~/.zshrc]]></description>
+</item>
+</channel>
+</rss>

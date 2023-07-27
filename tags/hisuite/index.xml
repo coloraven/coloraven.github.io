@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>hisuite - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/hisuite/</link>
+        <description>hisuite - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 29 Aug 2021 15:04:21 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/hisuite/" rel="self" type="application/rss+xml" /><item>
+    <title>华为Hisuite备份解密</title>
+    <link>http://example.org/%E5%8D%8E%E4%B8%BAhisuite%E5%A4%87%E4%BB%BD%E8%A7%A3%E5%AF%86/</link>
+    <pubDate>Sun, 29 Aug 2021 15:04:21 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E5%8D%8E%E4%B8%BAhisuite%E5%A4%87%E4%BB%BD%E8%A7%A3%E5%AF%86/</guid>
+    <description><![CDATA[最近在写东西的时候需要以前一个旧手机中的素材，幸运的是旧手机进行了全量备份，不幸的是手机不在了，而备份又是加密的文件（enc格式），需要解密]]></description>
+</item>
+</channel>
+</rss>

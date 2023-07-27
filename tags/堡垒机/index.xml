@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>堡垒机 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E5%A0%A1%E5%9E%92%E6%9C%BA/</link>
+        <description>堡垒机 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/%E5%A0%A1%E5%9E%92%E6%9C%BA/" rel="self" type="application/rss+xml" /><item>
+    <title>关于堡垒机</title>
+    <link>http://example.org/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/</guid>
+    <description><![CDATA[来源：https://github.com/perfectstorm88/bblog/issues/5#关于未来的趋势看法 索引 前言 开发环境 堡]]></description>
+</item>
+</channel>
+</rss>

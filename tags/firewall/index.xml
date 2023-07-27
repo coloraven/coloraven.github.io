@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>FireWall - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/firewall/</link>
+        <description>FireWall - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/firewall/" rel="self" type="application/rss+xml" /><item>
+    <title>CentOS 8 开关端口</title>
+    <link>http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/</guid>
+    <description><![CDATA[来源参考 查看防火墙某个端口是否开放 1 firewall-cmd --query-port=3306/tcp 开放防火墙端口3306 1 firewall-cmd --zone=public --add-port=3306/tcp --permanent 注意：开放端口后要重启防火墙生效 重启防火墙 1 systemctl restart firewalld 关闭防火墙端口 1 firewall-cmd]]></description>
+</item>
+</channel>
+</rss>

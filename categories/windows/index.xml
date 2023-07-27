@@ -1,0 +1,31 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Windows - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/windows/</link>
+        <description>Windows - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 19 Sep 2021 14:58:23 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/windows/" rel="self" type="application/rss+xml" /><item>
+    <title>Win10资源管理器默认大小设置</title>
+    <link>http://example.org/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/</link>
+    <pubDate>Sun, 19 Sep 2021 14:58:23 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/win10%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%99%A8%E9%BB%98%E8%AE%A4%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/</guid>
+    <description><![CDATA[解决方案来源：https://bbs.pcbeta.com/forum.php?mod=viewthread&amp;tid=1785990]]></description>
+</item>
+<item>
+    <title>Win10数字激活</title>
+    <link>http://example.org/win10%E6%95%B0%E5%AD%97%E6%BF%80%E6%B4%BB/</link>
+    <pubDate>Sun, 19 Sep 2021 14:39:59 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/win10%E6%95%B0%E5%AD%97%E6%BF%80%E6%B4%BB/</guid>
+    <description><![CDATA[https://wwi.lanzoui.com/b05gumbe 密码:9xum 工具地址]]></description>
+</item>
+<item>
+    <title>启用备用系统</title>
+    <link>http://example.org/%E5%90%AF%E7%94%A8%E5%A4%87%E7%94%A8%E7%B3%BB%E7%BB%9F/</link>
+    <pubDate>Thu, 16 Sep 2021 09:34:51 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E5%90%AF%E7%94%A8%E5%A4%87%E7%94%A8%E7%B3%BB%E7%BB%9F/</guid>
+    <description><![CDATA[安装到移动硬盘的方式 在正常的windows系统中使用rufus工具写入镜像到移动硬盘 rufus工具设置 设置rufus，以显示移动硬盘 默认情况]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,87 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Linux - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/linux/</link>
+        <description>Linux - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 16 Mar 2023 13:57:13 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/linux/" rel="self" type="application/rss+xml" /><item>
+    <title>Windows下恢复Linux格式硬盘数据记录</title>
+    <link>http://example.org/windows%E4%B8%8B%E6%81%A2%E5%A4%8Dlinux%E6%A0%BC%E5%BC%8F%E7%A1%AC%E7%9B%98%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/</link>
+    <pubDate>Thu, 16 Mar 2023 13:57:13 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/windows%E4%B8%8B%E6%81%A2%E5%A4%8Dlinux%E6%A0%BC%E5%BC%8F%E7%A1%AC%E7%9B%98%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/</guid>
+    <description><![CDATA[背景 小主机（CentOS 7）挂载移动固态硬盘，有次重启系统后，突然开不了机，发现硬盘盒不亮灯了，平时数据都存在挂载的移动固态硬盘里，所以估计]]></description>
+</item>
+<item>
+    <title>Win下利用DockerDesktop打造Linux开发环境</title>
+    <link>http://example.org/win%E4%B8%8B%E5%88%A9%E7%94%A8dockerdesktop%E6%89%93%E9%80%A0linux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
+    <pubDate>Fri, 23 Dec 2022 15:09:19 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/win%E4%B8%8B%E5%88%A9%E7%94%A8dockerdesktop%E6%89%93%E9%80%A0linux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
+    <description><![CDATA[开发环境要求 基于Ubuntu或者Debian，系统源改为国内源， 系统时间为东八区 安装node、golang、python，源都改为国内源 使用]]></description>
+</item>
+<item>
+    <title>手摸手带你Docker从入门到实践</title>
+    <link>http://example.org/%E6%89%8B%E6%91%B8%E6%89%8B%E5%B8%A6%E4%BD%A0-docker%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/</link>
+    <pubDate>Mon, 16 Aug 2021 18:50:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E6%89%8B%E6%91%B8%E6%89%8B%E5%B8%A6%E4%BD%A0-docker%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/</guid>
+    <description><![CDATA[手摸手带你 Docker 从入门到实践 在下最近遇到要在服务器上安装 Mysql、Nginx、EasyMock 等工具的场景，这里记录一下我使用 Docker 安装的过程，希]]></description>
+</item>
+<item>
+    <title>CentOS 8 开关端口</title>
+    <link>http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/</guid>
+    <description><![CDATA[来源参考 查看防火墙某个端口是否开放 1 firewall-cmd --query-port=3306/tcp 开放防火墙端口3306 1 firewall-cmd --zone=public --add-port=3306/tcp --permanent 注意：开放端口后要重启防火墙生效 重启防火墙 1 systemctl restart firewalld 关闭防火墙端口 1 firewall-cmd]]></description>
+</item>
+<item>
+    <title>CentOS挂载NTFS分区</title>
+    <link>http://example.org/centos%E6%8C%82%E8%BD%BDntfs%E5%88%86%E5%8C%BA/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/centos%E6%8C%82%E8%BD%BDntfs%E5%88%86%E5%8C%BA/</guid>
+    <description><![CDATA[CentOS挂载NTFS分区：https://my.oschina.net/u/4364192/blog/3326016 先安装ntfspro]]></description>
+</item>
+<item>
+    <title>Docker 搭建Filerun</title>
+    <link>http://example.org/docker-%E6%90%AD%E5%BB%BAfilerun/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/docker-%E6%90%AD%E5%BB%BAfilerun/</guid>
+    <description><![CDATA[filerun 官方docker： https://hub.docker.com/r/afian/filerun/ 1、预先搭建好mariadb容器 2、使用以下命令运行filerun容器 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 docker run -itd --name filerun \ --restart=unless-stopped \]]></description>
+</item>
+<item>
+    <title>Linux设置全局代理</title>
+    <link>http://example.org/linux%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E4%BB%A3%E7%90%86/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/linux%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E4%BB%A3%E7%90%86/</guid>
+    <description><![CDATA[cover: 所有shell 这种情况可以修改/etc/profile、/etc/environment、、HOME/.bashrc、HOME/.zshr]]></description>
+</item>
+<item>
+    <title>Nginx负载均衡</title>
+    <link>http://example.org/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</guid>
+    <description><![CDATA[一、Nginx负载均衡 1、示意图 2、好处 均摊请求，让服务端整体吞吐率提高，满足不断增长的业务需求。 相比于单点服务，当其中一台服务器挂掉后，还]]></description>
+</item>
+<item>
+    <title>关于堡垒机</title>
+    <link>http://example.org/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/</guid>
+    <description><![CDATA[来源：https://github.com/perfectstorm88/bblog/issues/5#关于未来的趋势看法 索引 前言 开发环境 堡]]></description>
+</item>
+<item>
+    <title>安装配置Filebrowser</title>
+    <link>http://example.org/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEfilebrowser/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEfilebrowser/</guid>
+    <description><![CDATA[docker安装 1 2 3 4 5 6 7 docker run -itd \ --name=filebrowser \ # 镜像别名 -v /:/srv \ # filebrowser 管理的路径 -v /etc/filebrowser/config.json:/etc/config.json \ # filebrowser 配置 -v /etc/filebrowser/database.db:/etc/database.db \ # filebrowser 数据库 -p 80:80 \ # filebrowser 映射端口 filebrowser/filebrowser 一键安装脚本,下面]]></description>
+</item>
+</channel>
+</rss>

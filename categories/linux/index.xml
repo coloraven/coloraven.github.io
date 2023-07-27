@@ -1,0 +1,87 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Linux - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/linux/</link>
+        <description>Linux - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 23 Dec 2022 15:09:19 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/linux/" rel="self" type="application/rss+xml" /><item>
+    <title>Win下利用DockerDesktop打造Linux开发环境</title>
+    <link>http://example.org/win%E4%B8%8B%E5%88%A9%E7%94%A8dockerdesktop%E6%89%93%E9%80%A0linux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
+    <pubDate>Fri, 23 Dec 2022 15:09:19 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/win%E4%B8%8B%E5%88%A9%E7%94%A8dockerdesktop%E6%89%93%E9%80%A0linux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
+    <description><![CDATA[开发环境要求 基于Ubuntu或者Debian，系统源改为国内源， 系统时间为东八区 安装node、golang、python，源都改为国内源 使用]]></description>
+</item>
+<item>
+    <title>history命令显示时间</title>
+    <link>http://example.org/history%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%B6%E9%97%B4/</link>
+    <pubDate>Fri, 27 Aug 2021 09:18:40 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/history%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%B6%E9%97%B4/</guid>
+    <description><![CDATA[1 2 echo &#39;export HISTTIMEFORMAT=&#34;%F %T &#34;&#39; &gt;&gt; /etc/bashrc source /etc/bashrc]]></description>
+</item>
+<item>
+    <title>Ubuntu修改SSH欢迎界面</title>
+    <link>http://example.org/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/</link>
+    <pubDate>Fri, 27 Aug 2021 09:16:35 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/ubuntu%E4%BF%AE%E6%94%B9ssh%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2/</guid>
+    <description><![CDATA[Ubuntu 与别的 Linux 不同，直接修改/etc/motd文件重登录后无效。因为这里 /etc/motd 是一个符号链接，指向 /var/run/motd，应该是一个启动后在生成]]></description>
+</item>
+<item>
+    <title>CentOS 8 开关端口</title>
+    <link>http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/centos-8-%E5%BC%80%E5%85%B3%E7%AB%AF%E5%8F%A3/</guid>
+    <description><![CDATA[来源参考 查看防火墙某个端口是否开放 1 firewall-cmd --query-port=3306/tcp 开放防火墙端口3306 1 firewall-cmd --zone=public --add-port=3306/tcp --permanent 注意：开放端口后要重启防火墙生效 重启防火墙 1 systemctl restart firewalld 关闭防火墙端口 1 firewall-cmd]]></description>
+</item>
+<item>
+    <title>CentOS挂载NTFS分区</title>
+    <link>http://example.org/centos%E6%8C%82%E8%BD%BDntfs%E5%88%86%E5%8C%BA/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/centos%E6%8C%82%E8%BD%BDntfs%E5%88%86%E5%8C%BA/</guid>
+    <description><![CDATA[CentOS挂载NTFS分区：https://my.oschina.net/u/4364192/blog/3326016 先安装ntfspro]]></description>
+</item>
+<item>
+    <title>ssh自动登陆的实现</title>
+    <link>http://example.org/ssh%E8%87%AA%E5%8A%A8%E7%99%BB%E9%99%86%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/ssh%E8%87%AA%E5%8A%A8%E7%99%BB%E9%99%86%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+    <description><![CDATA[Linux系统shell脚本实现： https://www.cnblogs.com/zhenbianshu/p/5867440.html 需要先安装expect https://blog.csdn.net/wangtaoking1/article/details/78268574 Python脚本实现： https://mp.weixin.qq.com/s/vwmAa3kDc1zYdyTE18aA5w]]></description>
+</item>
+<item>
+    <title>ssh防爆破</title>
+    <link>http://example.org/ssh%E9%98%B2%E7%88%86%E7%A0%B4/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/ssh%E9%98%B2%E7%88%86%E7%A0%B4/</guid>
+    <description><![CDATA[来源：https://github.com/FunctionClub/Fail2ban 原理 Fail2ban会通过检查日志来匹配错误信息，从而]]></description>
+</item>
+<item>
+    <title>关于堡垒机</title>
+    <link>http://example.org/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/</guid>
+    <description><![CDATA[来源：https://github.com/perfectstorm88/bblog/issues/5#关于未来的趋势看法 索引 前言 开发环境 堡]]></description>
+</item>
+<item>
+    <title>将CentOS、RHEL 7/8引导到紧急模式（Emergency mode）/恢复模式（Recovery mode）</title>
+    <link>http://example.org/%E5%B0%86centos-78rhel-78%E5%BC%95%E5%AF%BC%E5%88%B0%E7%B4%A7%E6%80%A5%E6%A8%A1%E5%BC%8F%E6%81%A2%E5%A4%8D%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E5%B0%86centos-78rhel-78%E5%BC%95%E5%AF%BC%E5%88%B0%E7%B4%A7%E6%80%A5%E6%A8%A1%E5%BC%8F%E6%81%A2%E5%A4%8D%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+    <description><![CDATA[作为Linux管理员，您可能需要对某些实例进行故障排除和修复引导问题，这通常是通过从Grub菜单将系统引导到紧急模式（Emergency mo]]></description>
+</item>
+<item>
+    <title>服务在“内网”，nginx记录用户源IP和源端口</title>
+    <link>http://example.org/%E6%9C%8D%E5%8A%A1%E5%9C%A8%E5%86%85%E7%BD%91nginx%E8%AE%B0%E5%BD%95%E7%94%A8%E6%88%B7%E6%BA%90ip%E5%92%8C%E6%BA%90%E7%AB%AF%E5%8F%A3/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E6%9C%8D%E5%8A%A1%E5%9C%A8%E5%86%85%E7%BD%91nginx%E8%AE%B0%E5%BD%95%E7%94%A8%E6%88%B7%E6%BA%90ip%E5%92%8C%E6%BA%90%E7%AB%AF%E5%8F%A3/</guid>
+    <description><![CDATA[转载自https://www.cnblogs.com/linuxk/p/12033796.html 服务器架构前面加了防火墙，Nginx如何获]]></description>
+</item>
+</channel>
+</rss>

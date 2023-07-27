@@ -1,0 +1,23 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>数据库 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+        <description>数据库 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 07 Jul 2023 12:54:33 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="self" type="application/rss+xml" /><item>
+    <title>Postgres快速导入csv文件</title>
+    <link>http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/</link>
+    <pubDate>Fri, 07 Jul 2023 12:54:33 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/</guid>
+    <description><![CDATA[psql的copy命令导入 第一步 连接数据库： psql -U &lt;user_name&gt; -d &lt;database_name&gt; -h 远程数据库IP地址 -p 端口， psql位于安装目录的bin目录下，建议将路径X:\XXX]]></description>
+</item>
+<item>
+    <title>DuckDB学习笔记</title>
+    <link>http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+    <pubDate>Mon, 29 May 2023 10:55:39 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+    <description><![CDATA[概述 貌似duckdb能自动识别文件的encoding。 实现emeditor的列拆分功能 关键函数 regexp_matches，查询字符串是否包]]></description>
+</item>
+</channel>
+</rss>

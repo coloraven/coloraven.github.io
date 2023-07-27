@@ -1,0 +1,47 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>编程 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E7%BC%96%E7%A8%8B/</link>
+        <description>编程 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 02 Mar 2022 22:12:44 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/%E7%BC%96%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
+    <title>Python pip 离线安装 package 方法总结（以 TensorFlow 为例）</title>
+    <link>http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/</link>
+    <pubDate>Wed, 02 Mar 2022 22:12:44 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/</guid>
+    <description><![CDATA[文章背景 Python 环境安装 package，一般采用 pip 命令在线从 PyPI 是安装，这也是最方便的途径。但在某些情况下，要为一台离线的机器（比如在内网运行的一台]]></description>
+</item>
+<item>
+    <title>Python执行JS的几种方式</title>
+    <link>http://example.org/python%E6%89%A7%E8%A1%8Cjs%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/</link>
+    <pubDate>Wed, 16 Feb 2022 23:00:47 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python%E6%89%A7%E8%A1%8Cjs%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/</guid>
+    <description><![CDATA[https://juejin.cn/post/7015603661225066532 1.PyExecJS 经测试，比js2py快5倍多 安装依赖 pip3 install PyExecJS 使用方式 add.js 文件 1 2 3 4 function add(a,b){ return a+b; } 复制代码 py 文件去调用 1 2 3 4 5 6 7 8 import execjs with open(&#39;add.js&#39;, &#39;r&#39;, encoding=&#39;UTF-8&#39;) as f: js_code = f.read() context =]]></description>
+</item>
+<item>
+    <title>GO语言学习历程</title>
+    <link>http://example.org/go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B/</link>
+    <pubDate>Thu, 13 Jan 2022 22:33:24 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B/</guid>
+    <description><![CDATA[GO语言教程 - 菜鸟教程 中国最可靠的 Go 模块代理 《365 天深入理解 Go 语言》 《Golang 学习资源大全》]]></description>
+</item>
+<item>
+    <title>轻松理解 Python中 的 async-await 概念</title>
+    <link>http://example.org/%E8%BD%BB%E6%9D%BE%E7%90%86%E8%A7%A3-python%E4%B8%AD-%E7%9A%84-async-await-%E6%A6%82%E5%BF%B5/</link>
+    <pubDate>Sat, 27 Nov 2021 07:21:36 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E8%BD%BB%E6%9D%BE%E7%90%86%E8%A7%A3-python%E4%B8%AD-%E7%9A%84-async-await-%E6%A6%82%E5%BF%B5/</guid>
+    <description><![CDATA[前言 写这篇文章是受 xinghun85 的这篇博客 的启发, 但是人家后面写的东西跳跃太快, 有点没看懂, 自己在此做一个补充. 我希望能用一个最平易近人的例子, 把 Python 协程]]></description>
+</item>
+<item>
+    <title>python3异步编程async/await原理解释的比较详细的文章</title>
+    <link>http://example.org/await%E5%8E%9F%E7%90%86%E8%A7%A3%E9%87%8A%E7%9A%84%E6%AF%94%E8%BE%83%E8%AF%A6%E7%BB%86%E7%9A%84%E6%96%87%E7%AB%A0/</link>
+    <pubDate>Sat, 27 Nov 2021 07:06:09 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/await%E5%8E%9F%E7%90%86%E8%A7%A3%E9%87%8A%E7%9A%84%E6%AF%94%E8%BE%83%E8%AF%A6%E7%BB%86%E7%9A%84%E6%96%87%E7%AB%A0/</guid>
+    <description><![CDATA[身为Python核心开发组的成员，我对于这门语言的各种细节充满好奇。尽管我很清楚自己不可能对这门语言做到全知全能，但哪怕是为了能够解决各种i]]></description>
+</item>
+</channel>
+</rss>

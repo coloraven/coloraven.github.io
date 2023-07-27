@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>geo - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/geo/</link>
+        <description>geo - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 11 Mar 2023 22:58:24 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/geo/" rel="self" type="application/rss+xml" /><item>
+    <title>计算多边形镂空区域的坐标</title>
+    <link>http://example.org/%E8%AE%A1%E7%AE%97%E5%A4%9A%E8%BE%B9%E5%BD%A2%E9%95%82%E7%A9%BA%E5%8C%BA%E5%9F%9F%E7%9A%84%E5%9D%90%E6%A0%87/</link>
+    <pubDate>Sat, 11 Mar 2023 22:58:24 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E8%AE%A1%E7%AE%97%E5%A4%9A%E8%BE%B9%E5%BD%A2%E9%95%82%E7%A9%BA%E5%8C%BA%E5%9F%9F%E7%9A%84%E5%9D%90%E6%A0%87/</guid>
+    <description><![CDATA[背景 已知多边形A（{&quot;Type&quot;:&quot;MultiPolygon&quot;}）以及其包含的多个子多边形（均为Mu]]></description>
+</item>
+</channel>
+</rss>

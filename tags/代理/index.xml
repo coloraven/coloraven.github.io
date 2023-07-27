@@ -1,0 +1,31 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>代理 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E4%BB%A3%E7%90%86/</link>
+        <description>代理 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 04 Oct 2022 23:43:40 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/%E4%BB%A3%E7%90%86/" rel="self" type="application/rss+xml" /><item>
+    <title>trojan搭建</title>
+    <link>http://example.org/trojan%E6%90%AD%E5%BB%BA/</link>
+    <pubDate>Tue, 04 Oct 2022 23:43:40 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/trojan%E6%90%AD%E5%BB%BA/</guid>
+    <description><![CDATA[trojan安装 先更新系统证书，否则再申请网站证书时会失败 1 yum update ca-certificates 再拉取运行脚本 1 source &lt;(curl -sL https://git.io/trojan-install) No route to host错误的解决 症状：客户端能连上，一切正]]></description>
+</item>
+<item>
+    <title>Python修改Windows系统代理的方法</title>
+    <link>http://example.org/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+    <pubDate>Thu, 18 Nov 2021 22:48:59 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+    <description><![CDATA[来源：https://www.jianshu.com/p/49c444d9a435 &gt; 声明下：不同于网络上千百篇方法，下文是经过各种严格测试都]]></description>
+</item>
+<item>
+    <title>【转载】Python遭遇代理错误的解决办法</title>
+    <link>http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+    <pubDate>Thu, 18 Nov 2021 16:41:40 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+    <description><![CDATA[来源：https://zhuanlan.zhihu.com/p/350015032 最近遇到的一个问题，在搞清楚之后才发现这么多年的 HTTPS_PROXY 都配置错]]></description>
+</item>
+</channel>
+</rss>

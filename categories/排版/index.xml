@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>排版 - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/%E6%8E%92%E7%89%88/</link>
+        <description>排版 - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 11 Dec 2022 11:33:14 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E6%8E%92%E7%89%88/" rel="self" type="application/rss+xml" /><item>
+    <title>word排版技巧备忘</title>
+    <link>http://example.org/word%E6%8E%92%E7%89%88%E6%8A%80%E5%B7%A7%E5%A4%87%E5%BF%98/</link>
+    <pubDate>Sun, 11 Dec 2022 11:33:14 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/word%E6%8E%92%E7%89%88%E6%8A%80%E5%B7%A7%E5%A4%87%E5%BF%98/</guid>
+    <description><![CDATA[在横向页面上相同位置（相对纵向页面）设置页眉页脚 参见:https://www.lfhacks.com/tech/header-and-foo]]></description>
+</item>
+</channel>
+</rss>

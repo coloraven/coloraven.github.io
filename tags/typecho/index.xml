@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>typecho - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/typecho/</link>
+        <description>typecho - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/typecho/" rel="self" type="application/rss+xml" /><item>
+    <title>typecho博客收集</title>
+    <link>http://example.org/typecho%E5%8D%9A%E5%AE%A2%E6%94%B6%E9%9B%86/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/typecho%E5%8D%9A%E5%AE%A2%E6%94%B6%E9%9B%86/</guid>
+    <description><![CDATA[https://savokiss.com/ https://www.zmki.cn/5366.html?#webstackxz webstackmod作者 http://viggoz.com/ webstack作者 typecho框架博客 https://www.qian.blue/archives/SanQianZhiTu-random_img.html 上面博客使用的主题（Typecho-Cuteen&ndash;5]]></description>
+</item>
+</channel>
+</rss>

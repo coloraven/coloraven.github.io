@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Step.4 主题特殊功能 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Step.4 主题特殊功能" />
+<meta property="og:description" content=":::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 ::: :::info 以下介绍可以使用的markdown或者标签代码。 功能大部分基于hexo-re" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/special/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+
+<meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="Step.4 主题特殊功能"/>
+<meta name="twitter:description" content=":::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 ::: :::info 以下介绍可以使用的markdown或者标签代码。 功能大部分基于hexo-re"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/special/" /><link rel="prev" href="http://example.org/%E5%88%A4%E6%96%AD%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85check-is-the-point-in-polygon/" /><link rel="next" href="http://example.org/display/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Step.4 主题特殊功能",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/special\/"
+        },"genre": "posts","keywords": "Hexo, 教程","wordcount":  5314 ,
+        "url": "http:\/\/example.org\/special\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "xxxx"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Step.4 主题特殊功能</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/theme-shoka-documentation/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Theme Shoka Documentation</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;5314 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;11 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#使用说明">使用说明</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>:::primary
+<a href="/computer-science/note/theme-shoka-doc/" rel="">🚀快速开始</a> - <a href="/computer-science/note/theme-shoka-doc/dependents/" rel="">💌依赖插件</a> - <a href="/computer-science/note/theme-shoka-doc/config/" rel="">📌基本配置</a> - <a href="/computer-science/note/theme-shoka-doc/display/" rel="">🌈界面显示</a> - <a href="/computer-science/note/theme-shoka-doc/special/" rel=""><strong>🦄特殊功能</strong></a>
+:::</p>
+<p>:::info
+以下介绍可以使用的markdown或者标签代码。
+功能大部分基于<code>hexo-renderer-multi-markdown-it</code>渲染器，尤其是代码块的显示，与默认渲染器不兼容。
+:::</p>
+<h1 id="links-链接块"><code>links</code> 链接块</h1>
+<p>本功能参考NexT，基于Hexo Tag功能，用来建立友链或其他网址链接功能。</p>
+<p>文章中的使用格式：</p>
+<ol>
+<li>使用<code>links</code>标签块，包围<code>yml</code>语法书写的内容，字段包括</li>
+</ol>
+<p>&ndash;|&ndash;|&ndash;
+<code>site</code>|站点名称|必填
+<code>owner</code>|管理员名字|可选，默认为<code>site</code>的值
+<code>url</code>|站点链接|必填
+<code>desc</code>|站点描述|可选，默认为<code>url</code>的值
+<code>image</code>|站点图片|可选，默认为<code>images/404.png</code>
+<code>color</code>|方块颜色|可选，默认为<code>#666</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&amp;#123;% links %&amp;#125;
+</span></span><span class="line"><span class="cl">- site: #站点名称
+</span></span><span class="line"><span class="cl">  owner: #管理员名字
+</span></span><span class="line"><span class="cl">  url: #站点网址
+</span></span><span class="line"><span class="cl">  desc: #简短描述
+</span></span><span class="line"><span class="cl">  image: #一张图片
+</span></span><span class="line"><span class="cl">  color: #颜色代码
+</span></span><span class="line"><span class="cl">&amp;#123;% endlinks %&amp;#125;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>举个栗子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&amp;#123;% links %&amp;#125;
+</span></span><span class="line"><span class="cl">- site: 優萌初華
+</span></span><span class="line"><span class="cl">  owner: 霜月琉璃
+</span></span><span class="line"><span class="cl">  url: https://shoka.lostyu.me
+</span></span><span class="line"><span class="cl">  desc: 琉璃的医学 &amp; 编程笔记
+</span></span><span class="line"><span class="cl">  image: https://cdn.jsdelivr.net/gh/amehime/shoka@latest/images/avatar.jpg
+</span></span><span class="line"><span class="cl">  color: &#34;#e9546b&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">- site: 優萌初華
+</span></span><span class="line"><span class="cl">  owner: 霜月琉璃
+</span></span><span class="line"><span class="cl">  url: https://shoka.lostyu.me
+</span></span><span class="line"><span class="cl">  image: images/avatar.jpg
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">- site: 優萌初華
+</span></span><span class="line"><span class="cl">  url: https://shoka.lostyu.me
+</span></span><span class="line"><span class="cl">  desc: 琉璃的医学 &amp; 编程笔记
+</span></span><span class="line"><span class="cl">  color: &#34;#9d5b8b&#34;
+</span></span><span class="line"><span class="cl">&amp;#123;% endlinks %&amp;#125;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>{% links %}</p>
+<ul>
+<li>
+<p>site: 優萌初華
+owner: 霜月琉璃
+url: <a href="https://shoka.lostyu.me" target="_blank" rel="noopener noreffer ">https://shoka.lostyu.me</a>
+desc: 琉璃的医学 &amp; 编程笔记
+image: <a href="https://cdn.jsdelivr.net/gh/amehime/shoka@latest/images/avatar.jpg" target="_blank" rel="noopener noreffer ">https://cdn.jsdelivr.net/gh/amehime/shoka@latest/images/avatar.jpg</a>
+color: &ldquo;#e9546b&rdquo;</p>
+</li>
+<li>
+<p>site: 優萌初華
+owner: 霜月琉璃
+url: <a href="https://shoka.lostyu.me" target="_blank" rel="noopener noreffer ">https://shoka.lostyu.me</a>
+image: images/avatar.jpg</p>
+</li>
+<li>
+<p>site: 優萌初華
+url: <a href="https://shoka.lostyu.me" target="_blank" rel="noopener noreffer ">https://shoka.lostyu.me</a>
+desc: 琉璃的医学 &amp; 编程笔记
+color: &ldquo;#9d5b8b&rdquo;
+{% endlinks %}</p>
+</li>
+</ul>
+<ol start="2">
+<li>以上标签块里的内容，还可以保存到一个<code>yml</code>文件中，然后使用<code>linksfile</code>标签。
+其中，<code>path</code>位于<code>&lt;root&gt;/source</code>目录下。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&amp;#123;% linksfile [path] %&amp;#125;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>举个栗子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&amp;#123;% linksfile friends/_data.yml %&amp;#125;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="code代码块"><code>code</code>代码块</h1>
+<p>使用<code>markdown-it-prism</code>进行代码高亮，支持显示行号、行高亮<code>mark</code>、命令行提示符<code>command</code>、代码块标题。</p>
+<p>基本格式：<code>[language] [title] [url] [link text] [mark] [command]</code></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>language</td>
+<td>- 支持的语言<a href="https://prismjs.com/#supported-languages" target="_blank" rel="noopener noreffer ">戳此</a></td>
+<td>null \</td>
+</tr>
+<tr>
+<td></td>
+<td>- 如果不需要代码高亮，但希望显示代码块样式，则设为<code>raw</code></td>
+<td>\</td>
+</tr>
+<tr>
+<td></td>
+<td>- 留空或设为<code>info</code>，将不显示代码高亮和代码块样式</td>
+<td></td>
+</tr>
+<tr>
+<td>title</td>
+<td>代码块的标题文字</td>
+<td>null</td>
+</tr>
+<tr>
+<td>url</td>
+<td>代码块标题右侧显示的链接</td>
+<td>null</td>
+</tr>
+<tr>
+<td>link text</td>
+<td>上述链接显示的标题</td>
+<td>link</td>
+</tr>
+<tr>
+<td>mark</td>
+<td>行高亮显示，格式为<code>mark:行号,行号开始-行号结束,其他行号</code>。</td>
+<td>null \</td>
+</tr>
+<tr>
+<td></td>
+<td>例如<code>mark:1,4-7,10</code>，将高亮显示第1、4、5、6、7、10行</td>
+<td></td>
+</tr>
+<tr>
+<td>command</td>
+<td>命令行提示符，格式为`command:(&ldquo;提示内容&rdquo;:行号,行号</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>例如`command:(&quot;[root@localhost] $&quot;:1,9-10</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">```java 行高亮 https://shoka.lostyu.me 参考链接 mark:1,6-7
+</span></span><span class="line"><span class="cl">import java.util.Scanner;
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">Scanner in = new Scanner(System.in);
+</span></span><span class="line"><span class="cl">// 输入Scan之后，按下键盘 Alt + “/” 键，Eclipse下自动补全。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">System.out.println(in.nextLine());
+</span></span><span class="line"><span class="cl">System.out.println(&#34;Hello&#34; + &#34; world.&#34;);
+</span></span><span class="line"><span class="cl">```
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">```bash 命令行提示符 command:(&#34;[root@localhost] $&#34;:1,9-10||&#34;[admin@remotehost] #&#34;:4-6)
+</span></span><span class="line"><span class="cl">pwd
+</span></span><span class="line"><span class="cl">/usr/home/chris/bin
+</span></span><span class="line"><span class="cl">ls -la
+</span></span><span class="line"><span class="cl">total 2
+</span></span><span class="line"><span class="cl">drwxr-xr-x   2 chris  chris     11 Jan 10 16:48 .
+</span></span><span class="line"><span class="cl">drwxr--r-x  45 chris  chris     92 Feb 14 11:10 ..
+</span></span><span class="line"><span class="cl">-rwxr-xr-x   1 chris  chris    444 Aug 25  2013 backup
+</span></span><span class="line"><span class="cl">-rwxr-xr-x   1 chris  chris    642 Jan 17 14:42 deploy
+</span></span><span class="line"><span class="cl">git add -A
+</span></span><span class="line"><span class="cl">git commit -m &#34;update&#34;
+</span></span><span class="line"><span class="cl">git push
+</span></span><span class="line"><span class="cl">```
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">Scanner</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 输入Scan之后，按下键盘 Alt + “/” 键，Eclipse下自动补全。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">in</span><span class="o">.</span><span class="na">nextLine</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Hello&#34;</span> <span class="o">+</span> <span class="s">&#34; world.&#34;</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">pwd</span>
+</span></span><span class="line"><span class="cl">/usr/home/chris/bin
+</span></span><span class="line"><span class="cl">ls -la
+</span></span><span class="line"><span class="cl">total <span class="m">2</span>
+</span></span><span class="line"><span class="cl">drwxr-xr-x   <span class="m">2</span> chris  chris     <span class="m">11</span> Jan <span class="m">10</span> 16:48 .
+</span></span><span class="line"><span class="cl">drwxr--r-x  <span class="m">45</span> chris  chris     <span class="m">92</span> Feb <span class="m">14</span> 11:10 ..
+</span></span><span class="line"><span class="cl">-rwxr-xr-x   <span class="m">1</span> chris  chris    <span class="m">444</span> Aug <span class="m">25</span>  <span class="m">2013</span> backup
+</span></span><span class="line"><span class="cl">-rwxr-xr-x   <span class="m">1</span> chris  chris    <span class="m">642</span> Jan <span class="m">17</span> 14:42 deploy
+</span></span><span class="line"><span class="cl">git add -A
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;update&#34;</span>
+</span></span><span class="line"><span class="cl">git push
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="quiz-练习题与答案"><code>quiz</code> 练习题与答案</h1>
+<p>这个功能是用来显示练习题的。
+需要在Front Matter中添加<code>quiz: true</code>，以正确显示题型标签。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="o">-</span><span class="c1">--
+</span></span></span><span class="line"><span class="cl"><span class="c1">title: 练习题与答案
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">quiz</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">-</span><span class="c1">--
+</span></span></span><span class="line"><span class="cl"><span class="c1">
+</span></span></span><span class="line"><span class="cl"><span class="c1">1. 编译时多态主要指运算符重载与函数重载，而运行时多态主要指虚函数。 {.quiz .true}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">2</span><span class="p">.</span><span class="w"> </span><span class="err">有基类</span><span class="o">`</span><span class="n">SHAPE</span><span class="o">`</span><span class="err">，派生类</span><span class="o">`</span><span class="n">CIRCLE</span><span class="o">`</span><span class="err">，声明如下变量：</span><span class="w">  </span><span class="err">{</span><span class="p">.</span><span class="n">quiz</span><span class="w"> </span><span class="p">.</span><span class="n">multi</span><span class="err">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">```</span><span class="n">cpp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">SHAPE</span><span class="w"> </span><span class="n">shape1</span><span class="p">,</span><span class="o">*</span><span class="n">p1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">CIRCLE</span><span class="w"> </span><span class="n">circle1</span><span class="p">,</span><span class="o">*</span><span class="n">q1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">```</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="err">下列哪些项是“派生类对象替换基类对象”。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">`</span><span class="n">p1</span><span class="o">=&amp;</span><span class="n">circle1</span><span class="p">;</span><span class="o">`</span><span class="w"> </span><span class="err">{</span><span class="p">.</span><span class="n">correct</span><span class="err">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">`</span><span class="n">q1</span><span class="o">=&amp;</span><span class="n">shape1</span><span class="p">;</span><span class="o">`</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">`</span><span class="n">shape1</span><span class="o">=</span><span class="n">circle1</span><span class="p">;</span><span class="o">`</span><span class="w"> </span><span class="err">{</span><span class="p">.</span><span class="n">correct</span><span class="err">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="o">`</span><span class="n">circle1</span><span class="o">=</span><span class="n">shape1</span><span class="p">;</span><span class="o">`</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">{</span><span class="p">.</span><span class="n">options</span><span class="err">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">&gt;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="err">✔️</span><span class="w"> </span><span class="err">令基类对象的指针指向派生类对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">&gt;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="err">❌</span><span class="w"> </span><span class="err">派生类指针指向基类的引用</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">&gt;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="err">✔️</span><span class="w"> </span><span class="err">派生类对象给基类对象赋值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">&gt;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="err">❌</span><span class="w"> </span><span class="err">基类对象给派生类对象赋值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">&gt;</span><span class="w"> </span><span class="err">{</span><span class="p">.</span><span class="n">options</span><span class="err">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">3</span><span class="p">.</span><span class="w"> </span><span class="err">下列叙述正确的是</span><span class="w"> </span><span class="p">[]</span><span class="err">{</span><span class="p">.</span><span class="n">gap</span><span class="err">}</span><span class="w"> </span><span class="err">。</span><span class="w"> </span><span class="err">{</span><span class="p">.</span><span class="n">quiz</span><span class="err">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="err">虚函数只能定义成无参函数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="err">虚函数不能有返回值</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="err">能定义虚构造函数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">A</span><span class="err">、</span><span class="n">B</span><span class="err">、</span><span class="n">C</span><span class="err">都不对</span><span class="w"> </span><span class="err">{</span><span class="p">.</span><span class="n">correct</span><span class="err">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">{</span><span class="p">.</span><span class="n">options</span><span class="err">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">10</span><span class="p">.</span><span class="w"> </span><span class="err">如果定义</span><span class="o">`</span><span class="kt">int</span><span class="w"> </span><span class="n">e</span><span class="o">=</span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">f</span><span class="o">=</span><span class="mi">6</span><span class="p">.</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="o">=</span><span class="mi">8</span><span class="p">.</span><span class="mi">9</span><span class="p">;</span><span class="o">`</span><span class="err">，则表达式</span><span class="w"> </span><span class="o">`</span><span class="n">f</span><span class="o">+</span><span class="kt">int</span><span class="p">(</span><span class="n">e</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="kt">int</span><span class="p">(</span><span class="n">f</span><span class="o">+</span><span class="n">g</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">%</span><span class="mi">4</span><span class="o">`</span><span class="w"> </span><span class="err">的值为</span><span class="w"> </span><span class="p">[</span><span class="mi">9</span><span class="p">.</span><span class="mi">4</span><span class="p">]</span><span class="err">{</span><span class="p">.</span><span class="n">gap</span><span class="err">}。</span><span class="w"> </span><span class="err">{</span><span class="p">.</span><span class="n">quiz</span><span class="w"> </span><span class="p">.</span><span class="n">fill</span><span class="err">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">&gt;</span><span class="w"> </span><span class="err">注意运算顺序和数据类型</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">&gt;</span><span class="w"> </span><span class="p">[</span><span class="mi">8</span><span class="p">.</span><span class="mi">4</span><span class="p">]</span><span class="err">{</span><span class="p">.</span><span class="n">mistake</span><span class="err">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>点击选项可以显示答案，以及答案解析。</p>
+<ol>
+<li>
+<p>下列叙述正确的是 []{.gap} 。 {.quiz}</p>
+<ul>
+<li>虚函数只能定义成无参函数</li>
+<li>虚函数不能有返回值</li>
+<li>能定义虚构造函数</li>
+<li>A、B、C都不对 {.correct}
+{.options}</li>
+</ul>
+</li>
+<li>
+<p>有基类<code>SHAPE</code>，派生类<code>CIRCLE</code>，声明如下变量：  {.quiz .multi}</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">SHAPE</span> <span class="n">shape1</span><span class="p">,</span><span class="o">*</span><span class="n">p1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">CIRCLE</span> <span class="n">circle1</span><span class="p">,</span><span class="o">*</span><span class="n">q1</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>下列哪些项是“派生类对象替换基类对象”。</p>
+<ul>
+<li><code>p1=&amp;circle1;</code> {.correct}</li>
+<li><code>q1=&amp;shape1;</code></li>
+<li><code>shape1=circle1;</code> {.correct}</li>
+<li><code>circle1=shape1;</code>
+{.options}</li>
+</ul>
+<blockquote>
+<ul>
+<li>✔️ 令基类对象的指针指向派生类对象</li>
+<li>❌ 派生类指针指向基类的引用</li>
+<li>✔️ 派生类对象给基类对象赋值</li>
+<li>❌ 基类对象给派生类对象赋值
+{.options}</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>编译时多态主要指运算符重载与函数重载，而运行时多态主要指虚函数。 {.quiz .true}</p>
+</li>
+<li>
+<p>如果定义<code>int e=8; double f=6.4, g=8.9;</code>，则表达式 <code>f+int(e/3*int(f+g)/2)%4</code> 的值为 [9.4]{.gap}。 {.quiz .fill}</p>
+<blockquote>
+<p>注意运算顺序和数据类型
+[8.4]{.mistake}</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="使用说明">使用说明</h2>
+<p>本功能基于<code>markdown-it-bracketed-spans</code>和<code>markdown-it-attrs</code></p>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{.quiz}</code></td>
+<td>选择题</td>
+</tr>
+<tr>
+<td><code>{.quiz .multi}</code></td>
+<td>多选题</td>
+</tr>
+<tr>
+<td><code>{.quiz .true}</code></td>
+<td>正确的判断题</td>
+</tr>
+<tr>
+<td><code>{.quiz .false}</code></td>
+<td>错误的判断题</td>
+</tr>
+<tr>
+<td><code>{.quiz .fill}</code></td>
+<td>填空题</td>
+</tr>
+<tr>
+<td><code>[]{.gap}</code></td>
+<td>空白下划线</td>
+</tr>
+<tr>
+<td><code>[答案内容]{.gap}</code></td>
+<td>答案内容带下划线</td>
+</tr>
+<tr>
+<td><code>{.options}</code></td>
+<td>ABCDE选项</td>
+</tr>
+<tr>
+<td><code>{.correct}</code></td>
+<td>选择题的正确选项</td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td>答案解析</td>
+</tr>
+<tr>
+<td><code>[8.4]{.mistake}</code></td>
+<td>错题备注</td>
+</tr>
+</tbody>
+</table>
+<h1 id="emoji-绘文字"><code>emoji</code> 绘文字</h1>
+<p>本功能基于<code>markdown-it-emoji</code>，所有<a href="https://github.com/markdown-it/markdown-it-emoji/blob/master/lib/data/full.json" target="_blank" rel="noopener noreffer ">标签参考戳此</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">😘
+</span></span><span class="line"><span class="cl">💍
+</span></span><span class="line"><span class="cl">🎶
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>😘 💍 🎶</p>
+<h1 id="effects-文字特效"><code>effects</code> 文字特效</h1>
+<p>本功能基于<code>markdown-it-ins</code>、 <code>markdown-it-bracketed-spans</code>和<code>markdown-it-attrs</code></p>
+<blockquote>
+<p>本主题风格颜色通用样式：default、primary、success、info、warning、danger</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">++下划线++
+</span></span><span class="line"><span class="cl">++波浪线++{.wavy}
+</span></span><span class="line"><span class="cl">++着重点++{.dot}
+</span></span><span class="line"><span class="cl">++紫色下划线++{.primary}
+</span></span><span class="line"><span class="cl">++绿色波浪线++{.wavy .success}
+</span></span><span class="line"><span class="cl">++黄色着重点++{.dot .warning}
+</span></span><span class="line"><span class="cl">~~删除线~~
+</span></span><span class="line"><span class="cl">~~红色删除线~~{.danger}
+</span></span><span class="line"><span class="cl">==荧光高亮==
+</span></span><span class="line"><span class="cl">[赤橙黄绿青蓝紫]{.rainbow}
+</span></span><span class="line"><span class="cl">[红色]{.red}
+</span></span><span class="line"><span class="cl">[粉色]{.pink}
+</span></span><span class="line"><span class="cl">[橙色]{.orange}
+</span></span><span class="line"><span class="cl">[红色]{.yellow}
+</span></span><span class="line"><span class="cl">[绿色]{.green}
+</span></span><span class="line"><span class="cl">[靛青]{.aqua}
+</span></span><span class="line"><span class="cl">[蓝色]{.blue}
+</span></span><span class="line"><span class="cl">[紫色]{.purple}
+</span></span><span class="line"><span class="cl">[灰色]{.grey}
+</span></span><span class="line"><span class="cl">快捷键 [Ctrl]{.kbd} + [C]{.kbd .red}
+</span></span><span class="line"><span class="cl">H~2~0
+</span></span><span class="line"><span class="cl">29^th^
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>:::warning
+这段代码因为自动被pangu.js处理了一下，加了几个空格，导致直接复制代码不能正常显示。
+正确的代码是<code>++下划线++</code> <code>~~删除线~~</code> <code>==荧光高亮==</code>，不能有空格哦。
+:::</p>
+<p>++下划线++
+++波浪线++{.wavy}
+++着重点++{.dot}
+++紫色下划线++{.primary}
+++绿色波浪线++{.wavy .success}
+++黄色着重点++{.dot .warning}
+<del>删除线</del>
+<del>红色删除线</del>{.danger}
+==荧光高亮==
+[赤橙黄绿青蓝紫]{.rainbow}
+[红色]{.red}
+[粉色]{.pink}
+[橙色]{.orange}
+[黄色]{.yellow}
+[绿色]{.green}
+[靛青]{.aqua}
+[蓝色]{.blue}
+[紫色]{.purple}
+[灰色]{.grey}
+快捷键 [Ctrl]{.kbd} + [C]{.kbd .red}
+H~2~0
+29^th^</p>
+<h1 id="spoiler隐藏文字"><code>spoiler</code>隐藏文字</h1>
+<p>本功能基于<code>markdown-it-spoiler</code>和<code>markdown-it-attrs</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">!!黑幕黑幕黑幕黑幕黑幕黑幕!! ： 鼠标滑过显示内容
+</span></span><span class="line"><span class="cl">!!模糊模糊模糊模糊模糊模糊!!{.bulr} ： 选中文字显示内容
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>!!黑幕黑幕黑幕黑幕黑幕黑幕!! ： 鼠标滑过显示内容
+!!模糊模糊模糊模糊模糊模糊!!{.bulr} ： 选中文字显示内容</p>
+<h1 id="label-标签块"><code>label</code> 标签块</h1>
+<p>本功能基于<code>markdown-it-bracketed-spans</code>和<code>markdown-it-attrs</code>
+有以下颜色可选</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[default]{.label}
+</span></span><span class="line"><span class="cl">[primary]{.label .primary}
+</span></span><span class="line"><span class="cl">[info]{.label .info}
+</span></span><span class="line"><span class="cl">[✔️success]{.label .success}
+</span></span><span class="line"><span class="cl">[warning]{.label .warning}
+</span></span><span class="line"><span class="cl">[💔danger]{.label .danger}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>[default]{.label}
+[primary]{.label .primary}
+[info]{.label .info}
+[✔️success]{.label .success}
+[warning]{.label .warning}
+[💔danger]{.label .danger}</p>
+<h1 id="note-提醒块"><code>note</code> 提醒块</h1>
+<p>本功能基于<code>markdown-it-container</code>
+标签为：</p>
+<p>&ndash;|&ndash;
+开始行|<code>:::[风格颜色]</code>
+结束行|<code>:::</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">:::default
+</span></span><span class="line"><span class="cl">默认默认
+</span></span><span class="line"><span class="cl">:::
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">:::primary
+</span></span><span class="line"><span class="cl">基本基本
+</span></span><span class="line"><span class="cl">:::
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">:::info
+</span></span><span class="line"><span class="cl">提示提示
+</span></span><span class="line"><span class="cl">:::
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">:::success
+</span></span><span class="line"><span class="cl">成功成功
+</span></span><span class="line"><span class="cl">:::
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">:::warning
+</span></span><span class="line"><span class="cl">警告警告
+</span></span><span class="line"><span class="cl">:::
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">:::danger
+</span></span><span class="line"><span class="cl">危险危险
+</span></span><span class="line"><span class="cl">:::
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">:::danger no-icon
+</span></span><span class="line"><span class="cl">危险危险
+</span></span><span class="line"><span class="cl">:::
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>:::default
+默认默认
+:::</p>
+<p>:::primary
+基本基本
+:::</p>
+<p>:::info
+提示提示
+:::</p>
+<p>:::success
+成功成功
+:::</p>
+<p>:::warning
+警告警告
+:::</p>
+<p>:::danger
+危险危险
+:::</p>
+<p>:::danger no-icon
+没有图标
+:::</p>
+<h1 id="tab标签卡"><code>tab</code>标签卡</h1>
+<p>本功能基于<code>markdown-it-container</code>
+标签为：</p>
+<p>&ndash;|&ndash;
+开始行|<code>;;;[同一ID] [标签名称]</code>
+结束行|<code>;;;</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">;;;id1 卡片1
+</span></span><span class="line"><span class="cl">这里是卡片1的内容
+</span></span><span class="line"><span class="cl">**加粗**
+</span></span><span class="line"><span class="cl">[success]{.label .success}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&amp;#123;% links %&amp;#125;
+</span></span><span class="line"><span class="cl">- site: 優萌初華
+</span></span><span class="line"><span class="cl">  owner: 霜月琉璃
+</span></span><span class="line"><span class="cl">  url: https://shoka.lostyu.me
+</span></span><span class="line"><span class="cl">  desc: 琉璃的医学 &amp; 编程笔记
+</span></span><span class="line"><span class="cl">  image: https://cdn.jsdelivr.net/gh/amehime/shoka@latest/images/avatar.jpg
+</span></span><span class="line"><span class="cl">  color: &#34;#e9546b&#34;
+</span></span><span class="line"><span class="cl">&amp;#123;% endlinks %&amp;#125;
+</span></span><span class="line"><span class="cl">;;;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">;;;id1 卡片2
+</span></span><span class="line"><span class="cl">这里是卡片2的内容
+</span></span><span class="line"><span class="cl">:::danger
+</span></span><span class="line"><span class="cl">危险危险
+</span></span><span class="line"><span class="cl">:::
+</span></span><span class="line"><span class="cl">- 第一行
+</span></span><span class="line"><span class="cl">- 第二行
+</span></span><span class="line"><span class="cl">;;;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">;;;id2 ②号标签卡片1
+</span></span><span class="line"><span class="cl">这里是卡片1的内容
+</span></span><span class="line"><span class="cl">;;;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">;;;id2 ②号标签卡片2
+</span></span><span class="line"><span class="cl">这里是卡片2的内容
+</span></span><span class="line"><span class="cl">;;;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>;;;id1 卡片1
+这里是卡片1的内容
+<strong>加粗</strong>
+[success]{.label .success}</p>
+<p>{% links %}</p>
+<ul>
+<li>site: 優萌初華
+owner: 霜月琉璃
+url: <a href="https://shoka.lostyu.me" target="_blank" rel="noopener noreffer ">https://shoka.lostyu.me</a>
+desc: 琉璃的医学 &amp; 编程笔记
+image: <a href="https://cdn.jsdelivr.net/gh/amehime/shoka@latest/images/avatar.jpg" target="_blank" rel="noopener noreffer ">https://cdn.jsdelivr.net/gh/amehime/shoka@latest/images/avatar.jpg</a>
+color: &ldquo;#e9546b&rdquo;
+{% endlinks %}
+;;;</li>
+</ul>
+<p>;;;id1 卡片2
+这里是卡片2的内容
+:::danger
+危险危险
+:::</p>
+<ul>
+<li>第一行</li>
+<li>第二行
+;;;</li>
+</ul>
+<p>;;;id2 ②号标签卡片1
+这里是卡片1的内容
+;;;</p>
+<p>;;;id2 ②号标签卡片2
+这里是卡片2的内容
+;;;</p>
+<h1 id="collapse-折叠块"><code>collapse</code> 折叠块</h1>
+<p>本功能基于<code>markdown-it-container</code>
+标签为：</p>
+<p>&ndash;|&ndash;
+开始行|<code>+++[风格颜色] [标题文字]</code>
+结束行|<code>+++</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">+++ 默认默认 这里是一段文字
+</span></span><span class="line"><span class="cl">++下划线++
+</span></span><span class="line"><span class="cl">+++
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">+++primary 紫色
+</span></span><span class="line"><span class="cl">:::info
+</span></span><span class="line"><span class="cl">参考信息
+</span></span><span class="line"><span class="cl">:::
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">- 第一行
+</span></span><span class="line"><span class="cl">- 第二行
+</span></span><span class="line"><span class="cl">+++
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">+++info  蓝色
+</span></span><span class="line"><span class="cl">;;;id3 卡片1
+</span></span><span class="line"><span class="cl">这里是卡片1的内容
+</span></span><span class="line"><span class="cl">;;;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">;;;id3 卡片2
+</span></span><span class="line"><span class="cl">这里是卡片2的内容
+</span></span><span class="line"><span class="cl">;;;
+</span></span><span class="line"><span class="cl">+++
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">+++success 绿色
+</span></span><span class="line"><span class="cl">&amp;#123;% links %&amp;#125;
+</span></span><span class="line"><span class="cl">- site: 優萌初華
+</span></span><span class="line"><span class="cl">  url: https://shoka.lostyu.me
+</span></span><span class="line"><span class="cl">  color: &#34;#e9546b&#34;
+</span></span><span class="line"><span class="cl">&amp;#123;% endlinks %&amp;#125;
+</span></span><span class="line"><span class="cl">+++
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">+++warning 黄色
+</span></span><span class="line"><span class="cl">!!警告警告警告警告警告!!{.bulr}
+</span></span><span class="line"><span class="cl">[label]{.label .success}
+</span></span><span class="line"><span class="cl">+++
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">+++danger 红色
+</span></span><span class="line"><span class="cl">[danger]{.label .danger}
+</span></span><span class="line"><span class="cl">+++
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>+++ 默认默认 这里是一段文字
+++下划线++
++++</p>
+<p>+++primary 紫色
+:::info
+参考信息
+:::</p>
+<ul>
+<li>第一行</li>
+<li>第二行
++++</li>
+</ul>
+<p>+++info  蓝色
+;;;id3 卡片1
+这里是卡片1的内容
+++波浪线++{.wavy}
+;;;</p>
+<p>;;;id3 卡片2
+这里是卡片2的内容
+;;;
++++</p>
+<p>+++success 绿色
+{% links %}</p>
+<ul>
+<li>site: 優萌初華
+url: <a href="https://shoka.lostyu.me" target="_blank" rel="noopener noreffer ">https://shoka.lostyu.me</a>
+color: &ldquo;#e9546b&rdquo;
+{% endlinks %}
++++</li>
+</ul>
+<p>+++warning 黄色
+!!警告警告警告警告警告!!{.bulr}
+[label]{.label .success}
++++</p>
+<p>+++danger 红色
+[danger]{.label .danger}
++++</p>
+<h1 id="tasklist-待办事项"><code>taskList</code> 待办事项</h1>
+<p>本功能基于<code>markdown-it-task-checkbox</code>。
+可以利用<code>markdown-it-attrs</code>添加风格颜色，只可以给<code>ul</code>标签添加，需要新建两行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">- [ ] 这是一个小叉叉
+</span></span><span class="line"><span class="cl">- [x] 这是一个红色勾勾
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{.danger}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">- [ ] 未完成
+</span></span><span class="line"><span class="cl">- [x] 完成
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{.primary}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">- [ ] 未完成
+</span></span><span class="line"><span class="cl">- [x] 默认颜色
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><i class="far fa-square fa-fw" aria-hidden="true"></i> 这是一个小叉叉</li>
+<li><i class="far fa-check-square fa-fw" aria-hidden="true"></i> 这是一个红色勾勾</li>
+</ul>
+<p>{.danger}</p>
+<ul>
+<li><i class="far fa-square fa-fw" aria-hidden="true"></i> 未完成</li>
+<li><i class="far fa-check-square fa-fw" aria-hidden="true"></i> 完成</li>
+</ul>
+<p>{.primary}</p>
+<ul>
+<li><i class="far fa-square fa-fw" aria-hidden="true"></i> 未完成</li>
+<li><i class="far fa-check-square fa-fw" aria-hidden="true"></i> 默认颜色</li>
+</ul>
+<h1 id="furigana文字注音"><code>furigana</code>文字注音</h1>
+<p>原本用于日语汉字假名注音，但别的注音也可以。
+为了兼容性，采用<code>markdown-it-ruby</code>的基本格式：<code>{文字^注音}</code>，并且为了兼容表格，将分隔符由<code>|</code>换成了<code>^</code>。
+注音分隔基于<code>furigana-markdown-it</code><a href="https://www.npmjs.com/package/furigana-markdown-it#quick-usage" target="_blank" rel="noopener noreffer ">显示说明看这里</a></p>
+<p>&ndash;|&ndash;
+<code>{取り返す^とりかえす}</code>|{取り返す^とりかえす}
+<code>{可愛い犬^か+わい・い・いぬ}</code>|{可愛い犬^か+わい・い・いぬ}
+<code>{可愛い犬^か・わい・いいぬ}</code>|{可愛い犬^か・わい・いいぬ}
+<code>{アクセラレータ^accelerator}</code> | {アクセラレータ^accelerator}
+<code>{accelerator^アクセラレータ}</code> | {accelerator^アクセラレータ}
+<code>{食べる^たべる}</code> | {食べる^たべる}
+<code>{食べる^=たべる}</code> | {食べる^=たべる}
+<code>{あいうえお^*}</code> | {あいうえお^*}
+<code>{あいうえお^*❤}</code> | {あいうえお^*❤}
+<code>{常用账号^contact}</code>|{常用账号^contact}</p>
+<h1 id="media多媒体"><code>media</code>多媒体</h1>
+<p>本功能基于Hexo Tag功能，使用<code>media</code>标签，目前可选择两种类型，即<code>audio</code>和<code>video</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&amp;#123;% media audio %&amp;#125;
+</span></span><span class="line"><span class="cl">...音频列表
+</span></span><span class="line"><span class="cl">&amp;#123;% endmedia %&amp;#125;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&amp;#123;% media video %&amp;#125;
+</span></span><span class="line"><span class="cl">...视频列表
+</span></span><span class="line"><span class="cl">&amp;#123;% endmedia %&amp;#125;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>标签包绕一段<code>yml</code>格式的内容，格式与<a href="../config/#%e8%83%8c%e6%99%af%e9%9f%b3%e4%b9%90" rel="">背景音乐</a>的配置类似。</p>
+<p>亦可以直接使用网易云、虾米、QQ音乐的播放列表、单曲。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&amp;#123;% media audio %&amp;#125;
+</span></span><span class="line"><span class="cl">- title: 列表1
+</span></span><span class="line"><span class="cl">  list:
+</span></span><span class="line"><span class="cl">    - https://music.163.com/#/playlist?id=2943811283
+</span></span><span class="line"><span class="cl">    - https://music.163.com/#/playlist?id=2297706586
+</span></span><span class="line"><span class="cl">- title: 列表2
+</span></span><span class="line"><span class="cl">  list:
+</span></span><span class="line"><span class="cl">    - https://music.163.com/#/playlist?id=2031842656
+</span></span><span class="line"><span class="cl">&amp;#123;% endmedia %&amp;#125;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&amp;#123;% media video %&amp;#125;
+</span></span><span class="line"><span class="cl">- name: &#34;测试1&#34;
+</span></span><span class="line"><span class="cl">  url: https://cdn.kastatic.org/ka-youtube-converted/O_nY1TM2RZM.mp4/O_nY1TM2RZM.mp4#t=0
+</span></span><span class="line"><span class="cl">- name: &#34;测试2&#34;
+</span></span><span class="line"><span class="cl">  url: https://cdn.kastatic.org/ka-youtube-converted/O_nY1TM2RZM.mp4/O_nY1TM2RZM.mp4#t=0
+</span></span><span class="line"><span class="cl">&amp;#123;% endmedia %&amp;#125;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>{% media audio %}</p>
+<ul>
+<li>title: 列表1
+list:
+<ul>
+<li><a href="https://music.163.com/#/playlist?id=2943811283" target="_blank" rel="noopener noreffer ">https://music.163.com/#/playlist?id=2943811283</a></li>
+<li><a href="https://music.163.com/#/playlist?id=2297706586" target="_blank" rel="noopener noreffer ">https://music.163.com/#/playlist?id=2297706586</a></li>
+</ul>
+</li>
+<li>title: 列表2
+list:
+<ul>
+<li><a href="https://music.163.com/#/playlist?id=2031842656" target="_blank" rel="noopener noreffer ">https://music.163.com/#/playlist?id=2031842656</a>
+{% endmedia %}</li>
+</ul>
+</li>
+</ul>
+<p>{% media video %}</p>
+<ul>
+<li>name: &ldquo;测试1&rdquo;
+url: <a href="https://cdn.kastatic.org/ka-youtube-converted/O_nY1TM2RZM.mp4/O_nY1TM2RZM.mp4#t=0" target="_blank" rel="noopener noreffer ">https://cdn.kastatic.org/ka-youtube-converted/O_nY1TM2RZM.mp4/O_nY1TM2RZM.mp4#t=0</a></li>
+<li>name: &ldquo;测试2&rdquo;
+url: <a href="https://cdn.kastatic.org/ka-youtube-converted/O_nY1TM2RZM.mp4/O_nY1TM2RZM.mp4#t=0" target="_blank" rel="noopener noreffer ">https://cdn.kastatic.org/ka-youtube-converted/O_nY1TM2RZM.mp4/O_nY1TM2RZM.mp4#t=0</a>
+{% endmedia %}</li>
+</ul>
+<h1 id="math数学公式"><code>math</code>数学公式</h1>
+<p>本功能基于<code>markdown-it-katex</code>
+在Front Matter中添加<code>math: true</code>以支持<a href="https://katex.org/" target="_blank" rel="noopener noreffer ">KaTex</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">title: 数学公式显示
+</span></span><span class="line"><span class="cl">math: true
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">行内公式：$\sqrt{3x-1}+(1+x)^2$
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">独立块显示：
+</span></span><span class="line"><span class="cl">$$\begin{array}{c}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &amp;
+</span></span><span class="line"><span class="cl">= \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} &amp; = 4 \pi \rho \\
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} &amp; = \vec{\mathbf{0}} \\
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">\nabla \cdot \vec{\mathbf{B}} &amp; = 0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">\end{array}$$
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>行内公式：$\sqrt{3x-1}+(1+x)^2$</p>
+<p>独立块显示：
+$$\begin{array}{c}</p>
+<p>\nabla \times \vec{\mathbf{B}} -, \frac1c, \frac{\partial\vec{\mathbf{E}}}{\partial t} &amp;
+= \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} &amp; = 4 \pi \rho \</p>
+<p>\nabla \times \vec{\mathbf{E}}, +, \frac1c, \frac{\partial\vec{\mathbf{B}}}{\partial t} &amp; = \vec{\mathbf{0}} \</p>
+<p>\nabla \cdot \vec{\mathbf{B}} &amp; = 0</p>
+<p>\end{array}$$</p>
+<h1 id="mermaid流程图"><code>mermaid</code>流程图</h1>
+<p>本功能基于<code>markdown-it-mermaid</code>
+在Front Matter中添加<code>mermaid: true</code>以支持<a href="https://mermaid-js.github.io/mermaid/#/" target="_blank" rel="noopener noreffer ">Mermaid</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">title: 流程图显示
+</span></span><span class="line"><span class="cl">mermaid: true
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">```mermaid
+</span></span><span class="line"><span class="cl">graph LR
+</span></span><span class="line"><span class="cl">    A[Square Rect] -- Link text --&gt; B((Circle))
+</span></span><span class="line"><span class="cl">    A --&gt; C(Round Rect)
+</span></span><span class="line"><span class="cl">    B --&gt; D{Rhombus}
+</span></span><span class="line"><span class="cl">    C --&gt; D
+</span></span><span class="line"><span class="cl">```
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">```mermaid
+</span></span><span class="line"><span class="cl">sequenceDiagram
+</span></span><span class="line"><span class="cl">    loop Daily query
+</span></span><span class="line"><span class="cl">        Alice-&gt;&gt;Bob: Hello Bob, how are you?
+</span></span><span class="line"><span class="cl">        alt is sick
+</span></span><span class="line"><span class="cl">            Bob-&gt;&gt;Alice: Not so good :(
+</span></span><span class="line"><span class="cl">        else is well
+</span></span><span class="line"><span class="cl">            Bob-&gt;&gt;Alice: Feeling fresh like a daisy
+</span></span><span class="line"><span class="cl">        end
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        opt Extra response
+</span></span><span class="line"><span class="cl">            Bob-&gt;&gt;Alice: Thanks for asking
+</span></span><span class="line"><span class="cl">        end
+</span></span><span class="line"><span class="cl">    end
+</span></span><span class="line"><span class="cl">```
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">graph LR
+</span></span><span class="line"><span class="cl">    A[Square Rect] -- Link text --&gt; B((Circle))
+</span></span><span class="line"><span class="cl">    A --&gt; C(Round Rect)
+</span></span><span class="line"><span class="cl">    B --&gt; D{Rhombus}
+</span></span><span class="line"><span class="cl">    C --&gt; D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sequenceDiagram
+</span></span><span class="line"><span class="cl">    loop Daily query
+</span></span><span class="line"><span class="cl">        Alice-&gt;&gt;Bob: Hello Bob, how are you?
+</span></span><span class="line"><span class="cl">        alt is sick
+</span></span><span class="line"><span class="cl">            Bob-&gt;&gt;Alice: Not so good :(
+</span></span><span class="line"><span class="cl">        else is well
+</span></span><span class="line"><span class="cl">            Bob-&gt;&gt;Alice: Feeling fresh like a daisy
+</span></span><span class="line"><span class="cl">        end
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        opt Extra response
+</span></span><span class="line"><span class="cl">            Bob-&gt;&gt;Alice: Thanks for asking
+</span></span><span class="line"><span class="cl">        end
+</span></span><span class="line"><span class="cl">    end
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 0001-01-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/special/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/special/" data-title="Step.4 主题特殊功能" data-via="xxxx" data-hashtags="Hexo,教程"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/special/" data-hashtag="Hexo"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/special/" data-title="Step.4 主题特殊功能"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/special/" data-title="Step.4 主题特殊功能"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/special/" data-title="Step.4 主题特殊功能"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/hexo/">Hexo</a>,&nbsp;<a href="/tags/%E6%95%99%E7%A8%8B/">教程</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%88%A4%E6%96%AD%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85check-is-the-point-in-polygon/" class="prev" rel="prev" title="判断点是否在多边形内（check is the point in polygon）"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>判断点是否在多边形内（check is the point in polygon）</a>
+            <a href="/display/" class="next" rel="next" title="Step.3 界面显示">Step.3 界面显示<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

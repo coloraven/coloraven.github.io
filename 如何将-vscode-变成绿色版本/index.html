@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>如何将 VSCode 变成绿色版本 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="如何将 VSCode 变成绿色版本" />
+<meta property="og:description" content="介绍 指导性文章 : Portable Mode in Visual Studio Code 为什么要设置成绿色版 移植方便，到了新的电脑环境，直接拷贝文件夹就完成 VSCode 环境搭建 管理方便，原来的插件，配置文件不在" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-07-13T11:08:59+00:00" />
+<meta property="article:modified_time" content="2023-07-13T11:08:59+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="如何将 VSCode 变成绿色版本"/>
+<meta name="twitter:description" content="介绍 指导性文章 : Portable Mode in Visual Studio Code 为什么要设置成绿色版 移植方便，到了新的电脑环境，直接拷贝文件夹就完成 VSCode 环境搭建 管理方便，原来的插件，配置文件不在"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" /><link rel="prev" href="http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" /><link rel="next" href="http://example.org/vpn%E6%99%BA%E8%83%BD%E5%88%86%E6%B5%81/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "如何将 VSCode 变成绿色版本",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC\/"
+        },"genre": "posts","keywords": "VSCode","wordcount":  666 ,
+        "url": "http:\/\/example.org\/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC\/","datePublished": "2023-07-13T11:08:59+00:00","dateModified": "2023-07-13T11:08:59+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "xxxx"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">如何将 VSCode 变成绿色版本</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-07-13">2023-07-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;666 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#为什么要设置成绿色版">为什么要设置成绿色版</a></li>
+    <li><a href="#如何将-vscode-编程绿色版本">如何将 VSCode 编程绿色版本</a>
+      <ul>
+        <li><a href="#第一种情况从零开始配置-vscode">第一种情况：从零开始配置 VSCode</a></li>
+        <li><a href="#第二种情况在-vscode-已经有配置的前提下变成绿色版">第二种情况：在 VSCode 已经有配置的前提下变成绿色版</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="介绍">介绍</h2>
+<p>指导性文章 : <a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fcode.visualstudio.com%2Fdocs%2Feditor%2Fportable" target="_blank" rel="noopener noreffer ">Portable Mode in Visual Studio Code</a></p>
+<h2 id="为什么要设置成绿色版">为什么要设置成绿色版</h2>
+<ul>
+<li>
+<p>移植方便，到了新的电脑环境，直接拷贝文件夹就完成 VSCode 环境搭建</p>
+</li>
+<li>
+<p>管理方便，原来的插件，配置文件不在一个地方，而且路径藏的过深
+如图，绿色版本的结构很清晰，除了应用程序之外就是一个存放 <strong>扩展 (extensions)</strong> 和 <strong>用户数据 (user-data)</strong> 的 <strong>数据文件夹 (code-portable-data)</strong>. 当我使用新的一台电脑的时候，只需要将 <strong>VSCode 文件夹</strong> 拷贝到新电脑就装有 相同配置，相同扩展的一模一样的 VSCode 编辑器，无需额外下载和配置.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://static001.geekbang.org/infoq/cf/cfe66d03969c990c2c8c68a25ff4dd09.png"
+        data-srcset="https://static001.geekbang.org/infoq/cf/cfe66d03969c990c2c8c68a25ff4dd09.png, https://static001.geekbang.org/infoq/cf/cfe66d03969c990c2c8c68a25ff4dd09.png 1.5x, https://static001.geekbang.org/infoq/cf/cfe66d03969c990c2c8c68a25ff4dd09.png 2x"
+        data-sizes="auto"
+        alt="https://static001.geekbang.org/infoq/cf/cfe66d03969c990c2c8c68a25ff4dd09.png"
+        title="https://static001.geekbang.org/infoq/cf/cfe66d03969c990c2c8c68a25ff4dd09.png" /></p>
+</li>
+</ul>
+<h2 id="如何将-vscode-编程绿色版本">如何将 VSCode 编程绿色版本</h2>
+<h3 id="第一种情况从零开始配置-vscode">第一种情况：从零开始配置 VSCode</h3>
+<ul>
+<li>下载压缩包
+下载地址 : <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreffer ">Download Visual Studio Code - Mac, Linux, Windows</a>
+最后一个支持Win7的版本：<a href="https://vscode.cdn.azure.cn/stable/a21a160d630530476218b85db95b0fd2a8cd1230/VSCode-win32-x64-1.70.3.zip" target="_blank" rel="noopener noreffer ">VSCode-win32-x64-1.70.3.zip</a></li>
+<li>下载完毕，解压到任意文件夹</li>
+<li>创建数据文件夹 (放置插件以及用户设置)</li>
+<li>Mac 在 VSCode 同一层级的目录下创建文件夹 <code>code-portable-data</code></li>
+<li>Windows 在解压后的文件夹内 创建文件夹 <code>data</code>
+绿色版制作完成</li>
+</ul>
+<h3 id="第二种情况在-vscode-已经有配置的前提下变成绿色版">第二种情况：在 VSCode 已经有配置的前提下变成绿色版</h3>
+<ol>
+<li>下载压缩包</li>
+</ol>
+<ul>
+<li>下载地址 : <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreffer ">Download Visual Studio Code - Mac, Linux, Windows</a>
+最后一个支持Win7的版本：<a href="https://vscode.cdn.azure.cn/stable/a21a160d630530476218b85db95b0fd2a8cd1230/VSCode-win32-x64-1.70.3.zip" target="_blank" rel="noopener noreffer ">VSCode-win32-x64-1.70.3.zip</a></li>
+<li>下载完毕，解压到任意文件夹</li>
+<li>创建数据文件夹 (放置插件以及用户设置)</li>
+<li>Mac 在 VSCode 同一层级的目录下创建文件夹 <code>code-portable-data</code></li>
+<li>Windows 在解压后的文件夹内 创建文件夹 <code>data</code></li>
+</ul>
+<ol>
+<li>拷贝已有的插件和用户数据到数据文件夹</li>
+</ol>
+<ul>
+<li>用户数据默认路径 (剪切到第 2 步建立的数据文件夹下，将 Code 改名为 data)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">%APPDATA%<span class="se">\C</span>ode
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>插件默认路径 (直接剪切到第 2 步建立的数据文件夹下)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">%USERPROFILE%<span class="se">\.</span>vscode<span class="se">\e</span>xtensions
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>版权声明：本文为 InfoQ 作者【lmymirror】的原创文章。</p>
+<p>原文链接:【<a href="https://xie.infoq.cn/article/2c6dd3742d5daf4b2d0df20af" target="_blank" rel="noopener noreffer ">https://xie.infoq.cn/article/2c6dd3742d5daf4b2d0df20af</a>】。文章转载请联系作者。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-07-13</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-title="如何将 VSCode 变成绿色版本" data-via="xxxx" data-hashtags="VSCode"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-hashtag="VSCode"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-title="如何将 VSCode 变成绿色版本"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-title="如何将 VSCode 变成绿色版本"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/" data-title="如何将 VSCode 变成绿色版本"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/vscode/">vscode</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/" class="prev" rel="prev" title="Postgres快速导入csv文件"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Postgres快速导入csv文件</a>
+            <a href="/vpn%E6%99%BA%E8%83%BD%E5%88%86%E6%B5%81/" class="next" rel="next" title="VPN智能分流">VPN智能分流<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

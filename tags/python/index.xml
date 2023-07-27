@@ -1,0 +1,87 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Python - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/python/</link>
+        <description>Python - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 18 Apr 2023 14:18:50 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/python/" rel="self" type="application/rss+xml" /><item>
+    <title>Pandas 一列分多列，一行分多行，提取列中的要素，实现vlookup功能等</title>
+    <link>http://example.org/pandas%E4%B8%80%E5%88%97%E5%88%86%E5%A4%9A%E5%88%97%E4%B8%80%E8%A1%8C%E5%88%86%E5%A4%9A%E8%A1%8C%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+    <pubDate>Tue, 18 Apr 2023 14:18:50 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/pandas%E4%B8%80%E5%88%97%E5%88%86%E5%A4%9A%E5%88%97%E4%B8%80%E8%A1%8C%E5%88%86%E5%A4%9A%E8%A1%8C%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+    <description><![CDATA[转载自https://blog.csdn.net/Asher117/article/details/84346073 摘要 在进行数据分析时，我]]></description>
+</item>
+<item>
+    <title>计算多边形镂空区域的坐标</title>
+    <link>http://example.org/%E8%AE%A1%E7%AE%97%E5%A4%9A%E8%BE%B9%E5%BD%A2%E9%95%82%E7%A9%BA%E5%8C%BA%E5%9F%9F%E7%9A%84%E5%9D%90%E6%A0%87/</link>
+    <pubDate>Sat, 11 Mar 2023 22:58:24 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E8%AE%A1%E7%AE%97%E5%A4%9A%E8%BE%B9%E5%BD%A2%E9%95%82%E7%A9%BA%E5%8C%BA%E5%9F%9F%E7%9A%84%E5%9D%90%E6%A0%87/</guid>
+    <description><![CDATA[背景 已知多边形A（{&quot;Type&quot;:&quot;MultiPolygon&quot;}）以及其包含的多个子多边形（均为Mu]]></description>
+</item>
+<item>
+    <title>Python和Golang超大文本文件处理</title>
+    <link>http://example.org/python%E5%92%8Cgolang%E8%B6%85%E5%A4%A7%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/</link>
+    <pubDate>Tue, 20 Dec 2022 15:26:31 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python%E5%92%8Cgolang%E8%B6%85%E5%A4%A7%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/</guid>
+    <description><![CDATA[Python Python中迭代读取超大文本文件，每次读取1000行。 在python中，我们可以使用yield关键字和for循环实现迭代读取超大文本文件]]></description>
+</item>
+<item>
+    <title>Pandas条件定位单元格【类似select 字段 from 表 where 其他字段=某值】</title>
+    <link>http://example.org/pandas%E6%9D%A1%E4%BB%B6%E5%AE%9A%E4%BD%8D%E5%8D%95%E5%85%83%E6%A0%BC%E7%B1%BB%E4%BC%BCsql%E6%9F%A5%E8%AF%A2/</link>
+    <pubDate>Wed, 04 May 2022 21:02:56 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/pandas%E6%9D%A1%E4%BB%B6%E5%AE%9A%E4%BD%8D%E5%8D%95%E5%85%83%E6%A0%BC%E7%B1%BB%E4%BC%BCsql%E6%9F%A5%E8%AF%A2/</guid>
+    <description><![CDATA[背景 实践当中，经常需要在Excel表中根据某一列的值去查看另一列对应的值。 比如，根据下表（假设存放在datas.xlsx）中姓名，查找其对应]]></description>
+</item>
+<item>
+    <title>Python pip 离线安装 package 方法总结（以 TensorFlow 为例）</title>
+    <link>http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/</link>
+    <pubDate>Wed, 02 Mar 2022 22:12:44 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/</guid>
+    <description><![CDATA[文章背景 Python 环境安装 package，一般采用 pip 命令在线从 PyPI 是安装，这也是最方便的途径。但在某些情况下，要为一台离线的机器（比如在内网运行的一台]]></description>
+</item>
+<item>
+    <title>Python执行JS的几种方式</title>
+    <link>http://example.org/python%E6%89%A7%E8%A1%8Cjs%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/</link>
+    <pubDate>Wed, 16 Feb 2022 23:00:47 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python%E6%89%A7%E8%A1%8Cjs%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/</guid>
+    <description><![CDATA[https://juejin.cn/post/7015603661225066532 1.PyExecJS 经测试，比js2py快5倍多 安装依赖 pip3 install PyExecJS 使用方式 add.js 文件 1 2 3 4 function add(a,b){ return a+b; } 复制代码 py 文件去调用 1 2 3 4 5 6 7 8 import execjs with open(&#39;add.js&#39;, &#39;r&#39;, encoding=&#39;UTF-8&#39;) as f: js_code = f.read() context =]]></description>
+</item>
+<item>
+    <title>Python实现对大文件的增量读取</title>
+    <link>http://example.org/python%E5%AE%9E%E7%8E%B0%E5%AF%B9%E5%A4%A7%E6%96%87%E4%BB%B6%E7%9A%84%E5%A2%9E%E9%87%8F%E8%AF%BB%E5%8F%96/</link>
+    <pubDate>Wed, 01 Dec 2021 13:15:51 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python%E5%AE%9E%E7%8E%B0%E5%AF%B9%E5%A4%A7%E6%96%87%E4%BB%B6%E7%9A%84%E5%A2%9E%E9%87%8F%E8%AF%BB%E5%8F%96/</guid>
+    <description><![CDATA[背景 前段时间在做一个算法测试，需要对源于日志的数据进行分析才能获取到结果；日志文件较大，所以想要获取数据的变化曲线，增量读取是最好的方式。 网]]></description>
+</item>
+<item>
+    <title>Python计算大文件行数方法及性能比较</title>
+    <link>http://example.org/python%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%96%87%E4%BB%B6%E8%A1%8C%E6%95%B0%E6%96%B9%E6%B3%95%E5%8F%8A%E6%80%A7%E8%83%BD%E6%AF%94%E8%BE%83/</link>
+    <pubDate>Wed, 01 Dec 2021 13:01:57 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%96%87%E4%BB%B6%E8%A1%8C%E6%95%B0%E6%96%B9%E6%B3%95%E5%8F%8A%E6%80%A7%E8%83%BD%E6%AF%94%E8%BE%83/</guid>
+    <description><![CDATA[如何使用Python快速高效地统计出大文件的总行数, 下面是一些实现方法和性能的比较。 实现方法 readlines方法读所有行 1 2 def readline_count(file_name): return len(open(file_name).readlines()) 依次读]]></description>
+</item>
+<item>
+    <title>pip离线安装依赖库</title>
+    <link>http://example.org/pip%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%E5%BA%93/</link>
+    <pubDate>Wed, 01 Dec 2021 10:43:09 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/pip%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%E5%BA%93/</guid>
+    <description><![CDATA[记录下命令，下载所需依赖库，在不能联网的机器上离线安装。 1 2 3 4 5 6 7 8 9 10 11 # 查看 pip list # 依赖库信息格式输出 pip freeze &gt; requirements.txt # 仅下载 pip download -r requirements.txt # 安装 pip]]></description>
+</item>
+<item>
+    <title>aiohttp使用回调函数边请求边处理</title>
+    <link>http://example.org/aiohttp%E4%BD%BF%E7%94%A8%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E8%BE%B9%E8%AF%B7%E6%B1%82%E8%BE%B9%E5%A4%84%E7%90%86/</link>
+    <pubDate>Sat, 27 Nov 2021 16:58:17 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/aiohttp%E4%BD%BF%E7%94%A8%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E8%BE%B9%E8%AF%B7%E6%B1%82%E8%BE%B9%E5%A4%84%E7%90%86/</guid>
+    <description><![CDATA[我们平时使用Requests的时候，一般是这样写代码的： 1 2 3 4 5 6 7 import requests def parse(html): print(&#39;对 html 进行处理&#39;) html = requests.get(&#39;url&#39;) parse(html) 这是一种]]></description>
+</item>
+</channel>
+</rss>

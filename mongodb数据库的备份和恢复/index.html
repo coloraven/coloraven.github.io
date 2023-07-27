@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>MongoDB数据库的备份和恢复 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="MongoDB数据库的备份和恢复" />
+<meta property="og:description" content="https://blog.51cto.com/jack88/2145833 mongodb数据备份和恢复主要分为二种： 一种是针对库的mongodump和mongorestore， 一种是针对库中表的mongoexpo" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-08-17T18:19:11+00:00" />
+<meta property="article:modified_time" content="2021-08-17T18:19:11+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="MongoDB数据库的备份和恢复"/>
+<meta name="twitter:description" content="https://blog.51cto.com/jack88/2145833 mongodb数据备份和恢复主要分为二种： 一种是针对库的mongodump和mongorestore， 一种是针对库中表的mongoexpo"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/" /><link rel="prev" href="http://example.org/json%E8%BD%ACcsv%E6%A0%BC%E5%BC%8F/" /><link rel="next" href="http://example.org/%E8%83%8C%E6%99%AF%E5%9B%BE%E5%9C%B0%E5%9D%80%E5%A4%87%E4%BB%BD/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MongoDB数据库的备份和恢复",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D\/"
+        },"genre": "posts","keywords": "MongoDB","wordcount":  1168 ,
+        "url": "http:\/\/example.org\/mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D\/","datePublished": "2021-08-17T18:19:11+00:00","dateModified": "2021-08-17T18:19:11+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "xxxx"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">MongoDB数据库的备份和恢复</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-17">2021-08-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1168 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一-mongodump备份数据库">一、 mongodump备份数据库</a>
+      <ul>
+        <li><a href="#1常用命令格式">1.常用命令格式</a></li>
+        <li><a href="#2导出所有数据库">2.导出所有数据库</a></li>
+        <li><a href="#3导出指定数据库">3.导出指定数据库</a></li>
+      </ul>
+    </li>
+    <li><a href="#二-mongorestore恢复数据库">二、 mongorestore恢复数据库</a>
+      <ul>
+        <li><a href="#1常用命令格式-1">1.常用命令格式</a></li>
+        <li><a href="#2恢复所有数据库到mongodb中">2.恢复所有数据库到mongodb中</a></li>
+        <li><a href="#3-恢复指定的数据库">3. 恢复指定的数据库</a></li>
+      </ul>
+    </li>
+    <li><a href="#三-mongoexport导出表或者表中部分字段">三、 mongoexport导出（表或者表中部分字段）</a>
+      <ul>
+        <li><a href="#1-常用命令格式">1. 常用命令格式</a></li>
+        <li><a href="#2-导出整张表">2. 导出整张表</a></li>
+        <li><a href="#3-导出表中部分字段">3. 导出表中部分字段</a></li>
+        <li><a href="#4-根据条件导出数据">4. 根据条件导出数据</a></li>
+      </ul>
+    </li>
+    <li><a href="#四-mongoimport导入表或者表中部分字段">四、 mongoimport导入（表或者表中部分字段）</a>
+      <ul>
+        <li><a href="#1-常用命令格式-1">1. 常用命令格式</a></li>
+        <li><a href="#2-恢复导出的表数据">2. 恢复导出的表数据</a></li>
+        <li><a href="#3-部分字段的表数据导入">3. 部分字段的表数据导入</a></li>
+        <li><a href="#4-恢复csv文件">4. 恢复csv文件</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><a href="https://blog.51cto.com/jack88/2145833" target="_blank" rel="noopener noreffer "><strong>https://blog.51cto.com/jack88/2145833</strong></a></p>
+<p>mongodb数据备份和恢复主要分为二种：</p>
+<blockquote>
+<p>一种是针对库的mongodump和mongorestore，</p>
+<p>一种是针对库中表的mongoexport和mongoimport。</p>
+</blockquote>
+<h2 id="一-mongodump备份数据库">一、 mongodump备份数据库</h2>
+<h3 id="1常用命令格式">1.常用命令格式</h3>
+<p>​                mongodump -h IP &ndash;port 端口 -u 用户名 -p 密码 -d 数据库 -c 表 -o 文件存放路径</p>
+<p>参数说明：-h 指明数据库宿主机的IP&ndash;port 指明数据库的端口 -u 指明数据库的用户名-p 指明数据库的密码-d 指明数据库的名字-c 指明collection的名字-o 指明到要导出的文件名-q 指明导出数据的过滤条件</p>
+<h3 id="2导出所有数据库">2.导出所有数据库</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mongodump -o /data/mongobak/            
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3导出指定数据库">3.导出指定数据库</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mongodump -d SERVERLOG -o /data/mongobak/SERVERLOG.bak/       
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<h2 id="二-mongorestore恢复数据库">二、 mongorestore恢复数据库</h2>
+<p>自行补充：</p>
+<p>恢复其他数据库中的表到已有数据库中，已有数据库已经有表，且数据库有账号密码验证：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mongorestore -u 用户名 -p 密码 --authenticationDatabase admin -d leanote --dir /leanote_install_data/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="1常用命令格式-1">1.常用命令格式</h3>
+<p>​                mongorestore -h IP &ndash;port 端口 -u 用户名 -p 密码 -d 数据库 &ndash;drop 文件存在路径</p>
+<p>​                &ndash;drop：先删除所有的记录，然后恢复.</p>
+<h3 id="2恢复所有数据库到mongodb中">2.恢复所有数据库到mongodb中</h3>
+<p>​                mongorestore /data/mongobak/ #所有库的备份路径</p>
+<h3 id="3-恢复指定的数据库">3. 恢复指定的数据库</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mongorestore -d SERVERLOG /data/mongobak/SERVERLOG.bak/SERVERLOG/ <span class="c1"># SERVERLOG这个数据库的备份路径 mongorestore -d SERVERLOG_new /data/mongobak/SERVERLOG.bak/SERVERLOG/ #将SERVERLOG备份数据还原到SERVERLOG_new数据库中    </span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<h2 id="三-mongoexport导出表或者表中部分字段">三、 mongoexport导出（表或者表中部分字段）</h2>
+<h3 id="1-常用命令格式">1. 常用命令格式</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mongoexport -h IP --port 端口 -u 用户名 -p 密码 -d 数据库 -c 表名 -f 字段 -q 条件导出 --csv -o 文件名    
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​</p>
+<p>参数重点说明：-f 导出指定字段，以逗号分割，-f uid,name,age导出uid,name,age这三个字段-q 可以根据查询条件导出，-q &lsquo;{ &ldquo;uid&rdquo; : &ldquo;100&rdquo; }&rsquo; 导出uid为100的数据&ndash;csv 表示导出的文件格式为csv的。这个比较有用，因为大部分的关系型数据库都是支持csv，在这里有共同点</p>
+<h3 id="2-导出整张表">2. 导出整张表</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mongoexport -d SERVERLOG -c users -o /data/mongobak/SERVERLOG.bak/
+</span></span><span class="line"><span class="cl"><span class="c1"># users.dat connected to: 127.0.0.1 exported 4 records </span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-导出表中部分字段">3. 导出表中部分字段</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mongoexport -d SERVERLOG -c users --csv -f uid,name,age -o /data/mongobak/SERVERLOG.bak/
+</span></span><span class="line"><span class="cl"><span class="c1"># users.csv connected to: 127.0.0.1 exported 4 records</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-根据条件导出数据">4. 根据条件导出数据</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mongoexport -d SERVERLOG -c users -q <span class="s1">&#39;{uid:{$gt:1}}&#39;</span> -o /data/mongobak/SERVERLOG.bak/
+</span></span><span class="line"><span class="cl"><span class="c1"># users.json connected to: 127.0.0.1 exported 3 records</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="四-mongoimport导入表或者表中部分字段">四、 mongoimport导入（表或者表中部分字段）</h2>
+<h3 id="1-常用命令格式-1">1. 常用命令格式</h3>
+<p>恢复整表导出的非csv文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mongoimport -h IP --port 端口 -u 用户名 -p 密码 -d 数据库 -c 表名 --upsert --drop 文件名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>&ndash;upsert:插入或者更新现有数据</p>
+</blockquote>
+<p>恢复部分字段的导出文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mongoimport -h IP --port 端口 -u 用户名 -p 密码 -d 数据库 -c 表名 --upsertFields 字段 --drop 文件名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>&ndash;upsertFields:更新部分的查询字段，必须为索引,以逗号分隔.</p>
+</blockquote>
+<p>恢复导出的csv文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mongoimport -h IP --port 端口 -u 用户名 -p 密码 -d 数据库 -c 表名 --type 类型 --headerline --upsert --drop 文件名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>&ndash;type：导入的文件类型（默认json）</p>
+</blockquote>
+<h3 id="2-恢复导出的表数据">2. 恢复导出的表数据</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mongoimport -d SERVERLOG -c users --upsert /data/mongobak/SERVERLOG.bak/
+</span></span><span class="line"><span class="cl"><span class="c1"># users.dat connected to: 127.0.0.1 Tue Dec 3 08:26:52.852 imported 4 objects</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-部分字段的表数据导入">3. 部分字段的表数据导入</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mongoimport -d SERVERLOG -c users --upsertFields uid,name,age /data/mongobak/SERVERLOG.bak/
+</span></span><span class="line"><span class="cl"><span class="c1"># users.datconnected to: 127.0.0.1 Tue Dec 3 08:31:15.179 imported 4 objects</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-恢复csv文件">4. 恢复csv文件</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mongoimport -d SERVERLOG -c users --type csv --headerline --file /data/mongobak/SERVERLOG.bak/
+</span></span><span class="line"><span class="cl"><span class="c1"># users.csv connected to: 127.0.0.1 Tue Dec 3 08:37:21.961 imported 4 objects</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>&ndash;file:需要导入的文件</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-08-17</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/" data-title="MongoDB数据库的备份和恢复" data-via="xxxx" data-hashtags="MongoDB"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/" data-hashtag="MongoDB"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/" data-title="MongoDB数据库的备份和恢复"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/" data-title="MongoDB数据库的备份和恢复"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/" data-title="MongoDB数据库的备份和恢复"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/mongodb/">MongoDB</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/json%E8%BD%ACcsv%E6%A0%BC%E5%BC%8F/" class="prev" rel="prev" title="JSON转CSV格式"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>JSON转CSV格式</a>
+            <a href="/%E8%83%8C%E6%99%AF%E5%9B%BE%E5%9C%B0%E5%9D%80%E5%A4%87%E4%BB%BD/" class="next" rel="next" title="背景图地址备份">背景图地址备份<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

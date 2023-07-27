@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Python执行JS的几种方式 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Python执行JS的几种方式" />
+<meta property="og:description" content="https://juejin.cn/post/7015603661225066532 1.PyExecJS 经测试，比js2py快5倍多 安装依赖 pip3 install PyExecJS 使用方式 add.js 文件 1 2 3 4 function add(a,b){ return a&#43;b; } 复制代码 py 文件去调用 1 2 3 4 5 6 7 8 import execjs with open(&#39;add.js&#39;, &#39;r&#39;, encoding=&#39;UTF-8&#39;) as f: js_code = f.read() context =" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/python%E6%89%A7%E8%A1%8Cjs%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-16T23:00:47+00:00" />
+<meta property="article:modified_time" content="2022-02-16T23:00:47+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="Python执行JS的几种方式"/>
+<meta name="twitter:description" content="https://juejin.cn/post/7015603661225066532 1.PyExecJS 经测试，比js2py快5倍多 安装依赖 pip3 install PyExecJS 使用方式 add.js 文件 1 2 3 4 function add(a,b){ return a&#43;b; } 复制代码 py 文件去调用 1 2 3 4 5 6 7 8 import execjs with open(&#39;add.js&#39;, &#39;r&#39;, encoding=&#39;UTF-8&#39;) as f: js_code = f.read() context ="/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/python%E6%89%A7%E8%A1%8Cjs%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" /><link rel="prev" href="http://example.org/wsa%E5%AE%89%E5%8D%93%E5%AD%90%E6%8A%98%E8%85%BE%E7%AC%94%E8%AE%B0/" /><link rel="next" href="http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Python执行JS的几种方式",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/python%E6%89%A7%E8%A1%8Cjs%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F\/"
+        },"genre": "posts","keywords": "编程, Python","wordcount":  1020 ,
+        "url": "http:\/\/example.org\/python%E6%89%A7%E8%A1%8Cjs%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F\/","datePublished": "2022-02-16T23:00:47+00:00","dateModified": "2022-02-16T23:00:47+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "xxxx"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Python执行JS的几种方式</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%BC%96%E7%A8%8B/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>编程</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-02-16">2022-02-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1020 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#1pyexecjs">1.PyExecJS</a></li>
+        <li><a href="#2js2py">2.js2py</a></li>
+        <li><a href="#3nodejs">3.Node.js</a></li>
+        <li><a href="#4node-服务">4.node 服务</a></li>
+        <li><a href="#5实测代码">5.实测代码</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><!-- https://shoka.lostyu.me/computer-science/note/theme-shoka-doc/special/#code代码块 -->
+<!-- https://shoka.lostyu.me/computer-science/note/theme-shoka-doc/special/ -->
+<p><a href="https://juejin.cn/post/7015603661225066532" target="_blank" rel="noopener noreffer ">https://juejin.cn/post/7015603661225066532</a></p>
+<h3 id="1pyexecjs">1.PyExecJS</h3>
+<blockquote>
+<p>经测试，比js2py快5倍多</p>
+</blockquote>
+<p>安装依赖<br>
+pip3 install PyExecJS<br>
+使用方式<br>
+add.js 文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">function</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">复制代码</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>py 文件去调用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">execjs</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;add.js&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">js_code</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span> <span class="o">=</span> <span class="n">execjs</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">js_code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&#34;add&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">//</span> <span class="n">参数一为函数名</span><span class="err">，</span><span class="n">参数二和三为函数的参数</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">复制代码</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/258d2db7971b4530bc0b1e1ec373804c~tplv-k3u1fbpfcp-watermark.awebp"
+        data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/258d2db7971b4530bc0b1e1ec373804c~tplv-k3u1fbpfcp-watermark.awebp, https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/258d2db7971b4530bc0b1e1ec373804c~tplv-k3u1fbpfcp-watermark.awebp 1.5x, https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/258d2db7971b4530bc0b1e1ec373804c~tplv-k3u1fbpfcp-watermark.awebp 2x"
+        data-sizes="auto"
+        alt="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/258d2db7971b4530bc0b1e1ec373804c~tplv-k3u1fbpfcp-watermark.awebp"
+        title="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/258d2db7971b4530bc0b1e1ec373804c~tplv-k3u1fbpfcp-watermark.awebp" /></p>
+<h3 id="2js2py">2.js2py</h3>
+<p>安装依赖库<br>
+pip3 install js2py</p>
+<p>还是上面的 add.js 文件</p>
+<p>python 调用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">js2py</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;add.js&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">js_code</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span> <span class="o">=</span> <span class="n">js2py</span><span class="o">.</span><span class="n">EvalJs</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">js_code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&#34;1&#34;</span><span class="p">,</span> <span class="s2">&#34;2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">复制代码</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f1563b7eb8ec4f10bfe8de5fdb94188d~tplv-k3u1fbpfcp-watermark.awebp"
+        data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f1563b7eb8ec4f10bfe8de5fdb94188d~tplv-k3u1fbpfcp-watermark.awebp, https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f1563b7eb8ec4f10bfe8de5fdb94188d~tplv-k3u1fbpfcp-watermark.awebp 1.5x, https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f1563b7eb8ec4f10bfe8de5fdb94188d~tplv-k3u1fbpfcp-watermark.awebp 2x"
+        data-sizes="auto"
+        alt="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f1563b7eb8ec4f10bfe8de5fdb94188d~tplv-k3u1fbpfcp-watermark.awebp"
+        title="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f1563b7eb8ec4f10bfe8de5fdb94188d~tplv-k3u1fbpfcp-watermark.awebp" /></p>
+<h3 id="3nodejs">3.Node.js</h3>
+<p>实际上是使用 Python 的 os.popen 执行 node 命令，执行 JS 脚本<br>
+首先，确保本地已经安装了 Node.js 环境</p>
+<p>对 js 代码添加打印</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">function</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Number</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">+</span><span class="n">Number</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">process</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]));</span>  <span class="o">//</span> <span class="n">运行脚本传进来的参数</span>
+</span></span><span class="line"><span class="cl"><span class="n">复制代码</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>用 python 调用控制台方式去使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="n">nodejs</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;node add.js &#39;</span><span class="o">+</span><span class="s1">&#39;2&#39;</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span> <span class="o">=</span> <span class="n">nodejs</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">nodejs</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">复制代码</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7a834b413bd4aa5a1dcb2e6b25ea441~tplv-k3u1fbpfcp-watermark.awebp"
+        data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7a834b413bd4aa5a1dcb2e6b25ea441~tplv-k3u1fbpfcp-watermark.awebp, https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7a834b413bd4aa5a1dcb2e6b25ea441~tplv-k3u1fbpfcp-watermark.awebp 1.5x, https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7a834b413bd4aa5a1dcb2e6b25ea441~tplv-k3u1fbpfcp-watermark.awebp 2x"
+        data-sizes="auto"
+        alt="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7a834b413bd4aa5a1dcb2e6b25ea441~tplv-k3u1fbpfcp-watermark.awebp"
+        title="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7a834b413bd4aa5a1dcb2e6b25ea441~tplv-k3u1fbpfcp-watermark.awebp" /></p>
+<p>或者使用另一种方式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">function</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Number</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">+</span><span class="n">Number</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">process</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">//</span><span class="n">新增一个导出函数</span><span class="err">（</span><span class="n">node方式</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="n">module</span><span class="o">.</span><span class="n">exports</span><span class="o">.</span><span class="n">init</span> <span class="o">=</span> <span class="n">function</span> <span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="n">调用函数</span><span class="err">，</span><span class="n">并返回</span>
+</span></span><span class="line"><span class="cl">    <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">add</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">复制代码</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;node -e &#34;require(</span><span class="se">\&#34;</span><span class="si">%s</span><span class="se">\&#34;</span><span class="s1">).init(</span><span class="si">%s</span><span class="s1">,</span><span class="si">%s</span><span class="s1">)&#34;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;./add.js&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pipeline</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">复制代码</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1495bcf259bf41c891ed752e180c2093~tplv-k3u1fbpfcp-watermark.awebp"
+        data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1495bcf259bf41c891ed752e180c2093~tplv-k3u1fbpfcp-watermark.awebp, https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1495bcf259bf41c891ed752e180c2093~tplv-k3u1fbpfcp-watermark.awebp 1.5x, https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1495bcf259bf41c891ed752e180c2093~tplv-k3u1fbpfcp-watermark.awebp 2x"
+        data-sizes="auto"
+        alt="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1495bcf259bf41c891ed752e180c2093~tplv-k3u1fbpfcp-watermark.awebp"
+        title="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1495bcf259bf41c891ed752e180c2093~tplv-k3u1fbpfcp-watermark.awebp" /></p>
+<h3 id="4node-服务">4.node 服务</h3>
+<p>用 node 做一个服务，提供 api</p>
+<p>还是 add.js 文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">function</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Number</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">+</span><span class="n">Number</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">module</span><span class="o">.</span><span class="n">exports</span> <span class="o">=</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">add</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">add</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">复制代码</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>新建 add_api.js</p>
+<p>下载 express 和 body-parser 两个包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">var</span> <span class="n">express</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">express</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">var</span> <span class="n">func</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s1">&#39;./add.js&#39;</span><span class="p">)</span>  <span class="o">//</span> <span class="n">导入js模块</span><span class="err">，</span><span class="n">并命名为func</span>
+</span></span><span class="line"><span class="cl"><span class="n">var</span> <span class="n">bodyParser</span> <span class="o">=</span> <span class="n">require</span><span class="p">(</span><span class="s1">&#39;body-parser&#39;</span><span class="p">);</span>  <span class="o">//</span> <span class="n">导入请求体解析器</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">调整参数大小限制</span><span class="err">，</span><span class="n">否则会提示参数过大</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">bodyParser</span><span class="o">.</span><span class="n">urlencoded</span><span class="p">({</span><span class="n">limit</span><span class="p">:</span> <span class="s1">&#39;50mb&#39;</span><span class="p">,</span> <span class="n">extended</span><span class="p">:</span> <span class="n">true</span><span class="p">}));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">设置路由</span>
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;/add&#39;</span><span class="p">,</span> <span class="n">function</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">获取请求的真实IP</span>
+</span></span><span class="line"><span class="cl">	<span class="n">var</span> <span class="n">ip</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;x-real-ip&#39;</span><span class="p">]</span> <span class="err">?</span> <span class="n">req</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;x-real-ip&#39;</span><span class="p">]</span> <span class="p">:</span> <span class="n">req</span><span class="o">.</span><span class="n">ip</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">/</span><span class="p">::</span><span class="n">ffff</span><span class="p">:</span><span class="o">/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">//</span> <span class="n">获取请求时间</span>
+</span></span><span class="line"><span class="cl">	<span class="n">var</span> <span class="n">time</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Date</span><span class="p">()</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">/+</span><span class="mf">0800.</span><span class="o">*/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">//</span> <span class="n">打印请求时间</span><span class="err">、</span><span class="n">IP</span><span class="err">、</span><span class="n">方法</span><span class="err">、</span><span class="n">路由</span>
+</span></span><span class="line"><span class="cl">	<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;INFO:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">originalUrl</span><span class="p">,</span> <span class="s1">&#39;200 OK!&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">//</span> <span class="n">获取POST请求的formdata</span>
+</span></span><span class="line"><span class="cl">	<span class="n">let</span> <span class="n">result</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">body</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">//</span> <span class="n">let</span> <span class="n">code</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">code</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">let</span> <span class="n">seed</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">seed</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">let</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">ts</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&#34;result: &#34;</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&#34;num1: &#34;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">num1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&#34;num2: &#34;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">num2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="o">//</span> <span class="n">调用cook模块中的get_cookie方法</span><span class="err">，</span><span class="n">该方法需要提前module</span><span class="o">.</span><span class="n">exports导出</span>
+</span></span><span class="line"><span class="cl">	<span class="n">var</span> <span class="n">response</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">num1</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">num2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">//</span> <span class="n">设置响应头</span><span class="err">，</span><span class="n">如果不设置</span><span class="err">，</span><span class="n">通过asyncio_requests请求的res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="n">会报错</span><span class="err">，</span><span class="n">因为它是根据响应头解析json数据</span>
+</span></span><span class="line"><span class="cl">	<span class="o">//</span> <span class="n">而requests可以直接使用res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="n">解析</span><span class="err">，</span><span class="n">因为它是根据响应信息解析</span>
+</span></span><span class="line"><span class="cl">	<span class="n">res</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="s1">&#39;application/json&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="o">//</span> <span class="n">将JSON后的数据返回客户端</span>
+</span></span><span class="line"><span class="cl">	<span class="n">res</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">({</span><span class="s2">&#34;result&#34;</span><span class="p">:</span> <span class="n">response</span><span class="p">}));</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">app</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">8919</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&#34;开启服务，端口8919&#34;</span><span class="p">,</span> <span class="n">new</span> <span class="n">Date</span><span class="p">()</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">/+</span><span class="mf">0800.</span><span class="o">*/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">复制代码</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行，用 python 写个 post 请求</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl"><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&#34;http://127.0.0.1:8919/add&#34;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;num1&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&#34;num2&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">复制代码</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0645f19417e14c4c86f097c23621502e~tplv-k3u1fbpfcp-watermark.awebp"
+        data-srcset="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0645f19417e14c4c86f097c23621502e~tplv-k3u1fbpfcp-watermark.awebp, https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0645f19417e14c4c86f097c23621502e~tplv-k3u1fbpfcp-watermark.awebp 1.5x, https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0645f19417e14c4c86f097c23621502e~tplv-k3u1fbpfcp-watermark.awebp 2x"
+        data-sizes="auto"
+        alt="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0645f19417e14c4c86f097c23621502e~tplv-k3u1fbpfcp-watermark.awebp"
+        title="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0645f19417e14c4c86f097c23621502e~tplv-k3u1fbpfcp-watermark.awebp" /></p>
+<h3 id="5实测代码">5.实测代码</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">execjs</span><span class="o">,</span><span class="nn">time</span><span class="o">,</span><span class="nn">js2py</span>
+</span></span><span class="line"><span class="cl"><span class="n">sstr</span> <span class="o">=</span> <span class="s2">&#34;76483603481904696764816450136512980&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;md5js.js&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span><span class="c1"># js脚本下载地址：http://sydwperson.hnsydwpx.cn/template/pc/ckplayer/md5.js</span>
+</span></span><span class="line"><span class="cl">    <span class="n">js_code</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">js</span><span class="o">=</span><span class="n">execjs</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">js_code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span><span class="o">=</span><span class="n">js</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;md5&#39;</span><span class="p">,</span><span class="n">sstr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span> <span class="n">start</span><span class="p">,</span><span class="n">end</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># c6652bbf3b665178f231fee20bfb7b99</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 0.023935794830322266</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span> <span class="o">=</span> <span class="n">js2py</span><span class="o">.</span><span class="n">EvalJs</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">js_code</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">sstr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span> <span class="n">start</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># c6652bbf3b665178f231fee20bfb7b99</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 0.11571598052978516</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-02-16</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/python%E6%89%A7%E8%A1%8Cjs%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/python%E6%89%A7%E8%A1%8Cjs%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" data-title="Python执行JS的几种方式" data-via="xxxx" data-hashtags="编程,Python"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/python%E6%89%A7%E8%A1%8Cjs%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" data-hashtag="编程"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/python%E6%89%A7%E8%A1%8Cjs%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" data-title="Python执行JS的几种方式"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/python%E6%89%A7%E8%A1%8Cjs%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" data-title="Python执行JS的几种方式"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/python%E6%89%A7%E8%A1%8Cjs%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" data-title="Python执行JS的几种方式"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>,&nbsp;<a href="/tags/python/">Python</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/wsa%E5%AE%89%E5%8D%93%E5%AD%90%E6%8A%98%E8%85%BE%E7%AC%94%E8%AE%B0/" class="prev" rel="prev" title="(WSA)安卓子系统折腾笔记"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>(WSA)安卓子系统折腾笔记</a>
+            <a href="/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" class="next" rel="next" title="VSCODE插件Remote-SSH配置">VSCODE插件Remote-SSH配置<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

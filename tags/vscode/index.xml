@@ -1,0 +1,47 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>vscode - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/vscode/</link>
+        <description>vscode - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 13 Jul 2023 11:08:59 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/vscode/" rel="self" type="application/rss+xml" /><item>
+    <title>如何将 VSCode 变成绿色版本</title>
+    <link>http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/</link>
+    <pubDate>Thu, 13 Jul 2023 11:08:59 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E5%A6%82%E4%BD%95%E5%B0%86-vscode-%E5%8F%98%E6%88%90%E7%BB%BF%E8%89%B2%E7%89%88%E6%9C%AC/</guid>
+    <description><![CDATA[介绍 指导性文章 : Portable Mode in Visual Studio Code 为什么要设置成绿色版 移植方便，到了新的电脑环境，直接拷贝文件夹就完成 VSCode 环境搭建 管理方便，原来的插件，配置文件不在]]></description>
+</item>
+<item>
+    <title>VSCODE插件Remote-SSH配置</title>
+    <link>http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/</link>
+    <pubDate>Wed, 02 Mar 2022 22:06:09 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/</guid>
+    <description><![CDATA[●Preface 服务器很多时候都是部署在 Linux 远程机器上的，我们通常是 SSH 连过去然后用 vim 或者 emacs 去修改源文件。 这种方式对我来说很麻烦，因为我已经习惯]]></description>
+</item>
+<item>
+    <title>vscode-hexo-utils使用教程</title>
+    <link>http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</link>
+    <pubDate>Sat, 21 Aug 2021 07:27:21 &#43;0800</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</guid>
+    <description><![CDATA[前言 为了解决Typecho需要自建服务器，容易数据丢失的问题，从Typecho转移到Hexo，但是Hexo需要解决只能本地写博客，而且还要安]]></description>
+</item>
+<item>
+    <title>VSCODE写HEXO博客时自动插入FrontMatter的实现</title>
+    <link>http://example.org/vscode%E5%86%99hexo%E5%8D%9A%E5%AE%A2%E6%97%B6%E8%87%AA%E5%8A%A8%E6%8F%92%E5%85%A5frontmatter%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+    <pubDate>Fri, 20 Aug 2021 12:39:57 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/vscode%E5%86%99hexo%E5%8D%9A%E5%AE%A2%E6%97%B6%E8%87%AA%E5%8A%A8%E6%8F%92%E5%85%A5frontmatter%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+    <description><![CDATA[第一步 首先点VSCODE的文件-&gt;首选项-&gt;用户片段，在弹出来的对话框中选择markdown.json。输入以下内容： 1 2 3 4 5]]></description>
+</item>
+<item>
+    <title>Docker搭建VSCODE-Server</title>
+    <link>http://example.org/docker%E6%90%AD%E5%BB%BAvscode-server/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/docker%E6%90%AD%E5%BB%BAvscode-server/</guid>
+    <description><![CDATA[宿主机环境装备 先在宿主机建立用户数据目录 1 mkdir /userdatas/mycode 给上面目录授权（否则将会出现docker挂载该目录时拒绝访问的错误） 1 chmod 777 /userdatas/mycode 启动vscode-]]></description>
+</item>
+</channel>
+</rss>

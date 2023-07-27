@@ -1,0 +1,31 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Flask - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/flask/</link>
+        <description>Flask - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 08 Nov 2021 21:50:15 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/flask/" rel="self" type="application/rss+xml" /><item>
+    <title>How to use Flask with gevent (uWSGI and Gunicorn editions)</title>
+    <link>http://example.org/how-to-use-flask-with-gevent-uwsgi-and-gunicorn-editions/</link>
+    <pubDate>Mon, 08 Nov 2021 21:50:15 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/how-to-use-flask-with-gevent-uwsgi-and-gunicorn-editions/</guid>
+    <description><![CDATA[来源：https://iximiuz.com/en/posts/flask-gevent-tutorial/ Disclaimer: I wrote this tutorial because gevent saved our project a few years ago and I]]></description>
+</item>
+<item>
+    <title>【转载】基于alpine镜像构建自己的flask镜像</title>
+    <link>http://example.org/%E8%BD%AC%E8%BD%BD%E5%9F%BA%E4%BA%8Ealpine%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84flask%E9%95%9C%E5%83%8F/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E8%BD%AC%E8%BD%BD%E5%9F%BA%E4%BA%8Ealpine%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84flask%E9%95%9C%E5%83%8F/</guid>
+    <description><![CDATA[python官方镜像地址： http://hub.docker.com/_/python 拉取官方的python镜像 1 docker pull python:3.7-alpine 交互式方式生成一个python容器 1 docker run -it --name python37 --rm python:3.7-alpine /bin/sh 进入交互式容器，查看当前p]]></description>
+</item>
+<item>
+    <title>Docker部署IP和地址行政区域归属查询工具</title>
+    <link>http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/</guid>
+    <description><![CDATA[构建Dockerfile Dockerfile如下 1 2 3 4 5 6 7 8 9 10 FROM postgis/postgis:13-3.1-alpine WORKDIR /app RUN apk --update --no-cache add python3-dev libffi-dev gcc musl-dev make libevent-dev build-base py3-pip python3 \ &amp;&amp;pip install wheel \ &amp;&amp;pip install gevent \ &amp;&amp;pip install --no-cache-dir flask gunicorn shapely aiohttp psycopg2 \]]></description>
+</item>
+</channel>
+</rss>

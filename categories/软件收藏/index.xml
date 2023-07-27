@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>软件收藏 - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/%E8%BD%AF%E4%BB%B6%E6%94%B6%E8%97%8F/</link>
+        <description>软件收藏 - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 16 Aug 2021 19:30:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E8%BD%AF%E4%BB%B6%E6%94%B6%E8%97%8F/" rel="self" type="application/rss+xml" /><item>
+    <title>超大JSON文件浏览工具</title>
+    <link>http://example.org/%E8%B6%85%E5%A4%A7json%E6%96%87%E4%BB%B6%E6%B5%8F%E8%A7%88%E5%B7%A5%E5%85%B7/</link>
+    <pubDate>Mon, 16 Aug 2021 19:30:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E8%B6%85%E5%A4%A7json%E6%96%87%E4%BB%B6%E6%B5%8F%E8%A7%88%E5%B7%A5%E5%85%B7/</guid>
+    <description><![CDATA[https://github.com/WelliSolutions/HugeJsonViewer 2021年8月6日17点更新 这个更好：Dadroit JSON Viewer]]></description>
+</item>
+</channel>
+</rss>

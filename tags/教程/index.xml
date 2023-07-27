@@ -1,0 +1,47 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>教程 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E6%95%99%E7%A8%8B/</link>
+        <description>教程 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="http://example.org/tags/%E6%95%99%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
+    <title>Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明</title>
+    <link>http://example.org/theme-shoka-doc/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/theme-shoka-doc/</guid>
+    <description><![CDATA[:::info 跳票N久终于更新的简单的使用说明 hexo-theme-shoka ：本博客自用的主题 hexo-renderer-multi-markdown-it：配套的markdown]]></description>
+</item>
+<item>
+    <title>Step.1 依赖插件</title>
+    <link>http://example.org/dependents/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/dependents/</guid>
+    <description><![CDATA[:::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 ::: :::warning 请务必将hexo-renderer-multi-markdown-it升级到]]></description>
+</item>
+<item>
+    <title>Step.2 基本配置</title>
+    <link>http://example.org/config/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/config/</guid>
+    <description><![CDATA[:::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 ::: 站点别称 1 alternate: Yume Shoka 这里设置的名称代替Logo，显示在页面顶部，以及页尾©️处 静态]]></description>
+</item>
+<item>
+    <title>Step.3 界面显示</title>
+    <link>http://example.org/display/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/display/</guid>
+    <description><![CDATA[:::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 ::: 首页置顶文章 在文章的Front Matter设置sticky: true，则该文章]]></description>
+</item>
+<item>
+    <title>Step.4 主题特殊功能</title>
+    <link>http://example.org/special/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/special/</guid>
+    <description><![CDATA[:::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 ::: :::info 以下介绍可以使用的markdown或者标签代码。 功能大部分基于hexo-re]]></description>
+</item>
+</channel>
+</rss>

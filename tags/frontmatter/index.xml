@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>FrontMatter - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/frontmatter/</link>
+        <description>FrontMatter - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 20 Aug 2021 12:39:57 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/frontmatter/" rel="self" type="application/rss+xml" /><item>
+    <title>VSCODE写HEXO博客时自动插入FrontMatter的实现</title>
+    <link>http://example.org/vscode%E5%86%99hexo%E5%8D%9A%E5%AE%A2%E6%97%B6%E8%87%AA%E5%8A%A8%E6%8F%92%E5%85%A5frontmatter%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+    <pubDate>Fri, 20 Aug 2021 12:39:57 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/vscode%E5%86%99hexo%E5%8D%9A%E5%AE%A2%E6%97%B6%E8%87%AA%E5%8A%A8%E6%8F%92%E5%85%A5frontmatter%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+    <description><![CDATA[第一步 首先点VSCODE的文件-&gt;首选项-&gt;用户片段，在弹出来的对话框中选择markdown.json。输入以下内容： 1 2 3 4 5]]></description>
+</item>
+</channel>
+</rss>

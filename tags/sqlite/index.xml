@@ -1,0 +1,23 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>sqlite - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/sqlite/</link>
+        <description>sqlite - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="http://example.org/tags/sqlite/" rel="self" type="application/rss+xml" /><item>
+    <title>Python &#43; SQLite &#43; ST_Geometry</title>
+    <link>http://example.org/python--sqlite--st_geometry/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python--sqlite--st_geometry/</guid>
+    <description><![CDATA[https://www.cnblogs.com/lqqgis/p/12641794.html]]></description>
+</item>
+<item>
+    <title>Python中sqlite使用spatial扩展</title>
+    <link>http://example.org/python%E4%B8%ADsqlite%E4%BD%BF%E7%94%A8spatial%E6%89%A9%E5%B1%95/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python%E4%B8%ADsqlite%E4%BD%BF%E7%94%A8spatial%E6%89%A9%E5%B1%95/</guid>
+    <description><![CDATA[1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 import sqlite3 connR = sqlite3.connect(&#39;:memory:&#39;) connR.enable_load_extension(True) #now we can load the extension # depending on your OS and sqlite/spatialite version you might need to add #]]></description>
+</item>
+</channel>
+</rss>

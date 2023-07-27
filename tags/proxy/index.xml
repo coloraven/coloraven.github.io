@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>proxy - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/proxy/</link>
+        <description>proxy - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/proxy/" rel="self" type="application/rss+xml" /><item>
+    <title>Linux设置全局代理</title>
+    <link>http://example.org/linux%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E4%BB%A3%E7%90%86/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/linux%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E4%BB%A3%E7%90%86/</guid>
+    <description><![CDATA[cover: 所有shell 这种情况可以修改/etc/profile、/etc/environment、、HOME/.bashrc、HOME/.zshr]]></description>
+</item>
+</channel>
+</rss>

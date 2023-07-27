@@ -1,0 +1,39 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>安全 - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/%E5%AE%89%E5%85%A8/</link>
+        <description>安全 - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E5%AE%89%E5%85%A8/" rel="self" type="application/rss+xml" /><item>
+    <title>搭建验证码识别服务并与BurpSuite联动</title>
+    <link>http://example.org/%E6%90%AD%E5%BB%BA%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E6%9C%8D%E5%8A%A1%E5%B9%B6%E4%B8%8Eburpsuite%E8%81%94%E5%8A%A8/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E6%90%AD%E5%BB%BA%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E6%9C%8D%E5%8A%A1%E5%B9%B6%E4%B8%8Eburpsuite%E8%81%94%E5%8A%A8/</guid>
+    <description><![CDATA[出处 https://www.ddosi.com/xp_captcha/ https://github.com/smxiazi/NEW_xp_CAPTCHA xp_CAPTCHA白嫖版白嫖版 说明 xp_CAPTCHA 白嫖版白嫖版 验证码识别 burp插件 安装 需要python3 小于3.7的版本 安装 muggle_ocr 模块（大概400]]></description>
+</item>
+<item>
+    <title>AWVS扫描器的部署</title>
+    <link>http://example.org/awvs%E6%89%AB%E6%8F%8F%E5%99%A8%E7%9A%84%E9%83%A8%E7%BD%B2/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/awvs%E6%89%AB%E6%8F%8F%E5%99%A8%E7%9A%84%E9%83%A8%E7%BD%B2/</guid>
+    <description><![CDATA[[AWVS14 Docker](https://blog.zygd.site/go.html?u=https://blog.zygd.site/AWVS14 Docker.html) 注：如认为本破解补丁存在某些后门或转载删版权者，请勿使用！ 由于传播、利用此文所提供的信息而造成的任何直接或者间接的后果及损失，均由使用]]></description>
+</item>
+<item>
+    <title>部署巡风[xunfeng]</title>
+    <link>http://example.org/%E9%83%A8%E7%BD%B2%E5%B7%A1%E9%A3%8Exunfeng/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E9%83%A8%E7%BD%B2%E5%B7%A1%E9%A3%8Exunfeng/</guid>
+    <description><![CDATA[https://github.com/ysrc/xunfeng/blob/master/docs/install/Docker.md dokcer容器实验摸索结果： /opt/xunfeng目录下含配置文件，其中Config.py定义web前端的登录账号密码及数据库端口、账]]></description>
+</item>
+<item>
+    <title>验证码识别服务安装过程</title>
+    <link>http://example.org/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/</guid>
+    <description><![CDATA[1、按官方步骤安装muggle-ocr 1 python3 -m pip install -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com muggle-ocr 2、安装相应依赖库 1 apt update &amp;&amp; apt install libgl1-mesa-glx 3、降低tf版本 1 pip install --upgrade tensor]]></description>
+</item>
+</channel>
+</rss>

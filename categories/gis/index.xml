@@ -1,0 +1,87 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>GIS - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/gis/</link>
+        <description>GIS - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 11 Mar 2023 22:58:24 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/gis/" rel="self" type="application/rss+xml" /><item>
+    <title>计算多边形镂空区域的坐标</title>
+    <link>http://example.org/%E8%AE%A1%E7%AE%97%E5%A4%9A%E8%BE%B9%E5%BD%A2%E9%95%82%E7%A9%BA%E5%8C%BA%E5%9F%9F%E7%9A%84%E5%9D%90%E6%A0%87/</link>
+    <pubDate>Sat, 11 Mar 2023 22:58:24 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E8%AE%A1%E7%AE%97%E5%A4%9A%E8%BE%B9%E5%BD%A2%E9%95%82%E7%A9%BA%E5%8C%BA%E5%9F%9F%E7%9A%84%E5%9D%90%E6%A0%87/</guid>
+    <description><![CDATA[背景 已知多边形A（{&quot;Type&quot;:&quot;MultiPolygon&quot;}）以及其包含的多个子多边形（均为Mu]]></description>
+</item>
+<item>
+    <title>爬取PGIS数据，存入POSTGIS</title>
+    <link>http://example.org/%E7%88%AC%E5%8F%96pgis%E6%95%B0%E6%8D%AE%E5%AD%98%E5%85%A5postgis/</link>
+    <pubDate>Wed, 25 Aug 2021 21:52:04 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E7%88%AC%E5%8F%96pgis%E6%95%B0%E6%8D%AE%E5%AD%98%E5%85%A5postgis/</guid>
+    <description><![CDATA[第一步：爬取PGIS数据 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58]]></description>
+</item>
+<item>
+    <title>geojson对象与polygon_wkt、wkb对象（MySQL等数据库中的对象）互转</title>
+    <link>http://example.org/geojson%E5%AF%B9%E8%B1%A1%E4%B8%8Epolygon_wkt-wkb%E5%AF%B9%E8%B1%A1mysql%E7%AD%89%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/geojson%E5%AF%B9%E8%B1%A1%E4%B8%8Epolygon_wkt-wkb%E5%AF%B9%E8%B1%A1mysql%E7%AD%89%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC/</guid>
+    <description><![CDATA[来源：https://gist.github.com/drmalex07/5a54fc4f1db06a66679e 1 2 3 4 5 6 7 8 9 10 11 12 13]]></description>
+</item>
+<item>
+    <title>GEOJSON标准格式学习</title>
+    <link>http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/</guid>
+    <description><![CDATA[转载自：https://www.jianshu.com/p/852d7ad081b3 最近做的项目需要详细了解geojson，因此查了一些资料]]></description>
+</item>
+<item>
+    <title>MySQL地理空间查询——备忘录</title>
+    <link>http://example.org/mysql%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E6%9F%A5%E8%AF%A2%E5%A4%87%E5%BF%98%E5%BD%95/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/mysql%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E6%9F%A5%E8%AF%A2%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
+    <description><![CDATA[PostgreSQL 空间st_contains，st_within空间包含搜索优化 - 降IO和降CPUboundbox ST_Contains函数-Oracle 、]]></description>
+</item>
+<item>
+    <title>Mysql或者Postgresql判断一个点是否存在于MULTIPOLYGON(多多边形)</title>
+    <link>http://example.org/mysql%E6%88%96%E8%80%85postgresql%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E7%82%B9%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E4%BA%8Emultipolygon-%E5%A4%9A%E5%A4%9A%E8%BE%B9%E5%BD%A2/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/mysql%E6%88%96%E8%80%85postgresql%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E7%82%B9%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E4%BA%8Emultipolygon-%E5%A4%9A%E5%A4%9A%E8%BE%B9%E5%BD%A2/</guid>
+    <description><![CDATA[Postgresql 转载自：https://blog.csdn.net/weixin_47553445/article/details/115268077 语法]]></description>
+</item>
+<item>
+    <title>MySQL测试判断多边形（Polygon）及镂空多边形（MultiPolygon）是否包含点</title>
+    <link>http://example.org/mysql%E6%B5%8B%E8%AF%95%E5%88%A4%E6%96%AD%E5%A4%9A%E8%BE%B9%E5%BD%A2polygon%E5%8F%8A%E9%95%82%E7%A9%BA%E5%A4%9A%E8%BE%B9%E5%BD%A2multipolygon%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%82%B9/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/mysql%E6%B5%8B%E8%AF%95%E5%88%A4%E6%96%AD%E5%A4%9A%E8%BE%B9%E5%BD%A2polygon%E5%8F%8A%E9%95%82%E7%A9%BA%E5%A4%9A%E8%BE%B9%E5%BD%A2multipolygon%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%82%B9/</guid>
+    <description><![CDATA[1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 -- 1.创建测试表 CREATE TABLE zone ( id int(10) unsigned NOT NULL AUTO_INCREMENT, polygongeo geometry NOT NULL, PRIMARY KEY (id) ) ENGINE=MYISAM DEFAULT CHARSET=utf8; -- 2.插入多边形数据 insert into zone(polygongeo) values(ST_GeomFromText(&#39;POLYGON((1 1,1 5,5 5,5 1,1 1))&#39;)); -- 3.判断点]]></description>
+</item>
+<item>
+    <title>Python &#43; SQLite &#43; ST_Geometry</title>
+    <link>http://example.org/python--sqlite--st_geometry/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python--sqlite--st_geometry/</guid>
+    <description><![CDATA[https://www.cnblogs.com/lqqgis/p/12641794.html]]></description>
+</item>
+<item>
+    <title>Python中sqlite使用spatial扩展</title>
+    <link>http://example.org/python%E4%B8%ADsqlite%E4%BD%BF%E7%94%A8spatial%E6%89%A9%E5%B1%95/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python%E4%B8%ADsqlite%E4%BD%BF%E7%94%A8spatial%E6%89%A9%E5%B1%95/</guid>
+    <description><![CDATA[1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 import sqlite3 connR = sqlite3.connect(&#39;:memory:&#39;) connR.enable_load_extension(True) #now we can load the extension # depending on your OS and sqlite/spatialite version you might need to add #]]></description>
+</item>
+<item>
+    <title>Python并发/并行执行循环任务</title>
+    <link>http://example.org/python%E5%B9%B6%E5%8F%91%E6%89%A7%E8%A1%8C%E5%BE%AA%E7%8E%AF%E4%BB%BB%E5%8A%A1/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python%E5%B9%B6%E5%8F%91%E6%89%A7%E8%A1%8C%E5%BE%AA%E7%8E%AF%E4%BB%BB%E5%8A%A1/</guid>
+    <description><![CDATA[来源:https://blog.csdn.net/qq_23869697/article/details/84798614 1 2 3 4 5 6 7 8 9]]></description>
+</item>
+</channel>
+</rss>

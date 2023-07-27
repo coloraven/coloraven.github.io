@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>POSTGIS - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/postgis/</link>
+        <description>POSTGIS - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="http://example.org/tags/postgis/" rel="self" type="application/rss+xml" /><item>
+    <title>Mysql或者Postgresql判断一个点是否存在于MULTIPOLYGON(多多边形)</title>
+    <link>http://example.org/mysql%E6%88%96%E8%80%85postgresql%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E7%82%B9%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E4%BA%8Emultipolygon-%E5%A4%9A%E5%A4%9A%E8%BE%B9%E5%BD%A2/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/mysql%E6%88%96%E8%80%85postgresql%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E7%82%B9%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E4%BA%8Emultipolygon-%E5%A4%9A%E5%A4%9A%E8%BE%B9%E5%BD%A2/</guid>
+    <description><![CDATA[Postgresql 转载自：https://blog.csdn.net/weixin_47553445/article/details/115268077 语法]]></description>
+</item>
+</channel>
+</rss>

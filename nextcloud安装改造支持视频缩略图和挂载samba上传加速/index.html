@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>NextCloud安装、改造，支持视频缩略图和、挂载Samba、上传加速 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="NextCloud安装、改造，支持视频缩略图和、挂载Samba、上传加速" />
+<meta property="og:description" content="nextcloud安装 1 docker run -itd --name nextcloud -v /userdatas/Sandisk/nextcloud:/var/www/html --link mariadb -p 800:80 nextcloud https://zhuanlan.zhihu.com/p/353252517 解除文件上传时“块大小”的限制， 方法来源 1 docker exec --user www-data 容器ID php occ config:app:set files max_chunk_size --value 0 重建nextclo" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-08-14T15:42:45+00:00" />
+<meta property="article:modified_time" content="2021-08-14T15:42:45+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="NextCloud安装、改造，支持视频缩略图和、挂载Samba、上传加速"/>
+<meta name="twitter:description" content="nextcloud安装 1 docker run -itd --name nextcloud -v /userdatas/Sandisk/nextcloud:/var/www/html --link mariadb -p 800:80 nextcloud https://zhuanlan.zhihu.com/p/353252517 解除文件上传时“块大小”的限制， 方法来源 1 docker exec --user www-data 容器ID php occ config:app:set files max_chunk_size --value 0 重建nextclo"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/" /><link rel="prev" href="http://example.org/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" /><link rel="next" href="http://example.org/linux%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E4%BB%A3%E7%90%86/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "NextCloud安装、改造，支持视频缩略图和、挂载Samba、上传加速",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F\/"
+        },"genre": "posts","keywords": "docker, nextcloud","wordcount":  1041 ,
+        "url": "http:\/\/example.org\/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F\/","datePublished": "2021-08-14T15:42:45+00:00","dateModified": "2021-08-14T15:42:45+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "xxxx"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">NextCloud安装、改造，支持视频缩略图和、挂载Samba、上传加速</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/docker/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Docker</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-14">2021-08-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1041 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#nextcloud安装">nextcloud安装</a></li>
+    <li><a href="#解除文件上传时块大小的限制">解除文件上传时“块大小”的限制，</a></li>
+    <li><a href="#重建nextcloud索引">重建nextcloud索引</a></li>
+    <li><a href="#生成缩略图">生成缩略图</a></li>
+    <li><a href="#支持挂载samba">支持挂载Samba</a></li>
+    <li><a href="#自制docker镜像">自制Docker镜像</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="nextcloud安装">nextcloud安装</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -itd --name nextcloud -v /userdatas/Sandisk/nextcloud:/var/www/html --link mariadb -p 800:80 nextcloud
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://zhuanlan.zhihu.com/p/353252517" target="_blank" rel="noopener noreffer ">https://zhuanlan.zhihu.com/p/353252517</a></p>
+<h2 id="解除文件上传时块大小的限制">解除文件上传时“块大小”的限制，</h2>
+<p><a href="https://help.nextcloud.com/t/uploads-chug-in-10mb-segments/71238/5" target="_blank" rel="noopener noreffer ">方法来源</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker <span class="nb">exec</span> --user www-data 容器ID php occ config:app:set files max_chunk_size --value <span class="m">0</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="重建nextcloud索引">重建nextcloud索引</h2>
+<p>针对通过非nextcloud客户端（手机、PC、网页端）途径放入nextcloud目录的文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker <span class="nb">exec</span> -u www-data nextcloud php occ files:scan --all
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用该命令重建索引，如果报下面错误：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">Starting scan <span class="k">for</span> user <span class="m">1</span> out of <span class="m">1</span> <span class="o">(</span>xxx<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Home storage <span class="k">for</span> user xxx not writable
+</span></span><span class="line"><span class="cl">Make sure you<span class="err">&#39;</span>re running the scan <span class="nb">command</span> only as the user the web server runs as
+</span></span><span class="line"><span class="cl">+---------+-------+--------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> Folders <span class="p">|</span> Files <span class="p">|</span> Elapsed <span class="nb">time</span> <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+---------+-------+--------------+
+</span></span><span class="line"><span class="cl"><span class="p">|</span> <span class="m">0</span>       <span class="p">|</span> <span class="m">0</span>     <span class="p">|</span> 00:00:00     <span class="p">|</span>
+</span></span><span class="line"><span class="cl">+---------+-------+--------------+
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>那么，你需要将移入的文件（或目录）的所有这改为:<code>33:tape</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chown -R 33:tape *
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="生成缩略图">生成缩略图</h2>
+<p>使用时会发现，Nextcloud 上传的视频不能生成缩略图。其实 Nextcloud 本身支持生成视频缩略图，需要安装 ffmpeg 并修改配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker <span class="nb">exec</span> -it nextcloud bash
+</span></span><span class="line"><span class="cl">apt update
+</span></span><span class="line"><span class="cl">apt install ffmpeg
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>停止NextCloud容器，再修改/var/www/html/config/config.php配置文件，添加：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="s1">&#39;enable_previews&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;enabledPreviewProviders&#39;</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">array</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="mi">0</span> <span class="o">=&gt;</span> <span class="s1">&#39;OC\\Preview\\Image&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="mi">1</span> <span class="o">=&gt;</span> <span class="s1">&#39;OC\\Preview\\Movie&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="mi">2</span> <span class="o">=&gt;</span> <span class="s1">&#39;OC\\Preview\\TXT&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">),</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>再次启动容器即可生效。</p>
+<h2 id="支持挂载samba">支持挂载Samba</h2>
+<p>Nextcloud 不仅是一个私有网盘，它还支持管理其他外部存储。可以把Samba共享，FTP，WebDAV等挂载到目录下统一访问管理。</p>
+<p>Nextcloud默认是没有开启外部存储功能的，需在手动启用插件。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-23T093034.png"
+        data-srcset="2021-08-23T093034.png, 2021-08-23T093034.png 1.5x, 2021-08-23T093034.png 2x"
+        data-sizes="auto"
+        alt="2021-08-23T093034.png"
+        title="2021-08-23T093034.png" /></p>
+<p>然后在设置里可以看到：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-23T093049.png"
+        data-srcset="2021-08-23T093049.png, 2021-08-23T093049.png 1.5x, 2021-08-23T093049.png 2x"
+        data-sizes="auto"
+        alt="2021-08-23T093049.png"
+        title="2021-08-23T093049" />
+Docker部署的 Nextcloud 默认是无法挂载 Samba 的，这里会显示：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-23T093101.png"
+        data-srcset="2021-08-23T093101.png, 2021-08-23T093101.png 1.5x, 2021-08-23T093101.png 2x"
+        data-sizes="auto"
+        alt="2021-08-23T093101.png"
+        title="2021-08-23T093101" /></p>
+<p>需要在容器内安装smbclient：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker <span class="nb">exec</span> -it nextcloud bash
+</span></span><span class="line"><span class="cl">apt install smbclient libsmbclient-dev
+</span></span><span class="line"><span class="cl">pecl install smbclient
+</span></span><span class="line"><span class="cl">docker-php-ext-enable smbclient
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启Docker服务即可。</p>
+<h2 id="自制docker镜像">自制Docker镜像</h2>
+<p>以上两处调整，在升级 Nextcloud 镜像后又需要重新执行一次。我们可以用原镜像为基础定制一个 Nextcloud 镜像。</p>
+<p>新建文件 Dockerfile ，内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> nextcloud:latest</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">LABEL</span> <span class="nv">maintainer</span><span class="o">=</span><span class="s2">&#34;engr-z&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span> <span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apt update <span class="o">&amp;&amp;</span> apt upgrade -y<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apt install ffmpeg smbclient libsmbclient-dev -y<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> pecl install smbclient<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> docker-php-ext-enable smbclient<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后在该目录下执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker build -t my_nextcloud:latest ./
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行完后会生成新的镜像：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-23T093120.png"
+        data-srcset="2021-08-23T093120.png, 2021-08-23T093120.png 1.5x, 2021-08-23T093120.png 2x"
+        data-sizes="auto"
+        alt="2021-08-23T093120.png"
+        title="2021-08-23T093120" />
+我们只需要用该镜像运行即可。</p>
+<p>Nextcloud 升级
+1.执行 <code>docker pull nextcloud:latest</code> 下载最新镜像，再构建自己的镜像。</p>
+<p>2.停止正在运行的Nextcloud并删除：<code>docker stop nextcloud</code>
+3.重新运行镜像，参数和原来一样。</p>
+<p>通过 Web 进入 Nextcloud 就会出现：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-23T093129.png"
+        data-srcset="2021-08-23T093129.png, 2021-08-23T093129.png 1.5x, 2021-08-23T093129.png 2x"
+        data-sizes="auto"
+        alt="2021-08-23T093129.png"
+        title="2021-08-23T093129" />
+不推荐在该界面上点击更新。因为在更新内容多的情况，尤其是第三方应用更新，时间较长，浏览器可能会超时，推荐使用 occ 更新。</p>
+<p>occ命令是Nextcloud的命令行界面，Nextcloud管理员可以通过occ执行许多常见的服务器操作。命令格式：
+<code>sudo -u www-data php occ &lt;your_command&gt;</code>
+在Docker中运行的Nextcloud执行occ会出现权限问题：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-23T093135.png"
+        data-srcset="2021-08-23T093135.png, 2021-08-23T093135.png 1.5x, 2021-08-23T093135.png 2x"
+        data-sizes="auto"
+        alt="2021-08-23T093135.png"
+        title="2021-08-23T093135" />
+正确执行：</p>
+<p><code>docker exec --user www-data nextcloud php occ upgrade</code>
+写这篇文章时，Nextcloud 21刚刚发布，性能提升巨大。我自己也一直用 Nextcloud 管理家庭的照片和视频，非常Nice。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-08-14</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/" data-title="NextCloud安装、改造，支持视频缩略图和、挂载Samba、上传加速" data-via="xxxx" data-hashtags="docker,nextcloud"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/" data-hashtag="docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/" data-title="NextCloud安装、改造，支持视频缩略图和、挂载Samba、上传加速"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/" data-title="NextCloud安装、改造，支持视频缩略图和、挂载Samba、上传加速"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/" data-title="NextCloud安装、改造，支持视频缩略图和、挂载Samba、上传加速"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/docker/">Docker</a>,&nbsp;<a href="/tags/nextcloud/">nextcloud</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" class="prev" rel="prev" title="Nginx负载均衡"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Nginx负载均衡</a>
+            <a href="/linux%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80%E4%BB%A3%E7%90%86/" class="next" rel="next" title="Linux设置全局代理">Linux设置全局代理<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

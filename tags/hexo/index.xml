@@ -1,0 +1,71 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Hexo - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/hexo/</link>
+        <description>Hexo - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 21 Aug 2021 07:27:21 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/hexo/" rel="self" type="application/rss+xml" /><item>
+    <title>vscode-hexo-utils使用教程</title>
+    <link>http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</link>
+    <pubDate>Sat, 21 Aug 2021 07:27:21 &#43;0800</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/vscode-hexo-utils%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</guid>
+    <description><![CDATA[前言 为了解决Typecho需要自建服务器，容易数据丢失的问题，从Typecho转移到Hexo，但是Hexo需要解决只能本地写博客，而且还要安]]></description>
+</item>
+<item>
+    <title>VSCODE写HEXO博客时自动插入FrontMatter的实现</title>
+    <link>http://example.org/vscode%E5%86%99hexo%E5%8D%9A%E5%AE%A2%E6%97%B6%E8%87%AA%E5%8A%A8%E6%8F%92%E5%85%A5frontmatter%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+    <pubDate>Fri, 20 Aug 2021 12:39:57 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/vscode%E5%86%99hexo%E5%8D%9A%E5%AE%A2%E6%97%B6%E8%87%AA%E5%8A%A8%E6%8F%92%E5%85%A5frontmatter%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+    <description><![CDATA[第一步 首先点VSCODE的文件-&gt;首选项-&gt;用户片段，在弹出来的对话框中选择markdown.json。输入以下内容： 1 2 3 4 5]]></description>
+</item>
+<item>
+    <title>hexo主题美化样例博客收集</title>
+    <link>http://example.org/hexo%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E6%A0%B7%E4%BE%8B%E5%8D%9A%E5%AE%A2%E6%94%B6%E9%9B%86/</link>
+    <pubDate>Sat, 14 Aug 2021 23:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/hexo%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E6%A0%B7%E4%BE%8B%E5%8D%9A%E5%AE%A2%E6%94%B6%E9%9B%86/</guid>
+    <description><![CDATA[很多酷炫效果 https://jinan6.vip/posts/3112011529/ ###markdown各种特殊语法，彩色横条、folding、容器等 https://zykj.js.org/posts/e297feab/ folding没解决，暂时使用toggle，仅butte]]></description>
+</item>
+<item>
+    <title>Hexo主题Shoka &amp; multi-markdown-it渲染器使用说明</title>
+    <link>http://example.org/theme-shoka-doc/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/theme-shoka-doc/</guid>
+    <description><![CDATA[:::info 跳票N久终于更新的简单的使用说明 hexo-theme-shoka ：本博客自用的主题 hexo-renderer-multi-markdown-it：配套的markdown]]></description>
+</item>
+<item>
+    <title>Step.1 依赖插件</title>
+    <link>http://example.org/dependents/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/dependents/</guid>
+    <description><![CDATA[:::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 ::: :::warning 请务必将hexo-renderer-multi-markdown-it升级到]]></description>
+</item>
+<item>
+    <title>Step.2 基本配置</title>
+    <link>http://example.org/config/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/config/</guid>
+    <description><![CDATA[:::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 ::: 站点别称 1 alternate: Yume Shoka 这里设置的名称代替Logo，显示在页面顶部，以及页尾©️处 静态]]></description>
+</item>
+<item>
+    <title>Step.3 界面显示</title>
+    <link>http://example.org/display/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/display/</guid>
+    <description><![CDATA[:::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 ::: 首页置顶文章 在文章的Front Matter设置sticky: true，则该文章]]></description>
+</item>
+<item>
+    <title>Step.4 主题特殊功能</title>
+    <link>http://example.org/special/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/special/</guid>
+    <description><![CDATA[:::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 ::: :::info 以下介绍可以使用的markdown或者标签代码。 功能大部分基于hexo-re]]></description>
+</item>
+</channel>
+</rss>

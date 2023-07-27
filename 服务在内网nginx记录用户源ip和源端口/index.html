@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>服务在“内网”，nginx记录用户源IP和源端口 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="服务在“内网”，nginx记录用户源IP和源端口" />
+<meta property="og:description" content="转载自https://www.cnblogs.com/linuxk/p/12033796.html 服务器架构前面加了防火墙，Nginx如何获" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/%E6%9C%8D%E5%8A%A1%E5%9C%A8%E5%86%85%E7%BD%91nginx%E8%AE%B0%E5%BD%95%E7%94%A8%E6%88%B7%E6%BA%90ip%E5%92%8C%E6%BA%90%E7%AB%AF%E5%8F%A3/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-08-14T15:42:45+00:00" />
+<meta property="article:modified_time" content="2021-08-14T15:42:45+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="服务在“内网”，nginx记录用户源IP和源端口"/>
+<meta name="twitter:description" content="转载自https://www.cnblogs.com/linuxk/p/12033796.html 服务器架构前面加了防火墙，Nginx如何获"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/%E6%9C%8D%E5%8A%A1%E5%9C%A8%E5%86%85%E7%BD%91nginx%E8%AE%B0%E5%BD%95%E7%94%A8%E6%88%B7%E6%BA%90ip%E5%92%8C%E6%BA%90%E7%AB%AF%E5%8F%A3/" /><link rel="prev" href="http://example.org/%E9%98%BF%E9%87%8C%E4%BA%91ecs%E9%95%9C%E5%83%8F%E5%BF%AB%E7%85%A7%E8%BF%81%E7%A7%BB%E5%88%B0%E8%99%9A%E6%8B%9F%E6%9C%BA/" /><link rel="next" href="http://example.org/%E6%90%AD%E5%BB%BA%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E6%9C%8D%E5%8A%A1%E5%B9%B6%E4%B8%8Eburpsuite%E8%81%94%E5%8A%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "服务在“内网”，nginx记录用户源IP和源端口",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/%E6%9C%8D%E5%8A%A1%E5%9C%A8%E5%86%85%E7%BD%91nginx%E8%AE%B0%E5%BD%95%E7%94%A8%E6%88%B7%E6%BA%90ip%E5%92%8C%E6%BA%90%E7%AB%AF%E5%8F%A3\/"
+        },"genre": "posts","keywords": "linux, nginx","wordcount":  1217 ,
+        "url": "http:\/\/example.org\/%E6%9C%8D%E5%8A%A1%E5%9C%A8%E5%86%85%E7%BD%91nginx%E8%AE%B0%E5%BD%95%E7%94%A8%E6%88%B7%E6%BA%90ip%E5%92%8C%E6%BA%90%E7%AB%AF%E5%8F%A3\/","datePublished": "2021-08-14T15:42:45+00:00","dateModified": "2021-08-14T15:42:45+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "xxxx"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">服务在“内网”，nginx记录用户源IP和源端口</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span>&nbsp;<span class="post-category">included in <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-14">2021-08-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1217 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#服务器架构前面加了防火墙nginx如何获取客户端真实ip">服务器架构前面加了防火墙，Nginx如何获取客户端真实ip？？？</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>转载自https://www.cnblogs.com/linuxk/p/12033796.html</p>
+<h2 id="服务器架构前面加了防火墙nginx如何获取客户端真实ip">服务器架构前面加了防火墙，Nginx如何获取客户端真实ip？？？</h2>
+<p>在大部分实际业务场景中，网站访问请求并不是简单地从用户（访问者）的浏览器直达网站的源站服务器，中间可能经过所部署的CDN、高防IP、WAF等代理服务器。例如，网站可能采用这样的部署架构：用户 &gt; CDN/高防IP/WAF &gt; 源站服务器。这种情况下，访问请求在经过多层加速或代理转发后，源站服务器该如何获取发起请求的真实客户端IP？</p>
+<p>一般情况下，透明的代理服务器在将用户的访问请求转发到下一环节的服务器时，会在HTTP的请求头中添加一条X-Forwarded-For记录，用于记录用户的真实IP，其记录格式为X-Forwarded-For:用户IP。如果期间经历多个代理服务器，则X-Forwarded-For将以该格式记录用户真实IP和所经过的代理服务器IP：X-Forwarded-For:用户IP, 代理服务器1-IP, 代理服务器2-IP, 代理服务器3-IP, ……。</p>
+<p>因此，常见的Web应用服务器可以使用X-Forwarded-For的方式获取访问者真实IP。</p>
+<p><strong>Nginx配置方案</strong></p>
+<ul>
+<li>1、确认nginx安装时已经安装http_realip_module模块</li>
+</ul>
+<p>为实现负载均衡，Nginx使用http_realip_module模块来获取真实IP。<code># nginx -V | grep http_realip_module</code>命令查看是否已安装该模块。如未安装，则需要重新编译Nginx服务并加装该模块。方法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget http://nginx.org/download/nginx-1.14.2.tar.gz
+</span></span><span class="line"><span class="cl">tar zxvf nginx-1.14.2.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> nginx-1.14.2
+</span></span><span class="line"><span class="cl">./configure --user<span class="o">=</span>www --group<span class="o">=</span>www --prefix<span class="o">=</span>/usr/local/nginx --with-http_stub_status_module --without-http-cache --with-http_ssl_module --with-http_realip_module
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">make install
+</span></span><span class="line"><span class="cl"><span class="nb">kill</span> -USR2 <span class="sb">`</span>cat /usr/local/nginx/logs/nginx.pid<span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="nb">kill</span> -QUIT <span class="sb">`</span>cat /usr/local/nginx/logs/ nginx.pid.oldbin<span class="sb">`</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>2、修改Nginx对应server的配置</li>
+</ul>
+<p>打开www.conf配置文件，在location / {} 中加入以下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">set_real_ip_from ip_range1<span class="p">;</span>    <span class="c1">#真实服务器上一级代理的IP地址或者IP段,可以写多行</span>
+</span></span><span class="line"><span class="cl">set_real_ip_from ip_range2<span class="p">;</span>
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">set_real_ip_from ip_rangex<span class="p">;</span>
+</span></span><span class="line"><span class="cl">real_ip_header    X-Forwarded-For<span class="p">;</span>    <span class="c1">#从哪个header头检索出需要的IP地址</span>
+</span></span><span class="line"><span class="cl">real_ip_recursive on<span class="p">;</span>    <span class="c1">#递归排除set_real_ip_from里面出现的IP,其余没有出现的认为是用户真实IP</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>说明:</strong> 其中，ip_range1，2，&hellip;，x 指WAF的回源IP地址，需要分多条分别添加。</p>
+<p>如何获取WAF的回源IP地址？？？</p>
+<p>打开WAF界面&ndash;&gt;设置&ndash;&gt;产品信息&ndash;&gt;即可查看到回源IP段，将这里的IP段按照上面的方式写进nginx配置当中即可，查看nginx访问日志就是客户端真实ip了。不过要说的是阿里的回源IP段真多，用notepad++处理好配置再写上去更方便！</p>
+<ul>
+<li>3、修改日志记录格式</li>
+</ul>
+<p>log_format一般在nginx.conf配置文件中的http配置部分。在log_format中，添加x-forwarded-for字段，替换原来remote-address字段，即将log_format修改为以下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">log_format  main  <span class="s1">&#39;$http_x_forwarded_for - $remote_user [$time_local] &#34;$request&#34; &#39;</span> <span class="s1">&#39;$status $body_bytes_sent &#34;$http_referer&#34; &#39;</span> <span class="s1">&#39;&#34;$http_user_agent&#34; &#39;</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Don&rsquo;t forget the beginner&rsquo;s mind</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-08-14</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E6%9C%8D%E5%8A%A1%E5%9C%A8%E5%86%85%E7%BD%91nginx%E8%AE%B0%E5%BD%95%E7%94%A8%E6%88%B7%E6%BA%90ip%E5%92%8C%E6%BA%90%E7%AB%AF%E5%8F%A3/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E6%9C%8D%E5%8A%A1%E5%9C%A8%E5%86%85%E7%BD%91nginx%E8%AE%B0%E5%BD%95%E7%94%A8%E6%88%B7%E6%BA%90ip%E5%92%8C%E6%BA%90%E7%AB%AF%E5%8F%A3/" data-title="服务在“内网”，nginx记录用户源IP和源端口" data-via="xxxx" data-hashtags="linux,nginx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E6%9C%8D%E5%8A%A1%E5%9C%A8%E5%86%85%E7%BD%91nginx%E8%AE%B0%E5%BD%95%E7%94%A8%E6%88%B7%E6%BA%90ip%E5%92%8C%E6%BA%90%E7%AB%AF%E5%8F%A3/" data-hashtag="linux"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E6%9C%8D%E5%8A%A1%E5%9C%A8%E5%86%85%E7%BD%91nginx%E8%AE%B0%E5%BD%95%E7%94%A8%E6%88%B7%E6%BA%90ip%E5%92%8C%E6%BA%90%E7%AB%AF%E5%8F%A3/" data-title="服务在“内网”，nginx记录用户源IP和源端口"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E6%9C%8D%E5%8A%A1%E5%9C%A8%E5%86%85%E7%BD%91nginx%E8%AE%B0%E5%BD%95%E7%94%A8%E6%88%B7%E6%BA%90ip%E5%92%8C%E6%BA%90%E7%AB%AF%E5%8F%A3/" data-title="服务在“内网”，nginx记录用户源IP和源端口"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E6%9C%8D%E5%8A%A1%E5%9C%A8%E5%86%85%E7%BD%91nginx%E8%AE%B0%E5%BD%95%E7%94%A8%E6%88%B7%E6%BA%90ip%E5%92%8C%E6%BA%90%E7%AB%AF%E5%8F%A3/" data-title="服务在“内网”，nginx记录用户源IP和源端口"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/nginx/">nginx</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E9%98%BF%E9%87%8C%E4%BA%91ecs%E9%95%9C%E5%83%8F%E5%BF%AB%E7%85%A7%E8%BF%81%E7%A7%BB%E5%88%B0%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="prev" rel="prev" title="阿里云ECS镜像快照迁移到虚拟机"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>阿里云ECS镜像快照迁移到虚拟机</a>
+            <a href="/%E6%90%AD%E5%BB%BA%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E6%9C%8D%E5%8A%A1%E5%B9%B6%E4%B8%8Eburpsuite%E8%81%94%E5%8A%A8/" class="next" rel="next" title="搭建验证码识别服务并与BurpSuite联动">搭建验证码识别服务并与BurpSuite联动<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

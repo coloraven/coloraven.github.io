@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Github - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/github/</link>
+        <description>Github - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 20 Jan 2022 16:17:17 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/github/" rel="self" type="application/rss+xml" /><item>
+    <title>Github Actions Artifacts（Github工件）下载加速思路</title>
+    <link>http://example.org/github-actions-artifactsgithub%E5%B7%A5%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%8A%A0%E9%80%9F%E6%80%9D%E8%B7%AF/</link>
+    <pubDate>Thu, 20 Jan 2022 16:17:17 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/github-actions-artifactsgithub%E5%B7%A5%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%8A%A0%E9%80%9F%E6%80%9D%E8%B7%AF/</guid>
+    <description><![CDATA[背景 用Github Actions build 带谷歌框架和root权限的安卓子系统，结果build出来的artifacts有将近4个G，挂代理（US和HK切换都一样]]></description>
+</item>
+</channel>
+</rss>

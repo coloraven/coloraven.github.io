@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>excel - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/excel/</link>
+        <description>excel - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 30 Oct 2022 21:55:37 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/excel/" rel="self" type="application/rss+xml" /><item>
+    <title>根据excel表格自动生成固定格式word文档</title>
+    <link>http://example.org/%E6%A0%B9%E6%8D%AEexcel%E8%A1%A8%E6%A0%BC%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E5%9B%BA%E5%AE%9A%E6%A0%BC%E5%BC%8Fword%E6%96%87%E6%A1%A3/</link>
+    <pubDate>Sun, 30 Oct 2022 21:55:37 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E6%A0%B9%E6%8D%AEexcel%E8%A1%A8%E6%A0%BC%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E5%9B%BA%E5%AE%9A%E6%A0%BC%E5%BC%8Fword%E6%96%87%E6%A1%A3/</guid>
+    <description><![CDATA[根据excel生成word 有如下表格共1000行数据: 甲方姓名 甲方身份证号码 甲方电话 乙方姓名 乙方身份证号码 乙方电话 合同编号 签订日期 陈丽丽 150823194101084012 18876426141]]></description>
+</item>
+</channel>
+</rss>

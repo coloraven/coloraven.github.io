@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>onlyoffice - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/onlyoffice/</link>
+        <description>onlyoffice - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 11 May 2022 23:51:23 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/onlyoffice/" rel="self" type="application/rss+xml" /><item>
+    <title>可道云&#43;onlyoffice搭建【amd64&#43;arm64】</title>
+    <link>http://example.org/%E5%8F%AF%E9%81%93%E4%BA%91%E6%90%AD%E5%BB%BAamd64/</link>
+    <pubDate>Wed, 11 May 2022 23:51:23 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E5%8F%AF%E9%81%93%E4%BA%91%E6%90%AD%E5%BB%BAamd64/</guid>
+    <description><![CDATA[运行可道云 kodcloud/kodexplorer:latest含arm64架构镜像 docker run -d -p 3563:80 kodcloud/kodexplorer:latest 运行onlyoffice docker run -i -t -d --name onlyoffice -p 5646:80 onlyoffice/documentserver]]></description>
+</item>
+</channel>
+</rss>

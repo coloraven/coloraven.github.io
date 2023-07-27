@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>云函数 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E4%BA%91%E5%87%BD%E6%95%B0/</link>
+        <description>云函数 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 08 Nov 2021 23:08:46 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/%E4%BA%91%E5%87%BD%E6%95%B0/" rel="self" type="application/rss+xml" /><item>
+    <title>腾讯云函数Python依赖包安装打包过程</title>
+    <link>http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/</link>
+    <pubDate>Mon, 08 Nov 2021 23:08:46 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/</guid>
+    <description><![CDATA[官方文档：https://cloud.tencent.com/document/product/583/39780 通过官方文档可知，在云函数]]></description>
+</item>
+</channel>
+</rss>

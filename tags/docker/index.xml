@@ -1,0 +1,87 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Docker - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/docker/</link>
+        <description>Docker - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 06 Jul 2023 19:11:48 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/docker/" rel="self" type="application/rss+xml" /><item>
+    <title>修改Docker默认数据保存位置</title>
+    <link>http://example.org/%E4%BF%AE%E6%94%B9docker%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98%E4%BD%8D%E7%BD%AE/</link>
+    <pubDate>Thu, 06 Jul 2023 19:11:48 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E4%BF%AE%E6%94%B9docker%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98%E4%BD%8D%E7%BD%AE/</guid>
+    <description><![CDATA[第一步 停止wsl 1 wsl --shutdown 第二步 移动默认位置（C:\Users\xxxxx\AppData\Local\Docker\wsl\data）下的ex]]></description>
+</item>
+<item>
+    <title>Docker容器搭建ELK AIO</title>
+    <link>http://example.org/docker%E5%AE%B9%E5%99%A8%E6%90%AD%E5%BB%BAelk-aio/</link>
+    <pubDate>Mon, 23 Jan 2023 10:20:21 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/docker%E5%AE%B9%E5%99%A8%E6%90%AD%E5%BB%BAelk-aio/</guid>
+    <description><![CDATA[镜像地址 https://hub.docker.com/r/sebp/elk 参数说明 docker run -itd -p 5601:5601 -p 9200:9200 -p 5044:5044 --name=elk -e TZ=&quot;Asia/Shanghai&quot; sebp/elk TZ: 时区 (这里查看 可用时区参数), 例如 Asia/Shanghai、America/Los_Ange]]></description>
+</item>
+<item>
+    <title>Win下利用DockerDesktop打造Linux开发环境</title>
+    <link>http://example.org/win%E4%B8%8B%E5%88%A9%E7%94%A8dockerdesktop%E6%89%93%E9%80%A0linux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
+    <pubDate>Fri, 23 Dec 2022 15:09:19 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/win%E4%B8%8B%E5%88%A9%E7%94%A8dockerdesktop%E6%89%93%E9%80%A0linux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
+    <description><![CDATA[开发环境要求 基于Ubuntu或者Debian，系统源改为国内源， 系统时间为东八区 安装node、golang、python，源都改为国内源 使用]]></description>
+</item>
+<item>
+    <title>内网环境中使用Docker镜像</title>
+    <link>http://example.org/%E5%86%85%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BD%BF%E7%94%A8docker%E9%95%9C%E5%83%8F/</link>
+    <pubDate>Mon, 25 Apr 2022 20:02:47 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E5%86%85%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BD%BF%E7%94%A8docker%E9%95%9C%E5%83%8F/</guid>
+    <description><![CDATA[背景 内网环境（与互联网隔离）或者无网络的电脑上已经安装好docker demon，现在需要将互联网中的镜像拷贝到内网主机上运行。操作如下： 最关]]></description>
+</item>
+<item>
+    <title>手摸手带你Docker从入门到实践</title>
+    <link>http://example.org/%E6%89%8B%E6%91%B8%E6%89%8B%E5%B8%A6%E4%BD%A0-docker%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/</link>
+    <pubDate>Mon, 16 Aug 2021 18:50:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E6%89%8B%E6%91%B8%E6%89%8B%E5%B8%A6%E4%BD%A0-docker%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/</guid>
+    <description><![CDATA[手摸手带你 Docker 从入门到实践 在下最近遇到要在服务器上安装 Mysql、Nginx、EasyMock 等工具的场景，这里记录一下我使用 Docker 安装的过程，希]]></description>
+</item>
+<item>
+    <title>Docker 搭建Filerun</title>
+    <link>http://example.org/docker-%E6%90%AD%E5%BB%BAfilerun/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/docker-%E6%90%AD%E5%BB%BAfilerun/</guid>
+    <description><![CDATA[filerun 官方docker： https://hub.docker.com/r/afian/filerun/ 1、预先搭建好mariadb容器 2、使用以下命令运行filerun容器 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 docker run -itd --name filerun \ --restart=unless-stopped \]]></description>
+</item>
+<item>
+    <title>Docker常用命令</title>
+    <link>http://example.org/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+    <description><![CDATA[进入正在运行的容器中 1 docker exec -it 1f6091e48979 /bin/sh 列出本地容器镜像 （包括运行中的容器使用的镜像和未运行的静态镜像文件） 1 docker image ls 查看容器的run参数 1 docker run --rm -v /var/run/docker.sock:/var/run/docker.sock]]></description>
+</item>
+<item>
+    <title>Docker搭建VSCODE-Server</title>
+    <link>http://example.org/docker%E6%90%AD%E5%BB%BAvscode-server/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/docker%E6%90%AD%E5%BB%BAvscode-server/</guid>
+    <description><![CDATA[宿主机环境装备 先在宿主机建立用户数据目录 1 mkdir /userdatas/mycode 给上面目录授权（否则将会出现docker挂载该目录时拒绝访问的错误） 1 chmod 777 /userdatas/mycode 启动vscode-]]></description>
+</item>
+<item>
+    <title>NextCloud安装、改造，支持视频缩略图和、挂载Samba、上传加速</title>
+    <link>http://example.org/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/</guid>
+    <description><![CDATA[nextcloud安装 1 docker run -itd --name nextcloud -v /userdatas/Sandisk/nextcloud:/var/www/html --link mariadb -p 800:80 nextcloud https://zhuanlan.zhihu.com/p/353252517 解除文件上传时“块大小”的限制， 方法来源 1 docker exec --user www-data 容器ID php occ config:app:set files max_chunk_size --value 0 重建nextclo]]></description>
+</item>
+<item>
+    <title>Watchtower - 自动更新 Docker 镜像与容器</title>
+    <link>http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/</guid>
+    <description><![CDATA[转载自：https://p3terx.com/archives/docker-watchtower.html 前言 Docker 容器的部署有一种在手机上装]]></description>
+</item>
+</channel>
+</rss>

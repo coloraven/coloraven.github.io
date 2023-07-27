@@ -1,0 +1,87 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Docker - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/docker/</link>
+        <description>Docker - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 06 Jul 2023 19:11:48 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/docker/" rel="self" type="application/rss+xml" /><item>
+    <title>修改Docker默认数据保存位置</title>
+    <link>http://example.org/%E4%BF%AE%E6%94%B9docker%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98%E4%BD%8D%E7%BD%AE/</link>
+    <pubDate>Thu, 06 Jul 2023 19:11:48 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E4%BF%AE%E6%94%B9docker%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98%E4%BD%8D%E7%BD%AE/</guid>
+    <description><![CDATA[第一步 停止wsl 1 wsl --shutdown 第二步 移动默认位置（C:\Users\xxxxx\AppData\Local\Docker\wsl\data）下的ex]]></description>
+</item>
+<item>
+    <title>Win下利用DockerDesktop打造Linux开发环境</title>
+    <link>http://example.org/win%E4%B8%8B%E5%88%A9%E7%94%A8dockerdesktop%E6%89%93%E9%80%A0linux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
+    <pubDate>Fri, 23 Dec 2022 15:09:19 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/win%E4%B8%8B%E5%88%A9%E7%94%A8dockerdesktop%E6%89%93%E9%80%A0linux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
+    <description><![CDATA[开发环境要求 基于Ubuntu或者Debian，系统源改为国内源， 系统时间为东八区 安装node、golang、python，源都改为国内源 使用]]></description>
+</item>
+<item>
+    <title>内网环境中使用Docker镜像</title>
+    <link>http://example.org/%E5%86%85%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BD%BF%E7%94%A8docker%E9%95%9C%E5%83%8F/</link>
+    <pubDate>Mon, 25 Apr 2022 20:02:47 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E5%86%85%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BD%BF%E7%94%A8docker%E9%95%9C%E5%83%8F/</guid>
+    <description><![CDATA[背景 内网环境（与互联网隔离）或者无网络的电脑上已经安装好docker demon，现在需要将互联网中的镜像拷贝到内网主机上运行。操作如下： 最关]]></description>
+</item>
+<item>
+    <title>青龙面板京东签到</title>
+    <link>http://example.org/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BA%AC%E4%B8%9C%E7%AD%BE%E5%88%B0/</link>
+    <pubDate>Wed, 13 Oct 2021 10:40:24 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BA%AC%E4%B8%9C%E7%AD%BE%E5%88%B0/</guid>
+    <description><![CDATA[脚本备份 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 【10.2】https://www.juan920.com/1125.html ql repo https://github.com/smiek2221/scripts.git &#34;jd_|gua_&#34; &#34;&#34; &#34;ZooFaker_Necklace.js|JDJRValidator_Pure.js|sign_graphics_validate.js&#34;]]></description>
+</item>
+<item>
+    <title>Docker搭建青龙面板</title>
+    <link>http://example.org/docker%E6%90%AD%E5%BB%BA%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF/</link>
+    <pubDate>Tue, 07 Sep 2021 00:06:53 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/docker%E6%90%AD%E5%BB%BA%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF/</guid>
+    <description><![CDATA[1 2 3 4 5 6 7 8 9 10 11 12 13 14 docker run -dit \ -v /userdatas/Sandisk/ql/config:/ql/config \ -v /userdatas/Sandisk/ql/log:/ql/log \ -v /userdatas/Sandisk/ql/db:/ql/db \ -v /userdatas/Sandisk/ql/repo:/ql/repo \ -v /userdatas/Sandisk/ql/raw:/ql/raw \ -v /userdatas/Sandisk/ql/scripts:/ql/scripts \ -v /userdatas/Sandisk/ql/jbot:/ql/jbot \ -v /userdatas/Sandisk/ql/ninja:/ql/ninja \ -p 5678:5700 \ -p 6789:5701 \ --name qinglong \ --restart unless-stopped \ whyour/qinglong:latest]]></description>
+</item>
+<item>
+    <title>Docker搭建Jellyfin</title>
+    <link>http://example.org/docker%E6%90%AD%E5%BB%BAjellyfin/</link>
+    <pubDate>Wed, 01 Sep 2021 11:33:52 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/docker%E6%90%AD%E5%BB%BAjellyfin/</guid>
+    <description><![CDATA[来源：https://docs.linuxserver.io/images/docker-jellyfin#environment-vari]]></description>
+</item>
+<item>
+    <title>手摸手带你Docker从入门到实践</title>
+    <link>http://example.org/%E6%89%8B%E6%91%B8%E6%89%8B%E5%B8%A6%E4%BD%A0-docker%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/</link>
+    <pubDate>Mon, 16 Aug 2021 18:50:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/%E6%89%8B%E6%91%B8%E6%89%8B%E5%B8%A6%E4%BD%A0-docker%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/</guid>
+    <description><![CDATA[手摸手带你 Docker 从入门到实践 在下最近遇到要在服务器上安装 Mysql、Nginx、EasyMock 等工具的场景，这里记录一下我使用 Docker 安装的过程，希]]></description>
+</item>
+<item>
+    <title>Docker 搭建Filerun</title>
+    <link>http://example.org/docker-%E6%90%AD%E5%BB%BAfilerun/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/docker-%E6%90%AD%E5%BB%BAfilerun/</guid>
+    <description><![CDATA[filerun 官方docker： https://hub.docker.com/r/afian/filerun/ 1、预先搭建好mariadb容器 2、使用以下命令运行filerun容器 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 docker run -itd --name filerun \ --restart=unless-stopped \]]></description>
+</item>
+<item>
+    <title>Docker常用命令</title>
+    <link>http://example.org/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+    <description><![CDATA[进入正在运行的容器中 1 docker exec -it 1f6091e48979 /bin/sh 列出本地容器镜像 （包括运行中的容器使用的镜像和未运行的静态镜像文件） 1 docker image ls 查看容器的run参数 1 docker run --rm -v /var/run/docker.sock:/var/run/docker.sock]]></description>
+</item>
+<item>
+    <title>Docker搭建VSCODE-Server</title>
+    <link>http://example.org/docker%E6%90%AD%E5%BB%BAvscode-server/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/docker%E6%90%AD%E5%BB%BAvscode-server/</guid>
+    <description><![CDATA[宿主机环境装备 先在宿主机建立用户数据目录 1 mkdir /userdatas/mycode 给上面目录授权（否则将会出现docker挂载该目录时拒绝访问的错误） 1 chmod 777 /userdatas/mycode 启动vscode-]]></description>
+</item>
+</channel>
+</rss>

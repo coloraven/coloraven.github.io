@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>WSA - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/wsa/</link>
+        <description>WSA - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 21 Jan 2022 08:41:09 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/wsa/" rel="self" type="application/rss+xml" /><item>
+    <title>(WSA)安卓子系统折腾笔记</title>
+    <link>http://example.org/wsa%E5%AE%89%E5%8D%93%E5%AD%90%E6%8A%98%E8%85%BE%E7%AC%94%E8%AE%B0/</link>
+    <pubDate>Fri, 21 Jan 2022 08:41:09 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/wsa%E5%AE%89%E5%8D%93%E5%AD%90%E6%8A%98%E8%85%BE%E7%AC%94%E8%AE%B0/</guid>
+    <description><![CDATA[设置代理 1 2 3 4 5 6 7 8 9 10 &lt;!-- 使用 adb shell 设置 --&gt; &lt;!-- 打开windows terminal --&gt; adb connect WSA的IP和端口 &lt;!-- 设置代理 --&gt; adb shell settings put global http_proxy ip:端口 &lt;!-- 关闭代理(无需]]></description>
+</item>
+</channel>
+</rss>

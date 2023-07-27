@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>文本处理 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/</link>
+        <description>文本处理 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 20 Dec 2022 15:26:31 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/" rel="self" type="application/rss+xml" /><item>
+    <title>Python和Golang超大文本文件处理</title>
+    <link>http://example.org/python%E5%92%8Cgolang%E8%B6%85%E5%A4%A7%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/</link>
+    <pubDate>Tue, 20 Dec 2022 15:26:31 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python%E5%92%8Cgolang%E8%B6%85%E5%A4%A7%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/</guid>
+    <description><![CDATA[Python Python中迭代读取超大文本文件，每次读取1000行。 在python中，我们可以使用yield关键字和for循环实现迭代读取超大文本文件]]></description>
+</item>
+</channel>
+</rss>

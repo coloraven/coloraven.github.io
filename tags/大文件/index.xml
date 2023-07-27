@@ -1,0 +1,23 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>大文件 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E5%A4%A7%E6%96%87%E4%BB%B6/</link>
+        <description>大文件 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 01 Dec 2021 13:15:51 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/%E5%A4%A7%E6%96%87%E4%BB%B6/" rel="self" type="application/rss+xml" /><item>
+    <title>Python实现对大文件的增量读取</title>
+    <link>http://example.org/python%E5%AE%9E%E7%8E%B0%E5%AF%B9%E5%A4%A7%E6%96%87%E4%BB%B6%E7%9A%84%E5%A2%9E%E9%87%8F%E8%AF%BB%E5%8F%96/</link>
+    <pubDate>Wed, 01 Dec 2021 13:15:51 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python%E5%AE%9E%E7%8E%B0%E5%AF%B9%E5%A4%A7%E6%96%87%E4%BB%B6%E7%9A%84%E5%A2%9E%E9%87%8F%E8%AF%BB%E5%8F%96/</guid>
+    <description><![CDATA[背景 前段时间在做一个算法测试，需要对源于日志的数据进行分析才能获取到结果；日志文件较大，所以想要获取数据的变化曲线，增量读取是最好的方式。 网]]></description>
+</item>
+<item>
+    <title>Python计算大文件行数方法及性能比较</title>
+    <link>http://example.org/python%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%96%87%E4%BB%B6%E8%A1%8C%E6%95%B0%E6%96%B9%E6%B3%95%E5%8F%8A%E6%80%A7%E8%83%BD%E6%AF%94%E8%BE%83/</link>
+    <pubDate>Wed, 01 Dec 2021 13:01:57 &#43;0000</pubDate>
+    <author>xxxx</author>
+    <guid>http://example.org/python%E8%AE%A1%E7%AE%97%E5%A4%A7%E6%96%87%E4%BB%B6%E8%A1%8C%E6%95%B0%E6%96%B9%E6%B3%95%E5%8F%8A%E6%80%A7%E8%83%BD%E6%AF%94%E8%BE%83/</guid>
+    <description><![CDATA[如何使用Python快速高效地统计出大文件的总行数, 下面是一些实现方法和性能的比较。 实现方法 readlines方法读所有行 1 2 def readline_count(file_name): return len(open(file_name).readlines()) 依次读]]></description>
+</item>
+</channel>
+</rss>
