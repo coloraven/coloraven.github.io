@@ -1,0 +1,23 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>LeanCloud - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/leancloud/</link>
+        <description>LeanCloud - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 08 Nov 2021 08:35:43 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/leancloud/" rel="self" type="application/rss+xml" /><item>
+    <title>利用LeanCloud搭建WEB服务</title>
+    <link>http://example.org/web%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BAleancloud/</link>
+    <pubDate>Mon, 08 Nov 2021 08:35:43 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/web%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BAleancloud/</guid>
+    <description><![CDATA[https://leancloud.cn/docs/leanengine_webhosting_guide-python.html#hash891049750]]></description>
+</item>
+<item>
+    <title>LeanCloud数据库操作</title>
+    <link>http://example.org/leancloud%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/</link>
+    <pubDate>Thu, 04 Nov 2021 10:12:18 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/leancloud%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/</guid>
+    <description><![CDATA[新建表与添加记录 1 2 3 4 5 6 7 8 9 10 11 12 13 import leancloud leancloud.init(&#34;AppID&#34;, &#34;AppKey&#34;) # 或者使用 Master Key # leancloud.init(&#34;AppID-gzGzoHsz&#34;, master_key=&#34;master_key&#34;) # 新建表 tableObject = leancloud.Object.extend(&#39;表名&#39;) # 新建表 tableObject = tableObject() # 增加一条记录 x = tableObject.set({&#39;a&#39;:[{&#39;a&#39;:1}],&#39;b&#39;:&#39;randombg&#39;}) x.add(&#39;abc&#39;,&#39;dddd&#39;)#在此行末尾新增字段，待实验 # 提交到服务器 tableObject.save() 条件查询表格 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 # 查询表 query = leancloud.Query(&#39;RandomBG&#39;) # 这里也可以直接传递一个 Class 名字的字符串作为构造参数 # 方法一：返回唯一值 result = query.]]></description>
+</item>
+</channel>
+</rss>

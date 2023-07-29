@@ -1,0 +1,29 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>数据库 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+        <description>数据库 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 07 Jul 2023 12:54:33 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="self" type="application/rss+xml" /><item>
+    <title>Postgres快速导入csv文件</title>
+    <link>http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/</link>
+    <pubDate>Fri, 07 Jul 2023 12:54:33 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/postgres%E5%BF%AB%E9%80%9F%E5%AF%BC%E5%85%A5csv%E6%96%87%E4%BB%B6/</guid>
+    <description><![CDATA[psql的copy命令导入 第一步 连接数据库： psql -U &lt;user_name&gt; -d &lt;database_name&gt; -h 远程数据库IP地址 -p 端口， psql位于安装目录的bin目录下，建议将路径X:\XXX\PostgreSQL\15\bin\添加到环境变量中 如果想免密码，则需要设置环境变量 PGPASSWORD
+第二步 使用\copy命令导入，该命令必须在服务端运行，不能通过pg_admin、dbeaver等数据库管理客户端的sql命令执行。 \copy bbb FROM 'D:\NavicatExports\aaa.csv' DELIMITER ',' NULL '' CSV HEADER; 其中bbb是事先创建好的表的名称，下同
+常见错误 报错: ERROR: character with byte sequence 0xba 0x22 in encoding &quot;GBK&quot; has no equivalent in encoding &quot;UTF8&quot; 原因: csv文件内容为utf-8 no bom编码，其中有中文。 解决方案: \encoding UTF8
+其他 启用计时功能——可查看导入等操作的耗时 \timing
+切换数据库 \c 目标数据库名
+导入时的目标表名不能是中文，csv文件名可以是中文 通过实践，目标表名不能是中文，但文件名可以是中文。 \copy bbb FROM 'C:\我是中文.csv' WITH (FORMAT CSV,DELIMITER ',' , HEADER TRUE);]]></description>
+</item>
+<item>
+    <title>DuckDB学习笔记</title>
+    <link>http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+    <pubDate>Mon, 29 May 2023 10:55:39 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/duckdb%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+    <description><![CDATA[概述 貌似duckdb能自动识别文件的encoding。
+实现emeditor的列拆分功能 关键函数 regexp_matches，查询字符串是否包含正则表达式字符 regexp_split_to_array，按给定的正则表达式字符进行拆分 unnest，将数组转为行 contains，判断是否包含特定字符（不支持正则表达式） 数据样本 phone introduce name 111 New York|Chicago Jean Vasquez 222 HK;Tokoy|USA Nakayama Yuito 333 Chinese Shanghai Jean Vasquez 以单个分隔符拆分 duckdb代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 --对包含;的列进行拆分，然后转为行。注意：UNION ALL 前后的列顺序必须一致 SELECT --与 UNION ALL 关键字 后面的列顺序必须一致 phone, UNNEST(regexp_split_to_array(introduce,	&#39;;&#39;)) introduce, name FROM read_csv(&#39;testfile.csv&#39;, delim=&#39;,&#39;, header=True, columns={&#39;phone&#39;:&#39;BIGINT&#39;,&#39;introduce&#39;:&#39;VARCHAR&#39;,&#39;name&#39;:&#39;VARCHAR&#39;}) WHERE contains(introduce,	&#39;;&#39;) UNION ALL -- 与不包含;的行进行合并，实际中要去掉 SELECT --与 UNION ALL 关键字 前面的列顺序必须一致 * FROM read_csv(&#39;testfile.]]></description>
+</item>
+</channel>
+</rss>

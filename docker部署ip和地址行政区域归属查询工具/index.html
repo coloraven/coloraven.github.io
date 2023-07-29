@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Docker部署IP和地址行政区域归属查询工具 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Docker部署IP和地址行政区域归属查询工具" />
+<meta property="og:description" content="构建Dockerfile Dockerfile如下
+1 2 3 4 5 6 7 8 9 10 FROM postgis/postgis:13-3.1-alpine WORKDIR /app RUN apk --update --no-cache add python3-dev libffi-dev gcc musl-dev make libevent-dev build-base py3-pip python3 \ &amp;&amp;pip install wheel \ &amp;&amp;pip install gevent \ &amp;&amp;pip install --no-cache-dir flask gunicorn shapely aiohttp psycopg2 \ &amp;&amp;apk del python3-dev libffi-dev gcc musl-dev make libevent-dev build-base COPY . . EXPOSE 8848 5432 CMD gunicorn app:app -c gunicorn.conf.py 因为构建镜像基于alpine，遇到安装上面代码中提到的python库文件错误时解放方案来源网络 alpine安装gevent成功：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" /><meta property="article:section" content="posts" />
+
+<meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker部署IP和地址行政区域归属查询工具"/>
+<meta name="twitter:description" content="构建Dockerfile Dockerfile如下
+1 2 3 4 5 6 7 8 9 10 FROM postgis/postgis:13-3.1-alpine WORKDIR /app RUN apk --update --no-cache add python3-dev libffi-dev gcc musl-dev make libevent-dev build-base py3-pip python3 \ &amp;&amp;pip install wheel \ &amp;&amp;pip install gevent \ &amp;&amp;pip install --no-cache-dir flask gunicorn shapely aiohttp psycopg2 \ &amp;&amp;apk del python3-dev libffi-dev gcc musl-dev make libevent-dev build-base COPY . . EXPOSE 8848 5432 CMD gunicorn app:app -c gunicorn.conf.py 因为构建镜像基于alpine，遇到安装上面代码中提到的python库文件错误时解放方案来源网络 alpine安装gevent成功："/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" /><link rel="prev" href="http://example.org/esxi-%E6%89%93%E5%BC%80%E7%AB%AF%E5%8F%A3/" /><link rel="next" href="http://example.org/docker%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Docker部署IP和地址行政区域归属查询工具",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7\/"
+        },"genre": "posts","keywords": "Docker, Python, Flask, alpine","wordcount":  243 ,
+        "url": "http:\/\/example.org\/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Docker部署IP和地址行政区域归属查询工具</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/docker/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Docker</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;243 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#构建dockerfile">构建Dockerfile</a></li>
+    <li><a href="#创建镜像">创建镜像</a></li>
+    <li><a href="#运行容器">运行容器</a></li>
+    <li><a href="#导入数据">导入数据</a></li>
+    <li><a href="#结束">结束</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="构建dockerfile">构建Dockerfile</h2>
+<p>Dockerfile如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> postgis/postgis:13-3.1-alpine</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /app</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> apk --update --no-cache add python3-dev libffi-dev gcc musl-dev make libevent-dev build-base py3-pip python3 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span>pip install wheel <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span>pip install gevent <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span>pip install --no-cache-dir flask gunicorn shapely aiohttp psycopg2 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span>apk del python3-dev libffi-dev gcc musl-dev make libevent-dev build-base<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> . .<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">EXPOSE</span><span class="s"> 8848 5432</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">CMD</span> gunicorn app:app -c gunicorn.conf.py<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>因为构建镜像基于alpine，遇到安装上面代码中提到的python库文件错误时解放方案来源网络
+alpine安装gevent成功：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apk --update --no-cache add python3-dev libffi-dev gcc musl-dev make libevent-dev build-base
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>来源https://stackoverflow.com/a/66952652</p>
+<p>alpine python 安装psycopg2失败的解决方案：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apk add --no-cache python3 postgresql-libs <span class="o">&amp;&amp;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span> apk add --no-cache --virtual .build-deps gcc python3-dev musl-dev postgresql-dev
+</span></span><span class="line"><span class="cl">pip install psycopg2 ---no-cache-dir#不缓存安装
+</span></span><span class="line"><span class="cl">apk --purge del .build-deps <span class="c1">#删掉编译库</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://www.codenong.com/46711990/" target="_blank" rel="noopener noreffer ">https://www.codenong.com/46711990/</a></p>
+<p>alpine python安装shapely失败的解决方案：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apk --update add build-base libxslt-dev
+</span></span><span class="line"><span class="cl">apk add --virtual .build-deps <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>        --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>        --repository http://dl-cdn.alpinelinux.org/alpine/edge/main <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>        gcc libc-dev geos-dev geos <span class="o">&amp;&amp;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="nv">runDeps</span><span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span>scanelf --needed --nobanner --recursive /usr/local <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="p">|</span> awk <span class="s1">&#39;{ gsub(/,/, &#34;\nso:&#34;, $2); print &#34;so:&#34; $2 }&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="p">|</span> xargs -r apk info --installed <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="p">|</span> sort -u<span class="k">)</span><span class="s2">&#34;</span> <span class="o">&amp;&amp;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    apk add --virtual .rundeps <span class="nv">$runDeps</span>
+</span></span><span class="line"><span class="cl">geos-config --cflags
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>来源：https://serverfault.com/questions/947044/installing-shapely-on-alpine-docker</p>
+<p>alpine python 安装aiohttp失败的解决方案：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">RUN apk add gcc g++ libffi-dev musl-dev <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> python -m pip install --no-cache-dir brotlipy <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> apk del gcc g++ libffi-dev musl-dev
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="创建镜像">创建镜像</h2>
+<p>第一步的Dockerfile和应用已经发布到github私有仓库Quer
+下载该仓库，上传到服务器，解压并执行以下命令创建镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker build -t ipquery:3.0 . 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="运行容器">运行容器</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -itd --name<span class="o">=</span>ipquery -p 8848:8848 -p 54321:5432 -e <span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span>password ipquery:3.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="导入数据">导入数据</h2>
+<p>具体参照<code>http://www.sirliu.top:8000/archives/81/</code>
+数据库客户端Navicat连接postgis，新建数据库<code>csgeo</code>该名称已在代码中写死该名称已在py代码中写死，不可更改，并将数据库设置为地理空间数据库，具体方法见上面链接文章。</p>
+<h2 id="结束">结束</h2>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 0001-01-01</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-title="Docker部署IP和地址行政区域归属查询工具" data-hashtags="Docker,Python,Flask,alpine"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-hashtag="Docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-title="Docker部署IP和地址行政区域归属查询工具"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-title="Docker部署IP和地址行政区域归属查询工具"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/docker%E9%83%A8%E7%BD%B2ip%E5%92%8C%E5%9C%B0%E5%9D%80%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F%E5%BD%92%E5%B1%9E%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7/" data-title="Docker部署IP和地址行政区域归属查询工具"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/docker/">Docker</a>,&nbsp;<a href="/tags/python/">Python</a>,&nbsp;<a href="/tags/flask/">Flask</a>,&nbsp;<a href="/tags/alpine/">alpine</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/esxi-%E6%89%93%E5%BC%80%E7%AB%AF%E5%8F%A3/" class="prev" rel="prev" title="ESXI-打开端口"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>ESXI-打开端口</a>
+            <a href="/docker%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1/" class="next" rel="next" title="Docker搭建WebDAV服务">Docker搭建WebDAV服务<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

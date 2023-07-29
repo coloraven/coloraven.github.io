@@ -1,0 +1,60 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>代理 - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/%E4%BB%A3%E7%90%86/</link>
+        <description>代理 - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 18 Nov 2021 22:48:59 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E4%BB%A3%E7%90%86/" rel="self" type="application/rss+xml" /><item>
+    <title>Python修改Windows系统代理的方法</title>
+    <link>http://example.org/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+    <pubDate>Thu, 18 Nov 2021 22:48:59 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+    <description><![CDATA[来源：https://www.jianshu.com/p/49c444d9a435
+&gt; 声明下：不同于网络上千百篇方法，下文是经过各种严格测试都通过的，同时也是一个实验的过程，排除了各种不靠谱的方法。有需要的可以评论来讨论，想要源码和相关参考文献或笔记的，也可以找我。 思路及启发 先说一下我这一路实验的思路吧，这个至关重要。之前一直在用Python做爬虫抓取数据，发现本机IP的问题不解决，爬虫相当于白费了。然后各种百度，不管是用urllib2还是requests的代理设置，都不管用。然后又各种搜索Python更改windows代理的设置，还需要接触windos底层API，有复杂又不好实现。于是爬虫的学习就放弃了好长一段时间。
+最近因为一直在用AutoHotkey大大加快电脑操作效率，各种快捷键和代替手动操作一些常规系统设置。突发奇想，想让它自动打开IE的Internet设置，然后自动点击“局域网设置”，在自动在代理框里输入IP地址，按回车完成设置。这真是个好主意~
+不过失败了。。。因为AHK在IE设置弹出的框框中选择某一个输入框，很麻烦，我也没法实现。所以就在想另一个办法，因为AHK操作Windows的cmd命令很方便，所以在想能不能用它打开cmd然后用命令设置IE呢？
+然后又各种百度。发现这是可以通过reg add注册表设置来实现的！于是，就开启了reg命令的百度之旅。
+按照网上各种方法，都指向了注册表的这个地方:
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings
+大家都说在这个路径下，有这么3个项非常重要：
+ProxyEnable - 使用代理
+ProxyServer - 代理IP的地址及端口号
+AutoConfigURL - 自动配置脚本（PAC）的地址
+于是试着用reg add命令操作：
+1 2 reg add &#34;HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings&#34; /v ProxyEnable /tREG_DWORD /d 1 /f reg add &#34;HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings&#34; /v ProxyServer /d&#34;192.168.1.1:8080&#34; /f 这两句第一个是打开“代理”，第二个是设置代理的IP地址。
+先在命令行里敲了下命令，然后打开regedit注册表，刷新下看，还真改了！
+然后手动打开IE设置，发现里面的内容也确实改变了。然后再打开浏览器，打开IP查询的网址，自己的IP真的变了！
+至此以为大功告成了。结果再用时，发现大错特错——
+再次用命令行改我指定的IP地址后，网页打不开了。。。
+来回反复调试查错之后，我发现一个“大秘密”：如果不手动打开IE设置里的局域网设置窗口的话，所有代理设置是不生效的。这是为什么呢？
+百度里搜索不到。
+于是我就用英文到Stackoverflow去搜，结果发现实际影响本机代理的注册表项目并不是之前的那几个！（真怀疑网上那些人说自己用这个项达到定时设置代理的人是不是玩真的。。。）
+而是这个位置的项：
+HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections
+其中的DefaultConnectionSettings才是真正需要改的东西。打开以后各种乱码，原来是二进制值。
+不过用编辑器看二进制值，确实发现代理IP地址和自动配置脚本的地址都在里面。
+那怎么办呢？AHK可不会操作二进制，也没什么方法能用reg add命令行直接把二进制值注入。
+然后又进入无尽的百度模式。
+注册表的二进制项修改方式的突发奇想 忘了什么启发的我吧，好像是自己无聊到在注册表上乱点，发现我刻意导出注册表。
+然后导出了下试试，发现是个.reg文件。然后无聊双击一下，发现可以把这个文件导入到注册表！
+于是灵光一闪，赶紧用文本编辑器打开这个.reg文件，发现里面是文字画的十六进制码，类似这样的：
+1 2 3 4 5 6 7 8 9 10 11 12 Windows Registry Editor Version 5.]]></description>
+</item>
+<item>
+    <title>【转载】Python遭遇代理错误的解决办法</title>
+    <link>http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+    <pubDate>Thu, 18 Nov 2021 16:41:40 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+    <description><![CDATA[来源：https://zhuanlan.zhihu.com/p/350015032
+最近遇到的一个问题，在搞清楚之后才发现这么多年的 HTTPS_PROXY 都配置错了！
+起因 想用 Python 在网上下载一些图片素材，结果 requests 报 requests.exceptions.ProxyError，具体的错误信息见下面。当然第一时间是把系统代理关了，结果访问就正常了。
+如果只是这样，可能我就觉得是代理有问题，然后关了用就行了，但是偏偏想要下载的资源里是必须要走代理的，所以只能想办法解决。
+下面先介绍一下具体的情况：
+解决过程 操作系统：Windows 10
+Python: 3.8（有虚拟环境）
+requests 通过代理访问外网时报错如下：
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 Traceback (most recent call last): File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connectionpool.py&#34;, line 696, in urlopen self._prepare_proxy(conn) File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connectionpool.py&#34;, line 964, in _prepare_proxy conn.connect() File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connection.py&#34;, line 359, in connect conn = self._connect_tls_proxy(hostname, conn) File &#34;E:\code\Python\.]]></description>
+</item>
+</channel>
+</rss>

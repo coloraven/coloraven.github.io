@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Emui 11降级教程，理论适用于华为全系列 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Emui 11降级教程，理论适用于华为全系列" />
+<meta property="og:description" content="http://www.360doc.com/content/21/0108/15/32875768_955858444.shtml 本文章参考了两个帖子，并有很多朋友在论坛帮助，让我降级成功。现在把详细内容做成教程，供大家参考。
+首先说明的问题：
+1.到底要不要花钱降级？其实花钱在某宝降级也可以，省事，风险也小。如果你是一个动手能力强，喜欢折腾的人，那么就请继续往下看。
+2.刷机到底有没有风险？这个我不知道，至少我买回来华为手机已经来来回回刷了很多次，暂时没有遇到变砖的问题，我认为只要系统没有病毒，软件是正版软件，数据线结实可靠，应该没有问题。
+3.降级到底好不好？emui9.1/10.0/11.0我都用过了，说说优点和问题，仅个人观点。9.1功能不如10.0和11功能多，但是整体流畅，续航完美，不卡顿，拍照效果好，可能有些人操作丝滑程度没有10.0以上版本舒服，手势导航有bug，部分软件出现各种闪烁关闭的情况，所以我一直用三键导航。10.0操作丝滑，但是拍照差很多意思，尤其是夜间拍摄，注意不是夜景拍摄，还有续航也不太好。11.0版本体验了一下，耗电还好，跟10.0差不多，拍照也和10.0差不多，但是内存占用率高10个百分点以上，总是感觉不舒服，部分软件操作卡顿，其他问题没有发现，我是刷完机双清以后用的。
+考虑好是否刷机后再继续进行**！**
+参考帖子地址：
+1.https://www.coolapk.com/feed/21700271?shareKey=ZTdlN2RiOWEyMDMxNWZjZGRjMjQ~&amp;shareUid=4266939&amp;shareFrom=com.coolapk.market_10.5.3
+2.https://www.bilibili.com/read/cv8315201
+感谢酷安好友“你现在好像可以凑成三连”和bilibili好友“鸿蒙系统发展史”两位大神！
+**友情提示：刷机有风险 降级需谨慎 在开始以前务必备份数据****注意：降级一定会丢失所有资料 ！！！！！**免责声明：如操作不当造成的黑砖 数据丢失 本人不负责！
+下面正是开始内容：
+1.准备
+（1）系统准备，操作系统推荐win10！
+因为我用win8两台电脑都打不开其中一个重要软件，重新安装也不行，后来新装win10后就可以打开了。如果你遇到打开Hisuite proxy软件时出现停止错误，那么请更换系统，有人说缺少.netframework支持，其实我都装了，也还是不行。可能有的小伙伴成功了吧。根据软件开发者说明要.netframework 4.8版本，那么win10以下都是不支持的，所以只有win10能用。
+（2）手机版本，降级9.1.0.193之前先要用华为手机助手降级到官方能降级9.1的那个版本，比如p30是9.1.0.226，如果你的系统是10.0.0.200那么不能直接降级至9.1.0.193。所以我从11.0.0.120降级的时候一共降级了四次，当然每次也就半个多小时。也就是降级任何一个大版本中间的小版本，要先将手机刷到这个大版本上，不能跨版本降级。我试过，会出错误。
+（3）刷机包地址准备。
+首先查看自己的刷机型号，手机输入*##2846579##*，进入工程菜单，第2项单板信息查询，第1项版本信息，找到基础包版本号，定制包版本号，预装包版本号三个，比如p30基础包是ELE-LGRP1-CHN，定制包是ELE-AL00-CUST，预装包是ELE-AL00-PRELOAD，后面的版本数字不用。
+然后进入下面网页搜索https://pro-teammt.ru/en/online-firmware-database-ru/?firmware_model=&amp;firmware_page=0
+选择我是人类，看图选择验证信息，进入搜索列表。
+首****先搜索基础包，然后找到想刷的版本。我选择了9.1.0.193，本来想刷9.1.0.109，可惜没有，那就没有办法了，193也是最好的一个系统，看好是全量包，3.68个G大小，看好日期，8月23日，因为后面找定制包和预装包要对应日期。有人可能会问，为什么不选择8月12日的193版本，我个人认为后面的虽然版本号一样，但是应该有补丁存在，应该好点吧。点击filelist，弹出一个链接框来，复制到记事本上，保留到http://update.dbankcdn.com/TDS/data/files/p3/s15/G4830/g1755/v301250/f1/这个位置，后面的不要了。然后换行再复制版本号ELE-LGRP1-CHN 9.1.0.193到记事本上。基础包信息就找全了。
+定制包和预装包获取方法一样，但是日期要和基础包的日期一样，不一样我没有尝试，会不会出问题自己考虑。也有人说可以只刷基础包，我怕有问题，都一起刷了。
+![](http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_6_20210108030824963) 到这里，地址准备完了，然后打开Hisuite proxy工具（在第三项软件准备b里面有），将上面的地址和版本号，按照顺序复制进去。左下角的两个勾打上，就是CUST PKG和Preloaded PKG前面两个勾打上。伪装服务器地址就准备好了。
+1.
+（2）准备软件
+a.华为手机助手 的ove（国外）版本。百度搜索就有，可以不用最新版，有时候最新版会出现安装不了的情况，我也遇到过，低版本没问题，上面两个链接可以下载，为什么用ove版本，因为国内版本我没这么刷过！
+b.Hisuite proxy 工具，个人理解，这是一个刷机时伪装华为服务器的代理软件，所以降级任意版本必须有他，要解压在一个文件夹内，以管理员身份运行。
+c.httpcomponent补丁文件，附件有下载，应该是修改了一些参数，可以和伪装服务器链接。
+（3）配置刷机环境
+a.卸载原来的华为手机助手，安装下载的ove版本。
+b.安装完成后先不打开华为助手软件，找到下载的httpcomponent补丁文件复制到华为助手的所在文件夹里，替换完成。如果不知道文件夹在哪里，请自行百度，因为这步不会可能真的是小白！
+c.替换完成后打开ove版本华为助手，不用升级。设置代理服务器为127.0.0.1，端口为7777，与Hisuite proxy软件上显示的一样。
+到这里，准备工作就结束了。
+2.然后就是像用Huawei手机助手普通刷机一样，发现版本9.1.0.193，保存好数据之后，享受刷机过程吧。因为刷机后版本低，所以会有格式化硬盘的情况出现，不用慌，只要数据保存了，就没事。
+刷完之后，版本完美，利用adb卸载各种无用功能，速度飞起，内存占用少，省电，拍照好都有了。希望大家能够成功！
+再次感谢酷安好友“你现在好像可以凑成三连”和bilibili好友“鸿蒙系统发展史”，有些图片来自你们的链接！
+链接:https://www.lanzoui.com/b00zwv1ch 密码:2okq 作者：bili_340311671 https://www.bilibili.com/read/cv8315201 出处：bilibili" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/emui11%E9%99%8D%E7%BA%A7%E6%95%99%E7%A8%8B%E7%90%86%E8%AE%BA%E9%80%82%E7%94%A8%E4%BA%8E%E5%8D%8E%E4%B8%BA%E5%85%A8%E7%B3%BB%E5%88%97/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-08-30T13:44:54+00:00" />
+<meta property="article:modified_time" content="2021-08-30T13:44:54+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Emui 11降级教程，理论适用于华为全系列"/>
+<meta name="twitter:description" content="http://www.360doc.com/content/21/0108/15/32875768_955858444.shtml 本文章参考了两个帖子，并有很多朋友在论坛帮助，让我降级成功。现在把详细内容做成教程，供大家参考。
+首先说明的问题：
+1.到底要不要花钱降级？其实花钱在某宝降级也可以，省事，风险也小。如果你是一个动手能力强，喜欢折腾的人，那么就请继续往下看。
+2.刷机到底有没有风险？这个我不知道，至少我买回来华为手机已经来来回回刷了很多次，暂时没有遇到变砖的问题，我认为只要系统没有病毒，软件是正版软件，数据线结实可靠，应该没有问题。
+3.降级到底好不好？emui9.1/10.0/11.0我都用过了，说说优点和问题，仅个人观点。9.1功能不如10.0和11功能多，但是整体流畅，续航完美，不卡顿，拍照效果好，可能有些人操作丝滑程度没有10.0以上版本舒服，手势导航有bug，部分软件出现各种闪烁关闭的情况，所以我一直用三键导航。10.0操作丝滑，但是拍照差很多意思，尤其是夜间拍摄，注意不是夜景拍摄，还有续航也不太好。11.0版本体验了一下，耗电还好，跟10.0差不多，拍照也和10.0差不多，但是内存占用率高10个百分点以上，总是感觉不舒服，部分软件操作卡顿，其他问题没有发现，我是刷完机双清以后用的。
+考虑好是否刷机后再继续进行**！**
+参考帖子地址：
+1.https://www.coolapk.com/feed/21700271?shareKey=ZTdlN2RiOWEyMDMxNWZjZGRjMjQ~&amp;shareUid=4266939&amp;shareFrom=com.coolapk.market_10.5.3
+2.https://www.bilibili.com/read/cv8315201
+感谢酷安好友“你现在好像可以凑成三连”和bilibili好友“鸿蒙系统发展史”两位大神！
+**友情提示：刷机有风险 降级需谨慎 在开始以前务必备份数据****注意：降级一定会丢失所有资料 ！！！！！**免责声明：如操作不当造成的黑砖 数据丢失 本人不负责！
+下面正是开始内容：
+1.准备
+（1）系统准备，操作系统推荐win10！
+因为我用win8两台电脑都打不开其中一个重要软件，重新安装也不行，后来新装win10后就可以打开了。如果你遇到打开Hisuite proxy软件时出现停止错误，那么请更换系统，有人说缺少.netframework支持，其实我都装了，也还是不行。可能有的小伙伴成功了吧。根据软件开发者说明要.netframework 4.8版本，那么win10以下都是不支持的，所以只有win10能用。
+（2）手机版本，降级9.1.0.193之前先要用华为手机助手降级到官方能降级9.1的那个版本，比如p30是9.1.0.226，如果你的系统是10.0.0.200那么不能直接降级至9.1.0.193。所以我从11.0.0.120降级的时候一共降级了四次，当然每次也就半个多小时。也就是降级任何一个大版本中间的小版本，要先将手机刷到这个大版本上，不能跨版本降级。我试过，会出错误。
+（3）刷机包地址准备。
+首先查看自己的刷机型号，手机输入*##2846579##*，进入工程菜单，第2项单板信息查询，第1项版本信息，找到基础包版本号，定制包版本号，预装包版本号三个，比如p30基础包是ELE-LGRP1-CHN，定制包是ELE-AL00-CUST，预装包是ELE-AL00-PRELOAD，后面的版本数字不用。
+然后进入下面网页搜索https://pro-teammt.ru/en/online-firmware-database-ru/?firmware_model=&amp;firmware_page=0
+选择我是人类，看图选择验证信息，进入搜索列表。
+首****先搜索基础包，然后找到想刷的版本。我选择了9.1.0.193，本来想刷9.1.0.109，可惜没有，那就没有办法了，193也是最好的一个系统，看好是全量包，3.68个G大小，看好日期，8月23日，因为后面找定制包和预装包要对应日期。有人可能会问，为什么不选择8月12日的193版本，我个人认为后面的虽然版本号一样，但是应该有补丁存在，应该好点吧。点击filelist，弹出一个链接框来，复制到记事本上，保留到http://update.dbankcdn.com/TDS/data/files/p3/s15/G4830/g1755/v301250/f1/这个位置，后面的不要了。然后换行再复制版本号ELE-LGRP1-CHN 9.1.0.193到记事本上。基础包信息就找全了。
+定制包和预装包获取方法一样，但是日期要和基础包的日期一样，不一样我没有尝试，会不会出问题自己考虑。也有人说可以只刷基础包，我怕有问题，都一起刷了。
+![](http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_6_20210108030824963) 到这里，地址准备完了，然后打开Hisuite proxy工具（在第三项软件准备b里面有），将上面的地址和版本号，按照顺序复制进去。左下角的两个勾打上，就是CUST PKG和Preloaded PKG前面两个勾打上。伪装服务器地址就准备好了。
+1.
+（2）准备软件
+a.华为手机助手 的ove（国外）版本。百度搜索就有，可以不用最新版，有时候最新版会出现安装不了的情况，我也遇到过，低版本没问题，上面两个链接可以下载，为什么用ove版本，因为国内版本我没这么刷过！
+b.Hisuite proxy 工具，个人理解，这是一个刷机时伪装华为服务器的代理软件，所以降级任意版本必须有他，要解压在一个文件夹内，以管理员身份运行。
+c.httpcomponent补丁文件，附件有下载，应该是修改了一些参数，可以和伪装服务器链接。
+（3）配置刷机环境
+a.卸载原来的华为手机助手，安装下载的ove版本。
+b.安装完成后先不打开华为助手软件，找到下载的httpcomponent补丁文件复制到华为助手的所在文件夹里，替换完成。如果不知道文件夹在哪里，请自行百度，因为这步不会可能真的是小白！
+c.替换完成后打开ove版本华为助手，不用升级。设置代理服务器为127.0.0.1，端口为7777，与Hisuite proxy软件上显示的一样。
+到这里，准备工作就结束了。
+2.然后就是像用Huawei手机助手普通刷机一样，发现版本9.1.0.193，保存好数据之后，享受刷机过程吧。因为刷机后版本低，所以会有格式化硬盘的情况出现，不用慌，只要数据保存了，就没事。
+刷完之后，版本完美，利用adb卸载各种无用功能，速度飞起，内存占用少，省电，拍照好都有了。希望大家能够成功！
+再次感谢酷安好友“你现在好像可以凑成三连”和bilibili好友“鸿蒙系统发展史”，有些图片来自你们的链接！
+链接:https://www.lanzoui.com/b00zwv1ch 密码:2okq 作者：bili_340311671 https://www.bilibili.com/read/cv8315201 出处：bilibili"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/emui11%E9%99%8D%E7%BA%A7%E6%95%99%E7%A8%8B%E7%90%86%E8%AE%BA%E9%80%82%E7%94%A8%E4%BA%8E%E5%8D%8E%E4%B8%BA%E5%85%A8%E7%B3%BB%E5%88%97/" /><link rel="prev" href="http://example.org/%E5%8D%8E%E4%B8%BAhisuite%E5%A4%87%E4%BB%BD%E8%A7%A3%E5%AF%86/" /><link rel="next" href="http://example.org/mate30-emui-11%E5%88%B7%E8%B0%B7%E6%AD%8C%E6%A1%86%E6%9E%B6gms/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Emui 11降级教程，理论适用于华为全系列",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/emui11%E9%99%8D%E7%BA%A7%E6%95%99%E7%A8%8B%E7%90%86%E8%AE%BA%E9%80%82%E7%94%A8%E4%BA%8E%E5%8D%8E%E4%B8%BA%E5%85%A8%E7%B3%BB%E5%88%97\/"
+        },"genre": "posts","wordcount":  58 ,
+        "url": "http:\/\/example.org\/emui11%E9%99%8D%E7%BA%A7%E6%95%99%E7%A8%8B%E7%90%86%E8%AE%BA%E9%80%82%E7%94%A8%E4%BA%8E%E5%8D%8E%E4%B8%BA%E5%85%A8%E7%B3%BB%E5%88%97\/","datePublished": "2021-08-30T13:44:54+00:00","dateModified": "2021-08-30T13:44:54+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Emui 11降级教程，理论适用于华为全系列</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E6%89%8B%E6%9C%BA/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>手机</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-30">2021-08-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;58 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p><a href="http://www.360doc.com/content/21/0108/15/32875768_955858444.shtml" target="_blank" rel="noopener noreffer ">http://www.360doc.com/content/21/0108/15/32875768_955858444.shtml</a>
+本文章参考了两个帖子，并有很多朋友在论坛帮助，让我降级成功。现在把详细内容做成教程，供大家参考。</p>
+<p><strong>首先说明的问题：</strong></p>
+<p>1.到底要不要花钱降级？其实花钱在某宝降级也可以，省事，风险也小。如果你是一个动手能力强，喜欢折腾的人，那么就请继续往下看。</p>
+<p>2.刷机到底有没有风险？这个我不知道，至少我买回来华为手机已经来来回回刷了很多次，暂时没有遇到变砖的问题，我认为只要系统没有病毒，软件是正版软件，数据线结实可靠，应该没有问题。</p>
+<p>3.降级到底好不好？emui9.1/10.0/11.0我都用过了，说说优点和问题，仅个人观点。9.1功能不如10.0和11功能多，但是整体流畅，续航完美，不卡顿，拍照效果好，可能有些人操作丝滑程度没有10.0以上版本舒服，手势导航有bug，部分软件出现各种闪烁关闭的情况，所以我一直用三键导航。10.0操作丝滑，但是拍照差很多意思，尤其是夜间拍摄，注意不是夜景拍摄，还有续航也不太好。11.0版本体验了一下，耗电还好，跟10.0差不多，拍照也和10.0差不多，但是内存占用率高10个百分点以上，总是感觉不舒服，部分软件操作卡顿，其他问题没有发现，我是刷完机双清以后用的。</p>
+<p><strong>考虑好是否刷机后再继续进行</strong>**！**</p>
+<p>参考帖子地址：</p>
+<p>1.https://www.coolapk.com/feed/21700271?shareKey=ZTdlN2RiOWEyMDMxNWZjZGRjMjQ~&amp;shareUid=4266939&amp;shareFrom=com.coolapk.market_10.5.3</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_1_20210108030824463"
+        data-srcset="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_1_20210108030824463, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_1_20210108030824463 1.5x, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_1_20210108030824463 2x"
+        data-sizes="auto"
+        alt="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_1_20210108030824463"
+        title="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_1_20210108030824463" /></p>
+<p>2.https://www.bilibili.com/read/cv8315201</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_2_20210108030824572"
+        data-srcset="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_2_20210108030824572, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_2_20210108030824572 1.5x, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_2_20210108030824572 2x"
+        data-sizes="auto"
+        alt="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_2_20210108030824572"
+        title="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_2_20210108030824572" /></p>
+<p>感谢酷安好友“<strong>你现在好像可以凑成三连</strong>”和bilibili好友“<strong>鸿蒙系统发展史</strong>”两位大神！</p>
+<p>**友情提示：刷机有风险 降级需谨慎 在开始以前务必备份数据****注意：降级一定会丢失所有资料 ！！！！！**<strong>免责声明：如操作不当造成的黑砖 数据丢失 本人不负责！</strong></p>
+<p>下面正是开始内容：</p>
+<p>1.准备</p>
+<p>（1）系统准备，操作系统推荐win10！</p>
+<p>因为我用win8两台电脑都打不开其中一个重要软件，重新安装也不行，后来新装win10后就可以打开了。如果你遇到打开Hisuite proxy软件时出现停止错误，那么请更换系统，有人说缺少.netframework支持，其实我都装了，也还是不行。可能有的小伙伴成功了吧。根据软件开发者说明要.netframework 4.8版本，那么win10以下都是不支持的，所以只有win10能用。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_3_20210108030824682"
+        data-srcset="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_3_20210108030824682, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_3_20210108030824682 1.5x, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_3_20210108030824682 2x"
+        data-sizes="auto"
+        alt="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_3_20210108030824682"
+        title="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_3_20210108030824682" /></p>
+<p>（2）手机版本，降级9.1.0.193之前先要用华为手机助手降级到官方能降级9.1的那个版本，比如p30是9.1.0.226，如果你的系统是<strong>10.0.0.200那么不能直接降级至9.1.0.193</strong>。所以我从11.0.0.120降级的时候一共<strong>降级了四次</strong>，当然每次也就半个多小时。也就是降级任何一个大版本中间的小版本，要先将手机刷到这个大版本上，不能跨版本降级。我试过，会出错误。</p>
+<p>（3）刷机包地址准备。</p>
+<p>首先查看自己的刷机型号，手机输入*#<em>#2846579#</em>#*，进入工程菜单，第2项单板信息查询，第1项版本信息，找到基础包版本号，定制包版本号，预装包版本号三个，比如p30基础包是ELE-LGRP1-CHN，定制包是ELE-AL00-CUST，预装包是ELE-AL00-PRELOAD，后面的版本数字不用。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_4_20210108030824744"
+        data-srcset="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_4_20210108030824744, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_4_20210108030824744 1.5x, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_4_20210108030824744 2x"
+        data-sizes="auto"
+        alt="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_4_20210108030824744"
+        title="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_4_20210108030824744" /></p>
+<p>然后进入下面网页搜索https://pro-teammt.ru/en/online-firmware-database-ru/?firmware_model=&amp;firmware_page=0</p>
+<p>选择我是人类，看图选择验证信息，进入搜索列表。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_5_20210108030824900"
+        data-srcset="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_5_20210108030824900, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_5_20210108030824900 1.5x, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_5_20210108030824900 2x"
+        data-sizes="auto"
+        alt="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_5_20210108030824900"
+        title="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_5_20210108030824900" /></p>
+<p><strong>首****先搜索基础包</strong>，然后找到想刷的版本。我选择了9.1.0.193，本来想刷9.1.0.109，可惜没有，那就没有办法了，193也是最好的一个系统，看好是全量包，3.68个G大小，看好<strong>日期</strong>，8月23日，因为后面找定制包和预装包要对应日期。有人可能会问，为什么不选择8月12日的193版本，我个人认为后面的虽然版本号一样，但是应该有补丁存在，应该好点吧。点击filelist，弹出一个链接框来，复制到记事本上，<strong>保留到http://update.dbankcdn.com/TDS/data/files/p3/s15/G4830/g1755/v301250/f1/这个位置</strong>，后面的不要了。然后换行再复制版本号ELE-LGRP1-CHN 9.1.0.193到记事本上。基础包信息就找全了。</p>
+<p>定制包和预装包获取方法一样，但是<strong>日期要和基础包的日期一样</strong>，不一样我没有尝试，会不会出问题自己考虑。也有人说可以只刷基础包，我怕有问题，都一起刷了。</p>
+<section>![](http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_6_20210108030824963)  </section>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_7_2021010803082525"
+        data-srcset="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_7_2021010803082525, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_7_2021010803082525 1.5x, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_7_2021010803082525 2x"
+        data-sizes="auto"
+        alt="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_7_2021010803082525"
+        title="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_7_2021010803082525" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_8_20210108030825135"
+        data-srcset="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_8_20210108030825135, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_8_20210108030825135 1.5x, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_8_20210108030825135 2x"
+        data-sizes="auto"
+        alt="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_8_20210108030825135"
+        title="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_8_20210108030825135" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_9_20210108030825198"
+        data-srcset="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_9_20210108030825198, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_9_20210108030825198 1.5x, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_9_20210108030825198 2x"
+        data-sizes="auto"
+        alt="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_9_20210108030825198"
+        title="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_9_20210108030825198" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_10_20210108030825260"
+        data-srcset="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_10_20210108030825260, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_10_20210108030825260 1.5x, http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_10_20210108030825260 2x"
+        data-sizes="auto"
+        alt="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_10_20210108030825260"
+        title="http://image109.360doc.com/DownloadImg/2021/01/0815/212395464_10_20210108030825260" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-30T134841.png"
+        data-srcset="2021-08-30T134841.png, 2021-08-30T134841.png 1.5x, 2021-08-30T134841.png 2x"
+        data-sizes="auto"
+        alt="2021-08-30T134841.png"
+        title="2021-08-30T134841" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-30T134823.png"
+        data-srcset="2021-08-30T134823.png, 2021-08-30T134823.png 1.5x, 2021-08-30T134823.png 2x"
+        data-sizes="auto"
+        alt="2021-08-30T134823.png"
+        title="2021-08-30T134823" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-30T134758.png"
+        data-srcset="2021-08-30T134758.png, 2021-08-30T134758.png 1.5x, 2021-08-30T134758.png 2x"
+        data-sizes="auto"
+        alt="2021-08-30T134758.png"
+        title="2021-08-30T134758" /></p>
+<p>到这里，地址准备完了，然后打开Hisuite proxy工具（在第三项软件准备b里面有），将上面的地址和版本号，按照顺序复制进去。左下角的两个勾打上，就是CUST PKG和Preloaded PKG前面两个勾打上。伪装服务器地址就准备好了。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-30T134749.png"
+        data-srcset="2021-08-30T134749.png, 2021-08-30T134749.png 1.5x, 2021-08-30T134749.png 2x"
+        data-sizes="auto"
+        alt="2021-08-30T134749.png"
+        title="2021-08-30T134749" />
+1.</p>
+<p>（2）准备软件</p>
+<p>a.华为手机助手 的ove（国外）版本。百度搜索就有，可以不用最新版，有时候最新版会出现安装不了的情况，我也遇到过，低版本没问题，上面两个链接可以下载，为什么用ove版本，因为国内版本我没这么刷过！</p>
+<p>b.Hisuite proxy 工具，个人理解，这是一个刷机时伪装华为服务器的代理软件，所以降级任意版本必须有他，要解压在一个文件夹内，以管理员身份运行。</p>
+<p>c.httpcomponent补丁文件，附件有下载，应该是修改了一些参数，可以和伪装服务器链接。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-30T134739.png"
+        data-srcset="2021-08-30T134739.png, 2021-08-30T134739.png 1.5x, 2021-08-30T134739.png 2x"
+        data-sizes="auto"
+        alt="2021-08-30T134739.png"
+        title="2021-08-30T134739" /></p>
+<p>（3）配置刷机环境</p>
+<p>a.卸载原来的华为手机助手，安装下载的ove版本。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-30T134732.png"
+        data-srcset="2021-08-30T134732.png, 2021-08-30T134732.png 1.5x, 2021-08-30T134732.png 2x"
+        data-sizes="auto"
+        alt="2021-08-30T134732.png"
+        title="2021-08-30T134732" /></p>
+<p>b.安装完成后先不打开华为助手软件，找到下载的httpcomponent补丁文件复制到华为助手的所在文件夹里，替换完成。如果不知道文件夹在哪里，请自行百度，因为这步不会可能真的是小白！</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-30T134723.png"
+        data-srcset="2021-08-30T134723.png, 2021-08-30T134723.png 1.5x, 2021-08-30T134723.png 2x"
+        data-sizes="auto"
+        alt="2021-08-30T134723.png"
+        title="2021-08-30T134723" /></p>
+<p>c.替换完成后打开ove版本华为助手，不用升级。设置代理服务器为127.0.0.1，端口为7777，与Hisuite proxy软件上显示的一样。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-30T134712.png"
+        data-srcset="2021-08-30T134712.png, 2021-08-30T134712.png 1.5x, 2021-08-30T134712.png 2x"
+        data-sizes="auto"
+        alt="2021-08-30T134712.png"
+        title="2021-08-30T134712" /></p>
+<p>到这里，准备工作就结束了。</p>
+<p>2.然后就是像用Huawei手机助手普通刷机一样，发现版本9.1.0.193，保存好数据之后，享受刷机过程吧。因为刷机后版本低，所以会有格式化硬盘的情况出现，不用慌，只要数据保存了，就没事。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-08-30T134645.png"
+        data-srcset="2021-08-30T134645.png, 2021-08-30T134645.png 1.5x, 2021-08-30T134645.png 2x"
+        data-sizes="auto"
+        alt="2021-08-30T134645.png"
+        title="2021-08-30T134645" /></p>
+<p>刷完之后，版本完美，利用adb卸载各种无用功能，速度飞起，内存占用少，省电，拍照好都有了。希望大家能够成功！</p>
+<p>再次感谢酷安好友“你现在好像可以凑成三连”和bilibili好友“鸿蒙系统发展史”，有些图片来自你们的链接！</p>
+<p>链接:https://www.lanzoui.com/b00zwv1ch
+密码:2okq 作者：bili_340311671
+<a href="https://www.bilibili.com/read/cv8315201" target="_blank" rel="noopener noreffer ">https://www.bilibili.com/read/cv8315201</a> 出处：bilibili</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-08-30</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/emui11%E9%99%8D%E7%BA%A7%E6%95%99%E7%A8%8B%E7%90%86%E8%AE%BA%E9%80%82%E7%94%A8%E4%BA%8E%E5%8D%8E%E4%B8%BA%E5%85%A8%E7%B3%BB%E5%88%97/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/emui11%E9%99%8D%E7%BA%A7%E6%95%99%E7%A8%8B%E7%90%86%E8%AE%BA%E9%80%82%E7%94%A8%E4%BA%8E%E5%8D%8E%E4%B8%BA%E5%85%A8%E7%B3%BB%E5%88%97/" data-title="Emui 11降级教程，理论适用于华为全系列"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/emui11%E9%99%8D%E7%BA%A7%E6%95%99%E7%A8%8B%E7%90%86%E8%AE%BA%E9%80%82%E7%94%A8%E4%BA%8E%E5%8D%8E%E4%B8%BA%E5%85%A8%E7%B3%BB%E5%88%97/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/emui11%E9%99%8D%E7%BA%A7%E6%95%99%E7%A8%8B%E7%90%86%E8%AE%BA%E9%80%82%E7%94%A8%E4%BA%8E%E5%8D%8E%E4%B8%BA%E5%85%A8%E7%B3%BB%E5%88%97/" data-title="Emui 11降级教程，理论适用于华为全系列"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/emui11%E9%99%8D%E7%BA%A7%E6%95%99%E7%A8%8B%E7%90%86%E8%AE%BA%E9%80%82%E7%94%A8%E4%BA%8E%E5%8D%8E%E4%B8%BA%E5%85%A8%E7%B3%BB%E5%88%97/" data-title="Emui 11降级教程，理论适用于华为全系列"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/emui11%E9%99%8D%E7%BA%A7%E6%95%99%E7%A8%8B%E7%90%86%E8%AE%BA%E9%80%82%E7%94%A8%E4%BA%8E%E5%8D%8E%E4%B8%BA%E5%85%A8%E7%B3%BB%E5%88%97/" data-title="Emui 11降级教程，理论适用于华为全系列"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%8D%8E%E4%B8%BAhisuite%E5%A4%87%E4%BB%BD%E8%A7%A3%E5%AF%86/" class="prev" rel="prev" title="华为Hisuite备份解密"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>华为Hisuite备份解密</a>
+            <a href="/mate30-emui-11%E5%88%B7%E8%B0%B7%E6%AD%8C%E6%A1%86%E6%9E%B6gms/" class="next" rel="next" title="MATE30 EMUI 11刷谷歌框架(GMS)">MATE30 EMUI 11刷谷歌框架(GMS)<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>GEOJSON标准格式学习 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="GEOJSON标准格式学习" />
+<meta property="og:description" content="转载自：https://www.jianshu.com/p/852d7ad081b3
+最近做的项目需要详细了解geojson，因此查了一些资料，现在整理一份标准格式的记录，要理解本文需要首先了解json的基本知识，这里不过多展开，可以去参考w3school上的教程，简言之，json是通过键值对表示数据对象的一种格式，可以很好地表达数据，其全称为JavaScript Object Notation（JavaScript Object Notation），正如这个名称，JavaScript和json联系紧密，但是json可以应用的范围很广，不止于前端，它比XML数据更轻量、更容易解析（某种角度上说xml可以更自由地封装更多的数据）。很多编程语言都有对应的json解析库，例如Python的json库，C#的Newtonsoft.Json，Java的org.json。geojson是用json的语法表达和存储地理数据，可以说是json的子集。
+例如下面就是一个点数据：
+1 2 3 4 5 6 7 8 9 10 11 12 { &#34;type&#34;: &#34;FeatureCollection&#34;, &#34;features&#34;: [ {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;Point&#34;, &#34;coordinates&#34;:[105.380859375,31.57853542647338] } } ] } 例子图片
+（注：以下geojson的效果截图都来自geojson.io在线生成）
+geojson将所有的地理要素分为Point、MultiPoint、LineString、MultiLineString、Polygon、MultiPolygon、GeometryCollection。首先是将这些要素封装到单个的geometry里，然后作为一个个的Feature（也就是要素）；要素放到一个要素集合里，从树状结构来理解FeatureCollection就是根节点，表示为：
+1 2 3 4 { &#34;type&#34;: &#34;FeatureCollection&#34;, &#34;features&#34;: [] } 所有地理要素放在features的列表里。
+点要素Point 点要素是最简单的，类型type对应Point，然后坐标是一个1维的数组，里面有两个元素（如果是立体的坐标就是三维x,y,z），分别为经度和纬度。properties里面可以封装各种属性，例如名称、标识颜色等等。
+1 2 3 4 5 6 7 {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;Point&#34;, &#34;coordinates&#34;:[105.380859375,31.57853542647338] } } 多点要素MultiPoint 1 2 3 4 5 6 7 8 9 {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;MultiPoint&#34;, &#34;coordinates&#34;:[[105." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" /><meta property="article:section" content="posts" />
+
+<meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="GEOJSON标准格式学习"/>
+<meta name="twitter:description" content="转载自：https://www.jianshu.com/p/852d7ad081b3
+最近做的项目需要详细了解geojson，因此查了一些资料，现在整理一份标准格式的记录，要理解本文需要首先了解json的基本知识，这里不过多展开，可以去参考w3school上的教程，简言之，json是通过键值对表示数据对象的一种格式，可以很好地表达数据，其全称为JavaScript Object Notation（JavaScript Object Notation），正如这个名称，JavaScript和json联系紧密，但是json可以应用的范围很广，不止于前端，它比XML数据更轻量、更容易解析（某种角度上说xml可以更自由地封装更多的数据）。很多编程语言都有对应的json解析库，例如Python的json库，C#的Newtonsoft.Json，Java的org.json。geojson是用json的语法表达和存储地理数据，可以说是json的子集。
+例如下面就是一个点数据：
+1 2 3 4 5 6 7 8 9 10 11 12 { &#34;type&#34;: &#34;FeatureCollection&#34;, &#34;features&#34;: [ {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;Point&#34;, &#34;coordinates&#34;:[105.380859375,31.57853542647338] } } ] } 例子图片
+（注：以下geojson的效果截图都来自geojson.io在线生成）
+geojson将所有的地理要素分为Point、MultiPoint、LineString、MultiLineString、Polygon、MultiPolygon、GeometryCollection。首先是将这些要素封装到单个的geometry里，然后作为一个个的Feature（也就是要素）；要素放到一个要素集合里，从树状结构来理解FeatureCollection就是根节点，表示为：
+1 2 3 4 { &#34;type&#34;: &#34;FeatureCollection&#34;, &#34;features&#34;: [] } 所有地理要素放在features的列表里。
+点要素Point 点要素是最简单的，类型type对应Point，然后坐标是一个1维的数组，里面有两个元素（如果是立体的坐标就是三维x,y,z），分别为经度和纬度。properties里面可以封装各种属性，例如名称、标识颜色等等。
+1 2 3 4 5 6 7 {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;Point&#34;, &#34;coordinates&#34;:[105.380859375,31.57853542647338] } } 多点要素MultiPoint 1 2 3 4 5 6 7 8 9 {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;MultiPoint&#34;, &#34;coordinates&#34;:[[105."/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" /><link rel="prev" href="http://example.org/hello-world/" /><link rel="next" href="http://example.org/geojson%E5%AF%B9%E8%B1%A1%E4%B8%8Epolygon_wkt-wkb%E5%AF%B9%E8%B1%A1mysql%E7%AD%89%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "GEOJSON标准格式学习",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0\/"
+        },"genre": "posts","keywords": "GIS","wordcount":  446 ,
+        "url": "http:\/\/example.org\/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">GEOJSON标准格式学习</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/gis/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>GIS</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;446 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#点要素point">点要素Point</a></li>
+        <li><a href="#多点要素multipoint">多点要素MultiPoint</a></li>
+        <li><a href="#线要素linestring">线要素LineString</a></li>
+        <li><a href="#multilinestring">MultiLineString</a></li>
+        <li><a href="#多边形polygon">多边形Polygon</a></li>
+        <li><a href="#多多边形multipolygon">多多边形MultiPolygon</a>
+          <ul>
+            <li><a href="#type-1-两个不会相交的多边形">type 1 两个不会相交的多边形</a></li>
+            <li><a href="#type-2-两个镶套的多边形">type 2 两个镶套的多边形</a></li>
+            <li><a href="#type-3-有孔洞的多边形">type 3 有孔洞的多边形</a></li>
+          </ul>
+        </li>
+        <li><a href="#geometrycollection">GeometryCollection</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>转载自：https://www.jianshu.com/p/852d7ad081b3</p>
+<p>最近做的项目需要详细了解geojson，因此查了一些资料，现在整理一份标准格式的记录，要理解本文需要首先了解json的基本知识，这里不过多展开，可以去参考w3school上的教程，简言之，json是通过键值对表示数据对象的一种格式，可以很好地表达数据，其全称为<strong>JavaScript Object Notation</strong>（JavaScript Object Notation），正如这个名称，JavaScript和json联系紧密，但是json可以应用的范围很广，不止于前端，它比XML数据更轻量、更容易解析（某种角度上说xml可以更自由地封装更多的数据）。很多编程语言都有对应的json解析库，例如Python的json库，C#的Newtonsoft.Json，Java的org.json。geojson是用json的语法表达和存储地理数据，可以说是json的子集。</p>
+<p>例如下面就是一个点数据：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;FeatureCollection&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;features&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;Feature&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;properties&#34;</span><span class="p">:{},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;geometry&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;Point&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;coordinates&#34;</span><span class="p">:[</span><span class="mf">105.380859375</span><span class="p">,</span><span class="mf">31.57853542647338</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="webp-162911417860130" alt="img" style="zoom:100%;" />
+<p>例子图片</p>
+<p><em>（注：以下geojson的效果截图都来自<a href="https://links.jianshu.com/go?to=http%3A%2F%2Fgeojson.io%2F%23map%3D2%2F20.0%2F0.0" target="_blank" rel="noopener noreffer ">geojson.io</a>在线生成）</em></p>
+<p>geojson将所有的地理要素分为Point、MultiPoint、LineString、MultiLineString、Polygon、MultiPolygon、GeometryCollection。首先是将这些要素封装到单个的geometry里，然后作为一个个的Feature（也就是要素）；要素放到一个要素集合里，从树状结构来理解FeatureCollection就是根节点，表示为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;FeatureCollection&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;features&#34;</span><span class="p">:</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>所有地理要素放在features的列表里。</p>
+<h3 id="点要素point">点要素Point</h3>
+<p>点要素是最简单的，类型type对应Point，然后坐标是一个1维的数组，里面有两个元素（如果是立体的坐标就是三维x,y,z），分别为经度和纬度。properties里面可以封装各种属性，例如名称、标识颜色等等。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span><span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;Feature&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;properties&#34;</span><span class="p">:{},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;geometry&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;Point&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;coordinates&#34;</span><span class="p">:[</span><span class="mf">105.380859375</span><span class="p">,</span><span class="mf">31.57853542647338</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="多点要素multipoint">多点要素MultiPoint</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span><span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;Feature&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;properties&#34;</span><span class="p">:{},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;geometry&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;MultiPoint&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;coordinates&#34;</span><span class="p">:[[</span><span class="mf">105.380859375</span><span class="p">,</span><span class="mf">31.57853542647338</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">105.580859375</span><span class="p">,</span><span class="mf">31.52853542647338</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其核心坐标：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">105</span><span class="p">.</span><span class="nc">380859375</span><span class="o">,</span><span class="nt">31</span><span class="p">.</span><span class="nc">57853542647338</span>
+</span></span><span class="line"><span class="cl"><span class="nt">105</span><span class="p">.</span><span class="nc">580859375</span><span class="o">,</span><span class="nt">31</span><span class="p">.</span><span class="nc">52853542647338</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="线要素linestring">线要素LineString</h3>
+<p>线要素就是指线段，记录的是线的端点坐标，可视化时会按照记录顺序联结。对于曲线（如贝塞尔曲线）目前还没有很好的表达，但是在地理数据中，曲线一般会用LineString去拟合，现实地理世界中也没有标准的曲线地理要素。</p>
+<p>线要素的坐标coordinates里的二维数组和多点要素基本一样，区别就在type上了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span><span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;Feature&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;properties&#34;</span><span class="p">:{},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;geometry&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;LineString&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;coordinates&#34;</span><span class="p">:[[</span><span class="mf">105.6005859375</span><span class="p">,</span><span class="mf">30.65681556429287</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="mf">107.95166015624999</span><span class="p">,</span><span class="mf">31.98944183792288</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="mf">109.3798828125</span><span class="p">,</span><span class="mf">30.031055426540206</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="mf">107.7978515625</span><span class="p">,</span><span class="mf">29.935895213372444</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对应的Kml表达：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;Placemark&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;ExtendedData&gt;&lt;/ExtendedData&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;LineString&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;coordinates&gt;</span>108.65753173828125,34.1873818599505 108.72413635253905,34.25154099726973 108.77151489257812,34.16977214177208 108.88481140136719,34.229970811273084
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/coordinates&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/LineString&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/Placemark&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="multilinestring">MultiLineString</h3>
+<p>也是一个三维数组（和多边形一样）；</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span><span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;Feature&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;properties&#34;</span><span class="p">:{},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;geometry&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;MultiLineString&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;coordinates&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">105.6005859375</span><span class="p">,</span><span class="mf">30.65681556429287</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">107.95166015624999</span><span class="p">,</span><span class="mf">31.98944183792288</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">109.3798828125</span><span class="p">,</span><span class="mf">30.031055426540206</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">107.7978515625</span><span class="p">,</span><span class="mf">29.935895213372444</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">109.3798828125</span><span class="p">,</span><span class="mf">30.031055426540206</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">107.1978515625</span><span class="p">,</span><span class="mf">31.235895213372444</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="多边形polygon">多边形Polygon</h3>
+<p>注：单个多边形是一个3维数组，可以包含多个二维数组，这种情况和MultiPolygon效果很像。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span><span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;Feature&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;properties&#34;</span><span class="p">:{},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;geometry&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;Polygon&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;coordinates&#34;</span><span class="p">:[</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                          <span class="p">[</span><span class="mf">106.10595703125</span><span class="p">,</span><span class="mf">33.33970700424026</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                          <span class="p">[</span><span class="mf">106.32568359375</span><span class="p">,</span><span class="mf">32.41706632846282</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                          <span class="p">[</span><span class="mf">108.03955078125</span><span class="p">,</span><span class="mf">32.2313896627376</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                          <span class="p">[</span><span class="mf">108.25927734375</span><span class="p">,</span><span class="mf">33.15594830078649</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                          <span class="p">[</span><span class="mf">106.10595703125</span><span class="p">,</span><span class="mf">33.33970700424026</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">                      <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="多多边形multipolygon">多多边形MultiPolygon</h3>
+<h4 id="type-1-两个不会相交的多边形">type 1 两个不会相交的多边形</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;Feature&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;geometry&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;MultiPolygon&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;coordinates&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span> 
+</span></span><span class="line"><span class="cl">        <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">109.2041015625</span><span class="p">,</span><span class="mf">30.088107753367257</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">115.02685546875</span><span class="p">,</span><span class="mf">30.088107753367257</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">115.02685546875</span><span class="p">,</span><span class="mf">32.7872745269555</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">109.2041015625</span><span class="p">,</span><span class="mf">32.7872745269555</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">109.2041015625</span><span class="p">,</span><span class="mf">30.088107753367257</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">          
+</span></span><span class="line"><span class="cl">          
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">112.9833984375</span><span class="p">,</span><span class="mf">26.82407078047018</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">116.69677734375</span><span class="p">,</span><span class="mf">26.82407078047018</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">116.69677734375</span><span class="p">,</span><span class="mf">29.036960648558267</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">112.9833984375</span><span class="p">,</span><span class="mf">29.036960648558267</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">112.9833984375</span><span class="p">,</span><span class="mf">26.82407078047018</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">             <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="webp-162911415511428" alt="img" style="zoom: 100%;" />
+<p>两个不相交的多边形</p>
+<h4 id="type-2-两个镶套的多边形">type 2 两个镶套的多边形</h4>
+<p>小的在前面，范围大的在后面，用上4个中括号，但效果不是有洞的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;Feature&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;geometry&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;MultiPolygon&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;coordinates&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span> 
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">[</span><span class="mf">101.6455078125</span><span class="p">,</span><span class="mf">27.68352808378776</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">[</span><span class="mf">114.78515624999999</span><span class="p">,</span><span class="mf">27.68352808378776</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">[</span><span class="mf">114.78515624999999</span><span class="p">,</span><span class="mf">35.209721645221386</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">[</span><span class="mf">101.6455078125</span><span class="p">,</span><span class="mf">35.209721645221386</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">[</span><span class="mf">101.6455078125</span><span class="p">,</span><span class="mf">27.68352808378776</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="p">]</span>   
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">[</span><span class="mf">104.2822265625</span><span class="p">,</span><span class="mf">30.107117887092357</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">[</span><span class="mf">108.896484375</span><span class="p">,</span><span class="mf">30.107117887092357</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">[</span><span class="mf">108.896484375</span><span class="p">,</span><span class="mf">33.76088200086917</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">[</span><span class="mf">104.2822265625</span><span class="p">,</span><span class="mf">33.76088200086917</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">[</span><span class="mf">104.2822265625</span><span class="p">,</span><span class="mf">30.107117887092357</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="webp-162911413025724" alt="img" style="zoom:100%;" />
+<p>两个镶套的多边形</p>
+<h4 id="type-3-有孔洞的多边形">type 3 有孔洞的多边形</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;Feature&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;geometry&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;MultiPolygon&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;coordinates&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span> 
+</span></span><span class="line"><span class="cl">        <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">101.6455078125</span><span class="p">,</span><span class="mf">27.68352808378776</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">114.78515624999999</span><span class="p">,</span><span class="mf">27.68352808378776</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">114.78515624999999</span><span class="p">,</span><span class="mf">35.209721645221386</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">101.6455078125</span><span class="p">,</span><span class="mf">35.209721645221386</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">101.6455078125</span><span class="p">,</span><span class="mf">27.68352808378776</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">          
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">104.2822265625</span><span class="p">,</span><span class="mf">30.107117887092357</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">108.896484375</span><span class="p">,</span><span class="mf">30.107117887092357</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">108.896484375</span><span class="p">,</span><span class="mf">33.76088200086917</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">104.2822265625</span><span class="p">,</span><span class="mf">33.76088200086917</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="mf">104.2822265625</span><span class="p">,</span><span class="mf">30.107117887092357</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="webp" alt="img" style="zoom:100%;" />
+<p>有孔洞的多边形</p>
+<p>可以仔细去品味type2和type3的区别。它们对应的kml表达区别是比较大的。</p>
+<h3 id="geometrycollection">GeometryCollection</h3>
+<p>GeometryCollection是多种基本地理要素的集合，就是里面可以包含点、线、面要素。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;GeometryCollection&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;geometries&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;Point&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;coordinates&#34;</span><span class="p">:</span> <span class="p">[</span><span class="mf">108.62</span><span class="p">,</span> <span class="mf">31.02819</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">         <span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;LineString&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;coordinates&#34;</span><span class="p">:</span> <span class="p">[[</span><span class="mf">108.896484375</span><span class="p">,</span><span class="mf">30.1071178870</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">          <span class="p">[</span><span class="mf">108.2184375</span><span class="p">,</span><span class="mf">30.91717870</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">          <span class="p">[</span><span class="mf">109.5184375</span><span class="p">,</span><span class="mf">31.2175780</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">         <span class="p">}]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>GeometryCollection不需要放在FeatureCollection里：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;FeatureCollection&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;features&#34;</span><span class="p">:</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>geojson里面还有其他标签表达其他的属性，如外包矩形等，其中特别重要的是坐标系统，一般里面的坐标默认为WGS84，当然也可以是其他坐标系统的坐标，但是要标识。这部分内容之后再补充了。</p>
+<p>更具体的内容可以参考<a href="https://links.jianshu.com/go?to=https%3A%2F%2Ftools.ietf.org%2Fhtml%2Frfc7946" target="_blank" rel="noopener noreffer ">rfc7946</a>。</p>
+<p>欢迎关注本人公众号，有更多有趣内容和资料：</p>
+<img src="2473543-a07a806b9ea5f9f9.webp" alt="2473543-a07a806b9ea5f9f9" style="zoom:80%;" />
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 0001-01-01</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-title="GEOJSON标准格式学习" data-hashtags="GIS"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-hashtag="GIS"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-title="GEOJSON标准格式学习"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-title="GEOJSON标准格式学习"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/" data-title="GEOJSON标准格式学习"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/gis/">GIS</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/hello-world/" class="prev" rel="prev" title="Hello World"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Hello World</a>
+            <a href="/geojson%E5%AF%B9%E8%B1%A1%E4%B8%8Epolygon_wkt-wkb%E5%AF%B9%E8%B1%A1mysql%E7%AD%89%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC/" class="next" rel="next" title="geojson对象与polygon_wkt、wkb对象（MySQL等数据库中的对象）互转">geojson对象与polygon_wkt、wkb对象（MySQL等数据库中的对象）互转<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

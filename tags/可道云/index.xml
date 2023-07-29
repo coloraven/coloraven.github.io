@@ -1,0 +1,20 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>可道云 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E5%8F%AF%E9%81%93%E4%BA%91/</link>
+        <description>可道云 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 11 May 2022 23:51:23 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/%E5%8F%AF%E9%81%93%E4%BA%91/" rel="self" type="application/rss+xml" /><item>
+    <title>可道云&#43;onlyoffice搭建【amd64&#43;arm64】</title>
+    <link>http://example.org/%E5%8F%AF%E9%81%93%E4%BA%91%E6%90%AD%E5%BB%BAamd64/</link>
+    <pubDate>Wed, 11 May 2022 23:51:23 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E5%8F%AF%E9%81%93%E4%BA%91%E6%90%AD%E5%BB%BAamd64/</guid>
+    <description><![CDATA[运行可道云 kodcloud/kodexplorer:latest含arm64架构镜像 docker run -d -p 3563:80 kodcloud/kodexplorer:latest
+运行onlyoffice docker run -i -t -d --name onlyoffice -p 5646:80 onlyoffice/documentserver 官方只支持amd64 下面是支持arm64的第三方 https://github.com/jiriks74/Docker-DocumentServer-Arm64 对应镜像：jiriks74/onlyoffice-documentserver-arm64
+下载&rsquo;onlyoffice&rsquo;插件 https://github.com/sit17/kodexplorer_onlyoffice
+将下载好的压缩包解压，将onlyoffice目录丢入可道云的plugins目录中，再在插件中心启用。
+然后插件中心点击onlyoffice插件进行配置，将onlyoffice地址填入其中。
+免费版批量添加用户脚本（先复制好cookies） 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 import requests def add_user(name): cookies = { &#39;KOD_SESSION_SSO&#39;: &#39;3824713901f6ead71c6e2a0ec2feba74&#39;, &#39;HOST&#39;: &#39;http%3A//192.]]></description>
+</item>
+</channel>
+</rss>

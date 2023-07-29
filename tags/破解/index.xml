@@ -1,0 +1,27 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>破解 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E7%A0%B4%E8%A7%A3/</link>
+        <description>破解 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 18 Sep 2021 22:48:49 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/%E7%A0%B4%E8%A7%A3/" rel="self" type="application/rss+xml" /><item>
+    <title>火牛（紫狐）分身破解过程</title>
+    <link>http://example.org/%E7%81%AB%E7%89%9B%E5%88%86%E8%BA%AB%E7%A0%B4%E8%A7%A3%E8%BF%87%E7%A8%8B/</link>
+    <pubDate>Sat, 18 Sep 2021 22:48:49 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E7%81%AB%E7%89%9B%E5%88%86%E8%BA%AB%E7%A0%B4%E8%A7%A3%E8%BF%87%E7%A8%8B/</guid>
+    <description><![CDATA[紫狐分身概述 打开APP需要卡密验证，绕过卡密验证只需要劫持改包即可，具体见：火牛-紫狐分身的字符串加密-卡密验证环节破解。 正常卡密验证返回包为：{&quot;result&quot;:{&quot;msg&quot;:&quot;验证成功，卡密有效期至：2030-11-13 00:22:24&quot;},&quot;ts&quot;:1634142164901,&quot;status&quot;:1} 分身时会验证卡密是否曾经注册过，注册过则可以正常使用，否则不能正常使用，重点是：即时卡密过期也能正常使用。
+第一步：卡密破解 抓包（过程略） 打开APP，随便输入一个卡密（随便几位数字），抓包查看请求和返回数据。
+请求详情 卡密验证API为http://jyfya.top/Auth/Verify
+返回详情 返回数据为：
+1 {&#34;code&#34;:404,&#34;&#34;msg&#34;:&#34;\u6ce8\u518c\u7801\u4e0d\u5b58\u5728&#34;,&#34;data&#34;:[]} 尝试将此处的404改为200，竟然成功。
+破解 1、绕过卡密验证过程 搜索&quot;is_verify&quot; 在smali码里找到第45行，将const/4 v0,0x0改为const/4 v0,0x1 {height=&ldquo;585px&rdquo; width=&ldquo;270px&rdquo;} 这样打开APP就不会再有提示输入卡密的界面。 但是&hellip;..因为正常情况下，输入卡密，服务器验证成功后，会将卡密本地保存，以待后续使用APP时调用，如此直接绕过卡密验证过程，本地的卡密信息为空，在调用时会出错，导致添加分身后，进入分身配置界面时提示当前连接不到服务器，请稍后重试。APP无法继续使用。
+2、去除当前连接不到服务器，请稍后重试弹窗 抓包发现跳这个弹窗前，APP发起了一个请求（http://hw.jyfya.top:8080/v4/now/?nonce=cloneuser&amp;token=&amp;appversioncode=312&amp;virtual_id=91d7ea36fee5bd281fd2a088810e8d20），目的不明，该请求的状态码是200，按理说应该不会弹当前连接不到服务器，请稍后重试，毕竟该请求是通的，但是响应体是空白的，估计是因为这个才导致弹窗的，但是没有正版卡密的情况下，不知道其正常的响应体长怎么样。
+意外 在不停折腾过程中，某次偶然情况，我在卡密输入框里输入的中文，然后篡改卡密验证时的响应数据，结果在打开分身应用时竟然不再弹窗，再查看请求过程，发现响应体竟然有数据。 {height=&ldquo;585px&rdquo; width=&ldquo;270px&rdquo;} 至此，拿到了正常的响应体数据。
+暴力去弹窗（备用） 根据弹窗当前连接不到服务器，请稍后重试中的关键字，全局代码搜索无果，搜索Arsc资源得到ID7f1100b3，以该ID在全局代码中搜索发现弹窗的逻辑。 {height=&ldquo;585px&rdquo; width=&ldquo;270px&rdquo;} 在smali码中将该方法删掉~~，再验证，发现不再弹窗了。
+虚拟定位破解 经过第1、2步破解后，可以正常进入分身应用设置界面了。 但是又遇到新的问题： 在`位置保护`里选点虚拟位置后点击右下角`选择`时报错 {height=&ldquo;585px&rdquo; width=&ldquo;270px&rdquo;} 抓包发现点击右下角`选择`时，后台请求 {height=&ldquo;585px&rdquo; width=&ldquo;270px&rdquo;} 返回数据 {height=&ldquo;585px&rdquo; width=&ldquo;270px&rdquo;} 明显是服务器报错了，估计是因为token（即卡密）为中文导致的，后来尝试换成数字卡密还是会报错Null is not a valid element。
+突破 意外情况曾经拿到了虚拟定位正常返回数据
+1 {&#34;message&#34;:&#34;success&#34;,&#34;code&#34;:200,&#34;data&#34;:&#34;qv36S6TQFKpL4tieu90GS58wzdnSVR8/Qwkmcta8G7J/3KEIJNjmSR/2TBm/suMc&#34;} data值为使用AES-ECB-PK5加密的数据，data值解开后为形如以下结构的字符串(注意为字符串)：
+1 [{&#34;lat&#34;:28.294743,&#34;lon&#34;:112.896041}] +++success 抓包情况 ;;;id3 请求信息 请求方式：GET 请求URL：http://hw.jyfya.top:8080/v4/dbcell/?lat=28.288195462671396&amp;lon=112.9000414965204&amp;n=10&amp;mnc=1&amp;range=2&amp;gps=1&amp;incoord=bd09&amp;coord=bd09&amp;nonce=cloneuser&amp;token=6699666&amp;appversioncode=312&amp;virtual_id=91d7ea36fee5bd281fd2a088810e8d20 ;;; ;;;id3 请求头 User-Token: e3158c8b9687b4ca317b813431987b6c X-Mgs-Proxy-Signature: 53efd12b437a15b7e85d55441127ea8e X-UT-DID: HUAWEI_TAS-AN00|YUgEKXp38YEDAH5sndk4SKff X-CHANNEL: null User-Agant: B0a9ReUQDyrrqIRVHAMmXMQBYKbLssglkMXKUlEMd0szCaG0tpuZJv+bskFyD6Uh9T3Y7qpyiYaCkf7pyDemg== Host: hw.]]></description>
+</item>
+</channel>
+</rss>

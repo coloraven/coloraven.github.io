@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>翻墙协议链接解析 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="翻墙协议链接解析" />
+<meta property="og:description" content="ss、ssr、v2ray链接解析 ?&gt; 网上有很多人会分享一些免费的 ss、ssr 免费账号，也有少数分享v2ray的；有的会直接把服务、端口、ip、协议等展示出来，直接手动输入相应参数就可以了，有的则直接显示二维码，直接用客户端软件扫一下就可以使用。
+不过，也有很多是直接以链接的形式展示出来，比如 ss://xxxxx 或 ssr://xxxx,对于这种链接的方式，复制链接后，直接使用ss 、ssr客户端右键从粘贴板导入url链接即可。
+SS链接 以ss链接为例，链接如下：
+ss://YWVzLTI1Ni1jZmI6S1NYTmhuWnBqd0M2UGM2Q0A1NC4xNjkuMzUuMjI4OjMxNDQ0
+用base64解码站长工具（此工具存在和谐因素，仅为演示方便）进行解码
+从这两幅图也不难看出格式其实是这样的 ss://method:password@server:port，按照这个格式的写法并进行base64编码，就能将ss分享给对方使用。
+若是分享二维码，可以用二维码生成器将ss链接嵌入二维码中扫描分享
+SSR链接 再来看ssr的url，链接如下：
+1 ssr://NjQuMTM3LjIyOC4zNTo1NzYwOmF1dGhfc2hhMV92NDpjaGFjaGEyMDp0bHMxLjJfdGlja2V0X2F1dGg6Wkc5MVlpNXBieTl6YzNwb1puZ3ZLalUzTmpBLz9yZW1hcmtzPTVweXM1WVdONkxTNTZMU201WS0zNXAybDZJZXFPbVJ2ZFdJdWFXOHZjM042YUdaNEx3 使用base64工具解码
+字符串包含–，需在解码前把–这个字符通通替换为&#43;字符
+效果如下
+再来看ssr链接导入的截图
+由此得知，格式如下
+ssr://ip:port:protocol:method:blending:password/?remarks=other text
+有时也会看到部分解码后，这样的格式
+159.65.1.189:5252:auth_sha1_v4:rc4-md5:http_simple:NTJzc3IubmV0/?obfsparam=&amp;protoparam=&amp;group=d3d3LnNzcnNoYXJlLmNvbQ&amp;remarks=RE1fTm9kZQ
+这其中obfsparam、protoparam、group、remarks等都是可选的，也可不填。
+v2ray链接 其实v2ray链接与相关二维码生成与上述方法是差不多的，只是配置参数格式大同小异而已。v2ray不像ss那样有统一规定的url格式，所以各个v2ray图形客户端的分享链接或是二维码不一定通用
+v2ray的链接如下
+1 vmess://ew0KICAicHMiOiAicnVzc2lhbi1jbG91ZCIsDQogICJhZGQiOiAiMTg1LjE3Ny4yMTYuMTM0IiwNCiAgInBvcnQiOiAiMjI1MzUiLA0KICAiaWQiOiAiNTIwNTAwNTctZjVlMS00YjllLWI3OGItNWY0OWI1NDlmZDIxIiwNCiAgImFpZCI6ICI2NCIsDQogICJuZXQiOiAia2NwIiwNCiAgInR5cGUiOiAic3J0cCIsDQogICJob3N0IjogIiIsDQogICJ0bHMiOiAiIg0KfQ== 进行base64解码之后再对比v2ray客户端的参数配置就显得一目了然
+可以说大体是这么一个格式
+1 2 3 4 5 6 7 8 9 10 11 { &#34;ps&#34;: &#34;别名&#34;, &#34;add&#34;: &#34;ip地址&#34;, &#34;port&#34;: &#34;端口&#34;, &#34;id&#34;: &#34;uuid&#34;, &#34;aid&#34;: &#34;alterid&#34;, &#34;net&#34;: &#34;传输协议&#34;, &#34;type&#34;: &#34;伪装类型&#34;, &#34;host&#34;: &#34; http header参数&#34;, &#34;tls&#34;: &#34;底层传输安全&#34; } 除别名外，可以说服务器与客户端的参数必须要相互对应，别名、留空的是可以省略的。按照这个相关格式生成base64编码。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-17T17:36:12+00:00" />
+<meta property="article:modified_time" content="2022-05-17T17:36:12+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="翻墙协议链接解析"/>
+<meta name="twitter:description" content="ss、ssr、v2ray链接解析 ?&gt; 网上有很多人会分享一些免费的 ss、ssr 免费账号，也有少数分享v2ray的；有的会直接把服务、端口、ip、协议等展示出来，直接手动输入相应参数就可以了，有的则直接显示二维码，直接用客户端软件扫一下就可以使用。
+不过，也有很多是直接以链接的形式展示出来，比如 ss://xxxxx 或 ssr://xxxx,对于这种链接的方式，复制链接后，直接使用ss 、ssr客户端右键从粘贴板导入url链接即可。
+SS链接 以ss链接为例，链接如下：
+ss://YWVzLTI1Ni1jZmI6S1NYTmhuWnBqd0M2UGM2Q0A1NC4xNjkuMzUuMjI4OjMxNDQ0
+用base64解码站长工具（此工具存在和谐因素，仅为演示方便）进行解码
+从这两幅图也不难看出格式其实是这样的 ss://method:password@server:port，按照这个格式的写法并进行base64编码，就能将ss分享给对方使用。
+若是分享二维码，可以用二维码生成器将ss链接嵌入二维码中扫描分享
+SSR链接 再来看ssr的url，链接如下：
+1 ssr://NjQuMTM3LjIyOC4zNTo1NzYwOmF1dGhfc2hhMV92NDpjaGFjaGEyMDp0bHMxLjJfdGlja2V0X2F1dGg6Wkc5MVlpNXBieTl6YzNwb1puZ3ZLalUzTmpBLz9yZW1hcmtzPTVweXM1WVdONkxTNTZMU201WS0zNXAybDZJZXFPbVJ2ZFdJdWFXOHZjM042YUdaNEx3 使用base64工具解码
+字符串包含–，需在解码前把–这个字符通通替换为&#43;字符
+效果如下
+再来看ssr链接导入的截图
+由此得知，格式如下
+ssr://ip:port:protocol:method:blending:password/?remarks=other text
+有时也会看到部分解码后，这样的格式
+159.65.1.189:5252:auth_sha1_v4:rc4-md5:http_simple:NTJzc3IubmV0/?obfsparam=&amp;protoparam=&amp;group=d3d3LnNzcnNoYXJlLmNvbQ&amp;remarks=RE1fTm9kZQ
+这其中obfsparam、protoparam、group、remarks等都是可选的，也可不填。
+v2ray链接 其实v2ray链接与相关二维码生成与上述方法是差不多的，只是配置参数格式大同小异而已。v2ray不像ss那样有统一规定的url格式，所以各个v2ray图形客户端的分享链接或是二维码不一定通用
+v2ray的链接如下
+1 vmess://ew0KICAicHMiOiAicnVzc2lhbi1jbG91ZCIsDQogICJhZGQiOiAiMTg1LjE3Ny4yMTYuMTM0IiwNCiAgInBvcnQiOiAiMjI1MzUiLA0KICAiaWQiOiAiNTIwNTAwNTctZjVlMS00YjllLWI3OGItNWY0OWI1NDlmZDIxIiwNCiAgImFpZCI6ICI2NCIsDQogICJuZXQiOiAia2NwIiwNCiAgInR5cGUiOiAic3J0cCIsDQogICJob3N0IjogIiIsDQogICJ0bHMiOiAiIg0KfQ== 进行base64解码之后再对比v2ray客户端的参数配置就显得一目了然
+可以说大体是这么一个格式
+1 2 3 4 5 6 7 8 9 10 11 { &#34;ps&#34;: &#34;别名&#34;, &#34;add&#34;: &#34;ip地址&#34;, &#34;port&#34;: &#34;端口&#34;, &#34;id&#34;: &#34;uuid&#34;, &#34;aid&#34;: &#34;alterid&#34;, &#34;net&#34;: &#34;传输协议&#34;, &#34;type&#34;: &#34;伪装类型&#34;, &#34;host&#34;: &#34; http header参数&#34;, &#34;tls&#34;: &#34;底层传输安全&#34; } 除别名外，可以说服务器与客户端的参数必须要相互对应，别名、留空的是可以省略的。按照这个相关格式生成base64编码。"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" /><link rel="prev" href="http://example.org/%E5%8F%AF%E9%81%93%E4%BA%91%E6%90%AD%E5%BB%BAamd64/" /><link rel="next" href="http://example.org/trojan%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "翻墙协议链接解析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90\/"
+        },"genre": "posts","keywords": "VPN","wordcount":  188 ,
+        "url": "http:\/\/example.org\/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90\/","datePublished": "2022-05-17T17:36:12+00:00","dateModified": "2022-05-17T17:36:12+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">翻墙协议链接解析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-05-17">2022-05-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;188 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#ssssrv2ray链接解析">ss、ssr、v2ray链接解析</a>
+      <ul>
+        <li><a href="#ss链接">SS链接</a></li>
+        <li><a href="#ssr链接">SSR链接</a></li>
+        <li><a href="#v2ray链接">v2ray链接</a></li>
+        <li><a href="#ssr对ss的兼容">SSR对SS的兼容</a></li>
+        <li><a href="#v2ray对ss的兼容">v2ray对ss的兼容</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="ssssrv2ray链接解析">ss、ssr、v2ray链接解析</h2>
+<p>?&gt; 网上有很多人会分享一些免费的 ss、ssr 免费账号，也有少数分享v2ray的；有的会直接把服务、端口、ip、协议等展示出来，直接手动输入相应参数就可以了，有的则直接显示二维码，直接用客户端软件扫一下就可以使用。<br><br>
+不过，也有很多是直接以链接的形式展示出来，比如 ss://xxxxx 或 ssr://xxxx,对于这种链接的方式，复制链接后，直接使用ss 、ssr客户端右键从粘贴板导入url链接即可。</p>
+<h3 id="ss链接">SS链接</h3>
+<p>以ss链接为例，链接如下：</p>
+<p><code>ss://YWVzLTI1Ni1jZmI6S1NYTmhuWnBqd0M2UGM2Q0A1NC4xNjkuMzUuMjI4OjMxNDQ0</code></p>
+<p>用<a href="http://tool.chinaz.com/Tools/Base64.aspx" target="_blank" rel="noopener noreffer ">base64解码站长工具</a>（此工具存在和谐因素，仅为演示方便）进行解码</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/W3Vkrt3d/2018-06-07-131159x.png"
+        data-srcset="https://i.postimg.cc/W3Vkrt3d/2018-06-07-131159x.png, https://i.postimg.cc/W3Vkrt3d/2018-06-07-131159x.png 1.5x, https://i.postimg.cc/W3Vkrt3d/2018-06-07-131159x.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/W3Vkrt3d/2018-06-07-131159x.png"
+        title="https://i.postimg.cc/W3Vkrt3d/2018-06-07-131159x.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/ZKny6GTx/2018-06-07-132540.png"
+        data-srcset="https://i.postimg.cc/ZKny6GTx/2018-06-07-132540.png, https://i.postimg.cc/ZKny6GTx/2018-06-07-132540.png 1.5x, https://i.postimg.cc/ZKny6GTx/2018-06-07-132540.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/ZKny6GTx/2018-06-07-132540.png"
+        title="https://i.postimg.cc/ZKny6GTx/2018-06-07-132540.png" /></p>
+<p>从这两幅图也不难看出格式其实是这样的 <code>ss://method:password@server:port</code>，按照这个格式的写法并进行base64编码，就能将ss分享给对方使用。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/fT1kmkqM/2018-06-07-142343.png"
+        data-srcset="https://i.postimg.cc/fT1kmkqM/2018-06-07-142343.png, https://i.postimg.cc/fT1kmkqM/2018-06-07-142343.png 1.5x, https://i.postimg.cc/fT1kmkqM/2018-06-07-142343.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/fT1kmkqM/2018-06-07-142343.png"
+        title="https://i.postimg.cc/fT1kmkqM/2018-06-07-142343.png" /></p>
+<p>若是分享二维码，可以用<a href="https://www.qrstuff.com/" target="_blank" rel="noopener noreffer ">二维码生成器</a>将ss链接嵌入二维码中扫描分享</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/7hGwZnk0/2018-06-07-141818.png"
+        data-srcset="https://i.postimg.cc/7hGwZnk0/2018-06-07-141818.png, https://i.postimg.cc/7hGwZnk0/2018-06-07-141818.png 1.5x, https://i.postimg.cc/7hGwZnk0/2018-06-07-141818.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/7hGwZnk0/2018-06-07-141818.png"
+        title="https://i.postimg.cc/7hGwZnk0/2018-06-07-141818.png" /></p>
+<h3 id="ssr链接">SSR链接</h3>
+<p>再来看ssr的url，链接如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">ssr://NjQuMTM3LjIyOC4zNTo1NzYwOmF1dGhfc2hhMV92NDpjaGFjaGEyMDp0bHMxLjJfdGlja2V0X2F1dGg6Wkc5MVlpNXBieTl6YzNwb1puZ3ZLalUzTmpBLz9yZW1hcmtzPTVweXM1WVdONkxTNTZMU201WS0zNXAybDZJZXFPbVJ2ZFdJdWFXOHZjM042YUdaNEx3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用<a href="https://1024tools.com/base64" target="_blank" rel="noopener noreffer ">base64工具</a>解码</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/cJzsyzq0/2018-06-07-145222.png"
+        data-srcset="https://i.postimg.cc/cJzsyzq0/2018-06-07-145222.png, https://i.postimg.cc/cJzsyzq0/2018-06-07-145222.png 1.5x, https://i.postimg.cc/cJzsyzq0/2018-06-07-145222.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/cJzsyzq0/2018-06-07-145222.png"
+        title="https://i.postimg.cc/cJzsyzq0/2018-06-07-145222.png" /></p>
+<p>字符串包含<code>–</code>，需在解码前把<code>–</code>这个字符通通替换为<code>+</code>字符</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/3wzHbDpw/2018-06-07-150006.png"
+        data-srcset="https://i.postimg.cc/3wzHbDpw/2018-06-07-150006.png, https://i.postimg.cc/3wzHbDpw/2018-06-07-150006.png 1.5x, https://i.postimg.cc/3wzHbDpw/2018-06-07-150006.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/3wzHbDpw/2018-06-07-150006.png"
+        title="https://i.postimg.cc/3wzHbDpw/2018-06-07-150006.png" /></p>
+<p>效果如下</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/Jzgg1Ch6/2018-06-07-150327.png"
+        data-srcset="https://i.postimg.cc/Jzgg1Ch6/2018-06-07-150327.png, https://i.postimg.cc/Jzgg1Ch6/2018-06-07-150327.png 1.5x, https://i.postimg.cc/Jzgg1Ch6/2018-06-07-150327.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/Jzgg1Ch6/2018-06-07-150327.png"
+        title="https://i.postimg.cc/Jzgg1Ch6/2018-06-07-150327.png" /></p>
+<p>再来看ssr链接导入的截图</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/4NyBn2qr/2018-06-07-150608.png"
+        data-srcset="https://i.postimg.cc/4NyBn2qr/2018-06-07-150608.png, https://i.postimg.cc/4NyBn2qr/2018-06-07-150608.png 1.5x, https://i.postimg.cc/4NyBn2qr/2018-06-07-150608.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/4NyBn2qr/2018-06-07-150608.png"
+        title="https://i.postimg.cc/4NyBn2qr/2018-06-07-150608.png" /></p>
+<p>由此得知，格式如下</p>
+<p><code>ssr://ip:port:protocol:method:blending:password/?remarks=other text</code></p>
+<p>有时也会看到部分解码后，这样的格式</p>
+<p><code>159.65.1.189:5252:auth_sha1_v4:rc4-md5:http_simple:NTJzc3IubmV0/?obfsparam=&amp;protoparam=&amp;group=d3d3LnNzcnNoYXJlLmNvbQ&amp;remarks=RE1fTm9kZQ</code></p>
+<p>这其中<code>obfsparam</code>、<code>protoparam</code>、<code>group</code>、<code>remarks</code>等都是可选的，也可不填。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/76PSdfyp/2018-06-07-160125.png"
+        data-srcset="https://i.postimg.cc/76PSdfyp/2018-06-07-160125.png, https://i.postimg.cc/76PSdfyp/2018-06-07-160125.png 1.5x, https://i.postimg.cc/76PSdfyp/2018-06-07-160125.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/76PSdfyp/2018-06-07-160125.png"
+        title="https://i.postimg.cc/76PSdfyp/2018-06-07-160125.png" /></p>
+<h3 id="v2ray链接">v2ray链接</h3>
+<p>其实v2ray链接与相关二维码生成与上述方法是差不多的，只是配置参数格式大同小异而已。v2ray不像ss那样有统一规定的url格式，所以各个v2ray图形客户端的分享链接或是二维码不一定通用</p>
+<p>v2ray的链接如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vmess://ew0KICAicHMiOiAicnVzc2lhbi1jbG91ZCIsDQogICJhZGQiOiAiMTg1LjE3Ny4yMTYuMTM0IiwNCiAgInBvcnQiOiAiMjI1MzUiLA0KICAiaWQiOiAiNTIwNTAwNTctZjVlMS00YjllLWI3OGItNWY0OWI1NDlmZDIxIiwNCiAgImFpZCI6ICI2NCIsDQogICJuZXQiOiAia2NwIiwNCiAgInR5cGUiOiAic3J0cCIsDQogICJob3N0IjogIiIsDQogICJ0bHMiOiAiIg0KfQ==
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>进行base64解码之后再对比v2ray客户端的参数配置就显得一目了然</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/85sbKtW2/2018-06-08-223349.png"
+        data-srcset="https://i.postimg.cc/85sbKtW2/2018-06-08-223349.png, https://i.postimg.cc/85sbKtW2/2018-06-08-223349.png 1.5x, https://i.postimg.cc/85sbKtW2/2018-06-08-223349.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/85sbKtW2/2018-06-08-223349.png"
+        title="https://i.postimg.cc/85sbKtW2/2018-06-08-223349.png" /></p>
+<p>可以说大体是这么一个格式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ps&#34;</span><span class="p">:</span> <span class="s2">&#34;别名&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;add&#34;</span><span class="p">:</span> <span class="s2">&#34;ip地址&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;port&#34;</span><span class="p">:</span> <span class="s2">&#34;端口&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="s2">&#34;uuid&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;aid&#34;</span><span class="p">:</span> <span class="s2">&#34;alterid&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;net&#34;</span><span class="p">:</span> <span class="s2">&#34;传输协议&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;伪装类型&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;host&#34;</span><span class="p">:</span> <span class="s2">&#34; http header参数&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tls&#34;</span><span class="p">:</span> <span class="s2">&#34;底层传输安全&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>除别名外，可以说服务器与客户端的参数必须要相互对应，别名、留空的是可以省略的。按照这个相关格式生成base64编码。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/pXBnjK5z/2018-06-08-233637.png"
+        data-srcset="https://i.postimg.cc/pXBnjK5z/2018-06-08-233637.png, https://i.postimg.cc/pXBnjK5z/2018-06-08-233637.png 1.5x, https://i.postimg.cc/pXBnjK5z/2018-06-08-233637.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/pXBnjK5z/2018-06-08-233637.png"
+        title="https://i.postimg.cc/pXBnjK5z/2018-06-08-233637.png" /></p>
+<p>在base64编码首部加上<code>vmess://</code>协议头</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">vmess://ewogICJhZGQiOiAiMTg1LjE3Ny4yMTYuMTM0IiwKICAicG9ydCI6ICIyMjUzNSIsCiAgImlkIjogIjUyMDUwMDU3LWY1ZTEtNGI5ZS1iNzhiLTVmNDliNTQ5ZmQyMSIsCiAgImFpZCI6ICI2NCIsCiAgIm5ldCI6ICJrY3AiLAogICJ0eXBlIjogInNydHAiCn0=
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将其导入至v2ray客户端，在服务器未作其他相关变更时，即可成功连接服务器。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/mDTvPxvQ/2018-06-08-235033.png"
+        data-srcset="https://i.postimg.cc/mDTvPxvQ/2018-06-08-235033.png, https://i.postimg.cc/mDTvPxvQ/2018-06-08-235033.png 1.5x, https://i.postimg.cc/mDTvPxvQ/2018-06-08-235033.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/mDTvPxvQ/2018-06-08-235033.png"
+        title="https://i.postimg.cc/mDTvPxvQ/2018-06-08-235033.png" /></p>
+<p>当然添加别名更好，这样就能v2ray客户端就能自动生成相应的v2ray链接</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/cLX9FK28/2018-06-08-235553.png"
+        data-srcset="https://i.postimg.cc/cLX9FK28/2018-06-08-235553.png, https://i.postimg.cc/cLX9FK28/2018-06-08-235553.png 1.5x, https://i.postimg.cc/cLX9FK28/2018-06-08-235553.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/cLX9FK28/2018-06-08-235553.png"
+        title="https://i.postimg.cc/cLX9FK28/2018-06-08-235553.png" /></p>
+<h3 id="ssr对ss的兼容">SSR对SS的兼容</h3>
+<p>至于ssr与ss兼容性的问题参考逗比的解答</p>
+<blockquote>
+<p>原文：<a href="https://doub.io/ss-jc35/" target="_blank" rel="noopener noreffer ">关于Shadowsocks的小白常见问题</a> 作者：<a href="https://doub.io/author/toyo/" target="_blank" rel="noopener noreffer ">逗比</a></p>
+</blockquote>
+<blockquote>
+<p><strong>取消协议兼容原版后，<strong>当你的ShadowsocksR服务端配置了</strong>协议</strong>后，只能ShadowsocksR的客户端<strong>选择对应的协议才可以连接</strong>(SSR客户端选择原版协议也是无法连接)，而使用Shadowsocks原版客户端无法连接。</p>
+</blockquote>
+<blockquote>
+<p>只有你设置ShadowsocksR服务端的协议为<strong>原版(origin)</strong>，那么才能ShadowsocksR客户端(选择原版协议)和Shadowsocks客户端都能链接你的ShadowsocksR服务端(账号)。</p>
+</blockquote>
+<blockquote>
+<p>目前ShadowsocksR服务端是，<strong>auth_aes128_*</strong> 及以后的协议 都不支持兼容原版了，之前的协议可以兼容原版，混淆也都可以兼容原版。</p>
+</blockquote>
+<blockquote>
+<p>当然了，这只针对 ShadowsocksR的协议，对于混淆参数是无所谓的，协议和混淆是可以分开的，你可以协议不设置兼容原版，而混淆设置兼容原版，或者不设置协议，而只设置混淆兼容原版，都可以，不存在协议开了，混淆也必须开的问题。</p>
+</blockquote>
+<p>总而言之，ssr可以使用ss的服务器，但ss使用ssr的服务器的话，却未必行得通；顺便也多说一句：ssr是可使用ss链接与扫描二维码的（别没事整什么动态的短链接就行了&hellip;），反之则不生效。</p>
+<p>我个人认为ssr倒像一个ss的升级版，是这样的一个关系：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/1RrpGkL8/2018-06-08-011429.png"
+        data-srcset="https://i.postimg.cc/1RrpGkL8/2018-06-08-011429.png, https://i.postimg.cc/1RrpGkL8/2018-06-08-011429.png 1.5x, https://i.postimg.cc/1RrpGkL8/2018-06-08-011429.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/1RrpGkL8/2018-06-08-011429.png"
+        title="https://i.postimg.cc/1RrpGkL8/2018-06-08-011429.png" /></p>
+<p>在了解这些，那么开始进行演示，打开<a href="https://tool.ssrshare.com/tool/free_ssr" target="_blank" rel="noopener noreffer ">ssrshare论坛的小工具网页</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/7hjDGsMw/2018-06-08-014905.png"
+        data-srcset="https://i.postimg.cc/7hjDGsMw/2018-06-08-014905.png, https://i.postimg.cc/7hjDGsMw/2018-06-08-014905.png 1.5x, https://i.postimg.cc/7hjDGsMw/2018-06-08-014905.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/7hjDGsMw/2018-06-08-014905.png"
+        title="https://i.postimg.cc/7hjDGsMw/2018-06-08-014905.png" /></p>
+<p>图中的origin协议、plain混淆都是支持原版ss的，选择其中一个进行复制ss链接</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/t70QC1pg/2018-06-08-020234.png"
+        data-srcset="https://i.postimg.cc/t70QC1pg/2018-06-08-020234.png, https://i.postimg.cc/t70QC1pg/2018-06-08-020234.png 1.5x, https://i.postimg.cc/t70QC1pg/2018-06-08-020234.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/t70QC1pg/2018-06-08-020234.png"
+        title="https://i.postimg.cc/t70QC1pg/2018-06-08-020234.png" /></p>
+<p>将其解码</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/VN58gPGm/2018-06-08-023014.png"
+        data-srcset="https://i.postimg.cc/VN58gPGm/2018-06-08-023014.png, https://i.postimg.cc/VN58gPGm/2018-06-08-023014.png 1.5x, https://i.postimg.cc/VN58gPGm/2018-06-08-023014.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/VN58gPGm/2018-06-08-023014.png"
+        title="https://i.postimg.cc/VN58gPGm/2018-06-08-023014.png" /></p>
+<p>由于我们得知ss与ssr的链接格式：</p>
+<p><code>ss://method:password@server:port</code></p>
+<p><code>ssr://ip:port:protocol:method:blending:password</code></p>
+<p>将解码后的ss的格式转成ssr的格式</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/vZ2RcSQj/2018-06-08-024019.png"
+        data-srcset="https://i.postimg.cc/vZ2RcSQj/2018-06-08-024019.png, https://i.postimg.cc/vZ2RcSQj/2018-06-08-024019.png 1.5x, https://i.postimg.cc/vZ2RcSQj/2018-06-08-024019.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/vZ2RcSQj/2018-06-08-024019.png"
+        title="https://i.postimg.cc/vZ2RcSQj/2018-06-08-024019.png" /></p>
+<p>对其编码</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/zfhd8d3T/2018-06-08-024834.png"
+        data-srcset="https://i.postimg.cc/zfhd8d3T/2018-06-08-024834.png, https://i.postimg.cc/zfhd8d3T/2018-06-08-024834.png 1.5x, https://i.postimg.cc/zfhd8d3T/2018-06-08-024834.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/zfhd8d3T/2018-06-08-024834.png"
+        title="https://i.postimg.cc/zfhd8d3T/2018-06-08-024834.png" /></p>
+<p>加入<code>ssr://</code>链接协议头，再导入至ssr并不成功，原因是密码都套上一层base64编码&hellip;因此需要对密码进行一次编码</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/jdJn8B16/2018-06-08-030909.png"
+        data-srcset="https://i.postimg.cc/jdJn8B16/2018-06-08-030909.png, https://i.postimg.cc/jdJn8B16/2018-06-08-030909.png 1.5x, https://i.postimg.cc/jdJn8B16/2018-06-08-030909.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/jdJn8B16/2018-06-08-030909.png"
+        title="https://i.postimg.cc/jdJn8B16/2018-06-08-030909.png" /></p>
+<p>之后，按照原有格式将部分参数配置粘贴至密码前，进行编码</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/d0J7V3Vn/2018-06-08-031437.png"
+        data-srcset="https://i.postimg.cc/d0J7V3Vn/2018-06-08-031437.png, https://i.postimg.cc/d0J7V3Vn/2018-06-08-031437.png 1.5x, https://i.postimg.cc/d0J7V3Vn/2018-06-08-031437.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/d0J7V3Vn/2018-06-08-031437.png"
+        title="https://i.postimg.cc/d0J7V3Vn/2018-06-08-031437.png" /></p>
+<p>再加入<code>ssr://</code>链接协议头，导入至ssr即可如：</p>
+<p><code>ssr://MTM5LjU5LjE2Ny4yNDY6NjIwMzpvcmlnaW46YWVzLTI1Ni1jZmI6cGxhaW46YVM1M2RYY3VjbVZr</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.postimg.cc/x1nHctsK/2018-06-08-032054.png"
+        data-srcset="https://i.postimg.cc/x1nHctsK/2018-06-08-032054.png, https://i.postimg.cc/x1nHctsK/2018-06-08-032054.png 1.5x, https://i.postimg.cc/x1nHctsK/2018-06-08-032054.png 2x"
+        data-sizes="auto"
+        alt="https://i.postimg.cc/x1nHctsK/2018-06-08-032054.png"
+        title="https://i.postimg.cc/x1nHctsK/2018-06-08-032054.png" /></p>
+<h3 id="v2ray对ss的兼容">v2ray对ss的兼容</h3>
+<p>ss连接v2ray的服务器，需在v2ray服务端做相应的ss兼容配置；至于v2ray连接其本身兼容ss的服务器，可能需要配置uuid等验证机制。</p>
+<blockquote>
+<p>配置参数摘录自：<a href="https://www.daehub.com/archives/2156.html" target="_blank" rel="noopener noreffer ">V2Ray替换shadowsocks服务器详解</a> 作者：<a href="https://www.daehub.com/" target="_blank" rel="noopener noreffer ">大隐中心</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="s2">&#34;inboundDetour&#34;</span><span class="err">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;protocol&#34;</span><span class="p">:</span> <span class="s2">&#34;shadowsocks&#34;</span><span class="p">,</span> <span class="c1">// 开启 Shadowsocks
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;port&#34;</span><span class="p">:</span> <span class="mi">30001</span><span class="p">,</span> <span class="c1">// 监听 30001 端口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;settings&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;method&#34;</span><span class="p">:</span> <span class="s2">&#34;aes-256-cfb&#34;</span><span class="p">,</span> <span class="c1">// 加密方式，支持 aes-256-cfb 和 aes-128-cfb
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;v2ray&#34;</span><span class="p">,</span> <span class="c1">// 密码，必须和客户端相同
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;udp&#34;</span><span class="p">:</span> <span class="kc">false</span> <span class="c1">// 是否开启 UDP 转发
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;protocol&#34;</span><span class="p">:</span> <span class="s2">&#34;shadowsocks&#34;</span><span class="p">,</span> <span class="c1">// 开启 Shadowsocks
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;port&#34;</span><span class="p">:</span> <span class="mi">30002</span><span class="p">,</span> <span class="c1">// 监听 30002 端口，由于 Shadowsocks 的限制，多用户的时候只能开多个端口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;settings&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="c1">// 配置和上述类似
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;method&#34;</span><span class="p">:</span> <span class="s2">&#34;aes-256-cfb&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;password&#34;</span><span class="p">:</span> <span class="s2">&#34;v2ray-2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;udp&#34;</span><span class="p">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span><span class="err">,</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-05-17</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-title="翻墙协议链接解析" data-hashtags="VPN"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-hashtag="VPN"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-title="翻墙协议链接解析"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-title="翻墙协议链接解析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E7%BF%BB%E5%A2%99%E5%8D%8F%E8%AE%AE%E9%93%BE%E6%8E%A5%E8%A7%A3%E6%9E%90/" data-title="翻墙协议链接解析"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/vpn/">vpn</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%8F%AF%E9%81%93%E4%BA%91%E6%90%AD%E5%BB%BAamd64/" class="prev" rel="prev" title="可道云&#43;onlyoffice搭建【amd64&#43;arm64】"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>可道云+onlyoffice搭建【amd64+arm64】</a>
+            <a href="/trojan%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/" class="next" rel="next" title="Trojan搭建记录">Trojan搭建记录<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

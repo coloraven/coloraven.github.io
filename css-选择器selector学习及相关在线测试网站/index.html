@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CSS 选择器（Selector）学习及相关在线测试网站 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="CSS 选择器（Selector）学习及相关在线测试网站" />
+<meta property="og:description" content=" CSS选择器做游戏 https://flukeout.github.io/ https://codepen.io/jnani/pen/JRwPWO?editors=1100
+这个最屌 https://www.w3schools.com/cssref/trysel.php Click the CSS Selectors and see the specified element(s) get selected. 单击左边列出的CSS选择器表达式，对应被选择的元素（集）会高亮显示。
+菜鸟教程网的css选择测试工具，可以在左上角输入html源码，右上角输入css定位语法及其相应字体颜色等来查看定位到的元素。 https://c.runoob.com/front-end/61/
+在Chrome的开发者工具检查元素选项卡中，按Ctrl&#43;F显示的输入框中直接输入css语法可定位到元素。
+CSS语法说明:https://www.runoob.com/cssref/css-selectors.html
+最最方便的方法，在html文件同目录新建css文件abc.css，同时在html的head标签中引用该css文件，然后开启html的live preview，边在abc.css文件中编写，边观察html的预览效果，引用abc.css文件方法： 1 2 3 &lt;head&gt; &lt;link rel=&#34;stylesheet&#34; href=&#34;详情.css&#34;&gt; &lt;/head&gt; " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/css-%E9%80%89%E6%8B%A9%E5%99%A8selector%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%95%E7%BD%91%E7%AB%99/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-09T22:06:12+00:00" />
+<meta property="article:modified_time" content="2023-04-09T22:06:12+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CSS 选择器（Selector）学习及相关在线测试网站"/>
+<meta name="twitter:description" content=" CSS选择器做游戏 https://flukeout.github.io/ https://codepen.io/jnani/pen/JRwPWO?editors=1100
+这个最屌 https://www.w3schools.com/cssref/trysel.php Click the CSS Selectors and see the specified element(s) get selected. 单击左边列出的CSS选择器表达式，对应被选择的元素（集）会高亮显示。
+菜鸟教程网的css选择测试工具，可以在左上角输入html源码，右上角输入css定位语法及其相应字体颜色等来查看定位到的元素。 https://c.runoob.com/front-end/61/
+在Chrome的开发者工具检查元素选项卡中，按Ctrl&#43;F显示的输入框中直接输入css语法可定位到元素。
+CSS语法说明:https://www.runoob.com/cssref/css-selectors.html
+最最方便的方法，在html文件同目录新建css文件abc.css，同时在html的head标签中引用该css文件，然后开启html的live preview，边在abc.css文件中编写，边观察html的预览效果，引用abc.css文件方法： 1 2 3 &lt;head&gt; &lt;link rel=&#34;stylesheet&#34; href=&#34;详情.css&#34;&gt; &lt;/head&gt; "/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/css-%E9%80%89%E6%8B%A9%E5%99%A8selector%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%95%E7%BD%91%E7%AB%99/" /><link rel="prev" href="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" /><link rel="next" href="http://example.org/colly%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CSS 选择器（Selector）学习及相关在线测试网站",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/css-%E9%80%89%E6%8B%A9%E5%99%A8selector%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%95%E7%BD%91%E7%AB%99\/"
+        },"genre": "posts","wordcount":  31 ,
+        "url": "http:\/\/example.org\/css-%E9%80%89%E6%8B%A9%E5%99%A8selector%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%95%E7%BD%91%E7%AB%99\/","datePublished": "2023-04-09T22:06:12+00:00","dateModified": "2023-04-09T22:06:12+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CSS 选择器（Selector）学习及相关在线测试网站</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-09">2023-04-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;31 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><ol>
+<li>CSS选择器做游戏
+<a href="https://flukeout.github.io/" target="_blank" rel="noopener noreffer ">https://flukeout.github.io/</a></li>
+</ol>
+<p><a href="https://codepen.io/jnani/pen/JRwPWO?editors=1100" target="_blank" rel="noopener noreffer ">https://codepen.io/jnani/pen/JRwPWO?editors=1100</a></p>
+<ol start="2">
+<li>这个最屌
+<a href="https://www.w3schools.com/cssref/trysel.php" target="_blank" rel="noopener noreffer ">https://www.w3schools.com/cssref/trysel.php</a></li>
+</ol>
+<blockquote>
+<p>Click the CSS Selectors and see the specified element(s) get selected.
+单击左边列出的CSS选择器表达式，对应被选择的元素（集）会高亮显示。</p>
+</blockquote>
+<hr>
+<ol start="3">
+<li>
+<p>菜鸟教程网的<code>css</code>选择测试工具，可以在左上角输入<code>html</code>源码，右上角输入<code>css定位语法</code>及其相应字体颜色等来查看定位到的元素。
+<a href="https://c.runoob.com/front-end/61/" target="_blank" rel="noopener noreffer ">https://c.runoob.com/front-end/61/</a></p>
+</li>
+<li>
+<p>在<code>Chrome</code>的开发者工具检查元素选项卡中，按<code>Ctrl+F</code>显示的输入框中直接输入<code>css</code>语法可定位到元素。</p>
+</li>
+</ol>
+<p><code>CSS</code>语法说明:https://www.runoob.com/cssref/css-selectors.html</p>
+<ol start="5">
+<li>最最方便的方法，在<code>html</code>文件同目录新建<code>css</code>文件<code>abc.css</code>，同时在<code>html</code>的<code>head</code>标签中引用该<code>css</code>文件，然后开启<code>html</code>的<code>live preview</code>，边在<code>abc.css</code>文件中编写，边观察<code>html</code>的预览效果，引用<code>abc.css</code>文件方法：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;详情.css&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-09</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/css-%E9%80%89%E6%8B%A9%E5%99%A8selector%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%95%E7%BD%91%E7%AB%99/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/css-%E9%80%89%E6%8B%A9%E5%99%A8selector%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%95%E7%BD%91%E7%AB%99/" data-title="CSS 选择器（Selector）学习及相关在线测试网站"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/css-%E9%80%89%E6%8B%A9%E5%99%A8selector%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%95%E7%BD%91%E7%AB%99/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/css-%E9%80%89%E6%8B%A9%E5%99%A8selector%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%95%E7%BD%91%E7%AB%99/" data-title="CSS 选择器（Selector）学习及相关在线测试网站"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/css-%E9%80%89%E6%8B%A9%E5%99%A8selector%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%95%E7%BD%91%E7%AB%99/" data-title="CSS 选择器（Selector）学习及相关在线测试网站"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/css-%E9%80%89%E6%8B%A9%E5%99%A8selector%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%95%E7%BD%91%E7%AB%99/" data-title="CSS 选择器（Selector）学习及相关在线测试网站"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" class="prev" rel="prev" title="为英文WIN镜像添加中文语言包"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>为英文WIN镜像添加中文语言包</a>
+            <a href="/colly%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="next" rel="next" title="Colly学习笔记">Colly学习笔记<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>aiohttp - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/aiohttp/</link>
+        <description>aiohttp - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 27 Nov 2021 09:37:35 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/aiohttp/" rel="self" type="application/rss+xml" /><item>
+    <title>aiohttp学习笔记</title>
+    <link>http://example.org/aiohttp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+    <pubDate>Sat, 27 Nov 2021 09:37:35 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/aiohttp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+    <description><![CDATA[aiohttp中文文档 https://www.cntofu.com/book/127/aiohttp文档/ClientUsage.md]]></description>
+</item>
+</channel>
+</rss>

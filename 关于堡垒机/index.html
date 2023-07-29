@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>关于堡垒机 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="关于堡垒机" />
+<meta property="og:description" content="来源：https://github.com/perfectstorm88/bblog/issues/5#关于未来的趋势看法
+索引 前言 开发环境 堡垒机 VPN 云堡垒机 关于未来的趋势看法： 参考 前言 医院、政府类项目中对安全的合规要求比较高，会把网络整得很复杂，由此给项目实施相关人员带来诸多不便，令很多人头大得很。俗话说“难者不会、会者不难”，从原理上搞清楚，解决问题就只剩操作步骤了。
+本文的尝试是用通俗的语言还原安全相关的网络原理，非专业网络工程师也能看懂，比如产品经理、前后端的开发人员、测试人员、项目经理等。
+开发环境 先从我们最熟悉的开发环境说起，如下图所示： {% asset_img 4124540583.png [dddd] %} 在我们自己的开发环境，为了效率考虑，作为技术的开发运维都是直接访问数据库、后端服务器、web服务器，作为访问用户的产品经理、测试人员，也是直接访问web服务器提供的服务。
+堡垒机 对于一个要部署上线的系统，安全就变得很重要了，作为技术的开发运维不能再随意访问、操作数据库和服务器了。因此就引入了一个叫做堡垒机的东东，对数据库和服务器进行保护，如下图所示： {% asset_img 2053743094.png %}
+堡垒机只能让你访问被授权的主机事先防范“事先防范、访问过程对你的行为进行监控事中控制事中控制、出了安全事故可以回看操作录像(事后溯源）。
+堡垒机的原理也不复杂，网上有开源代码,见jumpserver，感兴趣的也可以自己部署一套玩玩。有的堡垒机需要专门的客户端软件，有的可以直接通过浏览器访问，相信未来以浏览器作为访问方式的会越来越多。 使用堡垒机访问数据库和服务器有多种协议，比如ssh协议用来访问linux系统、DRP协议用来访问windows桌面。
+别看现在堡垒机很常见，但是出现的历史却很短，也才十几年的时间；技术人员比较讨论堡垒机，因为每次通过堡垒机操作太麻烦，但是企业大客户和政府事业单位的领导非常喜欢这玩意，所以要适应这个东西，以后会更常见的。
+VPN 对于医院、政府类项目，生产环境都在封闭内网，之前都需要去企业现场才能干活，有个VPN之后，在家里就可以干活了。
+尤其现在VPN客户端都挺好用，可以同时访问互联网和企业内网，只要网络够快、VPN服务器够好，在家里跟去企业现场没太大区别，所以技术人员还是很喜欢用VPN的。
+现在很多情况下，运维/开发都不需要去客户驻场了，所以经常的应用场景如下所示：需要先连上VPN，再登陆堡垒机，然后才能通过堡垒机上的软件进行干活。 {% asset_img 2594537473.png %}
+原理如上图所示，但实际上我们在干活时还会碰到很多意外： 1、比如有的企业会对VPN进行限制，把VPN的访问权限限制在一个很小的区域，所以在内网能打开的网页通过VPN就不能打开了。 2、在这种情况下，也是有方法可以解决的，就是让网管给你开放一台经过授权的windows主机，然后通过这条线去打开网页：操作者-》VPN-》堡垒机-》windows主机-》打开网页。
+云堡垒机 最近随着云计算越来越普及，医院、政府类项目很多都在上云，云堡垒机也应运而生，其使用场景如下图所示，不必在通过VPN，可以直接登录堡垒机使用。 {% asset_img 189612217.png %}
+关于未来的趋势看法： 堡垒机会越来越多，甚至公司内部、团队内部的一些重要数据资产，也有采用堡垒机的方式进行保护 现在堡垒机的运维客户端很多还需要安装软件，以后会越来越多地采用浏览器方式直接访问，而且云堡垒机的场景会越来越多 VPN技术单一，也比较成熟了，现在还有不少乱七八糟的客户端，会越来越少的 参考 堡垒机哲学史 堡垒机是干什么的？ 云堡垒机应用场景 堡垒机运维审计系统运维审计系统的基本原理与部署方式 VPN和防火墙有什么关系？ 什么是VPN以及VPN的工作原理是什么？新手指南（2020年） VPN保护企业内网安全？VPN了解一下 商业VPN和个人VPN有什么区别？ :" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-08-14T15:42:45+00:00" />
+<meta property="article:modified_time" content="2021-08-14T15:42:45+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="关于堡垒机"/>
+<meta name="twitter:description" content="来源：https://github.com/perfectstorm88/bblog/issues/5#关于未来的趋势看法
+索引 前言 开发环境 堡垒机 VPN 云堡垒机 关于未来的趋势看法： 参考 前言 医院、政府类项目中对安全的合规要求比较高，会把网络整得很复杂，由此给项目实施相关人员带来诸多不便，令很多人头大得很。俗话说“难者不会、会者不难”，从原理上搞清楚，解决问题就只剩操作步骤了。
+本文的尝试是用通俗的语言还原安全相关的网络原理，非专业网络工程师也能看懂，比如产品经理、前后端的开发人员、测试人员、项目经理等。
+开发环境 先从我们最熟悉的开发环境说起，如下图所示： {% asset_img 4124540583.png [dddd] %} 在我们自己的开发环境，为了效率考虑，作为技术的开发运维都是直接访问数据库、后端服务器、web服务器，作为访问用户的产品经理、测试人员，也是直接访问web服务器提供的服务。
+堡垒机 对于一个要部署上线的系统，安全就变得很重要了，作为技术的开发运维不能再随意访问、操作数据库和服务器了。因此就引入了一个叫做堡垒机的东东，对数据库和服务器进行保护，如下图所示： {% asset_img 2053743094.png %}
+堡垒机只能让你访问被授权的主机事先防范“事先防范、访问过程对你的行为进行监控事中控制事中控制、出了安全事故可以回看操作录像(事后溯源）。
+堡垒机的原理也不复杂，网上有开源代码,见jumpserver，感兴趣的也可以自己部署一套玩玩。有的堡垒机需要专门的客户端软件，有的可以直接通过浏览器访问，相信未来以浏览器作为访问方式的会越来越多。 使用堡垒机访问数据库和服务器有多种协议，比如ssh协议用来访问linux系统、DRP协议用来访问windows桌面。
+别看现在堡垒机很常见，但是出现的历史却很短，也才十几年的时间；技术人员比较讨论堡垒机，因为每次通过堡垒机操作太麻烦，但是企业大客户和政府事业单位的领导非常喜欢这玩意，所以要适应这个东西，以后会更常见的。
+VPN 对于医院、政府类项目，生产环境都在封闭内网，之前都需要去企业现场才能干活，有个VPN之后，在家里就可以干活了。
+尤其现在VPN客户端都挺好用，可以同时访问互联网和企业内网，只要网络够快、VPN服务器够好，在家里跟去企业现场没太大区别，所以技术人员还是很喜欢用VPN的。
+现在很多情况下，运维/开发都不需要去客户驻场了，所以经常的应用场景如下所示：需要先连上VPN，再登陆堡垒机，然后才能通过堡垒机上的软件进行干活。 {% asset_img 2594537473.png %}
+原理如上图所示，但实际上我们在干活时还会碰到很多意外： 1、比如有的企业会对VPN进行限制，把VPN的访问权限限制在一个很小的区域，所以在内网能打开的网页通过VPN就不能打开了。 2、在这种情况下，也是有方法可以解决的，就是让网管给你开放一台经过授权的windows主机，然后通过这条线去打开网页：操作者-》VPN-》堡垒机-》windows主机-》打开网页。
+云堡垒机 最近随着云计算越来越普及，医院、政府类项目很多都在上云，云堡垒机也应运而生，其使用场景如下图所示，不必在通过VPN，可以直接登录堡垒机使用。 {% asset_img 189612217.png %}
+关于未来的趋势看法： 堡垒机会越来越多，甚至公司内部、团队内部的一些重要数据资产，也有采用堡垒机的方式进行保护 现在堡垒机的运维客户端很多还需要安装软件，以后会越来越多地采用浏览器方式直接访问，而且云堡垒机的场景会越来越多 VPN技术单一，也比较成熟了，现在还有不少乱七八糟的客户端，会越来越少的 参考 堡垒机哲学史 堡垒机是干什么的？ 云堡垒机应用场景 堡垒机运维审计系统运维审计系统的基本原理与部署方式 VPN和防火墙有什么关系？ 什么是VPN以及VPN的工作原理是什么？新手指南（2020年） VPN保护企业内网安全？VPN了解一下 商业VPN和个人VPN有什么区别？ :"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/" /><link rel="prev" href="http://example.org/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEfilebrowser/" /><link rel="next" href="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "关于堡垒机",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA\/"
+        },"genre": "posts","keywords": "linux, 堡垒机","wordcount":  61 ,
+        "url": "http:\/\/example.org\/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA\/","datePublished": "2021-08-14T15:42:45+00:00","dateModified": "2021-08-14T15:42:45+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">关于堡垒机</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-14">2021-08-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;61 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#索引">索引</a></li>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#开发环境">开发环境</a></li>
+    <li><a href="#堡垒机">堡垒机</a></li>
+    <li><a href="#vpn">VPN</a></li>
+    <li><a href="#云堡垒机">云堡垒机</a></li>
+    <li><a href="#关于未来的趋势看法">关于未来的趋势看法：</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>来源：https://github.com/perfectstorm88/bblog/issues/5#关于未来的趋势看法</p>
+<h2 id="索引">索引</h2>
+<ul>
+<li><a href="https://github.com/perfectstorm88/bblog/issues/5#%e5%89%8d%e8%a8%80" target="_blank" rel="noopener noreffer ">前言</a></li>
+<li><a href="https://github.com/perfectstorm88/bblog/issues/5#%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83" target="_blank" rel="noopener noreffer ">开发环境</a></li>
+<li><a href="https://github.com/perfectstorm88/bblog/issues/5#%e5%a0%a1%e5%9e%92%e6%9c%ba" target="_blank" rel="noopener noreffer ">堡垒机</a></li>
+<li><a href="https://github.com/perfectstorm88/bblog/issues/5#vpn" target="_blank" rel="noopener noreffer ">VPN</a></li>
+<li><a href="https://github.com/perfectstorm88/bblog/issues/5#%e4%ba%91%e5%a0%a1%e5%9e%92%e6%9c%ba" target="_blank" rel="noopener noreffer ">云堡垒机</a></li>
+<li><a href="https://github.com/perfectstorm88/bblog/issues/5#%e5%85%b3%e4%ba%8e%e6%9c%aa%e6%9d%a5%e7%9a%84%e8%b6%8b%e5%8a%bf%e7%9c%8b%e6%b3%95" target="_blank" rel="noopener noreffer ">关于未来的趋势看法：</a></li>
+<li><a href="https://github.com/perfectstorm88/bblog/issues/5#%e5%8f%82%e8%80%83" target="_blank" rel="noopener noreffer ">参考</a></li>
+</ul>
+<h2 id="前言">前言</h2>
+<p>医院、政府类项目中对安全的合规要求比较高，会把网络整得很复杂，由此给项目实施相关人员带来诸多不便，令很多人头大得很。俗话说“难者不会、会者不难”，从原理上搞清楚，解决问题就只剩操作步骤了。</p>
+<p>本文的尝试是用通俗的语言还原安全相关的网络原理，非专业网络工程师也能看懂，比如产品经理、前后端的开发人员、测试人员、项目经理等。</p>
+<h2 id="开发环境">开发环境</h2>
+<p>先从我们最熟悉的开发环境说起，如下图所示：
+{% asset_img 4124540583.png [dddd] %}
+在我们自己的开发环境，为了效率考虑，作为技术的开发运维都是直接访问数据库、后端服务器、web服务器，作为访问用户的产品经理、测试人员，也是直接访问web服务器提供的服务。</p>
+<h2 id="堡垒机">堡垒机</h2>
+<p>对于一个要部署上线的系统，安全就变得很重要了，作为技术的开发运维不能再随意访问、操作数据库和服务器了。因此就引入了一个叫做堡垒机的东东，对数据库和服务器进行保护，如下图所示：
+{% asset_img 2053743094.png %}</p>
+<!-- <img src="/关于堡垒机/2053743094.png" alt="2021-04-30T08:16:55.png" style="zoom:80%;" /> -->
+<p>堡垒机只能让你访问被授权的主机事先防范“事先防范、访问过程对你的行为进行监控事中控制事中控制、出了安全事故可以回看操作录像(事后溯源）。</p>
+<p>堡垒机的原理也不复杂，网上有开源代码,见<a href="https://github.com/jumpserver/jumpserver" target="_blank" rel="noopener noreffer ">jumpserver</a>，感兴趣的也可以自己部署一套玩玩。有的堡垒机需要专门的客户端软件，有的可以直接通过浏览器访问，相信未来以浏览器作为访问方式的会越来越多。
+使用堡垒机访问数据库和服务器有多种协议，比如ssh协议用来访问linux系统、DRP协议用来访问windows桌面。</p>
+<p>别看现在堡垒机很常见，但是出现的历史却很短，也才十几年的时间；技术人员比较讨论堡垒机，因为每次通过堡垒机操作太麻烦，但是企业大客户和政府事业单位的领导非常喜欢这玩意，所以要适应这个东西，以后会更常见的。</p>
+<h2 id="vpn">VPN</h2>
+<p>对于医院、政府类项目，生产环境都在封闭内网，之前都需要去企业现场才能干活，有个VPN之后，在家里就可以干活了。</p>
+<p>尤其现在VPN客户端都挺好用，可以同时访问互联网和企业内网，只要网络够快、VPN服务器够好，在家里跟去企业现场没太大区别，所以技术人员还是很喜欢用VPN的。</p>
+<p>现在很多情况下，运维/开发都不需要去客户驻场了，所以经常的应用场景如下所示：需要先连上VPN，再登陆堡垒机，然后才能通过堡垒机上的软件进行干活。
+{% asset_img 2594537473.png %}</p>
+<!-- <img src="/关于堡垒机/2594537473.png" alt="2021-04-30T08:17:06.png" style="zoom:80%;" /> -->
+<p>原理如上图所示，但实际上我们在干活时还会碰到很多意外：
+1、比如有的企业会对VPN进行限制，把VPN的访问权限限制在一个很小的区域，所以在内网能打开的网页通过VPN就不能打开了。
+2、在这种情况下，也是有方法可以解决的，就是让网管给你开放一台经过授权的windows主机，然后通过这条线去打开网页：操作者-》VPN-》堡垒机-》windows主机-》打开网页。</p>
+<h2 id="云堡垒机">云堡垒机</h2>
+<p>最近随着云计算越来越普及，医院、政府类项目很多都在上云，云堡垒机也应运而生，其使用场景如下图所示，不必在通过VPN，可以直接登录堡垒机使用。
+{% asset_img 189612217.png %}</p>
+<!-- <img src="/关于堡垒机/189612217.png" alt="2021-04-30T08:17:18.png" style="zoom:80%;" /> -->
+<h2 id="关于未来的趋势看法">关于未来的趋势看法：</h2>
+<ul>
+<li>堡垒机会越来越多，甚至公司内部、团队内部的一些重要数据资产，也有采用堡垒机的方式进行保护</li>
+<li>现在堡垒机的运维客户端很多还需要安装软件，以后会越来越多地采用浏览器方式直接访问，而且云堡垒机的场景会越来越多</li>
+<li>VPN技术单一，也比较成熟了，现在还有不少乱七八糟的客户端，会越来越少的</li>
+</ul>
+<h2 id="参考">参考</h2>
+<p><a href="https://mp.weixin.qq.com/s/przqaXcZtb6uqVpLHNB2mg" target="_blank" rel="noopener noreffer ">堡垒机哲学史</a>
+<a href="https://www.zhihu.com/question/21036511" target="_blank" rel="noopener noreffer ">堡垒机是干什么的？</a>
+<a href="https://help.aliyun.com/document_detail/61261.html" target="_blank" rel="noopener noreffer ">云堡垒机应用场景</a>
+<a href="https://cshihong.github.io/2020/06/15/%e5%a0%a1%e5%9e%92%e6%9c%ba-%e8%bf%90%e7%bb%b4%e5%ae%a1%e8%ae%a1%e7%b3%bb%e7%bb%9f%e7%9a%84%e5%9f%ba%e6%9c%ac%e5%8e%9f%e7%90%86%e4%b8%8e%e9%83%a8%e7%bd%b2%e6%96%b9%e5%bc%8f" target="_blank" rel="noopener noreffer ">堡垒机运维审计系统运维审计系统的基本原理与部署方式</a>
+<a href="https://zhidao.baidu.com/question/1539157792717672267.html" target="_blank" rel="noopener noreffer ">VPN和防火墙有什么关系？</a>
+<a href="https://zh.wizcase.com/blog/%e4%bb%80%e4%b9%88%e6%98%afvpn%ef%bc%9f%e6%96%b0%e6%89%8b%e6%8c%87%e5%8d%97/" target="_blank" rel="noopener noreffer ">什么是VPN以及VPN的工作原理是什么？新手指南（2020年）</a>
+<a href="https://zhuanlan.zhihu.com/p/89278073" target="_blank" rel="noopener noreffer ">VPN保护企业内网安全？VPN了解一下</a>
+<a href="https://svcministry.org/zh/dictionary/what-s-the-difference-between-a-business-vpn-and-a-personal-vpn/" target="_blank" rel="noopener noreffer ">商业VPN和个人VPN有什么区别？</a> :</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-08-14</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/" data-title="关于堡垒机" data-hashtags="linux,堡垒机"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/" data-hashtag="linux"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/" data-title="关于堡垒机"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/" data-title="关于堡垒机"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/" data-title="关于堡垒机"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/%E5%A0%A1%E5%9E%92%E6%9C%BA/">堡垒机</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEfilebrowser/" class="prev" rel="prev" title="安装配置Filebrowser"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>安装配置Filebrowser</a>
+            <a href="/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" class="next" rel="next" title="Watchtower - 自动更新 Docker 镜像与容器">Watchtower - 自动更新 Docker 镜像与容器<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

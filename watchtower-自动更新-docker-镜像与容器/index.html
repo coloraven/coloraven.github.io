@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Watchtower - 自动更新 Docker 镜像与容器 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Watchtower - 自动更新 Docker 镜像与容器" />
+<meta property="og:description" content="转载自：https://p3terx.com/archives/docker-watchtower.html
+前言 Docker 容器的部署有一种在手机上装 App 的感觉，但 Docker 容器并不会像手机 App 那样会自动更新，而如果我们需要更新容器一般需要以下四个步骤：
+停止容器：docker stop &lt;CONTAINER&gt; 删除容器：docker rm &lt;CONTAINER&gt; 更新镜像：docker pull &lt;IMAGE&gt; 启动容器：docker run &lt;ARG&gt; ... &lt;IMAGE&gt; 停止容器这个步骤可以在删除容器时使用 -f 参数来代替，即使这样还是需要三个步骤。如果部署了大量的容器需要更新使用这种传统的方式工作量是巨大的。
+Watchtower 是一个可以实现自动化更新 Docker 基础镜像与容器的实用工具。它监视正在运行的容器以及相关的镜像，当检测到 reg-istry 中的镜像与本地的镜像有差异时，它会拉取最新镜像并使用最初部署时相同的参数重新启动相应的容器，一切好像什么都没发生过，就像更新手机上的 App 一样。
+快速开始 Watch-tower 本身被打包为 Docker 镜像，因此可以像运行任何其他容器一样运行它：
+1 2 3 4 docker run -d \ --name watchtower \ -v /var/run/docker.sock:/var/run/docker.sock \ containrrr/watchtower 然后所有容器都会自动更新，也包括 Watch-tower 本身。
+选项参数 点击查看 自动清除旧镜像 官方给出的默认启动命令在长期使用后会堆积非常多的标签为 none 的旧镜像，如果放任不管会占用大量的磁盘空间。要避免这种情况可以加入 --cleanup 选项，这样每次更新都会把旧的镜像清理掉。
+1 2 3 4 5 6 docker run -d \ --name watchtower \ --restart unless-stopped \ -v /var/run/docker." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-08-14T15:42:45+00:00" />
+<meta property="article:modified_time" content="2021-08-14T15:42:45+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Watchtower - 自动更新 Docker 镜像与容器"/>
+<meta name="twitter:description" content="转载自：https://p3terx.com/archives/docker-watchtower.html
+前言 Docker 容器的部署有一种在手机上装 App 的感觉，但 Docker 容器并不会像手机 App 那样会自动更新，而如果我们需要更新容器一般需要以下四个步骤：
+停止容器：docker stop &lt;CONTAINER&gt; 删除容器：docker rm &lt;CONTAINER&gt; 更新镜像：docker pull &lt;IMAGE&gt; 启动容器：docker run &lt;ARG&gt; ... &lt;IMAGE&gt; 停止容器这个步骤可以在删除容器时使用 -f 参数来代替，即使这样还是需要三个步骤。如果部署了大量的容器需要更新使用这种传统的方式工作量是巨大的。
+Watchtower 是一个可以实现自动化更新 Docker 基础镜像与容器的实用工具。它监视正在运行的容器以及相关的镜像，当检测到 reg-istry 中的镜像与本地的镜像有差异时，它会拉取最新镜像并使用最初部署时相同的参数重新启动相应的容器，一切好像什么都没发生过，就像更新手机上的 App 一样。
+快速开始 Watch-tower 本身被打包为 Docker 镜像，因此可以像运行任何其他容器一样运行它：
+1 2 3 4 docker run -d \ --name watchtower \ -v /var/run/docker.sock:/var/run/docker.sock \ containrrr/watchtower 然后所有容器都会自动更新，也包括 Watch-tower 本身。
+选项参数 点击查看 自动清除旧镜像 官方给出的默认启动命令在长期使用后会堆积非常多的标签为 none 的旧镜像，如果放任不管会占用大量的磁盘空间。要避免这种情况可以加入 --cleanup 选项，这样每次更新都会把旧的镜像清理掉。
+1 2 3 4 5 6 docker run -d \ --name watchtower \ --restart unless-stopped \ -v /var/run/docker."/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" /><link rel="prev" href="http://example.org/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/" /><link rel="next" href="http://example.org/typecho%E5%8D%9A%E5%AE%A2%E6%94%B6%E9%9B%86/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Watchtower - 自动更新 Docker 镜像与容器",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8\/"
+        },"genre": "posts","keywords": "docker","wordcount":  429 ,
+        "url": "http:\/\/example.org\/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8\/","datePublished": "2021-08-14T15:42:45+00:00","dateModified": "2021-08-14T15:42:45+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Watchtower - 自动更新 Docker 镜像与容器</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/docker/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Docker</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-14">2021-08-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;429 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#快速开始">快速开始</a></li>
+    <li><a href="#选项参数">选项参数</a></li>
+    <li><a href="#自动清除旧镜像">自动清除旧镜像</a></li>
+    <li><a href="#选择性自动更新">选择性自动更新</a>
+      <ul>
+        <li><a href="#容器更新列表">容器更新列表</a></li>
+        <li><a href="#设置单个容器自动更新特征">设置单个容器自动更新特征</a></li>
+      </ul>
+    </li>
+    <li><a href="#设置自动更新检查频率">设置自动更新检查频率</a></li>
+    <li><a href="#手动更新">手动更新</a></li>
+    <li><a href="#尾巴">尾巴</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>转载自：https://p3terx.com/archives/docker-watchtower.html</p>
+<h2 id="前言">前言</h2>
+<p>Docker 容器的部署有一种在手机上装 App 的感觉，但 Docker 容器并不会像手机 App 那样会自动更新，而如果我们需要更新容器一般需要以下四个步骤：</p>
+<ul>
+<li>停止容器：<code>docker stop &lt;CONTAINER&gt;</code></li>
+<li>删除容器：<code>docker rm &lt;CONTAINER&gt;</code></li>
+<li>更新镜像：<code>docker pull &lt;IMAGE&gt;</code></li>
+<li>启动容器：<code>docker run &lt;ARG&gt; ... &lt;IMAGE&gt;</code></li>
+</ul>
+<p>停止容器这个步骤可以在删除容器时使用 <code>-f</code> 参数来代替，即使这样还是需要三个步骤。如果部署了大量的容器需要更新使用这种传统的方式工作量是巨大的。</p>
+<p><a href="https://p3terx.com/go/aHR0cHM6Ly9naXRodWIuY29tL2NvbnRhaW5ycnIvd2F0Y2h0b3dlcg" target="_blank" rel="noopener noreffer ">Watchtower</a> 是一个可以实现自动化更新 Docker 基础镜像与容器的实用工具。它监视正在运行的容器以及相关的镜像，当检测到 reg-istry 中的镜像与本地的镜像有差异时，它会拉取最新镜像并使用最初部署时相同的参数重新启动相应的容器，一切好像什么都没发生过，就像更新手机上的 App 一样。</p>
+<h2 id="快速开始">快速开始</h2>
+<p>Watch-tower 本身被打包为 Docker 镜像，因此可以像运行任何其他容器一样运行它：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --name watchtower <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -v /var/run/docker.sock:/var/run/docker.sock <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    containrrr/watchtower
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后所有容器都会自动更新，也包括 Watch-tower 本身。</p>
+<h2 id="选项参数">选项参数</h2>
+<details style="display: block; color: rgb(238, 238, 238); font-family: BlinkMacSystemFont, &quot;Microsoft YaHei&quot;, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 15.96px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(17, 61, 61); text-decoration-style: initial; text-decoration-color: initial;"><summary style="display: list-item;">点击查看</summary></details>
+<h2 id="自动清除旧镜像">自动清除旧镜像</h2>
+<p>官方给出的默认启动命令在长期使用后会堆积非常多的标签为 <code>none</code> 的旧镜像，如果放任不管会占用大量的磁盘空间。要避免这种情况可以加入 <code>--cleanup</code> 选项，这样每次更新都会把旧的镜像清理掉。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --name watchtower <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --restart unless-stopped <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -v /var/run/docker.sock:/var/run/docker.sock <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    containrrr/watchtower <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --cleanup
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>--cleanup</code> 选项可以简写为 <code>-c</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --name watchtower <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --restart unless-stopped <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -v /var/run/docker.sock:/var/run/docker.sock <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    containrrr/watchtower -c
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="选择性自动更新">选择性自动更新</h2>
+<p>某些容器可能需要稳定的运行，经常更新或重启可能会造成一些问题，这时我们可以使用一些选项参数来选择与控制容器的更新。</p>
+<h3 id="容器更新列表">容器更新列表</h3>
+<p>假设我们只想更新 <code>nginx</code>、<code>redis</code> 这两个容器，我们可以把容器名称追加到启动命令的最后面，就像下面这个例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --name watchtower <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --restart unless-stopped <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -v /var/run/docker.sock:/var/run/docker.sock <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    containrrr/watchtower -c <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    nginx redis
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>博主觉得把需要更新的容器名称写在启动命令中不利于管理，于是想了个更好的方法，建立一个更新列表文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ cat ~/.watchtower.list
+</span></span><span class="line"><span class="cl">aria2-pro
+</span></span><span class="line"><span class="cl">unlockmusic
+</span></span><span class="line"><span class="cl">mtg
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过变量的方式去调用这个列表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --name watchtower <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --restart unless-stopped <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -v /var/run/docker.sock:/var/run/docker.sock <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    containrrr/watchtower -c <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="k">$(</span>cat ~/.watchtower.list<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样只需要调整列表后删除 Watch-tower 容器并重新执行上面的命令重新启动 Watch-tower 即可。</p>
+<h3 id="设置单个容器自动更新特征">设置单个容器自动更新特征</h3>
+<p>给容器中添加 <code>com.centurylinklabs.watchtower.enable</code> 这个 LA-BEL 并设置它的值为 <code>false</code>，或者在启动命令中加入 <code>--label com.centurylinklabs.watchtower.enable=false</code> 参数可以排除相应的容器。下面这个例子是博主的 <code>openwrt-mini</code> 镜像的容器启动命令，Watch-tower 将永远忽略它的更新，即使它包含在自动更新列表中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --name openwrt-mini <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --restart always <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --network openwrt <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --privileged <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --label com.centurylinklabs.watchtower.enable<span class="o">=</span><span class="nb">false</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    p3terx/openwrt-mini <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    /sbin/init
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当容器启动命令中加入 <code>--label com.centurylinklabs.watchtower.enable=true</code> 参数，并且给 Watch-tower 加上 <code>--label-enable</code> 选项时，Watch-tower 将只更新这些包含此参数的容器。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --name watchtower <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --restart unless-stopped <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -v /var/run/docker.sock:/var/run/docker.sock <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    containrrr/watchtower -c <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --label-enable
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>--label-enable</code> 可以简写为 <code>-e</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --name watchtower <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --restart unless-stopped <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -v /var/run/docker.sock:/var/run/docker.sock <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    containrrr/watchtower -ce
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>因为需要在容器启动时进行设置，且设置后就无法直接更改，只能重建容器，所以这种方式的灵活性不如更新列表法。尤其是在设置 <code>com.centurylinklabs.watchtower.enable=false</code> 参数后容器将永远被 Watch-tower 忽略，也包括后面将要提到的手动更新方式，所以一般不推荐这样做，除非你愿意手动重建的原生方式更新。</p>
+<h2 id="设置自动更新检查频率">设置自动更新检查频率</h2>
+<p>默认情况下 Watch-tower 每 5 分钟会轮询一次，如果你觉得这个频率太高了可以使用如下选项来控制更新检查的频率，但二者只能选择其一。</p>
+<ul>
+<li><code>--interval</code>, <code>-i</code> - 设置更新检测时间间隔，单位为秒。比如每隔 1 个小时检查一次更新：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --name watchtower <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --restart unless-stopped <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -v /var/run/docker.sock:/var/run/docker.sock <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    containrrr/watchtower -c <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --interval <span class="m">3600</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>--schedule</code>, <code>-s</code> - 设置定时检测更新时间。格式为 6 字段 Cron 表达式，而非传统的 5 字段，即第一位是秒。比如每天凌晨 2 点检查一次更新：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --name watchtower <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --restart unless-stopped <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -v /var/run/docker.sock:/var/run/docker.sock <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    containrrr/watchtower -c <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --schedule <span class="s2">&#34;0 0 2 * * *&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="手动更新">手动更新</h2>
+<p>前面的使用方式都是让 Watch-tower 以 <code>detached</code>（后台）模式在运行并自动更新容器，而 Watch-tower 也支持以 <code>foreground</code>（前台）模式来使用，即运行一次退出并删掉容器，来实现手动更新容器。这对于偶尔更新一次那些不在自动更新列表中的容器非常有用。</p>
+<p>对于 <code>foreground</code> 模式，需要加上 <code>--run-once</code> 这个专用的选项。下面的例子 Docker 会运行一次 Watch-tower 并检查 <code>aria2-pro</code> 容器的基础镜像更新，最后删掉本次运行创建的 Watch-tower 容器。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run --rm <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -v /var/run/docker.sock:/var/run/docker.sock <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    containrrr/watchtower -c <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    --run-once <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    aria2-pro
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>--run-once</code> 可以简写为 <code>-R</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run --rm <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -v /var/run/docker.sock:/var/run/docker.sock <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    containrrr/watchtower -cR <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    aria2-pro
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>需要注意的是当这个容器设置过 <code>com.centurylinklabs.watchtower.enable=false</code> 参数时不会更新。</p>
+<h2 id="尾巴">尾巴</h2>
+<p>以上是博主在使用 Watch-tower 中总结的一些使用方式和方法，当然它还有一些其它的功能与使用方式，比如电子邮件通知、监视私人注册表的镜像、更新远程主机上的容器等，这些对于一般用户来说可能很少会用到，所以这里就不赘述了，感兴趣的小伙伴可以去研究 <a href="https://p3terx.com/go/aHR0cHM6Ly9jb250YWlucnJyLmdpdGh1Yi5pby93YXRjaHRvd2VyLw" target="_blank" rel="noopener noreffer ">Watchtower 官方文档</a>。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-08-14</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-title="Watchtower - 自动更新 Docker 镜像与容器" data-hashtags="docker"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-hashtag="docker"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-title="Watchtower - 自动更新 Docker 镜像与容器"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-title="Watchtower - 自动更新 Docker 镜像与容器"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/" data-title="Watchtower - 自动更新 Docker 镜像与容器"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/docker/">Docker</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%85%B3%E4%BA%8E%E5%A0%A1%E5%9E%92%E6%9C%BA/" class="prev" rel="prev" title="关于堡垒机"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>关于堡垒机</a>
+            <a href="/typecho%E5%8D%9A%E5%AE%A2%E6%94%B6%E9%9B%86/" class="next" rel="next" title="typecho博客收集">typecho博客收集<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

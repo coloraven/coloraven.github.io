@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>MongoDB - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/mongodb/</link>
+        <description>MongoDB - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 17 Aug 2021 18:19:11 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/mongodb/" rel="self" type="application/rss+xml" /><item>
+    <title>MongoDB数据库的备份和恢复</title>
+    <link>http://example.org/mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/</link>
+    <pubDate>Tue, 17 Aug 2021 18:19:11 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/mongodb%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/</guid>
+    <description><![CDATA[https://blog.51cto.com/jack88/2145833
+mongodb数据备份和恢复主要分为二种：
+一种是针对库的mongodump和mongorestore，
+一种是针对库中表的mongoexport和mongoimport。
+一、 mongodump备份数据库 1.常用命令格式 ​ mongodump -h IP &ndash;port 端口 -u 用户名 -p 密码 -d 数据库 -c 表 -o 文件存放路径
+参数说明：-h 指明数据库宿主机的IP&ndash;port 指明数据库的端口 -u 指明数据库的用户名-p 指明数据库的密码-d 指明数据库的名字-c 指明collection的名字-o 指明到要导出的文件名-q 指明导出数据的过滤条件
+2.导出所有数据库 1 mongodump -o /data/mongobak/ 3.导出指定数据库 1 mongodump -d SERVERLOG -o /data/mongobak/SERVERLOG.bak/ ​
+二、 mongorestore恢复数据库 自行补充：
+恢复其他数据库中的表到已有数据库中，已有数据库已经有表，且数据库有账号密码验证：
+1 mongorestore -u 用户名 -p 密码 --authenticationDatabase admin -d leanote --dir /leanote_install_data/ 1.常用命令格式 ​ mongorestore -h IP &ndash;port 端口 -u 用户名 -p 密码 -d 数据库 &ndash;drop 文件存在路径]]></description>
+</item>
+</channel>
+</rss>

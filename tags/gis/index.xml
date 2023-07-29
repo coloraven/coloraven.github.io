@@ -1,0 +1,106 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>GIS - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/gis/</link>
+        <description>GIS - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 11 Mar 2023 22:58:24 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/gis/" rel="self" type="application/rss+xml" /><item>
+    <title>计算多边形镂空区域的坐标</title>
+    <link>http://example.org/%E8%AE%A1%E7%AE%97%E5%A4%9A%E8%BE%B9%E5%BD%A2%E9%95%82%E7%A9%BA%E5%8C%BA%E5%9F%9F%E7%9A%84%E5%9D%90%E6%A0%87/</link>
+    <pubDate>Sat, 11 Mar 2023 22:58:24 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E8%AE%A1%E7%AE%97%E5%A4%9A%E8%BE%B9%E5%BD%A2%E9%95%82%E7%A9%BA%E5%8C%BA%E5%9F%9F%E7%9A%84%E5%9D%90%E6%A0%87/</guid>
+    <description><![CDATA[背景 已知多边形A（{&quot;Type&quot;:&quot;MultiPolygon&quot;}）以及其包含的多个子多边形（均为MultiPolygon）的GPS坐标，求多边形A包含的剩余1个子多边形的GPS坐标。
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 import geopandas as gpd from shapely.ops import unary_union, polygonize import pandas as pd # 读取geojson文件并转换为GeoDataFrame类型的数据 data = gpd.read_file(&#39;长沙市（缺一）.json&#39;) # 将所有多边形合并成一个单独的多边形 polygons = unary_union(data.geometry) # 将合并后的多边形转换为镂空多边形F,polygonize函数为关键 holes = list(polygonize(polygons)) # 将镂空多边形F转换为GeoDataFrame类型的数据 gdf_F = gpd.GeoDataFrame(geometry=holes, crs=data.crs) gdf_F[&#39;type&#39;] = &#39;F&#39; # 将A、B、C、D、E转换为GeoDataFrame类型的数据 gdf_ABCDE = data.copy() gdf_ABCDE[&#39;type&#39;] = gdf_ABCDE.]]></description>
+</item>
+<item>
+    <title>geojson对象与polygon_wkt、wkb对象（MySQL等数据库中的对象）互转</title>
+    <link>http://example.org/geojson%E5%AF%B9%E8%B1%A1%E4%B8%8Epolygon_wkt-wkb%E5%AF%B9%E8%B1%A1mysql%E7%AD%89%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/geojson%E5%AF%B9%E8%B1%A1%E4%B8%8Epolygon_wkt-wkb%E5%AF%B9%E8%B1%A1mysql%E7%AD%89%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E4%BA%92%E8%BD%AC/</guid>
+    <description><![CDATA[来源：https://gist.github.com/drmalex07/5a54fc4f1db06a66679e
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 import json import geojson from shapely.geometry import shape o = { &#34;coordinates&#34;: [[[23.314208, 37.768469], [24.039306, 37.768469], [24.039306, 38.214372], [23.314208, 38.214372], [23.314208, 37.768469]]], &#34;type&#34;: &#34;Polygon&#34; } s = json.dumps(o) # Convert to geojson.geometry.Polygon g1 = geojson.loads(s) # Feed to shape() to convert to shapely.]]></description>
+</item>
+<item>
+    <title>GEOJSON标准格式学习</title>
+    <link>http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/geojson%E6%A0%87%E5%87%86%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/</guid>
+    <description><![CDATA[转载自：https://www.jianshu.com/p/852d7ad081b3
+最近做的项目需要详细了解geojson，因此查了一些资料，现在整理一份标准格式的记录，要理解本文需要首先了解json的基本知识，这里不过多展开，可以去参考w3school上的教程，简言之，json是通过键值对表示数据对象的一种格式，可以很好地表达数据，其全称为JavaScript Object Notation（JavaScript Object Notation），正如这个名称，JavaScript和json联系紧密，但是json可以应用的范围很广，不止于前端，它比XML数据更轻量、更容易解析（某种角度上说xml可以更自由地封装更多的数据）。很多编程语言都有对应的json解析库，例如Python的json库，C#的Newtonsoft.Json，Java的org.json。geojson是用json的语法表达和存储地理数据，可以说是json的子集。
+例如下面就是一个点数据：
+1 2 3 4 5 6 7 8 9 10 11 12 { &#34;type&#34;: &#34;FeatureCollection&#34;, &#34;features&#34;: [ {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;Point&#34;, &#34;coordinates&#34;:[105.380859375,31.57853542647338] } } ] } 例子图片
+（注：以下geojson的效果截图都来自geojson.io在线生成）
+geojson将所有的地理要素分为Point、MultiPoint、LineString、MultiLineString、Polygon、MultiPolygon、GeometryCollection。首先是将这些要素封装到单个的geometry里，然后作为一个个的Feature（也就是要素）；要素放到一个要素集合里，从树状结构来理解FeatureCollection就是根节点，表示为：
+1 2 3 4 { &#34;type&#34;: &#34;FeatureCollection&#34;, &#34;features&#34;: [] } 所有地理要素放在features的列表里。
+点要素Point 点要素是最简单的，类型type对应Point，然后坐标是一个1维的数组，里面有两个元素（如果是立体的坐标就是三维x,y,z），分别为经度和纬度。properties里面可以封装各种属性，例如名称、标识颜色等等。
+1 2 3 4 5 6 7 {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;Point&#34;, &#34;coordinates&#34;:[105.380859375,31.57853542647338] } } 多点要素MultiPoint 1 2 3 4 5 6 7 8 9 {&#34;type&#34;:&#34;Feature&#34;, &#34;properties&#34;:{}, &#34;geometry&#34;:{ &#34;type&#34;:&#34;MultiPoint&#34;, &#34;coordinates&#34;:[[105.]]></description>
+</item>
+<item>
+    <title>MySQL地理空间查询——备忘录</title>
+    <link>http://example.org/mysql%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E6%9F%A5%E8%AF%A2%E5%A4%87%E5%BF%98%E5%BD%95/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/mysql%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E6%9F%A5%E8%AF%A2%E5%A4%87%E5%BF%98%E5%BD%95/</guid>
+    <description><![CDATA[PostgreSQL 空间st_contains，st_within空间包含搜索优化 - 降IO和降CPUboundbox
+ST_Contains函数-Oracle 、 PostgreSQL 以及 SQLITE，此文有很多函数解析和应用实例
+使用Sqlite和Spatialite
+Sqlite使用Spatial扩展的方法
+linux中如何安装Spatial
+windows中如何安装Spatial，并在python中使用]]></description>
+</item>
+<item>
+    <title>Mysql或者Postgresql判断一个点是否存在于MULTIPOLYGON(多多边形)</title>
+    <link>http://example.org/mysql%E6%88%96%E8%80%85postgresql%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E7%82%B9%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E4%BA%8Emultipolygon-%E5%A4%9A%E5%A4%9A%E8%BE%B9%E5%BD%A2/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/mysql%E6%88%96%E8%80%85postgresql%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E7%82%B9%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E4%BA%8Emultipolygon-%E5%A4%9A%E5%A4%9A%E8%BE%B9%E5%BD%A2/</guid>
+    <description><![CDATA[Postgresql 转载自：https://blog.csdn.net/weixin_47553445/article/details/115268077
+语法 1 SELECT ST_Contains( ST_GeomFromText(&#39;这里放需要查找的MULTIPOLYGON&#39;),st_point(103.2366313,28.81767612)) demo 1 2 3 SELECT ST_Contains( ST_GeomFromText( &#39;MULTIPOLYGON(((103.236631342762 28.8176761290501,103.223402196754 28.8067721559103,103.209070714842 28.8142367294416,103.180091207643 28.798947455161,103.14654213721 28.824723076309,103.130331635197 28.828001337192,103.134297395409 28.8452254641839,103.167231778324 28.8643948670295,103.176539598724 28.8840813692598,103.169919000262 28.9045950607135,103.172633909627 28.932211552721,103.146715816082 28.9448446028962,103.13471930785 28.9692321042783,103.150374074704 28.9703423083509,103.161580849577 28.9891424738461,103.15734975159 29.0005456111911,103.177684162294 29.032308821395,103.176350962327 29.0694099108388,103.160365421227 29.0944466696781,103.180453467154 29.1056188206521,103.2017136031 29.1071235950779,103.201687387863 29.0940476602714,103.191523992039 29.0799538880615,103.199963856947 29.0731856649865,103.219618568142 29.0694447325884,103.227025387212 29.0507195660552,103.259157118007 29.0312680863532,103.281320228146 28.996955444738,103.274604182837 28.9814130607642,103.25969996678 28.9740033773541,103.245668694754 28.9457143516361,103.251277767255 28.9258500057732,103.245698980324 28.915184451901,103.272321285299 28.8964177393872,103.246358179786 28.870089342749,103.228214409667 28.8654235673438,103.236631342762 28.8176761290501))) &#39; ),st_point(103.2366313,28.81767612)) 执行结果 注意事项： st_point函数中,经度纬度不能是字符串类型 ST_GeomFromText函数中的MULTIPOLYGON为geom空间函数通过 sT_AsText函数转换得来，不需要二次处理。 愿大家永不脱发！！！ Mysql 转载自：https://www.cnblogs.com/TTonly/p/12737780.html
+MySQL5.6中查询多边形包含点情况（ST_Contains、ST_Within）
+1 2 3 4 5 6 7 SET @x = 121; SET @y = 30; -- SET @point = CONCAT(&#39;POINT(&#39;,@x,&#39; &#39;,@y,&#39;)&#39;); set @point= Point(@x,@y); set @geometry=ST_GeomFromText(&#39;POLYGON((121 30, 121 30, .]]></description>
+</item>
+<item>
+    <title>MySQL测试判断多边形（Polygon）及镂空多边形（MultiPolygon）是否包含点</title>
+    <link>http://example.org/mysql%E6%B5%8B%E8%AF%95%E5%88%A4%E6%96%AD%E5%A4%9A%E8%BE%B9%E5%BD%A2polygon%E5%8F%8A%E9%95%82%E7%A9%BA%E5%A4%9A%E8%BE%B9%E5%BD%A2multipolygon%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%82%B9/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/mysql%E6%B5%8B%E8%AF%95%E5%88%A4%E6%96%AD%E5%A4%9A%E8%BE%B9%E5%BD%A2polygon%E5%8F%8A%E9%95%82%E7%A9%BA%E5%A4%9A%E8%BE%B9%E5%BD%A2multipolygon%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%82%B9/</guid>
+    <description><![CDATA[1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 -- 1.创建测试表 CREATE TABLE zone ( id int(10) unsigned NOT NULL AUTO_INCREMENT, polygongeo geometry NOT NULL, PRIMARY KEY (id) ) ENGINE=MYISAM DEFAULT CHARSET=utf8; -- 2.插入多边形数据 insert into zone(polygongeo) values(ST_GeomFromText(&#39;POLYGON((1 1,1 5,5 5,5 1,1 1))&#39;)); -- 3.判断点是否在多边形区域 -- 3.1 测试 POINT(3, 4)，在多边形内 select ST_AsText(polygongeo) from zone where MBRWithin(ST_GeomFromText(&#39;POINT(3 4)&#39;),polygongeo); -- 3.2 测试 POINT(6, 1) 在多边形外 select ST_AsText(polygongeo) from zone where MBRWithin(ST_GeomFromText(&#39;POINT(6 1)&#39;),polygongeo); 不入库，直接测试]]></description>
+</item>
+<item>
+    <title>Python &#43; SQLite &#43; ST_Geometry</title>
+    <link>http://example.org/python--sqlite--st_geometry/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/python--sqlite--st_geometry/</guid>
+    <description><![CDATA[https://www.cnblogs.com/lqqgis/p/12641794.html]]></description>
+</item>
+<item>
+    <title>Python中sqlite使用spatial扩展</title>
+    <link>http://example.org/python%E4%B8%ADsqlite%E4%BD%BF%E7%94%A8spatial%E6%89%A9%E5%B1%95/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/python%E4%B8%ADsqlite%E4%BD%BF%E7%94%A8spatial%E6%89%A9%E5%B1%95/</guid>
+    <description><![CDATA[1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 import sqlite3 connR = sqlite3.connect(&#39;:memory:&#39;) connR.enable_load_extension(True) #now we can load the extension # depending on your OS and sqlite/spatialite version you might need to add # &#39;.]]></description>
+</item>
+<item>
+    <title>Python计算坐标集的中心点坐标</title>
+    <link>http://example.org/python%E8%AE%A1%E7%AE%97%E5%9D%90%E6%A0%87%E9%9B%86%E7%9A%84%E4%B8%AD%E5%BF%83%E7%82%B9%E5%9D%90%E6%A0%87/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/python%E8%AE%A1%E7%AE%97%E5%9D%90%E6%A0%87%E9%9B%86%E7%9A%84%E4%B8%AD%E5%BF%83%E7%82%B9%E5%9D%90%E6%A0%87/</guid>
+    <description><![CDATA[https://stackoverflow.com/a/68503006
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 def get_centroid(points): x = points[:,0] y = points[:,1] # Solving for polygon signed area A = 0 for i, value in enumerate(x): if i + 1 == len(x): A += (x[i]*y[0] - x[0]*y[i]) else: A += (x[i]*y[i+1] - x[i+1]*y[i]) A = A/2 #solving x of centroid Cx = 0 for i, value in enumerate(x): if i + 1 == len(x): Cx += (x[i]+x[0]) * ( (x[i]*y[0]) - (x[0]*y[i]) ) else: Cx += (x[i]+x[i+1]) * ( (x[i]*y[i+1]) - (x[i+1]*y[i]) ) Cx = Cx/(6*A) #solving y of centroid Cy = 0 for i , value in enumerate(y): if i+1 == len(x): Cy += (y[i]+y[0]) * ( (x[i]*y[0]) - (x[0]*y[i]) ) else: Cy += (y[i]+y[i+1]) * ( (x[i]*y[i+1]) - (x[i+1]*y[i]) ) Cy = Cy/(6*A) return Cx, Cy import numpy as np points = np.]]></description>
+</item>
+<item>
+    <title>判断点是否在多边形内（check is the point in polygon）</title>
+    <link>http://example.org/%E5%88%A4%E6%96%AD%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85check-is-the-point-in-polygon/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E5%88%A4%E6%96%AD%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85check-is-the-point-in-polygon/</guid>
+    <description><![CDATA[方法一（参考Python一行代码处理地理围栏） 1 2 3 4 5 6 7 8 9 10 11 12 13 from shapely.geometry import Point from shapely.geometry.polygon import Polygon polygon_data= [[114.3458104133606,30.476167529462785],[114.34512376785278,30.475575748963195],[114.34576749801636,30.474540124433936],[114.3467652797699,30.475363076967565],[114.34693694114685,30.476102803645833],[114.3458104133606,30.476167529462785]] point1 = Point([114.34605717658997,30.475584995561178]) point2 = Point([114.346604347229,30.476518897432545]) polygon = Polygon(polygon_data) print(polygon.contains(point1)) print(polygon.contains(point2)) #输出 # True # False 方法二 光线追踪 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 def is_inside_sm(polygon, point): length = len(polygon)-1 dy2 = point[1] - polygon[0][1] intersections = 0 ii = 0 jj = 1 while ii&lt;length: dy = dy2 dy2 = point[1] - polygon[jj][1] # consider only lines which are not completely above/bellow/right from the point if dy*dy2 &lt;= 0.]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,28 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>ssh - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/ssh/</link>
+        <description>ssh - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/ssh/" rel="self" type="application/rss+xml" /><item>
+    <title>ssh自动登陆的实现</title>
+    <link>http://example.org/ssh%E8%87%AA%E5%8A%A8%E7%99%BB%E9%99%86%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/ssh%E8%87%AA%E5%8A%A8%E7%99%BB%E9%99%86%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+    <description><![CDATA[Linux系统shell脚本实现： https://www.cnblogs.com/zhenbianshu/p/5867440.html
+需要先安装expect https://blog.csdn.net/wangtaoking1/article/details/78268574
+Python脚本实现： https://mp.weixin.qq.com/s/vwmAa3kDc1zYdyTE18aA5w]]></description>
+</item>
+<item>
+    <title>ssh防爆破</title>
+    <link>http://example.org/ssh%E9%98%B2%E7%88%86%E7%A0%B4/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/ssh%E9%98%B2%E7%88%86%E7%A0%B4/</guid>
+    <description><![CDATA[来源：https://github.com/FunctionClub/Fail2ban
+原理 Fail2ban会通过检查日志来匹配错误信息，从而使用iptables来防止暴力破解。理论上只要是能够在服务器本地输出错误日志和访问日志的程序都可以使用Fail2ban来保驾护航。
+脚本介绍 一键安装部署Fail2ban，自动配置防SSH爆破。可自定义ip封禁时间，最高重试次数。
+安装 1 wget https://raw.githubusercontent.com/FunctionClub/Fail2ban/master/fail2ban.sh &amp;&amp; bash fail2ban.sh 2&gt;&amp;1 | tee fail2ban.log 卸载 1 wget https://raw.githubusercontent.com/FunctionClub/Fail2ban/master/uninstall.sh &amp;&amp; bash uninstall.sh 脚本运行截图 ]]></description>
+</item>
+</channel>
+</rss>

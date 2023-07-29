@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title> - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="" />
+<meta property="og:description" content="title: Markdown Style test date: 2018-7-24 23:31:06 tags: This post is originated from here and is used for testing markdown style. This post contains nearly every markdown usage. Make sure all the markdown elements below show up correctly.
+Headers 1 2 3 4 5 6 7 8 9 10 11 12 13 14 # H1 ## H2 ### H3 #### H4 ##### H5 ###### H6 Alternatively, for H1 and H2, an underline-ish style: Alt-H1 ====== Alt-H2 ------ H1 H2 H3 H4 H5 H6 Alternatively, for H1 and H2, an underline-ish style:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/markdown/" /><meta property="article:section" content="posts" />
+
+<meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="title: Markdown Style test date: 2018-7-24 23:31:06 tags: This post is originated from here and is used for testing markdown style. This post contains nearly every markdown usage. Make sure all the markdown elements below show up correctly.
+Headers 1 2 3 4 5 6 7 8 9 10 11 12 13 14 # H1 ## H2 ### H3 #### H4 ##### H5 ###### H6 Alternatively, for H1 and H2, an underline-ish style: Alt-H1 ====== Alt-H2 ------ H1 H2 H3 H4 H5 H6 Alternatively, for H1 and H2, an underline-ish style:"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/markdown/" /><link rel="prev" href="http://example.org/no-title/" /><link rel="next" href="http://example.org/long-title/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/markdown\/"
+        },"genre": "posts","wordcount":  1182 ,
+        "url": "http:\/\/example.org\/markdown\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX"></h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1182 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#tags">title: Markdown Style test
+date: 2018-7-24 23:31:06
+tags:</a></li>
+    <li><a href="#headers">Headers</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#h2">H2</a>
+      <ul>
+        <li><a href="#h3">H3</a>
+          <ul>
+            <li><a href="#h4">H4</a>
+              <ul>
+                <li><a href="#h5">H5</a>
+                  <ul>
+                    <li><a href="#h6">H6</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#alt-h2">Alt-H2</a></li>
+    <li><a href="#emphasis">Emphasis</a></li>
+    <li><a href="#lists">Lists</a></li>
+    <li><a href="#inline-html">Inline HTML</a></li>
+    <li><a href="#links">Links</a></li>
+    <li><a href="#images">Images</a></li>
+    <li><a href="#code-and-syntax-highlighting">Code and Syntax Highlighting</a></li>
+    <li><a href="#tables">Tables</a></li>
+    <li><a href="#blockquotes">Blockquotes</a></li>
+    <li><a href="#horizontal-rule">Horizontal Rule</a></li>
+    <li><a href="#line-breaks">Line Breaks</a></li>
+    <li><a href="#youtube-videos">Youtube videos</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="tags">title: Markdown Style test
+date: 2018-7-24 23:31:06
+tags:</h2>
+<p>This post is originated from <a href="https://gist.github.com/apackeer/4159268" target="_blank" rel="noopener noreffer ">here</a> and is used for testing markdown style. This post contains nearly every markdown usage. Make sure all the markdown elements below show up correctly.</p>
+<!-- more -->
+<hr>
+<h2 id="headers">Headers</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="gh"># H1
+</span></span></span><span class="line"><span class="cl"><span class="gh"></span><span class="gu">## H2
+</span></span></span><span class="line"><span class="cl"><span class="gu">### H3
+</span></span></span><span class="line"><span class="cl"><span class="gu">#### H4
+</span></span></span><span class="line"><span class="cl"><span class="gu">##### H5
+</span></span></span><span class="line"><span class="cl"><span class="gu">###### H6
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>
+</span></span><span class="line"><span class="cl">Alternatively, for H1 and H2, an underline-ish style:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Alt-H1
+</span></span><span class="line"><span class="cl">======
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Alt-H2
+</span></span><span class="line"><span class="cl">------
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="h1">H1</h1>
+<h2 id="h2">H2</h2>
+<h3 id="h3">H3</h3>
+<h4 id="h4">H4</h4>
+<h5 id="h5">H5</h5>
+<h6 id="h6">H6</h6>
+<p>Alternatively, for H1 and H2, an underline-ish style:</p>
+<h1 id="alt-h1">Alt-H1</h1>
+<h2 id="alt-h2">Alt-H2</h2>
+<h2 id="emphasis">Emphasis</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">Emphasis, aka italics, with <span class="ge">*asterisks*</span> or <span class="ge">_underscores_</span>.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Strong emphasis, aka bold, with <span class="gs">**asterisks**</span> or <span class="gs">__underscores__</span>.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Combined emphasis with <span class="gs">**asterisks and _underscores_**</span>.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Strikethrough uses two tildes. <span class="gd">~~Scratch this.~~</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Emphasis, aka italics, with <em>asterisks</em> or <em>underscores</em>.</p>
+<p>Strong emphasis, aka bold, with <strong>asterisks</strong> or <strong>underscores</strong>.</p>
+<p>Combined emphasis with <strong>asterisks and <em>underscores</em></strong>.</p>
+<p>Strikethrough uses two tildes. <del>Scratch this.</del></p>
+<h2 id="lists">Lists</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="k">1.</span> First ordered list item
+</span></span><span class="line"><span class="cl"><span class="k">2.</span> Another item
+</span></span><span class="line"><span class="cl">  <span class="k">*</span> Unordered sub-list.
+</span></span><span class="line"><span class="cl"><span class="k">1.</span> Actual numbers don&#39;t matter, just that it&#39;s a number
+</span></span><span class="line"><span class="cl">  <span class="k">1.</span> Ordered sub-list
+</span></span><span class="line"><span class="cl"><span class="k">4.</span> And another item.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we&#39;ll use three here to also align the raw Markdown).
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   To have a line break without a paragraph, you will need to use two trailing spaces.  
+</span></span><span class="line"><span class="cl">   Note that this line is separate, but within the same paragraph.  
+</span></span><span class="line"><span class="cl">   (This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">*</span> Unordered list can use asterisks
+</span></span><span class="line"><span class="cl"><span class="k">-</span> Or minuses
+</span></span><span class="line"><span class="cl">+ Or pluses
+</span></span><span class="line"><span class="cl"><span class="k">-</span> Paragraph In unordered list
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  For example like this.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Common Paragraph with some text.
+</span></span><span class="line"><span class="cl">And more text.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>First ordered list item</li>
+<li>Another item</li>
+</ol>
+<ul>
+<li>Unordered sub-list.</li>
+</ul>
+<ol>
+<li>
+<p>Actual numbers don&rsquo;t matter, just that it&rsquo;s a number</p>
+</li>
+<li>
+<p>Ordered sub-list</p>
+</li>
+<li>
+<p>And another item.</p>
+<p>You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we&rsquo;ll use three here to also align the raw Markdown).</p>
+<p>To have a line break without a paragraph, you will need to use two trailing spaces.<br>
+Note that this line is separate, but within the same paragraph.<br>
+(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)</p>
+</li>
+</ol>
+<ul>
+<li>Unordered list can use asterisks</li>
+</ul>
+<ul>
+<li>Or minuses</li>
+</ul>
+<ul>
+<li>Or pluses</li>
+</ul>
+<ul>
+<li>
+<p>Paragraph In unordered list</p>
+<p>For example like this.</p>
+</li>
+</ul>
+<p>Common Paragraph with some text.
+And more text.</p>
+<h2 id="inline-html">Inline HTML</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>To reboot your computer, press <span class="p">&lt;</span><span class="nt">kbd</span><span class="p">&gt;</span>ctrl<span class="p">&lt;/</span><span class="nt">kbd</span><span class="p">&gt;</span>+<span class="p">&lt;</span><span class="nt">kbd</span><span class="p">&gt;</span>alt<span class="p">&lt;/</span><span class="nt">kbd</span><span class="p">&gt;</span>+<span class="p">&lt;</span><span class="nt">kbd</span><span class="p">&gt;</span>del<span class="p">&lt;/</span><span class="nt">kbd</span><span class="p">&gt;</span>.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>To reboot your computer, press <kbd>ctrl</kbd>+<kbd>alt</kbd>+<kbd>del</kbd>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">dl</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">dt</span><span class="p">&gt;</span>Definition list<span class="p">&lt;/</span><span class="nt">dt</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">dd</span><span class="p">&gt;</span>Is something people use sometimes.<span class="p">&lt;/</span><span class="nt">dd</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">dt</span><span class="p">&gt;</span>Markdown in HTML<span class="p">&lt;/</span><span class="nt">dt</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">dd</span><span class="p">&gt;</span>Does <span class="ge">*not*</span> work <span class="gs">**very**</span> well. Use HTML <span class="p">&lt;</span><span class="nt">em</span><span class="p">&gt;</span>tags<span class="p">&lt;/</span><span class="nt">em</span><span class="p">&gt;</span>.<span class="p">&lt;/</span><span class="nt">dd</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">dl</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><dl>
+    <dt>Definition list</dt>
+    <dd>Is something people use sometimes.</dd>
+<pre><code>&lt;dt&gt;Markdown in HTML&lt;/dt&gt;
+&lt;dd&gt;Does *not* work **very** well. Use HTML &lt;em&gt;tags&lt;/em&gt;.&lt;/dd&gt;
+</code></pre>
+</dl>
+<h2 id="links">Links</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">[<span class="nt">I&#39;m an inline-style link</span>](<span class="na">https://www.google.com</span>)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[<span class="nt">I&#39;m an inline-style link with title</span>](<span class="na">https://www.google.com &#34;Google&#39;s Homepage&#34;</span>)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[I&#39;m a reference-style link][Arbitrary case-insensitive reference text]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[<span class="nt">I&#39;m a relative reference to a repository file</span>](<span class="na">../blob/master/LICENSE</span>)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[You can use numbers for reference-style link definitions][1]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Or leave it empty and use the [link text itself]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Some text to show that the reference links can follow later.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[arbitrary case-insensitive reference text]: https://hexo.io
+</span></span><span class="line"><span class="cl">[1]: https://hexo.io/docs/
+</span></span><span class="line"><span class="cl">[link text itself]: https://hexo.io/api/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://www.google.com" target="_blank" rel="noopener noreffer ">I&rsquo;m an inline-style link</a></p>
+<p><a href="https://www.google.com" title="Google&#39;s Homepage" target="_blank" rel="noopener noreffer ">I&rsquo;m an inline-style link with title</a></p>
+<p><a href="https://hexo.io" target="_blank" rel="noopener noreffer ">I&rsquo;m a reference-style link</a></p>
+<p><a href="../blob/master/LICENSE" rel="">I&rsquo;m a relative reference to a repository file</a></p>
+<p><a href="https://hexo.io/docs/" target="_blank" rel="noopener noreffer ">You can use numbers for reference-style link definitions</a></p>
+<p>Or leave it empty and use the <a href="https://hexo.io/api/" target="_blank" rel="noopener noreffer ">link text itself</a></p>
+<p>Some text to show that the reference links can follow later.</p>
+<h2 id="images">Images</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">hover to see the title text:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Inline-style:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">![<span class="nt">alt text</span>](<span class="na">https://hexo.io/icon/favicon-196x196.png &#34;Logo Title Text 1&#34;</span>)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Reference-style:
+</span></span><span class="line"><span class="cl">![alt text][logo]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[logo]: https://hexo.io/icon/favicon-196x196.png &#34;Logo Title Text 2&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>hover to see the title text:</p>
+<p>Inline-style:</p>
+<p><figure><a class="lightgallery" href="https://hexo.io/icon/favicon-196x196.png" title="alt text" data-thumbnail="https://hexo.io/icon/favicon-196x196.png" data-sub-html="<h2>Logo Title Text 1</h2><p>alt text</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://hexo.io/icon/favicon-196x196.png"
+            data-srcset="https://hexo.io/icon/favicon-196x196.png, https://hexo.io/icon/favicon-196x196.png 1.5x, https://hexo.io/icon/favicon-196x196.png 2x"
+            data-sizes="auto"
+            alt="https://hexo.io/icon/favicon-196x196.png" />
+    </a><figcaption class="image-caption">Logo Title Text 1</figcaption>
+    </figure></p>
+<p>Reference-style:
+<figure><a class="lightgallery" href="https://hexo.io/icon/favicon-196x196.png" title="alt text" data-thumbnail="https://hexo.io/icon/favicon-196x196.png" data-sub-html="<h2>Logo Title Text 2</h2><p>alt text</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://hexo.io/icon/favicon-196x196.png"
+            data-srcset="https://hexo.io/icon/favicon-196x196.png, https://hexo.io/icon/favicon-196x196.png 1.5x, https://hexo.io/icon/favicon-196x196.png 2x"
+            data-sizes="auto"
+            alt="https://hexo.io/icon/favicon-196x196.png" />
+    </a><figcaption class="image-caption">Logo Title Text 2</figcaption>
+    </figure></p>
+<h2 id="code-and-syntax-highlighting">Code and Syntax Highlighting</h2>
+<p>Inline <code>code</code> has <code>back-ticks around</code> it.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s2">&#34;JavaScript syntax highlighting&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">alert</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="s2">&#34;Python syntax highlighting&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span> <span class="n">s</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">No language indicated, so no syntax highlighting.
+</span></span><span class="line"><span class="cl">But let&#39;s throw in a &lt;b&gt;tag&lt;/b&gt;.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="tables">Tables</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">|                |ASCII                          |HTML                         |
+</span></span><span class="line"><span class="cl">|----------------|-------------------------------|-----------------------------|
+</span></span><span class="line"><span class="cl">|Single backticks|`&#39;Isn&#39;t this fun?&#39;`            |&#39;Isn&#39;t this fun?&#39;            |
+</span></span><span class="line"><span class="cl">|Quotes          |`&#34;Isn&#39;t this fun?&#34;`            |&#34;Isn&#39;t this fun?&#34;            |
+</span></span><span class="line"><span class="cl">|Dashes          |`-- is en-dash, --- is em-dash`|-- is en-dash, --- is em-dash|
+</span></span></code></pre></td></tr></table>
+</div>
+</div><table>
+<thead>
+<tr>
+<th></th>
+<th>ASCII</th>
+<th>HTML</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single backticks</td>
+<td><code>'Isn't this fun?'</code></td>
+<td>&lsquo;Isn&rsquo;t this fun?&rsquo;</td>
+</tr>
+<tr>
+<td>Quotes</td>
+<td><code>&quot;Isn't this fun?&quot;</code></td>
+<td>&ldquo;Isn&rsquo;t this fun?&rdquo;</td>
+</tr>
+<tr>
+<td>Dashes</td>
+<td><code>-- is en-dash, --- is em-dash</code></td>
+<td>&ndash; is en-dash, &mdash; is em-dash</td>
+</tr>
+</tbody>
+</table>
+<p>Colons can be used to align columns.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">| Tables        | Are           | Cool  |
+</span></span><span class="line"><span class="cl">| ------------- |:-------------:| -----:|
+</span></span><span class="line"><span class="cl">| col 3 is      | right-aligned |  |
+</span></span><span class="line"><span class="cl">| col 2 is      | centered      |    |
+</span></span><span class="line"><span class="cl">| zebra stripes | are neat      |   
+</span></span></code></pre></td></tr></table>
+</div>
+</div><table>
+<thead>
+<tr>
+<th>Tables</th>
+<th style="text-align:center">Are</th>
+<th style="text-align:right">Cool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>col 3 is</td>
+<td style="text-align:center">right-aligned</td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td>col 2 is</td>
+<td style="text-align:center">centered</td>
+<td style="text-align:right"></td>
+</tr>
+<tr>
+<td>zebra stripes</td>
+<td style="text-align:center">are neat</td>
+<td style="text-align:right"></td>
+</tr>
+</tbody>
+</table>
+<p>The outer pipes (|) are optional, and you don&rsquo;t need to make the raw Markdown line up prettily. You can also use inline Markdown.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">Markdown | Less | Pretty
+</span></span><span class="line"><span class="cl">--- | --- | ---
+</span></span><span class="line"><span class="cl"><span class="ge">*Still*</span> | <span class="sb">`renders`</span> | <span class="gs">**nicely**</span>
+</span></span><span class="line"><span class="cl">1 | 2 | 3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><table>
+<thead>
+<tr>
+<th>Markdown</th>
+<th>Less</th>
+<th>Pretty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Still</em></td>
+<td><code>renders</code></td>
+<td><strong>nicely</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>You can find more information about <strong>LaTeX</strong> mathematical expressions <a href="https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference" target="_blank" rel="noopener noreffer ">here</a>.</p>
+</blockquote>
+<h2 id="blockquotes">Blockquotes</h2>
+<blockquote>
+<p>Blockquotes are very handy in email to emulate reply text.
+This line is part of the same quote.</p>
+</blockquote>
+<p>Quote break.</p>
+<blockquote>
+<p>This is a very long line that will still be quoted properly when it wraps. Oh boy let&rsquo;s keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can <em>put</em> <strong>Markdown</strong> into a blockquote.</p>
+</blockquote>
+<h2 id="horizontal-rule">Horizontal Rule</h2>
+<p>Three or more&hellip;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Hyphens
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="ge">**</span>*
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Asterisks
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">___
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Underscores
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<p>Hyphens</p>
+<hr>
+<p>Asterisks</p>
+<hr>
+<p>Underscores</p>
+<h2 id="line-breaks">Line Breaks</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">Here&#39;s a line for us to start with.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">This line is separated from the one above by two newlines, so it will be a <span class="ge">*separate paragraph*</span>.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">This line is also a separate paragraph, but...
+</span></span><span class="line"><span class="cl">This line is only separated by a single newline, so it&#39;s a separate line in the <span class="ge">*same paragraph*</span>.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Here&rsquo;s a line for us to start with.</p>
+<p>This line is separated from the one above by two newlines, so it will be a <em>separate paragraph</em>.</p>
+<p>This line is also a separate paragraph, but&hellip;
+This line is only separated by a single newline, so it&rsquo;s a separate line in the <em>same paragraph</em>.</p>
+<hr>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">This is a regular paragraph.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>Foo<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">This is another regular paragraph.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This is a regular paragraph.</p>
+<table>
+    <tr>
+        <td>Foo</td>
+    </tr>
+</table>
+<p>This is another regular paragraph.</p>
+<h2 id="youtube-videos">Youtube videos</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://www.youtube.com/watch?feature=player_embedded&amp;v=ARted4RniaU
+</span></span></span><span class="line"><span class="cl"><span class="s">&#34;</span> <span class="na">target</span><span class="o">=</span><span class="s">&#34;_blank&#34;</span><span class="p">&gt;&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://img.youtube.com/vi/ARted4RniaU/0.jpg&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">alt</span><span class="o">=</span><span class="s">&#34;IMAGE ALT TEXT HERE&#34;</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;240&#34;</span> <span class="na">height</span><span class="o">=</span><span class="s">&#34;180&#34;</span> <span class="na">border</span><span class="o">=</span><span class="s">&#34;10&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Pure markdown version:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[<span class="nt">![IMAGE ALT TEXT HERE</span>](<span class="na">https://img.youtube.com/vi/ARted4RniaU/0.jpg</span>)](https://www.youtube.com/watch?v=ARted4RniaU)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://www.youtube.com/watch?feature=player_embedded&v=ARted4RniaU
+" target="_blank"><img src="https://img.youtube.com/vi/ARted4RniaU/0.jpg"
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a></p>
+<p>Pure markdown version:</p>
+<p><a href="https://www.youtube.com/watch?v=ARted4RniaU" target="_blank" rel="noopener noreffer "><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.youtube.com/vi/ARted4RniaU/0.jpg"
+        data-srcset="https://img.youtube.com/vi/ARted4RniaU/0.jpg, https://img.youtube.com/vi/ARted4RniaU/0.jpg 1.5x, https://img.youtube.com/vi/ARted4RniaU/0.jpg 2x"
+        data-sizes="auto"
+        alt="https://img.youtube.com/vi/ARted4RniaU/0.jpg"
+        title="IMAGE ALT TEXT HERE" /></a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 0001-01-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/markdown/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/markdown/" data-title=""><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/markdown/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/markdown/" data-title=""><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/markdown/" data-title=""><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/markdown/" data-title=""><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/no-title/" class="prev" rel="prev" title=""><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i></a>
+            <a href="/long-title/" class="next" rel="next" title=""><i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.4">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

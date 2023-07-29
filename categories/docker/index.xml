@@ -1,0 +1,126 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Docker - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/docker/</link>
+        <description>Docker - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 06 Jul 2023 19:11:48 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/docker/" rel="self" type="application/rss+xml" /><item>
+    <title>修改Docker默认数据保存位置</title>
+    <link>http://example.org/%E4%BF%AE%E6%94%B9docker%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98%E4%BD%8D%E7%BD%AE/</link>
+    <pubDate>Thu, 06 Jul 2023 19:11:48 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E4%BF%AE%E6%94%B9docker%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98%E4%BD%8D%E7%BD%AE/</guid>
+    <description><![CDATA[第一步 停止wsl
+1 wsl --shutdown 第二步 移动默认位置（C:\Users\xxxxx\AppData\Local\Docker\wsl\data）下的ext4.vhdx到新位置，这里我们移动到D:\Docker\data目录下。
+第三步 regedit打开注册表，定位到HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss 将其下的DistributionName为docker-desktop-data所在项对应的BasePath修改为新位置目录\\?\D:\Docker\data
+完成 重新打开Docker Desktop
+限制 wsl2 内存使用 这个解决方案来自 github，简单来说就是创建一个 %UserProfile%\.wslconfig 文件来限制 wsl 使用的内存总量。比如说我在 Windows 中使用的用户是 tinychen，那么我就在 C:\Users\tinychen 中创建了一个.wslconfig 文件，在里面加入以下内容来限制 wsl2 的内存总大小：
+1 2 3 4 5 [wsl2] memory=1GB swap=8GB swapFile=%USERPROFILE%\AppData\Local\Temp\swap.vhdx localhostForwarding=true 复制以下内容粘贴到cmd中一键解决，然后重新启动Docker Desktop
+1 2 3 4 5 6 wsl --shutdown echo [wsl2] &gt; %UserProfile%\.wslconfig echo memory=1GB &gt;&gt; %UserProfile%\.wslconfig echo swap=8GB &gt;&gt; %UserProfile%\.wslconfig echo swapFile=^%USERPROFILE^%\AppData\Local\Temp\swap.vhdx &gt;&gt; %UserProfile%\.wslconfig echo localhostForwarding=true &gt;&gt; %UserProfile%\.wslconfig 注意修改完成之后需要重启 wsl2 才能生效。更多详细的配置可以查看官方文档。]]></description>
+</item>
+<item>
+    <title>Win下利用DockerDesktop打造Linux开发环境</title>
+    <link>http://example.org/win%E4%B8%8B%E5%88%A9%E7%94%A8dockerdesktop%E6%89%93%E9%80%A0linux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
+    <pubDate>Fri, 23 Dec 2022 15:09:19 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/win%E4%B8%8B%E5%88%A9%E7%94%A8dockerdesktop%E6%89%93%E9%80%A0linux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
+    <description><![CDATA[开发环境要求 基于Ubuntu或者Debian，系统源改为国内源， 系统时间为东八区 安装node、golang、python，源都改为国内源 使用ssh秘钥登录，方便vscode链接 生产目录映射到宿主机目录，防止工作数据丢失 暴露端口数至少40个，以满足折腾需求 解决中文乱码问题 符合要求的Dockerfile 参考此链接：https://blog.csdn.net/shykevin/article/details/105305322
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 FROM node:19-bullseye-slim # 修改更新源为阿里云 RUN sed -i &#34;s@http://\(deb\|security\).debian.org@http://mirrors.163.com@g&#34; /etc/apt/sources.list # ADD . / # 时区为上海 ENV TZ Asia/Shanghai # 设置时区,设置utf-8编码 RUN apt-get update &amp;&amp; apt-get install -y tzdata locales python3-pip cron openssh-server python3 curl wget git &amp;&amp; apt-get clean all &amp;&amp; \ ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &amp;&amp; echo $TZ &gt; /etc/timezone &amp;&amp; \ locale-gen en_US.]]></description>
+</item>
+<item>
+    <title>内网环境中使用Docker镜像</title>
+    <link>http://example.org/%E5%86%85%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BD%BF%E7%94%A8docker%E9%95%9C%E5%83%8F/</link>
+    <pubDate>Mon, 25 Apr 2022 20:02:47 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E5%86%85%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BD%BF%E7%94%A8docker%E9%95%9C%E5%83%8F/</guid>
+    <description><![CDATA[背景 内网环境（与互联网隔离）或者无网络的电脑上已经安装好docker demon，现在需要将互联网中的镜像拷贝到内网主机上运行。操作如下： 最关键的是，学会使用 docker 的 save 命令。
+你需要做的主要有 3 步骤： 1.先从一个有网络的电脑下载 docker 镜像 docker pull centos 2.保存镜像到本地文件 docker save -o centos_image.docker centos 3.把镜像拷贝到无网络的电脑，然后通过 docker 加载镜像即可。 docker load -i centos_image.docker
+来源：https://blog.csdn.net/wangkai_123456/article/details/78538168]]></description>
+</item>
+<item>
+    <title>青龙面板京东签到</title>
+    <link>http://example.org/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BA%AC%E4%B8%9C%E7%AD%BE%E5%88%B0/</link>
+    <pubDate>Wed, 13 Oct 2021 10:40:24 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF%E4%BA%AC%E4%B8%9C%E7%AD%BE%E5%88%B0/</guid>
+    <description><![CDATA[脚本备份 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 【10.2】https://www.juan920.com/1125.html ql repo https://github.com/smiek2221/scripts.git &#34;jd_|gua_&#34; &#34;&#34; &#34;ZooFaker_Necklace.js|JDJRValidator_Pure.js|sign_graphics_validate.js&#34;	0 0 * * *	【混沌】 ql repo https://github.com/whyour/hundun.git &#34;quanx&#34; &#34;tokens|caiyun|didi|donate|fold|Env&#34;	0 0 * * *	【ddo（hyzaw）】 ql repo https://ghproxy.com/https://github.com/shufflewzc/hyzaw.git &#34;ddo_&#34;	0 0 * * *	【star】 ql repo https://github.com/star261/jd.git &#34;scripts&#34; &#34;code&#34;	0 0 * * *	【curtinlv仓库】 ql repo https://github.com/curtinlv/JD-Script.git	0 0 * * *	【Faker集合仓库】 ql repo https://ghproxy.]]></description>
+</item>
+<item>
+    <title>Docker搭建青龙面板</title>
+    <link>http://example.org/docker%E6%90%AD%E5%BB%BA%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF/</link>
+    <pubDate>Tue, 07 Sep 2021 00:06:53 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/docker%E6%90%AD%E5%BB%BA%E9%9D%92%E9%BE%99%E9%9D%A2%E6%9D%BF/</guid>
+    <description><![CDATA[ 1 2 3 4 5 6 7 8 9 10 11 12 13 14 docker run -dit \ -v /userdatas/Sandisk/ql/config:/ql/config \ -v /userdatas/Sandisk/ql/log:/ql/log \ -v /userdatas/Sandisk/ql/db:/ql/db \ -v /userdatas/Sandisk/ql/repo:/ql/repo \ -v /userdatas/Sandisk/ql/raw:/ql/raw \ -v /userdatas/Sandisk/ql/scripts:/ql/scripts \ -v /userdatas/Sandisk/ql/jbot:/ql/jbot \ -v /userdatas/Sandisk/ql/ninja:/ql/ninja \ -p 5678:5700 \ -p 6789:5701 \ --name qinglong \ --restart unless-stopped \ whyour/qinglong:latest ]]></description>
+</item>
+<item>
+    <title>Docker搭建Jellyfin</title>
+    <link>http://example.org/docker%E6%90%AD%E5%BB%BAjellyfin/</link>
+    <pubDate>Wed, 01 Sep 2021 11:33:52 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/docker%E6%90%AD%E5%BB%BAjellyfin/</guid>
+    <description><![CDATA[来源：https://docs.linuxserver.io/images/docker-jellyfin#environment-variables-e
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 docker run -d \ --name=jellyfin \ -e PUID=1000 \ -e PGID=1000 \ -e TZ=Aisa/Shanghai \ -p 8096:8096 \ -p 8920:8920 `#optional` \ -p 7359:7359/udp `#optional` \ -p 1900:1900/udp `#optional` \ -v /userdatas/Sandisk/Jellyfin/config:/config \ -v /userdatas/Sandisk/Jellyfin/tvseries:/data/tvshows `#optional` \ -v /userdatas/Sandisk/Jellyfin/movies:/data/movies `#optional` \ --restart unless-stopped \ ghcr.io/linuxserver/jellyfin ]]></description>
+</item>
+<item>
+    <title>手摸手带你Docker从入门到实践</title>
+    <link>http://example.org/%E6%89%8B%E6%91%B8%E6%89%8B%E5%B8%A6%E4%BD%A0-docker%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/</link>
+    <pubDate>Mon, 16 Aug 2021 18:50:45 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E6%89%8B%E6%91%B8%E6%89%8B%E5%B8%A6%E4%BD%A0-docker%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/</guid>
+    <description><![CDATA[手摸手带你 Docker 从入门到实践 在下最近遇到要在服务器上安装 Mysql、Nginx、EasyMock 等工具的场景，这里记录一下我使用 Docker 安装的过程，希望也能在类似的场景中帮助到大家～
+本文前备知识需要一些 Linux 的一些基本命令，推介先看一下 &lt;半小时搞会 CentOS 入门必备基础知识&gt; 这篇文章。
+CentOS 版本： 7.6
+Nginx 版本： 1.16.1
+Docker 版本： 19.03.12
+你多学一样本事，就少说一句求人的话
+1. 介绍 1.1 出现的原因 前后端开发到测试到生产的过程中，经常会遇到一个问题，明明我在本地跑没问题，为什么到测试环境或者生产环境就报错了了呢，常常这是因为开发、测试、生产的环境与配置不同导致的。
+折腾过环境配置的人都明白其中麻烦，换一台系统、虚拟机、机器，就又要重来一次，费力费时。由于环境和配置的原因，各种奇奇怪怪因为环境和配置的 Bug，总是像打地鼠游戏里面的地鼠一样不断冒出来 🐹
+![](c9ce28e3e43e4bb292b92fd1a4786fe9tplv-k3u1fbpfcp-zoom-1.image#vwid=1586&amp;vhei=600&quot; alt=&ldquo;Docker&rdquo; style=&ldquo;zoom:80%;&rdquo; /&gt;
+Docker 对这个问题给出了一个很好的解决方案，通过镜像将除了系统之外所需要的系统环境由下而上打包，达到服务跨平台的无缝运作。也就是说，安装的时候，把特定的环境一模一样地搬过来，从而解决「在我的电脑上能跑，在 xx 环境就跑不了」的情况。
+另外一个重要的原因，就是轻量，基于容器的虚拟化，Docker 的镜像仅包含业务运行所需的 runtime 环境，一个 CentOS/Ubuntu 基础镜像仅 170M，因为轻量一个宿主机可以轻松安装数百个容器。
+1.2 是什么 Docker 是基于 Go 语言实现的云开源项目，从 2013 年发布到现在一直广受关注。Docker 可以让你像使用集装箱一样快速的组合成应用，并且可以像运输标准集装箱一样，尽可能的屏蔽代码层面的差异。它将应用程序与该程序的依赖，打包在一个文件里面。运行这个文件，就会生成一个虚拟容器。
+程序在这个虚拟容器里运行，就好像在真实的物理机上运行一样。有了 Docker，就不用担心环境问题。
+本文就不对比虚拟机跟 Docker 的区别和优劣了，每个文章都有，说烂了，想了解的话可以百度一下 😂，我这里就不多说了，下面直接看看怎么安装怎么用起来吧。
+2. 安装 &amp; 配置 2.1 Mac 下安装 在下直接使用 Homebrew Cask 来安装，Mac 下：]]></description>
+</item>
+<item>
+    <title>Docker 搭建Filerun</title>
+    <link>http://example.org/docker-%E6%90%AD%E5%BB%BAfilerun/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/docker-%E6%90%AD%E5%BB%BAfilerun/</guid>
+    <description><![CDATA[filerun 官方docker： https://hub.docker.com/r/afian/filerun/
+1、预先搭建好mariadb容器 2、使用以下命令运行filerun容器
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 docker run -itd --name filerun \ --restart=unless-stopped \ --link=mariadb -e FR_DB_HOST=数据库地址 \ -e FR_DB_PORT=数据库端口 \ -e FR_DB_NAME=数据库名称（需要先自行建好，filerun初始化时不会建立） \ -e FR_DB_USER=数据库用户名 \ -e FR_DB_PASS=数据库密码 \ -e APACHE_RUN_USER=www-data \ -e APACHE_RUN_USER_ID=33 \ -e APACHE_RUN_GROUP=www-data \ -e APACHE_RUN_GROUP_ID=33 \ -p 616:80 \ -v /userdatas/Sandisk/filerun/html:/var/www/html \ -v /userdatas/Sandisk/filerun/user-files:/user-files \ afian/filerun filerun默认监听80端口， 默认使用以下两个作为数据持久化的路径：
+/filerun/html:/var/www/html /filerun/user-files:/user-files 初始化的用户名密码均为：superuser]]></description>
+</item>
+<item>
+    <title>Docker常用命令</title>
+    <link>http://example.org/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+    <description><![CDATA[进入正在运行的容器中 1 docker exec -it 1f6091e48979 /bin/sh 列出本地容器镜像 （包括运行中的容器使用的镜像和未运行的静态镜像文件）
+1 docker image ls 查看容器的run参数 1 docker run --rm -v /var/run/docker.sock:/var/run/docker.sock assaflavie/runlike YOUR-CONTAINER-Name 重启整个docker服务（非重启容器） ，可解决容器运行久后，长期占用内存而不释放的问题。
+1 systemctl restart docker 修改容器重启策略， portainer面板中可以修改
+1 docker update --restart=on-failure:3 abebf7571666 hopeful_morse 更多请参考 http://honshen.xyz/2021/02/02/Docker/%E7%AC%AC2%E7%AB%A0-Docker%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E9%9B%86/]]></description>
+</item>
+<item>
+    <title>Docker搭建VSCODE-Server</title>
+    <link>http://example.org/docker%E6%90%AD%E5%BB%BAvscode-server/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/docker%E6%90%AD%E5%BB%BAvscode-server/</guid>
+    <description><![CDATA[宿主机环境装备 先在宿主机建立用户数据目录
+1 mkdir /userdatas/mycode 给上面目录授权（否则将会出现docker挂载该目录时拒绝访问的错误）
+1 chmod 777 /userdatas/mycode 启动vscode-server容器 1 2 3 4 5 docker run -it -d \ --restart=always \ --name code-server -p 6688:8080 \ -v &#34;/userdatas/mycode:/home/coder&#34; \ codercom/code-server:latest 登录密码的修改 进入宿主机/userdatas/mycode/.config/code-server目录，其中config.yaml中password后面的值就是密码。
+修改密码也是在此文件。 修改密码后，需要重启容器docker restart code-server才能生效。
+访问xxx.xx:6688即可享用vscode WebIDE
+Python开发环境打磨 安装pip管理包 vscode服务端（即docker容器）是基于debian系统，未安装pip，需要进入容器中进行安装，进入容器的方法有两种。
+一、WebIDE界面进入 登录WebIDE后，在WebIDE的终端中进行。
+1 2 sudo apt update sudo apt install python3-pip 二、在宿主机中进入 宿主机运行以下命令进入容器
+1 docker exec -it code-server /bin/bash 然后执行 一、WebIDE界面安装 步骤中的代码。
+配置远程调试运行环境 在WebIDE左侧的插件商店中安装python插件 重启容器docker restart code-server 然后再次进入WebIDE,进入左侧的运行和调试，点击创建 launch.]]></description>
+</item>
+</channel>
+</rss>
