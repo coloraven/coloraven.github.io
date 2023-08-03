@@ -1,0 +1,30 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>esxi - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/esxi/</link>
+        <description>esxi - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="http://example.org/tags/esxi/" rel="self" type="application/rss+xml" /><item>
+    <title>ESXI-打开端口</title>
+    <link>http://example.org/esxi-%E6%89%93%E5%BC%80%E7%AB%AF%E5%8F%A3/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/esxi-%E6%89%93%E5%BC%80%E7%AB%AF%E5%8F%A3/</guid>
+    <description><![CDATA[参考：https://blog.51cto.com/68240021/1970732 VMWare esxi中打开端口的实现
+步骤1. 新增ESXi主机的firewall配置文件
+在ESXi主机的/etc/vmware/firewall目录下增加name.xml的防火墙配置文件，内容格式如下：
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 &lt;!-- FirewallRule for yourname--&gt; #yourname将会是在shell中显示的名称 &lt;ConfigRoot&gt; &lt;service&gt; &lt;id&gt;yourname&lt;/id&gt; &lt;rule id = &#39;0000&#39;&gt; &lt;direction&gt;inbound&lt;/direction&gt; &lt;protocol&gt;tcp&lt;/protocol&gt; &lt;porttype&gt;dst&lt;/porttype&gt; &lt;port&gt; &lt;begin&gt;1280&lt;/begin&gt; #端口 &lt;end&gt;1280&lt;/end&gt; #端口 &lt;/port&gt; &lt;/rule&gt; &lt;enabled&gt;true&lt;/enabled&gt; &lt;required&gt;false&lt;/required&gt; &lt;/service&gt; &lt;/ConfigRoot&gt; 步骤2. 刷新防火墙规则
+1 esxcli network firewall refresh 检查规则是否生效：
+1 esxcli network firewall ruleset list | grep yourname 结果看到提示yourname ,状态true即开启，说明成功：
+yourname true]]></description>
+</item>
+<item>
+    <title>ESXI安装KoolShare软路由并安装魔法插件</title>
+    <link>http://example.org/esxi%E5%AE%89%E8%A3%85koolshare%E8%BD%AF%E8%B7%AF%E7%94%B1%E5%B9%B6%E5%AE%89%E8%A3%85%E9%AD%94%E6%B3%95%E6%8F%92%E4%BB%B6/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/esxi%E5%AE%89%E8%A3%85koolshare%E8%BD%AF%E8%B7%AF%E7%94%B1%E5%B9%B6%E5%AE%89%E8%A3%85%E9%AD%94%E6%B3%95%E6%8F%92%E4%BB%B6/</guid>
+    <description><![CDATA[固件下载地址： https://firmware.koolshare.cn/LEDE_X64_fw867/ 转盘~ 安装完毕后。 SSH连接输入以下命令，不然无法安装魔法插件：
+1 sed -i &#39;s/\tdetect_package/\t# detect_package/g&#39; /koolshare/scripts/ks_tar_install.sh 魔法插件下载地址 https://github.com/hq450/fancyss_history_package/tree/master/fancyss_X64]]></description>
+</item>
+</channel>
+</rss>

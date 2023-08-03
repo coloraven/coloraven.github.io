@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Step.3 界面显示 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Step.3 界面显示" />
+<meta property="og:description" content=":::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 :::
+首页置顶文章 在文章的Front Matter设置sticky: true，则该文章将显示在首页最上方的置顶文章列。 多篇文章按照发布时间倒序排列，不分页。
+1 2 3 4 --- title: 置顶文章 sticky: true --- 首页精选分类 想要在首页显示分类翻转块，需要按照以下示例的方式，给需要显示的分类加上封面图。
+首先，修改站点配置： 找到category_map:，配置每个分类对应的英文映射，比如：
+1 2 3 4 5 6 7 8 category_map: 计算机科学: computer-science Java: java C&#43;&#43;: cpp 二进制杂谈: note 计算机程序设计（C&#43;&#43;）-西安交通大学: course-1 零基础学Java语言-浙江大学-翁恺: course-1 面向对象程序设计-Java语言-浙江大学-翁恺: course-2 注意：hexo会自动处理路径中的特殊字符，~`!@#$%^&amp;*()-_&#43;=[]{}|\;:&quot;&rsquo;&lt;&gt;,.?以及空格，这些全部会被替换成- 所以避免在设置中使用上述字符，否则可导致无法抓取到目录下的cover.jpg
+在&lt;root&gt;/source/_posts文件夹相应的目录里，存放封面图 例子：如 第1周 计算 这篇文章。 所处的分类是
+1 2 categories: - [计算机科学, Java, 零基础学Java语言-浙江大学-翁恺] 现在需要在首页显示零基础学Java语言-浙江大学-翁恺这个分类，翻转卡片后，显示这个分类下的文章们。 而该分类经过英文映射，它的路径将是/computer-science/java/course-1/。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/display/" /><meta property="article:section" content="posts" />
+
+<meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Step.3 界面显示"/>
+<meta name="twitter:description" content=":::primary 🚀快速开始 - 💌依赖插件 - 📌基本配置 - 🌈界面显示 - 🦄特殊功能 :::
+首页置顶文章 在文章的Front Matter设置sticky: true，则该文章将显示在首页最上方的置顶文章列。 多篇文章按照发布时间倒序排列，不分页。
+1 2 3 4 --- title: 置顶文章 sticky: true --- 首页精选分类 想要在首页显示分类翻转块，需要按照以下示例的方式，给需要显示的分类加上封面图。
+首先，修改站点配置： 找到category_map:，配置每个分类对应的英文映射，比如：
+1 2 3 4 5 6 7 8 category_map: 计算机科学: computer-science Java: java C&#43;&#43;: cpp 二进制杂谈: note 计算机程序设计（C&#43;&#43;）-西安交通大学: course-1 零基础学Java语言-浙江大学-翁恺: course-1 面向对象程序设计-Java语言-浙江大学-翁恺: course-2 注意：hexo会自动处理路径中的特殊字符，~`!@#$%^&amp;*()-_&#43;=[]{}|\;:&quot;&rsquo;&lt;&gt;,.?以及空格，这些全部会被替换成- 所以避免在设置中使用上述字符，否则可导致无法抓取到目录下的cover.jpg
+在&lt;root&gt;/source/_posts文件夹相应的目录里，存放封面图 例子：如 第1周 计算 这篇文章。 所处的分类是
+1 2 categories: - [计算机科学, Java, 零基础学Java语言-浙江大学-翁恺] 现在需要在首页显示零基础学Java语言-浙江大学-翁恺这个分类，翻转卡片后，显示这个分类下的文章们。 而该分类经过英文映射，它的路径将是/computer-science/java/course-1/。"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/display/" /><link rel="prev" href="http://example.org/special/" /><link rel="next" href="http://example.org/config/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Step.3 界面显示",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/display\/"
+        },"genre": "posts","keywords": "Hexo, 教程","wordcount":  240 ,
+        "url": "http:\/\/example.org\/display\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Step.3 界面显示</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/theme-shoka-documentation/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Theme Shoka Documentation</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;240 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#图案列表no1">图案列表No.1</a></li>
+    <li><a href="#图案列表no2">图案列表No.2</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>:::primary
+<a href="/computer-science/note/theme-shoka-doc/" rel="">🚀快速开始</a> - <a href="/computer-science/note/theme-shoka-doc/dependents/" rel="">💌依赖插件</a> - <a href="/computer-science/note/theme-shoka-doc/config/" rel="">📌基本配置</a> - <a href="/computer-science/note/theme-shoka-doc/display/" rel=""><strong>🌈界面显示</strong></a> - <a href="/computer-science/note/theme-shoka-doc/special/" rel="">🦄特殊功能</a>
+:::</p>
+<h1 id="首页置顶文章">首页置顶文章</h1>
+<p>在文章的Front Matter设置<code>sticky: true</code>，则该文章将显示在首页最上方的<code>置顶文章</code>列。
+多篇文章按照发布时间倒序排列，不分页。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">title: 置顶文章
+</span></span><span class="line"><span class="cl">sticky: true
+</span></span><span class="line"><span class="cl">---
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="首页精选分类">首页精选分类</h1>
+<p>想要在首页显示分类翻转块，需要按照以下示例的方式，给需要显示的分类加上封面图。</p>
+<ol>
+<li>
+<p>首先，修改站点配置：
+找到<code>category_map:</code>，配置每个分类对应的英文映射，比如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">category_map</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">计算机科学</span><span class="p">:</span><span class="w"> </span><span class="l">computer-science</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">Java</span><span class="p">:</span><span class="w"> </span><span class="l">java</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">C++</span><span class="p">:</span><span class="w"> </span><span class="l">cpp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">二进制杂谈</span><span class="p">:</span><span class="w"> </span><span class="l">note</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">计算机程序设计（C++）-西安交通大学</span><span class="p">:</span><span class="w"> </span><span class="l">course-1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">零基础学Java语言-浙江大学-翁恺</span><span class="p">:</span><span class="w"> </span><span class="l">course-1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">面向对象程序设计-Java语言-浙江大学-翁恺</span><span class="p">:</span><span class="w"> </span><span class="l">course-2</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>注意：hexo会自动处理路径中的特殊字符，~`!@#$%^&amp;*()-_+=[]{}|\;:&quot;&rsquo;&lt;&gt;,.?以及空格，这些全部会被替换成<code>-</code>
+所以避免在设置中使用上述字符，否则可导致无法抓取到目录下的<code>cover.jpg</code></p>
+</blockquote>
+</li>
+<li>
+<p>在<code>&lt;root&gt;/source/_posts</code>文件夹相应的目录里，存放封面图
+例子：如 <a href="https://shoka.lostyu.me/computer-science/java/course-1/week-1/" target="_blank" rel="noopener noreffer ">第1周 计算</a> 这篇文章。
+所处的分类是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">categories</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="p">[</span><span class="l">计算机科学, Java, 零基础学Java语言-浙江大学-翁恺]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>现在需要在首页显示<code>零基础学Java语言-浙江大学-翁恺</code>这个分类，翻转卡片后，显示这个分类下的文章们。
+而该分类经过英文映射，它的路径将是<code>/computer-science/java/course-1/</code>。</p>
+<p>那么，请在<code>&lt;root&gt;/source/_posts/computer-science/java/course-1/</code>的目录下放置<code>cover.jpg</code>文件。
+只要<code>分类路径</code>对应的目录下<strong>存在</strong><code>cover.jpg</code>文件，这个分类就会在首页显示。
+在进行<code>hexo g</code>时，本分类的封面图会自动被复制到public目录里相应的位置。</p>
+</li>
+<li>
+<p>事实上，为了方便文章管理，这个分类下所有文章的md文件，我都会放在<code>&lt;root&gt;/source/_posts/computer-science/java/course-1/</code>这个目录下。</p>
+<p>且站点配置文件里，永久链接设置如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">permalink</span><span class="p">:</span><span class="w"> </span><span class="p">:</span><span class="l">title/</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>hexo g</code>后，文章的html文件们将全部生成到<code>&lt;root&gt;/public/computer-science/java/course-1/</code>目录。
+具体可以查看<a href="https://github.com/amehime/shoka" target="_blank" rel="noopener noreffer ">本博客的github仓库</a>。</p>
+</li>
+<li>
+<p>文章详情界面中的<code>系列文章</code>，显示的是与当前文章同一分类的其他文章，并按照文章名正序排序。</p>
+</li>
+</ol>
+<blockquote>
+<p>o(*￣▽￣*)ゞ
+其实，不设置<code>category_map</code>也可以，只要在分类路径对应的文件夹下存在<code>cover.jpg</code>文件就行。
+现在，这项功能与<code>category_dir</code>的配置也无关，<code>hexo g</code>生成后，图片会自动被转移到<code>category_dir</code>的相关子目录下。</p>
+</blockquote>
+<h1 id="文章封面图">文章封面图</h1>
+<ul>
+<li>
+<p>如果文章的Front Matter设置了<code>cover: image path</code>，则封面会显示这张图片。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">Images</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">cover</span><span class="p">:</span><span class="w"> </span><span class="l">assets/wallpaper-2572384.jpg</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 或者写成</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">cover</span><span class="p">:</span><span class="w"> </span><span class="l">http://placehold.it/350x150.jpg</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里<code>cover</code>的值可以是位于<code>source</code>目录里的图片文件，此处是<code>&lt;root&gt;/source/assets/wallpaper-2572384.jpg</code>文件，也可以是一个某网址。</p>
+</li>
+<li>
+<p>如果文章是一个<code>gallery post</code>，即Front Matter设置了<code>photos</code>，则会封面会显示设置的第一张图片。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">Gallery Post</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">photos</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="l">assets/wallpaper-2572384.jpg</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="l">assets/wallpaper-2311325.jpg</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="l">assets/wallpaper-878514.jpg</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="l">http://placehold.it/350x150.jpg</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时默认会显示第一个图片，即位于<code>&lt;root&gt;/source/assets/</code>目录里的<code>wallpaper-2572384.jpg</code>。</p>
+</li>
+<li>
+<p>如果站点配置中设置了<code>post_asset_folder: true</code>，那么上述本地图片路径应为<code>&lt;root&gt;/source/_posts/文章同名的文件夹/assets/wallpaper-2572384.jpg</code>，当然此时<code>assets</code>目录可以省掉。</p>
+</li>
+<li>
+<p>如果以上设置均不存在，将显示一张随机图片，<a href="../config/#%e9%9a%8f%e6%9c%ba%e5%9b%be%e5%ba%93" rel="">随机图库配置戳此</a>。</p>
+</li>
+</ul>
+<h1 id="图片展示与相册">图片展示与相册</h1>
+<p>在文章的Front Matter设置<code>fancybox: false</code>，可以关闭文章页的图片展示功能。
+使用<a href="http://miromannino.github.io/Justified-Gallery/" target="_blank" rel="noopener noreffer ">Justified-Gallery</a>对Gallery Post内图案进行排列。</p>
+<p>下面介绍一些小技巧：</p>
+<ol>
+<li>让图案下方显示<code>title</code>的markdown代码</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">![这里是alt](https://tva3.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg &#34;这里是title&#34;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><figure><a class="lightgallery" href="https://tva3.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg" title="这里是alt" data-thumbnail="https://tva3.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg" data-sub-html="<h2>这里是title</h2><p>这里是alt</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://tva3.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg"
+            data-srcset="https://tva3.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg, https://tva3.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg 1.5x, https://tva3.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg 2x"
+            data-sizes="auto"
+            alt="https://tva3.sinaimg.cn/large/6833939bly1gicis081o9j20zk0m8dmr.jpg" />
+    </a><figcaption class="image-caption">这里是title</figcaption>
+    </figure></p>
+<ol start="2">
+<li>除了在Front Matter里配置<code>photos</code>可以显示相册图案列表外，还可以这样写</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">## 图案列表No.1
+</span></span><span class="line"><span class="cl">![](https://tva3.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg &#34;这里是title&#34;)
+</span></span><span class="line"><span class="cl">![](https://tva3.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg)
+</span></span><span class="line"><span class="cl">![](https://tva3.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg)
+</span></span><span class="line"><span class="cl">![](https://tva3.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg)
+</span></span><span class="line"><span class="cl">{.gallery}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">## 图案列表No.2
+</span></span><span class="line"><span class="cl">![](https://tva3.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg)
+</span></span><span class="line"><span class="cl">![](https://tva3.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg)
+</span></span><span class="line"><span class="cl">![](https://tva3.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg)
+</span></span><span class="line"><span class="cl">![](https://tva3.sinaimg.cn/large/6833939bly1gipetfk5zwj20zk0m8e81.jpg)
+</span></span><span class="line"><span class="cl">{.gallery data-height=&#34;220&#34;}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>data-height</code>用来设置每行的高度，默认为<code>120</code></p>
+<h2 id="图案列表no1">图案列表No.1</h2>
+<p><figure><a class="lightgallery" href="https://tva3.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg" title="https://tva3.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg" data-thumbnail="https://tva3.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg" data-sub-html="<h2>这里是title</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://tva3.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg"
+            data-srcset="https://tva3.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg, https://tva3.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg 1.5x, https://tva3.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg 2x"
+            data-sizes="auto"
+            alt="https://tva3.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg" />
+    </a><figcaption class="image-caption">这里是title</figcaption>
+    </figure>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tva3.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg"
+        data-srcset="https://tva3.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg, https://tva3.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg 1.5x, https://tva3.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg 2x"
+        data-sizes="auto"
+        alt="https://tva3.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg"
+        title="https://tva3.sinaimg.cn/large/6833939bly1giclflwv2aj20zk0m84qp.jpg" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tva3.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"
+        data-srcset="https://tva3.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg, https://tva3.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg 1.5x, https://tva3.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg 2x"
+        data-sizes="auto"
+        alt="https://tva3.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg"
+        title="https://tva3.sinaimg.cn/large/6833939bly1giclg5ms2rj20zk0m8u0x.jpg" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tva3.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg"
+        data-srcset="https://tva3.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg, https://tva3.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg 1.5x, https://tva3.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg 2x"
+        data-sizes="auto"
+        alt="https://tva3.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg"
+        title="https://tva3.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg" />
+{.gallery}</p>
+<h2 id="图案列表no2">图案列表No.2</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tva3.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"
+        data-srcset="https://tva3.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg, https://tva3.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg 1.5x, https://tva3.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg 2x"
+        data-sizes="auto"
+        alt="https://tva3.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"
+        title="https://tva3.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tva3.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg"
+        data-srcset="https://tva3.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg, https://tva3.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg 1.5x, https://tva3.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg 2x"
+        data-sizes="auto"
+        alt="https://tva3.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg"
+        title="https://tva3.sinaimg.cn/large/6833939bly1giclil3m4ej20zk0m8tn8.jpg" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tva3.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg"
+        data-srcset="https://tva3.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg, https://tva3.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg 1.5x, https://tva3.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg 2x"
+        data-sizes="auto"
+        alt="https://tva3.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg"
+        title="https://tva3.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tva3.sinaimg.cn/large/6833939bly1gipetfk5zwj20zk0m8e81.jpg"
+        data-srcset="https://tva3.sinaimg.cn/large/6833939bly1gipetfk5zwj20zk0m8e81.jpg, https://tva3.sinaimg.cn/large/6833939bly1gipetfk5zwj20zk0m8e81.jpg 1.5x, https://tva3.sinaimg.cn/large/6833939bly1gipetfk5zwj20zk0m8e81.jpg 2x"
+        data-sizes="auto"
+        alt="https://tva3.sinaimg.cn/large/6833939bly1gipetfk5zwj20zk0m8e81.jpg"
+        title="https://tva3.sinaimg.cn/large/6833939bly1gipetfk5zwj20zk0m8e81.jpg" />
+{.gallery data-height=&ldquo;220&rdquo;}</p>
+<h1 id="自定义页面配色">自定义页面配色</h1>
+<p>主题配色全部在<code>&lt;root&gt;/themes/shoka/source/css/_colors.styl</code>文件中，可以自行查看。</p>
+<p>在<code>&lt;root&gt;/source/_data/</code>目录新建文件<code>colors.styl</code>，在此文件中添改样式。</p>
+<blockquote>
+<p>自定义<code>colors.styl</code>文件将覆盖主题默认样式，为了避免出错，请保证原有样式名均存在，在原有样式基础上进行增删改。</p>
+</blockquote>
+<p>主题支持在<code>&lt;root&gt;/source/_data/</code>目录建立三个自定义<code>styl</code>文件：</p>
+<table>
+<thead>
+<tr>
+<th>自定义文件名</th>
+<th>对应默认样式文件</th>
+<th>样式功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>colors.styl</code></td>
+<td><code>_colors.styl</code></td>
+<td>页面配色</td>
+</tr>
+<tr>
+<td><code>iconfont.styl</code></td>
+<td><code>_iconfont.styl</code></td>
+<td><a href="../config/#iconfont%e5%9b%be%e6%a0%87" rel="">图标样式</a></td>
+</tr>
+<tr>
+<td><code>custom.styl</code></td>
+<td>-</td>
+<td>任意自定义样式</td>
+</tr>
+</tbody>
+</table>
+<h1 id="自定义主题图片">自定义主题图片</h1>
+<p>如果想要修改主题的<code>&lt;root&gt;/themes/shoka/source/images/</code>目录内的某张图片，请在<code>&lt;root&gt;/source/_data/</code>目录新建目录<code>images</code>，并在这个文件夹中添加++同名++文件，部署时将自动覆盖主题内的默认图片。</p>
+<p>可以用此方法自定义头像、打赏二维码等图片，并且避免覆盖更新主题时遗失自定义文件。</p>
+<h1 id="自定义语言包">自定义语言包</h1>
+<p>本功能参考NexT，主要可以用来定义菜单等处显示的文字，且可以方便主题无脑覆盖升级。</p>
+<p>在<code>&lt;root&gt;/source/_data/</code>目录新建文件<code>languages.yml</code>。</p>
+<p>按照以下格式添加配置项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c"># language</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">zh-CN</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># items</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">post</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">copyright</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># the translation you perfer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="l">本文博主</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">en</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">menu</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">travellings</span><span class="p">:</span><span class="w"> </span><span class="l">Travellings</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以参考主题目录下的<code>example/source/_data</code>文件夹。</p>
+<blockquote>
+<p>站点配置及文件的Front Matter中，<code>language</code>项只支持<code>zh-CN</code>、<code>zh-HK</code>、<code>zh-TW</code>、<code>ja</code>、<code>en</code>。
+类似写成<code>zh_CN</code>这样是不可以的。</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 0001-01-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/display/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/display/" data-title="Step.3 界面显示" data-hashtags="Hexo,教程"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/display/" data-hashtag="Hexo"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/display/" data-title="Step.3 界面显示"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/display/" data-title="Step.3 界面显示"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/display/" data-title="Step.3 界面显示"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/hexo/">Hexo</a>,&nbsp;<a href="/tags/%E6%95%99%E7%A8%8B/">教程</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/special/" class="prev" rel="prev" title="Step.4 主题特殊功能"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Step.4 主题特殊功能</a>
+            <a href="/config/" class="next" rel="next" title="Step.2 基本配置">Step.2 基本配置<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.116.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

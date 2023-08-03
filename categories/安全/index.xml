@@ -1,0 +1,64 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>安全 - Category - 我的全新 Hugo 网站</title>
+        <link>http://example.org/categories/%E5%AE%89%E5%85%A8/</link>
+        <description>安全 - Category - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</lastBuildDate><atom:link href="http://example.org/categories/%E5%AE%89%E5%85%A8/" rel="self" type="application/rss+xml" /><item>
+    <title>搭建验证码识别服务并与BurpSuite联动</title>
+    <link>http://example.org/%E6%90%AD%E5%BB%BA%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E6%9C%8D%E5%8A%A1%E5%B9%B6%E4%B8%8Eburpsuite%E8%81%94%E5%8A%A8/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E6%90%AD%E5%BB%BA%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E6%9C%8D%E5%8A%A1%E5%B9%B6%E4%B8%8Eburpsuite%E8%81%94%E5%8A%A8/</guid>
+    <description><![CDATA[出处 https://www.ddosi.com/xp_captcha/ https://github.com/smxiazi/NEW_xp_CAPTCHA
+xp_CAPTCHA白嫖版白嫖版 说明 xp_CAPTCHA 白嫖版白嫖版
+验证码识别 burp插件 安装 需要python3 小于3.7的版本
+安装 muggle_ocr 模块（大概400M左右） 1 python3 -m pip install -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com muggle-ocr 运行 server.py 见文末
+等待显示出 Starting server, listen at: 0.0.0.0:8899 访问 http://127.0.0.1:8899/ 显示下面界面即为正常。
+linux 下安装可能会需要
+安装即可
+1 yum install libglvnd-glx-1.0.1-0.8.git5baa1e5.el7.x86_64 验证码识别率 使用方法 把图片base64编码后POST发送至接口http://localhost:8899/base64 的base64参数即可，返回结果为识别的后的结果。
+burp联动识别验证码爆破 如果 server.py 在服务器上跑的话，xp_CAPTCHA.py需要修改对应的IP。
+修改完后导入burp
+Attack type处选择 Pitchfork,在http头部位置插入xiapao:验证码的URL地址
+此处导入字典
+选择验证码识别
+然后把线程设置为1
+源码 server.py 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 #!]]></description>
+</item>
+<item>
+    <title>AWVS扫描器的部署</title>
+    <link>http://example.org/awvs%E6%89%AB%E6%8F%8F%E5%99%A8%E7%9A%84%E9%83%A8%E7%BD%B2/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/awvs%E6%89%AB%E6%8F%8F%E5%99%A8%E7%9A%84%E9%83%A8%E7%BD%B2/</guid>
+    <description><![CDATA[[AWVS14 Docker](https://blog.zygd.site/go.html?u=https://blog.zygd.site/AWVS14 Docker.html) 注：如认为本破解补丁存在某些后门或转载删版权者，请勿使用！
+由于传播、利用此文所提供的信息而造成的任何直接或者间接的后果及损失，均由使用者本人负责，文章作者不为此承担任何责任。
+XRSec 拥有对此文章的修改和解释权如欲转载或传播此文章，必须保证此文章的完整性，包括版权声明等全部内容。未经作者允许，不得任意修改或者增减此文章内容，不得以任何方式将其用于商业目的
+INFO Version 14 build 14.3.210628104 for Windows, Linux and macOS – 28th June 2021
+Updates Target Knowledgebase will be reset when Target Settings are changed Updated SSL/TLS Certificate expiry threshold notification from 30 days to 60 days Fixes Fixed: OWASP compliance report template to not be available in some Editions Fixed: Some scripts where not observing Excluded paths configured in Target settings 1 2 3 ip:3443 awvs@awvs.]]></description>
+</item>
+<item>
+    <title>部署巡风[xunfeng]</title>
+    <link>http://example.org/%E9%83%A8%E7%BD%B2%E5%B7%A1%E9%A3%8Exunfeng/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E9%83%A8%E7%BD%B2%E5%B7%A1%E9%A3%8Exunfeng/</guid>
+    <description><![CDATA[https://github.com/ysrc/xunfeng/blob/master/docs/install/Docker.md
+dokcer容器实验摸索结果：
+/opt/xunfeng目录下含配置文件，其中Config.py定义web前端的登录账号密码及数据库端口、账号密码，内容如下 1 2 3 4 5 6 7 8 9 10 class Config(object): ACCOUNT = &#39;admin&#39; PASSWORD = &#39;xunfeng321&#39; class ProductionConfig(Config): DB = &#39;127.0.0.1&#39; PORT = 65521 DBUSERNAME = &#39;scan&#39; DBPASSWORD = &#39;scanlol66&#39; DBNAME = &#39;xunfeng&#39; /data用于存放MongoDB数据库文件，扫描历史结果、POC漏洞插件设置情况等等都在此。 为了持久化扫描结果数据，建议将/data目录映射到宿主机
+故启动参数如下：
+1 2 3 4 5 docker run -d --name=xunfeng \ -p 8118:80 \ -p 2717:65521 \ -v /userdatas/Sandisk/xunfeng:/data \ ysrc/xunfeng:latest ]]></description>
+</item>
+<item>
+    <title>验证码识别服务安装过程</title>
+    <link>http://example.org/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B/</guid>
+    <description><![CDATA[1、按官方步骤安装muggle-ocr
+1 python3 -m pip install -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com muggle-ocr 2、安装相应依赖库
+1 apt update &amp;&amp; apt install libgl1-mesa-glx 3、降低tf版本
+1 pip install --upgrade tensor ]]></description>
+</item>
+</channel>
+</rss>

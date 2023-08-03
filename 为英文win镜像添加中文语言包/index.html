@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>为英文WIN镜像添加中文语言包 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="为英文WIN镜像添加中文语言包" />
+<meta property="og:description" content="问: 已有精简版的windows镜像，镜像中不含简体中文语言包，我要怎么样将中文语言包添加进去，再封装成ISO
+ChatGPT 为了将简体中文语言包添加到精简版的Windows镜像中，并将其重新封装为ISO文件，请按照以下步骤操作：
+准备工具和文件： a. 下载 Windows ADK（Windows Assessment and Deployment Kit）工具包，它包含用于自定义和部署Windows映像的工具。下载地址：https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
+b. 下载简体中文语言包（请注意，选择与镜像相匹配的Windows版本）。语言包可以从以下链接下载：https://www.microsoft.com/en-us/language
+c. 准备一个精简版的Windows镜像。 2. 安装Windows ADK并选择Deployment Tools组件进行安装。 3. 以管理员身份运行“部署和映像工具环境”。 4. 将Windows镜像文件（install.wim）从原始ISO文件中提取出来。如果已有精简版的镜像文件，请跳过此步骤。 5. 创建一个新的文件夹，用于存放提取出的Windows映像文件和语言包文件。 6. 使用DISM（Deployment Image Servicing and Management）工具将Windows映像挂载到新创建的文件夹中：
+1 dism /Mount-Image /ImageFile:&#34;&lt;WIM文件路径&gt;\install.wim&#34; /Index:1 /MountDir:&#34;&lt;挂载目录路径&gt;&#34; 请将&lt;WIM文件路径&gt;替换为实际的WIM文件路径，将&lt;挂载目录路径&gt;替换为实际的挂载目录路径。 7. 将简体中文语言包添加到挂载的Windows映像中：
+1 dism /Image:&#34;&lt;挂载目录路径&gt;&#34; /Add-Package /PackagePath:&#34;&lt;语言包文件路径&gt;&#34; 请将&lt;挂载目录路径&gt;替换为实际的挂载目录路径，将&lt;语言包文件路径&gt;替换为实际的简体中文语言包文件路径。 8. 等待操作完成后，卸载Windows映像并提交更改：
+1 dism /Unmount-Image /MountDir:&#34;&lt;挂载目录路径&gt;&#34; /Commit 请将&lt;挂载目录路径&gt;替换为实际的挂载目录路径。 9. 用新生成的install.wim文件替换原始ISO中的install.wim文件。可以使用任何支持编辑ISO文件的工具，例如PowerISO、UltraISO等。 10. 保存修改后的ISO文件。
+现在你已经成功地将简体中文语言包添加到了精简版的Windows镜像中，并重新封装成了ISO文件。在安装时，可以选择简体中文作为系统语言。
+问: 完成以上步骤，系统默认设置是不是中文语言，默认“当前系统区域设置”是不是中文
+ChatGPT 完成以上步骤后，虽然已经将简体中文语言包添加到了Windows镜像中，但系统默认设置和“当前系统区域设置”仍然可能不是中文。要将默认设置更改为中文，您需要在安装过程中进行设置，或在系统安装完成后手动更改。
+如果您希望在安装过程中将默认设置更改为中文，可以创建一个自动应答文件（autounattend.xml），并将其放置在安装媒体（如U盘、ISO文件）的根目录中。以下是一个简化的autounattend.xml示例，用于设置系统默认语言为简体中文：
+1 2 3 4 5 6 7 8 9 10 11 &lt;?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-17T17:37:10+00:00" />
+<meta property="article:modified_time" content="2023-03-17T17:37:10+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="为英文WIN镜像添加中文语言包"/>
+<meta name="twitter:description" content="问: 已有精简版的windows镜像，镜像中不含简体中文语言包，我要怎么样将中文语言包添加进去，再封装成ISO
+ChatGPT 为了将简体中文语言包添加到精简版的Windows镜像中，并将其重新封装为ISO文件，请按照以下步骤操作：
+准备工具和文件： a. 下载 Windows ADK（Windows Assessment and Deployment Kit）工具包，它包含用于自定义和部署Windows映像的工具。下载地址：https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install
+b. 下载简体中文语言包（请注意，选择与镜像相匹配的Windows版本）。语言包可以从以下链接下载：https://www.microsoft.com/en-us/language
+c. 准备一个精简版的Windows镜像。 2. 安装Windows ADK并选择Deployment Tools组件进行安装。 3. 以管理员身份运行“部署和映像工具环境”。 4. 将Windows镜像文件（install.wim）从原始ISO文件中提取出来。如果已有精简版的镜像文件，请跳过此步骤。 5. 创建一个新的文件夹，用于存放提取出的Windows映像文件和语言包文件。 6. 使用DISM（Deployment Image Servicing and Management）工具将Windows映像挂载到新创建的文件夹中：
+1 dism /Mount-Image /ImageFile:&#34;&lt;WIM文件路径&gt;\install.wim&#34; /Index:1 /MountDir:&#34;&lt;挂载目录路径&gt;&#34; 请将&lt;WIM文件路径&gt;替换为实际的WIM文件路径，将&lt;挂载目录路径&gt;替换为实际的挂载目录路径。 7. 将简体中文语言包添加到挂载的Windows映像中：
+1 dism /Image:&#34;&lt;挂载目录路径&gt;&#34; /Add-Package /PackagePath:&#34;&lt;语言包文件路径&gt;&#34; 请将&lt;挂载目录路径&gt;替换为实际的挂载目录路径，将&lt;语言包文件路径&gt;替换为实际的简体中文语言包文件路径。 8. 等待操作完成后，卸载Windows映像并提交更改：
+1 dism /Unmount-Image /MountDir:&#34;&lt;挂载目录路径&gt;&#34; /Commit 请将&lt;挂载目录路径&gt;替换为实际的挂载目录路径。 9. 用新生成的install.wim文件替换原始ISO中的install.wim文件。可以使用任何支持编辑ISO文件的工具，例如PowerISO、UltraISO等。 10. 保存修改后的ISO文件。
+现在你已经成功地将简体中文语言包添加到了精简版的Windows镜像中，并重新封装成了ISO文件。在安装时，可以选择简体中文作为系统语言。
+问: 完成以上步骤，系统默认设置是不是中文语言，默认“当前系统区域设置”是不是中文
+ChatGPT 完成以上步骤后，虽然已经将简体中文语言包添加到了Windows镜像中，但系统默认设置和“当前系统区域设置”仍然可能不是中文。要将默认设置更改为中文，您需要在安装过程中进行设置，或在系统安装完成后手动更改。
+如果您希望在安装过程中将默认设置更改为中文，可以创建一个自动应答文件（autounattend.xml），并将其放置在安装媒体（如U盘、ISO文件）的根目录中。以下是一个简化的autounattend.xml示例，用于设置系统默认语言为简体中文：
+1 2 3 4 5 6 7 8 9 10 11 &lt;?"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" /><link rel="prev" href="http://example.org/windows%E4%B8%8B%E6%81%A2%E5%A4%8Dlinux%E6%A0%BC%E5%BC%8F%E7%A1%AC%E7%9B%98%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/" /><link rel="next" href="http://example.org/css-%E9%80%89%E6%8B%A9%E5%99%A8selector%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%95%E7%BD%91%E7%AB%99/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "为英文WIN镜像添加中文语言包",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85\/"
+        },"genre": "posts","wordcount":  204 ,
+        "url": "http:\/\/example.org\/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85\/","datePublished": "2023-03-17T17:37:10+00:00","dateModified": "2023-03-17T17:37:10+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">为英文WIN镜像添加中文语言包</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-17">2023-03-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;204 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><ul>
+<li>
+<p>问: 已有精简版的windows镜像，镜像中不含简体中文语言包，我要怎么样将中文语言包添加进去，再封装成ISO</p>
+</li>
+<li>
+<p>ChatGPT
+为了将简体中文语言包添加到精简版的Windows镜像中，并将其重新封装为ISO文件，请按照以下步骤操作：</p>
+</li>
+</ul>
+<ol>
+<li>准备工具和文件：</li>
+</ol>
+<p>a. 下载 Windows ADK（Windows Assessment and Deployment Kit）工具包，它包含用于自定义和部署Windows映像的工具。下载地址：<a href="https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install" target="_blank" rel="noopener noreffer ">https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install</a></p>
+<p>b. 下载简体中文语言包（请注意，选择与镜像相匹配的Windows版本）。语言包可以从以下链接下载：<a href="https://www.microsoft.com/en-us/language" target="_blank" rel="noopener noreffer ">https://www.microsoft.com/en-us/language</a></p>
+<p>c. 准备一个精简版的Windows镜像。
+2. 安装Windows ADK并选择Deployment Tools组件进行安装。
+3. 以管理员身份运行“部署和映像工具环境”。
+4. 将Windows镜像文件（install.wim）从原始ISO文件中提取出来。如果已有精简版的镜像文件，请跳过此步骤。
+5. 创建一个新的文件夹，用于存放提取出的Windows映像文件和语言包文件。
+6. 使用DISM（Deployment Image Servicing and Management）工具将Windows映像挂载到新创建的文件夹中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dism</span> <span class="o">/</span><span class="n">Mount</span><span class="o">-</span><span class="n">Image</span> <span class="o">/</span><span class="n">ImageFile</span><span class="p">:</span><span class="s2">&#34;&lt;WIM文件路径&gt;\install.wim&#34;</span> <span class="o">/</span><span class="n">Index</span><span class="p">:</span><span class="mi">1</span> <span class="o">/</span><span class="n">MountDir</span><span class="p">:</span><span class="s2">&#34;&lt;挂载目录路径&gt;&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>请将<code>&lt;WIM文件路径&gt;</code>替换为实际的WIM文件路径，将<code>&lt;挂载目录路径&gt;</code>替换为实际的挂载目录路径。
+7. 将简体中文语言包添加到挂载的Windows映像中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dism /Image:<span class="s2">&#34;&lt;挂载目录路径&gt;&#34;</span> /Add-Package /PackagePath:<span class="s2">&#34;&lt;语言包文件路径&gt;&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>请将<code>&lt;挂载目录路径&gt;</code>替换为实际的挂载目录路径，将<code>&lt;语言包文件路径&gt;</code>替换为实际的简体中文语言包文件路径。
+8. 等待操作完成后，卸载Windows映像并提交更改：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dism /Unmount-Image /MountDir:<span class="s2">&#34;&lt;挂载目录路径&gt;&#34;</span> /Commit
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>请将<code>&lt;挂载目录路径&gt;</code>替换为实际的挂载目录路径。
+9. 用新生成的install.wim文件替换原始ISO中的install.wim文件。可以使用任何支持编辑ISO文件的工具，例如PowerISO、UltraISO等。
+10. 保存修改后的ISO文件。</p>
+<p>现在你已经成功地将简体中文语言包添加到了精简版的Windows镜像中，并重新封装成了ISO文件。在安装时，可以选择简体中文作为系统语言。</p>
+<ul>
+<li>
+<p>问: 完成以上步骤，系统默认设置是不是中文语言，默认“当前系统区域设置”是不是中文</p>
+</li>
+<li>
+<p>ChatGPT
+完成以上步骤后，虽然已经将简体中文语言包添加到了Windows镜像中，但系统默认设置和“当前系统区域设置”仍然可能不是中文。要将默认设置更改为中文，您需要在安装过程中进行设置，或在系统安装完成后手动更改。</p>
+</li>
+</ul>
+<p>如果您希望在安装过程中将默认设置更改为中文，可以创建一个自动应答文件（autounattend.xml），并将其放置在安装媒体（如U盘、ISO文件）的根目录中。以下是一个简化的autounattend.xml示例，用于设置系统默认语言为简体中文：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;unattend</span> <span class="na">xmlns=</span><span class="s">&#34;urn:schemas-microsoft-com:unattend&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;settings</span> <span class="na">pass=</span><span class="s">&#34;oobeSystem&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;component</span> <span class="na">name=</span><span class="s">&#34;Microsoft-Windows-International-Core&#34;</span> <span class="na">processorArchitecture=</span><span class="s">&#34;amd64&#34;</span> <span class="na">publicKeyToken=</span><span class="s">&#34;31bf3856ad364e35&#34;</span> <span class="na">language=</span><span class="s">&#34;neutral&#34;</span> <span class="na">versionScope=</span><span class="s">&#34;nonSxS&#34;</span> <span class="na">xmlns:wcm=</span><span class="s">&#34;http://schemas.microsoft.com/WMIConfig/2002/State&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;InputLocale&gt;</span>zh-CN<span class="nt">&lt;/InputLocale&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;SystemLocale&gt;</span>zh-CN<span class="nt">&lt;/SystemLocale&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;UILanguage&gt;</span>zh-CN<span class="nt">&lt;/UILanguage&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;UserLocale&gt;</span>zh-CN<span class="nt">&lt;/UserLocale&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/component&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/settings&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/unattend&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个文件会在Windows安装过程中自动应用，将系统默认设置更改为简体中文。</p>
+<ul>
+<li>
+<p>问: 能不能在封装前设置好？</p>
+</li>
+<li>
+<p>ChatGPT
+在封装前设置好默认语言为简体中文，需要修改Windows镜像中的注册表。以下是在封装前将默认设置更改为中文的方法：</p>
+</li>
+</ul>
+<ol>
+<li>在完成添加简体中文语言包的步骤之后，但在卸载Windows映像并提交更改之前，请执行以下命令，将注册表加载到一个临时位置：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">reg load HKLM<span class="se">\T</span>empHive <span class="s2">&#34;&lt;挂载目录路径&gt;\Windows\System32\config\SYSTEM&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>请将<code>&lt;挂载目录路径&gt;</code>替换为实际的挂载目录路径。
+2. 使用以下命令更改默认输入法、系统语言、界面语言和用户区域设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">reg add <span class="s2">&#34;HKLM\TempHive\ControlSet001\Control\Nls\Language&#34;</span> /v InstallLanguage /t REG_SZ /d <span class="m">0804</span> /f
+</span></span><span class="line"><span class="cl">reg add <span class="s2">&#34;HKLM\TempHive\ControlSet001\Control\Nls\Locale&#34;</span> /v Default /t REG_SZ /d <span class="m">00000804</span> /f
+</span></span><span class="line"><span class="cl">reg add <span class="s2">&#34;HKLM\TempHive\ControlSet001\Control\Nls\Locale&#34;</span> /v InstallLanguage /t REG_SZ /d <span class="m">00000804</span> /f
+</span></span><span class="line"><span class="cl">reg add <span class="s2">&#34;HKLM\TempHive\ControlSet001\Control\Nls\Locale&#34;</span> /v SystemDefaultUILanguage /t REG_SZ /d <span class="m">0804</span> /f
+</span></span><span class="line"><span class="cl">reg add <span class="s2">&#34;HKLM\TempHive\ControlSet001\Control\Nls\Locale&#34;</span> /v SystemLocale /t REG_SZ /d <span class="m">00000804</span> /f
+</span></span><span class="line"><span class="cl">reg add <span class="s2">&#34;HKLM\TempHive\ControlSet001\Control\Nls\Locale&#34;</span> /v UserDefaultUILanguage /t REG_SZ /d <span class="m">0804</span> /f
+</span></span><span class="line"><span class="cl">reg add <span class="s2">&#34;HKLM\TempHive\ControlSet001\Control\Nls\Locale&#34;</span> /v UserLocale /t REG_SZ /d <span class="m">00000804</span> /f
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>卸载临时位置的注册表：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">reg unload HKLM<span class="se">\T</span>empHive
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>继续执行卸载Windows映像并提交更改的步骤：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">dism /Unmount-Image /MountDir:<span class="s2">&#34;&lt;挂载目录路径&gt;&#34;</span> /Commit
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>请将<code>&lt;挂载目录路径&gt;</code>替换为实际的挂载目录路径。
+5. 用新生成的install.wim文件替换原始ISO中的install.wim文件，然后保存修改后的ISO文件。</p>
+<p>完成这些步骤后，新生成的ISO文件将具有预先设置为简体中文的默认设置。在安装此镜像时，系统默认设置和“当前系统区域设置”将为简体中文。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-17</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" data-title="为英文WIN镜像添加中文语言包"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" data-title="为英文WIN镜像添加中文语言包"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" data-title="为英文WIN镜像添加中文语言包"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E4%B8%BA%E8%8B%B1%E6%96%87win%E9%95%9C%E5%83%8F%E6%B7%BB%E5%8A%A0%E4%B8%AD%E6%96%87%E8%AF%AD%E8%A8%80%E5%8C%85/" data-title="为英文WIN镜像添加中文语言包"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/windows%E4%B8%8B%E6%81%A2%E5%A4%8Dlinux%E6%A0%BC%E5%BC%8F%E7%A1%AC%E7%9B%98%E6%95%B0%E6%8D%AE%E8%AE%B0%E5%BD%95/" class="prev" rel="prev" title="Windows下恢复Linux格式硬盘数据记录"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Windows下恢复Linux格式硬盘数据记录</a>
+            <a href="/css-%E9%80%89%E6%8B%A9%E5%99%A8selector%E5%AD%A6%E4%B9%A0%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%9C%A8%E7%BA%BF%E6%B5%8B%E8%AF%95%E7%BD%91%E7%AB%99/" class="next" rel="next" title="CSS 选择器（Selector）学习及相关在线测试网站">CSS 选择器（Selector）学习及相关在线测试网站<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.116.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

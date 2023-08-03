@@ -1,0 +1,141 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Docker - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/docker/</link>
+        <description>Docker - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 06 Jul 2023 19:11:48 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/docker/" rel="self" type="application/rss+xml" /><item>
+    <title>修改Docker默认数据保存位置</title>
+    <link>http://example.org/%E4%BF%AE%E6%94%B9docker%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98%E4%BD%8D%E7%BD%AE/</link>
+    <pubDate>Thu, 06 Jul 2023 19:11:48 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E4%BF%AE%E6%94%B9docker%E9%BB%98%E8%AE%A4%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98%E4%BD%8D%E7%BD%AE/</guid>
+    <description><![CDATA[第一步 停止wsl
+1 wsl --shutdown 第二步 移动默认位置（C:\Users\xxxxx\AppData\Local\Docker\wsl\data）下的ext4.vhdx到新位置，这里我们移动到D:\Docker\data目录下。
+第三步 regedit打开注册表，定位到HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss 将其下的DistributionName为docker-desktop-data所在项对应的BasePath修改为新位置目录\\?\D:\Docker\data
+完成 重新打开Docker Desktop
+限制 wsl2 内存使用 这个解决方案来自 github，简单来说就是创建一个 %UserProfile%\.wslconfig 文件来限制 wsl 使用的内存总量。比如说我在 Windows 中使用的用户是 tinychen，那么我就在 C:\Users\tinychen 中创建了一个.wslconfig 文件，在里面加入以下内容来限制 wsl2 的内存总大小：
+1 2 3 4 5 [wsl2] memory=1GB swap=8GB swapFile=%USERPROFILE%\AppData\Local\Temp\swap.vhdx localhostForwarding=true 复制以下内容粘贴到cmd中一键解决，然后重新启动Docker Desktop
+1 2 3 4 5 6 wsl --shutdown echo [wsl2] &gt; %UserProfile%\.wslconfig echo memory=1GB &gt;&gt; %UserProfile%\.wslconfig echo swap=8GB &gt;&gt; %UserProfile%\.wslconfig echo swapFile=^%USERPROFILE^%\AppData\Local\Temp\swap.vhdx &gt;&gt; %UserProfile%\.wslconfig echo localhostForwarding=true &gt;&gt; %UserProfile%\.wslconfig 注意修改完成之后需要重启 wsl2 才能生效。更多详细的配置可以查看官方文档。]]></description>
+</item>
+<item>
+    <title>Docker容器搭建ELK AIO</title>
+    <link>http://example.org/docker%E5%AE%B9%E5%99%A8%E6%90%AD%E5%BB%BAelk-aio/</link>
+    <pubDate>Mon, 23 Jan 2023 10:20:21 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/docker%E5%AE%B9%E5%99%A8%E6%90%AD%E5%BB%BAelk-aio/</guid>
+    <description><![CDATA[镜像地址 https://hub.docker.com/r/sebp/elk
+参数说明 docker run -itd -p 5601:5601 -p 9200:9200 -p 5044:5044 --name=elk -e TZ=&quot;Asia/Shanghai&quot; sebp/elk
+TZ: 时区 (这里查看 可用时区参数), 例如 Asia/Shanghai、America/Los_Angeles (default is Etc/UTC, i.e. UTC).
+ES_HEAP_SIZE: Elasticsearch heap size，内存占用？ (default is 256MB min, 1G max)
+Specifying a heap size – e.g. 2g – will set both the min and max to the provided value. To set the min and max values separately, see the ES_JAVA_OPTS below.
+ES_JAVA_OPTS: additional Java options for Elasticsearch (default: &quot;&quot;)]]></description>
+</item>
+<item>
+    <title>Win下利用DockerDesktop打造Linux开发环境</title>
+    <link>http://example.org/win%E4%B8%8B%E5%88%A9%E7%94%A8dockerdesktop%E6%89%93%E9%80%A0linux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
+    <pubDate>Fri, 23 Dec 2022 15:09:19 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/win%E4%B8%8B%E5%88%A9%E7%94%A8dockerdesktop%E6%89%93%E9%80%A0linux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
+    <description><![CDATA[开发环境要求 基于Ubuntu或者Debian，系统源改为国内源， 系统时间为东八区 安装node、golang、python，源都改为国内源 使用ssh秘钥登录，方便vscode链接 生产目录映射到宿主机目录，防止工作数据丢失 暴露端口数至少40个，以满足折腾需求 解决中文乱码问题 符合要求的Dockerfile 参考此链接：https://blog.csdn.net/shykevin/article/details/105305322
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 FROM node:19-bullseye-slim # 修改更新源为阿里云 RUN sed -i &#34;s@http://\(deb\|security\).debian.org@http://mirrors.163.com@g&#34; /etc/apt/sources.list # ADD . / # 时区为上海 ENV TZ Asia/Shanghai # 设置时区,设置utf-8编码 RUN apt-get update &amp;&amp; apt-get install -y tzdata locales python3-pip cron openssh-server python3 curl wget git &amp;&amp; apt-get clean all &amp;&amp; \ ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &amp;&amp; echo $TZ &gt; /etc/timezone &amp;&amp; \ locale-gen en_US.]]></description>
+</item>
+<item>
+    <title>内网环境中使用Docker镜像</title>
+    <link>http://example.org/%E5%86%85%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BD%BF%E7%94%A8docker%E9%95%9C%E5%83%8F/</link>
+    <pubDate>Mon, 25 Apr 2022 20:02:47 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E5%86%85%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BD%BF%E7%94%A8docker%E9%95%9C%E5%83%8F/</guid>
+    <description><![CDATA[背景 内网环境（与互联网隔离）或者无网络的电脑上已经安装好docker demon，现在需要将互联网中的镜像拷贝到内网主机上运行。操作如下： 最关键的是，学会使用 docker 的 save 命令。
+你需要做的主要有 3 步骤： 1.先从一个有网络的电脑下载 docker 镜像 docker pull centos 2.保存镜像到本地文件 docker save -o centos_image.docker centos 3.把镜像拷贝到无网络的电脑，然后通过 docker 加载镜像即可。 docker load -i centos_image.docker
+来源：https://blog.csdn.net/wangkai_123456/article/details/78538168]]></description>
+</item>
+<item>
+    <title>手摸手带你Docker从入门到实践</title>
+    <link>http://example.org/%E6%89%8B%E6%91%B8%E6%89%8B%E5%B8%A6%E4%BD%A0-docker%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/</link>
+    <pubDate>Mon, 16 Aug 2021 18:50:45 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E6%89%8B%E6%91%B8%E6%89%8B%E5%B8%A6%E4%BD%A0-docker%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/</guid>
+    <description><![CDATA[手摸手带你 Docker 从入门到实践 在下最近遇到要在服务器上安装 Mysql、Nginx、EasyMock 等工具的场景，这里记录一下我使用 Docker 安装的过程，希望也能在类似的场景中帮助到大家～
+本文前备知识需要一些 Linux 的一些基本命令，推介先看一下 &lt;半小时搞会 CentOS 入门必备基础知识&gt; 这篇文章。
+CentOS 版本： 7.6
+Nginx 版本： 1.16.1
+Docker 版本： 19.03.12
+你多学一样本事，就少说一句求人的话
+1. 介绍 1.1 出现的原因 前后端开发到测试到生产的过程中，经常会遇到一个问题，明明我在本地跑没问题，为什么到测试环境或者生产环境就报错了了呢，常常这是因为开发、测试、生产的环境与配置不同导致的。
+折腾过环境配置的人都明白其中麻烦，换一台系统、虚拟机、机器，就又要重来一次，费力费时。由于环境和配置的原因，各种奇奇怪怪因为环境和配置的 Bug，总是像打地鼠游戏里面的地鼠一样不断冒出来 🐹
+![](c9ce28e3e43e4bb292b92fd1a4786fe9tplv-k3u1fbpfcp-zoom-1.image#vwid=1586&amp;vhei=600&quot; alt=&ldquo;Docker&rdquo; style=&ldquo;zoom:80%;&rdquo; /&gt;
+Docker 对这个问题给出了一个很好的解决方案，通过镜像将除了系统之外所需要的系统环境由下而上打包，达到服务跨平台的无缝运作。也就是说，安装的时候，把特定的环境一模一样地搬过来，从而解决「在我的电脑上能跑，在 xx 环境就跑不了」的情况。
+另外一个重要的原因，就是轻量，基于容器的虚拟化，Docker 的镜像仅包含业务运行所需的 runtime 环境，一个 CentOS/Ubuntu 基础镜像仅 170M，因为轻量一个宿主机可以轻松安装数百个容器。
+1.2 是什么 Docker 是基于 Go 语言实现的云开源项目，从 2013 年发布到现在一直广受关注。Docker 可以让你像使用集装箱一样快速的组合成应用，并且可以像运输标准集装箱一样，尽可能的屏蔽代码层面的差异。它将应用程序与该程序的依赖，打包在一个文件里面。运行这个文件，就会生成一个虚拟容器。
+程序在这个虚拟容器里运行，就好像在真实的物理机上运行一样。有了 Docker，就不用担心环境问题。
+本文就不对比虚拟机跟 Docker 的区别和优劣了，每个文章都有，说烂了，想了解的话可以百度一下 😂，我这里就不多说了，下面直接看看怎么安装怎么用起来吧。
+2. 安装 &amp; 配置 2.1 Mac 下安装 在下直接使用 Homebrew Cask 来安装，Mac 下：]]></description>
+</item>
+<item>
+    <title>Docker 搭建Filerun</title>
+    <link>http://example.org/docker-%E6%90%AD%E5%BB%BAfilerun/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/docker-%E6%90%AD%E5%BB%BAfilerun/</guid>
+    <description><![CDATA[filerun 官方docker： https://hub.docker.com/r/afian/filerun/
+1、预先搭建好mariadb容器 2、使用以下命令运行filerun容器
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 docker run -itd --name filerun \ --restart=unless-stopped \ --link=mariadb -e FR_DB_HOST=数据库地址 \ -e FR_DB_PORT=数据库端口 \ -e FR_DB_NAME=数据库名称（需要先自行建好，filerun初始化时不会建立） \ -e FR_DB_USER=数据库用户名 \ -e FR_DB_PASS=数据库密码 \ -e APACHE_RUN_USER=www-data \ -e APACHE_RUN_USER_ID=33 \ -e APACHE_RUN_GROUP=www-data \ -e APACHE_RUN_GROUP_ID=33 \ -p 616:80 \ -v /userdatas/Sandisk/filerun/html:/var/www/html \ -v /userdatas/Sandisk/filerun/user-files:/user-files \ afian/filerun filerun默认监听80端口， 默认使用以下两个作为数据持久化的路径：
+/filerun/html:/var/www/html /filerun/user-files:/user-files 初始化的用户名密码均为：superuser]]></description>
+</item>
+<item>
+    <title>Docker常用命令</title>
+    <link>http://example.org/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
+    <description><![CDATA[进入正在运行的容器中 1 docker exec -it 1f6091e48979 /bin/sh 列出本地容器镜像 （包括运行中的容器使用的镜像和未运行的静态镜像文件）
+1 docker image ls 查看容器的run参数 1 docker run --rm -v /var/run/docker.sock:/var/run/docker.sock assaflavie/runlike YOUR-CONTAINER-Name 重启整个docker服务（非重启容器） ，可解决容器运行久后，长期占用内存而不释放的问题。
+1 systemctl restart docker 修改容器重启策略， portainer面板中可以修改
+1 docker update --restart=on-failure:3 abebf7571666 hopeful_morse 更多请参考 http://honshen.xyz/2021/02/02/Docker/%E7%AC%AC2%E7%AB%A0-Docker%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E9%9B%86/]]></description>
+</item>
+<item>
+    <title>Docker搭建VSCODE-Server</title>
+    <link>http://example.org/docker%E6%90%AD%E5%BB%BAvscode-server/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/docker%E6%90%AD%E5%BB%BAvscode-server/</guid>
+    <description><![CDATA[宿主机环境装备 先在宿主机建立用户数据目录
+1 mkdir /userdatas/mycode 给上面目录授权（否则将会出现docker挂载该目录时拒绝访问的错误）
+1 chmod 777 /userdatas/mycode 启动vscode-server容器 1 2 3 4 5 docker run -it -d \ --restart=always \ --name code-server -p 6688:8080 \ -v &#34;/userdatas/mycode:/home/coder&#34; \ codercom/code-server:latest 登录密码的修改 进入宿主机/userdatas/mycode/.config/code-server目录，其中config.yaml中password后面的值就是密码。
+修改密码也是在此文件。 修改密码后，需要重启容器docker restart code-server才能生效。
+访问xxx.xx:6688即可享用vscode WebIDE
+Python开发环境打磨 安装pip管理包 vscode服务端（即docker容器）是基于debian系统，未安装pip，需要进入容器中进行安装，进入容器的方法有两种。
+一、WebIDE界面进入 登录WebIDE后，在WebIDE的终端中进行。
+1 2 sudo apt update sudo apt install python3-pip 二、在宿主机中进入 宿主机运行以下命令进入容器
+1 docker exec -it code-server /bin/bash 然后执行 一、WebIDE界面安装 步骤中的代码。
+配置远程调试运行环境 在WebIDE左侧的插件商店中安装python插件 重启容器docker restart code-server 然后再次进入WebIDE,进入左侧的运行和调试，点击创建 launch.]]></description>
+</item>
+<item>
+    <title>NextCloud安装、改造，支持视频缩略图和、挂载Samba、上传加速</title>
+    <link>http://example.org/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/</guid>
+    <description><![CDATA[nextcloud安装 1 docker run -itd --name nextcloud -v /userdatas/Sandisk/nextcloud:/var/www/html --link mariadb -p 800:80 nextcloud https://zhuanlan.zhihu.com/p/353252517
+解除文件上传时“块大小”的限制， 方法来源
+1 docker exec --user www-data 容器ID php occ config:app:set files max_chunk_size --value 0 重建nextcloud索引 针对通过非nextcloud客户端（手机、PC、网页端）途径放入nextcloud目录的文件
+1 docker exec -u www-data nextcloud php occ files:scan --all 使用该命令重建索引，如果报下面错误：
+1 2 3 4 5 6 7 8 Starting scan for user 1 out of 1 (xxx) Home storage for user xxx not writable Make sure you&#39;re running the scan command only as the user the web server runs as +---------+-------+--------------+ | Folders | Files | Elapsed time | +---------+-------+--------------+ | 0 | 0 | 00:00:00 | +---------+-------+--------------+ 那么，你需要将移入的文件（或目录）的所有这改为:33:tape。]]></description>
+</item>
+<item>
+    <title>Watchtower - 自动更新 Docker 镜像与容器</title>
+    <link>http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/</link>
+    <pubDate>Sat, 14 Aug 2021 15:42:45 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/watchtower-%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0-docker-%E9%95%9C%E5%83%8F%E4%B8%8E%E5%AE%B9%E5%99%A8/</guid>
+    <description><![CDATA[转载自：https://p3terx.com/archives/docker-watchtower.html
+前言 Docker 容器的部署有一种在手机上装 App 的感觉，但 Docker 容器并不会像手机 App 那样会自动更新，而如果我们需要更新容器一般需要以下四个步骤：
+停止容器：docker stop &lt;CONTAINER&gt; 删除容器：docker rm &lt;CONTAINER&gt; 更新镜像：docker pull &lt;IMAGE&gt; 启动容器：docker run &lt;ARG&gt; ... &lt;IMAGE&gt; 停止容器这个步骤可以在删除容器时使用 -f 参数来代替，即使这样还是需要三个步骤。如果部署了大量的容器需要更新使用这种传统的方式工作量是巨大的。
+Watchtower 是一个可以实现自动化更新 Docker 基础镜像与容器的实用工具。它监视正在运行的容器以及相关的镜像，当检测到 reg-istry 中的镜像与本地的镜像有差异时，它会拉取最新镜像并使用最初部署时相同的参数重新启动相应的容器，一切好像什么都没发生过，就像更新手机上的 App 一样。
+快速开始 Watch-tower 本身被打包为 Docker 镜像，因此可以像运行任何其他容器一样运行它：
+1 2 3 4 docker run -d \ --name watchtower \ -v /var/run/docker.sock:/var/run/docker.sock \ containrrr/watchtower 然后所有容器都会自动更新，也包括 Watch-tower 本身。
+选项参数 点击查看 自动清除旧镜像 官方给出的默认启动命令在长期使用后会堆积非常多的标签为 none 的旧镜像，如果放任不管会占用大量的磁盘空间。要避免这种情况可以加入 --cleanup 选项，这样每次更新都会把旧的镜像清理掉。
+1 2 3 4 5 6 docker run -d \ --name watchtower \ --restart unless-stopped \ -v /var/run/docker.]]></description>
+</item>
+</channel>
+</rss>

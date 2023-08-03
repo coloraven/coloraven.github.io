@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>某成在线获取真实视频地址【转载备份】 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="某成在线获取真实视频地址【转载备份】" />
+<meta property="og:description" content="0x1 F12 寻找关键点 在播放视频视频的过程过，按 F12 查看网络发送的请求，立刻发现了一个关键的地址
+直接浏览器中打开这个地址会下载一个.ev1 的文件，没见过这中文件格式的小刘同学，决定百度搜索一下这是个啥格式：
+EV1 文件是一种加密文件。下载文件查看器查看文件。
+既然需要解密播放工具，那就先在论坛搜搜看。于是机智的刘同学发现了论坛上有这样一个有用的帖子：ev1 百家云视频解密工具、ev1 视频提取工具，支持 Windows、MacOS、Linux
+通过使用该工具解密，转为 flv 格式，最终视频成功播放。
+这样的话所有的视频只要在播放的时候获取到这个链接复制到浏览器下载最后提取就可以了。
+0x2 通过 API 获取视频地址 1 2 3 4 5 6 7 8 9 10 11 请求URL：https://www.xxxjiayun.com/vod/video/getAllFormatPlayUrl 请求方法：GET 参数： vid: 73323428 // 这里的vid其实是视频的url属性 sid: render: jsonp client_type: flash ver: 2 token: xxxxxxxx-xxxxxx-xxxxxx// 修饰后 播放器token callback: jQueryxxxxxxxxxxxx_162xxxxx// 修饰后 感觉这个参数没啥用 _: 16270000005// 修饰后 时间戳 返回的数据 (非完整)：
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 jQuery193_1164({ &#34;code&#34;: 0, &#34;data&#34;: { &#34;duration&#34;: &#34;2055&#34;, &#34;format&#34;: null, &#34;definition&#34;: [{ &#34;type&#34;: &#34;superHD&#34;, &#34;name&#34;: &#34;超清&#34; }], &#34;vod_default_definition&#34;: &#34;superHD&#34;, &#34;playback_default_definition&#34;: &#34;superHD&#34;, &#34;all_format_play_info&#34;: { &#34;ev1&#34;: { &#34;superHD&#34;: { &#34;definition&#34;: &#34;超清&#34;, &#34;size&#34;: 70459130, &#34;cdn_list&#34;: [{ &#34;cdn&#34;: &#34;hw4jd&#34;, &#34;definition&#34;: &#34;high&#34;, &#34;duration&#34;: 2055, &#34;height&#34;: 540, &#34;oversea&#34;: 0, &#34;size&#34;: 70459130, &#34;url&#34;: &#34;&#34;, &#34;width&#34;: 960, &#34;weight&#34;: 9, &#34;enc_url&#34;: &#34;bjcloudvod://xxx-xxx&#34; }, { &#34;cdn&#34;: &#34;jd4jd&#34;, &#34;definition&#34;: &#34;high&#34;, &#34;duration&#34;: 2055, &#34;height&#34;: 540, &#34;oversea&#34;: 0, &#34;size&#34;: 70459130, &#34;url&#34;: &#34;&#34;, &#34;width&#34;: 960, &#34;weight&#34;: 7, &#34;enc_url&#34;: &#34;bjcloudvod://xxx-xxx&#34; }, { &#34;cdn&#34;: &#34;al4jd&#34;, &#34;definition&#34;: &#34;high&#34;, &#34;duration&#34;: 2055, &#34;height&#34;: 540, &#34;oversea&#34;: 0, &#34;size&#34;: 70459130, &#34;url&#34;: &#34;&#34;, &#34;width&#34;: 960, &#34;weight&#34;: 6, &#34;enc_url&#34;: &#34;bjcloudvod://xxx-xxx&#34; }] } }, &#34;mp4&#34;: { &#34;superHD&#34;: { &#34;definition&#34;: &#34;超清&#34;, &#34;size&#34;: 68700179, &#34;cdn_list&#34;: [{ &#34;cdn&#34;: &#34;hw4jd&#34;, &#34;definition&#34;: &#34;high&#34;, &#34;duration&#34;: 2055, &#34;height&#34;: 540, &#34;oversea&#34;: 0, &#34;size&#34;: 68700179, &#34;url&#34;: &#34;&#34;, &#34;width&#34;: 960, &#34;weight&#34;: 9, &#34;enc_url&#34;: &#34;bjcloudvod://xxx-xxx&#34; } }) 观察这个返回的数据我们发现了关键的内容 超清， ev1，mp4 ，里面的 enc_url 又是个加密的内容。凭借多年 ** 的经验，机智的小刘认为这个又是 MP4 又是超清的，加密内容绝对不简单，于是小刘决定尝试解密这个 bjcloudvod 链接。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/%E6%9F%90%E6%88%90%E5%9C%A8%E7%BA%BF%E8%8E%B7%E5%8F%96%E7%9C%9F%E5%AE%9E%E8%A7%86%E9%A2%91%E5%9C%B0%E5%9D%80%E8%BD%AC%E8%BD%BD%E5%A4%87%E4%BB%BD/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-06T23:17:05+00:00" />
+<meta property="article:modified_time" content="2021-12-06T23:17:05+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="某成在线获取真实视频地址【转载备份】"/>
+<meta name="twitter:description" content="0x1 F12 寻找关键点 在播放视频视频的过程过，按 F12 查看网络发送的请求，立刻发现了一个关键的地址
+直接浏览器中打开这个地址会下载一个.ev1 的文件，没见过这中文件格式的小刘同学，决定百度搜索一下这是个啥格式：
+EV1 文件是一种加密文件。下载文件查看器查看文件。
+既然需要解密播放工具，那就先在论坛搜搜看。于是机智的刘同学发现了论坛上有这样一个有用的帖子：ev1 百家云视频解密工具、ev1 视频提取工具，支持 Windows、MacOS、Linux
+通过使用该工具解密，转为 flv 格式，最终视频成功播放。
+这样的话所有的视频只要在播放的时候获取到这个链接复制到浏览器下载最后提取就可以了。
+0x2 通过 API 获取视频地址 1 2 3 4 5 6 7 8 9 10 11 请求URL：https://www.xxxjiayun.com/vod/video/getAllFormatPlayUrl 请求方法：GET 参数： vid: 73323428 // 这里的vid其实是视频的url属性 sid: render: jsonp client_type: flash ver: 2 token: xxxxxxxx-xxxxxx-xxxxxx// 修饰后 播放器token callback: jQueryxxxxxxxxxxxx_162xxxxx// 修饰后 感觉这个参数没啥用 _: 16270000005// 修饰后 时间戳 返回的数据 (非完整)：
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 jQuery193_1164({ &#34;code&#34;: 0, &#34;data&#34;: { &#34;duration&#34;: &#34;2055&#34;, &#34;format&#34;: null, &#34;definition&#34;: [{ &#34;type&#34;: &#34;superHD&#34;, &#34;name&#34;: &#34;超清&#34; }], &#34;vod_default_definition&#34;: &#34;superHD&#34;, &#34;playback_default_definition&#34;: &#34;superHD&#34;, &#34;all_format_play_info&#34;: { &#34;ev1&#34;: { &#34;superHD&#34;: { &#34;definition&#34;: &#34;超清&#34;, &#34;size&#34;: 70459130, &#34;cdn_list&#34;: [{ &#34;cdn&#34;: &#34;hw4jd&#34;, &#34;definition&#34;: &#34;high&#34;, &#34;duration&#34;: 2055, &#34;height&#34;: 540, &#34;oversea&#34;: 0, &#34;size&#34;: 70459130, &#34;url&#34;: &#34;&#34;, &#34;width&#34;: 960, &#34;weight&#34;: 9, &#34;enc_url&#34;: &#34;bjcloudvod://xxx-xxx&#34; }, { &#34;cdn&#34;: &#34;jd4jd&#34;, &#34;definition&#34;: &#34;high&#34;, &#34;duration&#34;: 2055, &#34;height&#34;: 540, &#34;oversea&#34;: 0, &#34;size&#34;: 70459130, &#34;url&#34;: &#34;&#34;, &#34;width&#34;: 960, &#34;weight&#34;: 7, &#34;enc_url&#34;: &#34;bjcloudvod://xxx-xxx&#34; }, { &#34;cdn&#34;: &#34;al4jd&#34;, &#34;definition&#34;: &#34;high&#34;, &#34;duration&#34;: 2055, &#34;height&#34;: 540, &#34;oversea&#34;: 0, &#34;size&#34;: 70459130, &#34;url&#34;: &#34;&#34;, &#34;width&#34;: 960, &#34;weight&#34;: 6, &#34;enc_url&#34;: &#34;bjcloudvod://xxx-xxx&#34; }] } }, &#34;mp4&#34;: { &#34;superHD&#34;: { &#34;definition&#34;: &#34;超清&#34;, &#34;size&#34;: 68700179, &#34;cdn_list&#34;: [{ &#34;cdn&#34;: &#34;hw4jd&#34;, &#34;definition&#34;: &#34;high&#34;, &#34;duration&#34;: 2055, &#34;height&#34;: 540, &#34;oversea&#34;: 0, &#34;size&#34;: 68700179, &#34;url&#34;: &#34;&#34;, &#34;width&#34;: 960, &#34;weight&#34;: 9, &#34;enc_url&#34;: &#34;bjcloudvod://xxx-xxx&#34; } }) 观察这个返回的数据我们发现了关键的内容 超清， ev1，mp4 ，里面的 enc_url 又是个加密的内容。凭借多年 ** 的经验，机智的小刘认为这个又是 MP4 又是超清的，加密内容绝对不简单，于是小刘决定尝试解密这个 bjcloudvod 链接。"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/%E6%9F%90%E6%88%90%E5%9C%A8%E7%BA%BF%E8%8E%B7%E5%8F%96%E7%9C%9F%E5%AE%9E%E8%A7%86%E9%A2%91%E5%9C%B0%E5%9D%80%E8%BD%AC%E8%BD%BD%E5%A4%87%E4%BB%BD/" /><link rel="prev" href="http://example.org/hugo%E4%B8%BB%E9%A2%98%E7%AD%9B%E9%80%89%E8%BF%87%E7%A8%8B/" /><link rel="next" href="http://example.org/%E7%A6%81%E7%94%A8%E5%8D%8E%E4%B8%BA%E7%B3%BB%E6%89%8B%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%9B%B4%E6%96%B0/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "某成在线获取真实视频地址【转载备份】",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/%E6%9F%90%E6%88%90%E5%9C%A8%E7%BA%BF%E8%8E%B7%E5%8F%96%E7%9C%9F%E5%AE%9E%E8%A7%86%E9%A2%91%E5%9C%B0%E5%9D%80%E8%BD%AC%E8%BD%BD%E5%A4%87%E4%BB%BD\/"
+        },"genre": "posts","wordcount":  1505 ,
+        "url": "http:\/\/example.org\/%E6%9F%90%E6%88%90%E5%9C%A8%E7%BA%BF%E8%8E%B7%E5%8F%96%E7%9C%9F%E5%AE%9E%E8%A7%86%E9%A2%91%E5%9C%B0%E5%9D%80%E8%BD%AC%E8%BD%BD%E5%A4%87%E4%BB%BD\/","datePublished": "2021-12-06T23:17:05+00:00","dateModified": "2021-12-06T23:17:05+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">某成在线获取真实视频地址【转载备份】</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-12-06">2021-12-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1505 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#0x1-f12-寻找关键点">0x1 F12 寻找关键点</a></li>
+    <li><a href="#0x2-通过-api-获取视频地址">0x2 通过 API 获取视频地址</a></li>
+    <li><a href="#0x3-深入探究-getallformatplayurl">0x3 深入探究 getAllFormatPlayUrl</a>
+      <ul>
+        <li><a href="#0x31-获取-token">0x3.1 获取 token</a></li>
+        <li><a href="#0x32-构建时间戳">0x3.2 构建时间戳</a></li>
+        <li><a href="#0x33-用-python-实现-getallformatplayurl-和-playertoken">0x3.3 用 python 实现 getAllFormatPlayUrl 和 playerToken</a></li>
+      </ul>
+    </li>
+    <li><a href="#0x4-批量下载">0x4 批量下载</a></li>
+    <li><a href="#0x5-总结">0x5 总结</a></li>
+    <li><a href="#来源">来源</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="0x1-f12-寻找关键点">0x1 F12 寻找关键点</h2>
+<blockquote>
+</blockquote>
+<p>在播放视频视频的过程过，按 F12 查看网络发送的请求，立刻发现了一个关键的地址</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-12-06T231854.png"
+        data-srcset="2021-12-06T231854.png, 2021-12-06T231854.png 1.5x, 2021-12-06T231854.png 2x"
+        data-sizes="auto"
+        alt="2021-12-06T231854.png"
+        title="2021-12-06T231854" /></p>
+<p>直接浏览器中打开这个地址会下载一个<code>.ev1</code> 的文件，没见过这中文件格式的小刘同学，决定百度搜索一下这是个啥格式：</p>
+<blockquote>
+<p>EV1 文件是一种加密文件。下载文件查看器查看文件。</p>
+</blockquote>
+<p>既然需要解密播放工具，那就先在论坛搜搜看。于是机智的刘同学发现了论坛上有这样一个有用的帖子：<a href="https://www.52pojie.cn/forum.php?mod=viewthread&amp;tid=1332673" target="_blank" rel="noopener noreffer "><strong>ev1 百家云视频解密工具、ev1 视频提取工具，支持 Windows、MacOS、Linux</strong></a></p>
+<p>通过使用该工具解密，转为 flv 格式，最终视频成功播放。</p>
+<p>这样的话所有的视频只要在播放的时候获取到这个链接复制到浏览器下载最后提取就可以了。</p>
+<h2 id="0x2-通过-api-获取视频地址">0x2 通过 API 获取视频地址</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-12-06T231910.png"
+        data-srcset="2021-12-06T231910.png, 2021-12-06T231910.png 1.5x, 2021-12-06T231910.png 2x"
+        data-sizes="auto"
+        alt="2021-12-06T231910.png"
+        title="2021-12-06T231910" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">请求URL：https://www.xxxjiayun.com/vod/video/getAllFormatPlayUrl
+</span></span><span class="line"><span class="cl">请求方法：GET
+</span></span><span class="line"><span class="cl">参数：
+</span></span><span class="line"><span class="cl">vid: 73323428    // 这里的vid其实是视频的url属性
+</span></span><span class="line"><span class="cl">sid: 
+</span></span><span class="line"><span class="cl">render: jsonp
+</span></span><span class="line"><span class="cl">client_type: flash
+</span></span><span class="line"><span class="cl">ver: 2
+</span></span><span class="line"><span class="cl">token: xxxxxxxx-xxxxxx-xxxxxx// 修饰后 播放器token
+</span></span><span class="line"><span class="cl">callback: jQueryxxxxxxxxxxxx_162xxxxx// 修饰后 感觉这个参数没啥用
+</span></span><span class="line"><span class="cl">_: 16270000005// 修饰后 时间戳
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回的数据 (非完整)：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">jQuery193_1164</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;code&#34;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;data&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;duration&#34;</span><span class="o">:</span> <span class="s2">&#34;2055&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;format&#34;</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;definition&#34;</span><span class="o">:</span> <span class="p">[{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;type&#34;</span><span class="o">:</span> <span class="s2">&#34;superHD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;超清&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}],</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;vod_default_definition&#34;</span><span class="o">:</span> <span class="s2">&#34;superHD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;playback_default_definition&#34;</span><span class="o">:</span> <span class="s2">&#34;superHD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;all_format_play_info&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;ev1&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;superHD&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;definition&#34;</span><span class="o">:</span> <span class="s2">&#34;超清&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;size&#34;</span><span class="o">:</span> <span class="mi">70459130</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;cdn_list&#34;</span><span class="o">:</span> <span class="p">[{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;cdn&#34;</span><span class="o">:</span> <span class="s2">&#34;hw4jd&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;definition&#34;</span><span class="o">:</span> <span class="s2">&#34;high&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;duration&#34;</span><span class="o">:</span> <span class="mi">2055</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;height&#34;</span><span class="o">:</span> <span class="mi">540</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;oversea&#34;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;size&#34;</span><span class="o">:</span> <span class="mi">70459130</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;url&#34;</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;width&#34;</span><span class="o">:</span> <span class="mi">960</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;weight&#34;</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;enc_url&#34;</span><span class="o">:</span> <span class="s2">&#34;bjcloudvod://xxx-xxx&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;cdn&#34;</span><span class="o">:</span> <span class="s2">&#34;jd4jd&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;definition&#34;</span><span class="o">:</span> <span class="s2">&#34;high&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;duration&#34;</span><span class="o">:</span> <span class="mi">2055</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;height&#34;</span><span class="o">:</span> <span class="mi">540</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;oversea&#34;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;size&#34;</span><span class="o">:</span> <span class="mi">70459130</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;url&#34;</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;width&#34;</span><span class="o">:</span> <span class="mi">960</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;weight&#34;</span><span class="o">:</span> <span class="mi">7</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;enc_url&#34;</span><span class="o">:</span> <span class="s2">&#34;bjcloudvod://xxx-xxx&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;cdn&#34;</span><span class="o">:</span> <span class="s2">&#34;al4jd&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;definition&#34;</span><span class="o">:</span> <span class="s2">&#34;high&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;duration&#34;</span><span class="o">:</span> <span class="mi">2055</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;height&#34;</span><span class="o">:</span> <span class="mi">540</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;oversea&#34;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;size&#34;</span><span class="o">:</span> <span class="mi">70459130</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;url&#34;</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;width&#34;</span><span class="o">:</span> <span class="mi">960</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;weight&#34;</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;enc_url&#34;</span><span class="o">:</span> <span class="s2">&#34;bjcloudvod://xxx-xxx&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;mp4&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;superHD&#34;</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;definition&#34;</span><span class="o">:</span> <span class="s2">&#34;超清&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;size&#34;</span><span class="o">:</span> <span class="mi">68700179</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s2">&#34;cdn_list&#34;</span><span class="o">:</span> <span class="p">[{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;cdn&#34;</span><span class="o">:</span> <span class="s2">&#34;hw4jd&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;definition&#34;</span><span class="o">:</span> <span class="s2">&#34;high&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;duration&#34;</span><span class="o">:</span> <span class="mi">2055</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;height&#34;</span><span class="o">:</span> <span class="mi">540</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;oversea&#34;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;size&#34;</span><span class="o">:</span> <span class="mi">68700179</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;url&#34;</span><span class="o">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;width&#34;</span><span class="o">:</span> <span class="mi">960</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;weight&#34;</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;enc_url&#34;</span><span class="o">:</span> <span class="s2">&#34;bjcloudvod://xxx-xxx&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>观察这个返回的数据我们发现了关键的内容 <strong>超清</strong>， <strong>ev1</strong>，<strong>mp4</strong> ，里面的 <code>enc_url</code> 又是个加密的内容。凭借多年 ** 的经验，机智的小刘认为这个又是 MP4 又是超清的，加密内容绝对不简单，于是小刘决定尝试解密这个 <code>bjcloudvod</code> 链接。</p>
+<p>在 F12 中搜索 <code>bjcloudvod</code>, 找到了解码的关键代码：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-12-06T232019.png"
+        data-srcset="2021-12-06T232019.png, 2021-12-06T232019.png 1.5x, 2021-12-06T232019.png 2x"
+        data-sizes="auto"
+        alt="2021-12-06T232019.png"
+        title="2021-12-06T232019" /></p>
+<p>这里懒惰的小刘同学决定通过 python 执行这段 js 代码。将代码转换一下写法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">execjs</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">js_code</span> <span class="o">=</span> <span class="n">execjs</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">function decodeUrl(url) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">  var prefix = &#39;bjcloudvod://&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s2">  if (&#39;&#39; == url || url.indexOf(prefix) !== 0) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    return;
+</span></span></span><span class="line"><span class="cl"><span class="s2">  }
+</span></span></span><span class="line"><span class="cl"><span class="s2">  url = url.slice(prefix.length, url.length).replace(/-/g, &#39;+&#39;).replace(/_/g, &#39;/&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="s2">  var pad = url.length % 4;
+</span></span></span><span class="line"><span class="cl"><span class="s2">  if (pad == 2) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    url += &#39;==&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s2">  } else if (pad == 3) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    url += &#39;=&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s2">  }
+</span></span></span><span class="line"><span class="cl"><span class="s2">  url = _decode(url);
+</span></span></span><span class="line"><span class="cl"><span class="s2">  var factor = url.charCodeAt(0);
+</span></span></span><span class="line"><span class="cl"><span class="s2">  var c = factor % 8;
+</span></span></span><span class="line"><span class="cl"><span class="s2">  url = url.slice(1, url.length);
+</span></span></span><span class="line"><span class="cl"><span class="s2">  var result = [];
+</span></span></span><span class="line"><span class="cl"><span class="s2">  for (var i = 0, char; char = url[i]; i++) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    var step = i % 4 * c + i % 3 + 1;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    result.push(String.fromCharCode(char.charCodeAt(0) - step));
+</span></span></span><span class="line"><span class="cl"><span class="s2">  }
+</span></span></span><span class="line"><span class="cl"><span class="s2">  return result.join(&#39;&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="s2">}
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">var _PADCHAR = &#39;=&#39;, _ALPHA = &#39;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#39;, _VERSION = &#39;1.0&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">function _getbyte64(s, i) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">  var idx = _ALPHA.indexOf(s.charAt(i));
+</span></span></span><span class="line"><span class="cl"><span class="s2">  if (idx === -1) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    throw &#39;Cannot decode base64&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s2">  }
+</span></span></span><span class="line"><span class="cl"><span class="s2">  return idx;
+</span></span></span><span class="line"><span class="cl"><span class="s2">}
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">function _decode(s) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">  var pads = 0, i, b10, imax = s.length, x = [];
+</span></span></span><span class="line"><span class="cl"><span class="s2">  s = String(s);
+</span></span></span><span class="line"><span class="cl"><span class="s2">  if (imax === 0) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    return s;
+</span></span></span><span class="line"><span class="cl"><span class="s2">  }
+</span></span></span><span class="line"><span class="cl"><span class="s2">  if (imax % 4 !== 0) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    throw &#39;Cannot decode base64&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s2">  }
+</span></span></span><span class="line"><span class="cl"><span class="s2">  if (s.charAt(imax - 1) === _PADCHAR) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    pads = 1;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    if (s.charAt(imax - 2) === _PADCHAR) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">      pads = 2;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    }
+</span></span></span><span class="line"><span class="cl"><span class="s2">    imax -= 4;
+</span></span></span><span class="line"><span class="cl"><span class="s2">  }
+</span></span></span><span class="line"><span class="cl"><span class="s2">  for (i = 0; i &lt; imax; i += 4) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    b10 = _getbyte64(s, i) &lt;&lt; 18 | _getbyte64(s, i + 1) &lt;&lt; 12 | _getbyte64(s, i + 2) &lt;&lt; 6 | _getbyte64(s, i + 3);
+</span></span></span><span class="line"><span class="cl"><span class="s2">    x.push(String.fromCharCode(b10 &gt;&gt; 16, b10 &gt;&gt; 8 &amp; 255, b10 &amp; 255));
+</span></span></span><span class="line"><span class="cl"><span class="s2">  }
+</span></span></span><span class="line"><span class="cl"><span class="s2">  switch (pads) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">    case 1:
+</span></span></span><span class="line"><span class="cl"><span class="s2">      b10 = _getbyte64(s, i) &lt;&lt; 18 | _getbyte64(s, i + 1) &lt;&lt; 12 | _getbyte64(s, i + 2) &lt;&lt; 6;
+</span></span></span><span class="line"><span class="cl"><span class="s2">      x.push(String.fromCharCode(b10 &gt;&gt; 16, b10 &gt;&gt; 8 &amp; 255));
+</span></span></span><span class="line"><span class="cl"><span class="s2">      break;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    case 2:
+</span></span></span><span class="line"><span class="cl"><span class="s2">      b10 = _getbyte64(s, i) &lt;&lt; 18 | _getbyte64(s, i + 1) &lt;&lt; 12;
+</span></span></span><span class="line"><span class="cl"><span class="s2">      x.push(String.fromCharCode(b10 &gt;&gt; 16));
+</span></span></span><span class="line"><span class="cl"><span class="s2">      break;
+</span></span></span><span class="line"><span class="cl"><span class="s2">  }
+</span></span></span><span class="line"><span class="cl"><span class="s2">  return x.join(&#39;&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="s2">}
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>尝试用上面的加密内容测试这个解密方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">encodeStr</span> <span class="o">=</span> <span class="s2">&#34;bjcloudvod://xxx-xxxx&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">js_code</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&#34;decodeUrl&#34;</span><span class="p">,</span> <span class="n">encodeStr</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出： https://dal4jd-video.baijiayun.com/8xxxxd4ca0/60x756/00-x-upload/video/xxxxxx.mp4</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>居然直接获取到了视频的 MP4 地址！</p>
+<p>机智的小刘可高兴坏了，这样的话通过 <code>getAllFormatPlayUrl</code> 获取视频直连，再用 urllib3 下载到本地就 OK 了。接下来就是构建 <code>getAllFormatPlayUrl</code>API 需要的参数就可以批量下载视频了～</p>
+<h2 id="0x3-深入探究-getallformatplayurl">0x3 深入探究 getAllFormatPlayUrl</h2>
+<blockquote>
+<p>机智的小刘同学认为：能用 F12 解决的问题就坚决不用别的。</p>
+</blockquote>
+<p>再次分析需要传递的参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vid: 73323428    // 这里的vid其实是视频的url属性
+</span></span><span class="line"><span class="cl">sid: 
+</span></span><span class="line"><span class="cl">render: jsonp
+</span></span><span class="line"><span class="cl">client_type: flash
+</span></span><span class="line"><span class="cl">ver: 2
+</span></span><span class="line"><span class="cl">token: xxxxxxxx-xxxxxx-xxxxxx// 修饰后 播放器token
+</span></span><span class="line"><span class="cl">callback: jQueryxxxxxxxxxxxx_162xxxxx// 修饰后 感觉这个参数没啥用
+</span></span><span class="line"><span class="cl">_: 16270000005// 修饰后 时间戳
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>关键的参数就只有两个 <code>vid</code> 和 <code>token</code>，“__” 值为时间戳，可以在发送请求时候再自动生成。</p>
+<h3 id="0x31-获取-token">0x3.1 获取 token</h3>
+<p>通过搜索 token 的值，机智的小刘同学又发现了一个 API：</p>
+<ol>
+<li>请求 URL:https://www.xxxxxgkt.com:xxxx/web/bjvod/videoPlayerToken</li>
+<li>请求方法: POST</li>
+<li>请求参数：{t: 1600000000633,   // 时间戳 courseId: “15726cccc6_cxxxxx3-cxxx-xxxx-xxxx-xxxxxxxx”,  // 课程 idexpires_in: 0,video_id: “2738000”   // 视频 url 参数}</li>
+</ol>
+<p>返回：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">{</span><span class="s2">&#34;code&#34;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s2">&#34;msg&#34;</span><span class="p">:</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="s2">&#34;ts&#34;</span><span class="p">:</span><span class="mi">1600000004</span><span class="p">,</span><span class="s2">&#34;data&#34;</span><span class="p">:{</span><span class="s2">&#34;token&#34;</span><span class="p">:</span><span class="s2">&#34;xxxxxxxxxx-xxxxxxxxxxxx-xxxxx&#34;</span><span class="p">}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>这里说明一下，这个方法和我当时用的 API 不一样，我用的是 videoPlayerToken 这个 API，但是都可以获取到 token。后续 python 方法我还是使用的 videoPlayerToken。videoPlayerToken 需要购买课程才能调用。</p>
+</blockquote>
+<p>直接通过视频 ID 和时间戳就能获取到 token！机智的小刘同学觉得成功就在咫尺！</p>
+<h3 id="0x32-构建时间戳">0x3.2 构建时间戳</h3>
+<p>经过简单的百度搜索，小刘同学获取到了 API 中时间戳的构建方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="0x33-用-python-实现-getallformatplayurl-和-playertoken">0x3.3 用 python 实现 getAllFormatPlayUrl 和 playerToken</h3>
+<p>自学了一段 python 时间的小刘同学，决定用 python 的 <code>requests</code> 库实现这两个方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 已购买课程可以使用videoPlayerToken，但是我测试时候只能</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">videoPlayerToken</span><span class="p">(</span><span class="n">courseId</span><span class="p">,</span> <span class="n">video_id</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">     <span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;https://www.xxxxxx.com:xxxx/web/bjvod/videoPlayerToken&#34;</span>
+</span></span><span class="line"><span class="cl">     <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json, text/plain, */*&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;accept-encoding&#39;</span><span class="p">:</span> <span class="s1">&#39;gzip, deflate, br&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;accept-language&#39;</span><span class="p">:</span> <span class="s1">&#39;zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;area&#39;</span><span class="p">:</span> <span class="s1">&#39;0100000200&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;companynum&#39;</span><span class="p">:</span> <span class="s1">&#39;01000002&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;content-length&#39;</span><span class="p">:</span> <span class="s1">&#39;120&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json; charset=UTF-8&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;origin&#39;</span><span class="p">:</span> <span class="s1">&#39;https://www.xxxx.cn&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;referer&#39;</span><span class="p">:</span> <span class="s1">&#39;https://www.xxxx.cn/&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;sec-ch-ua&#39;</span><span class="p">:</span> <span class="s1">&#39;&#34; Not;A Brand&#34;;v=&#34;99&#34;, &#34;Microsoft Edge&#34;;v=&#34;91&#34;, &#34;Chromium&#34;;v=&#34;91&#34;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;sec-ch-ua-mobile&#39;</span><span class="p">:</span> <span class="s1">&#39;?0&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;sec-fetch-dest&#39;</span><span class="p">:</span> <span class="s1">&#39;empty&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;sec-fetch-mode&#39;</span><span class="p">:</span> <span class="s1">&#39;cors&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;sec-fetch-site&#39;</span><span class="p">:</span> <span class="s1">&#39;cross-site&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="s1">&#39;xxxxxxxxxxxxxxxxxxxxxxUo2g&#39;</span>
+</span></span><span class="line"><span class="cl">     <span class="p">}</span>
+</span></span><span class="line"><span class="cl">     <span class="n">parameter</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;courseId&#34;</span><span class="p">:</span> <span class="n">courseId</span><span class="p">,</span>    <span class="c1"># 课程ID</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;expires_in&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;t&#34;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))),</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;video_id&#34;</span><span class="p">:</span> <span class="n">video_id</span>     <span class="c1"># 课程url(其实就是视频id号)</span>
+</span></span><span class="line"><span class="cl">     <span class="p">}</span>
+</span></span><span class="line"><span class="cl">     <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                             <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">     <span class="n">json_str</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="k">if</span> <span class="s2">&#34;data&#34;</span> <span class="ow">in</span> <span class="n">json_str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">json_str</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="s1">&#39;token&#39;</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">getAllFormatPlayUrl</span><span class="p">(</span><span class="n">vid</span><span class="p">,</span> <span class="n">tk</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">     <span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;https://www.xxjiayun.com/vod/video/getAllFormatPlayUrl&#34;</span>
+</span></span><span class="line"><span class="cl">     <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;accept&#39;</span><span class="p">:</span> <span class="s1">&#39;*/*&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;accept-encoding&#39;</span><span class="p">:</span> <span class="s1">&#39;gzip, deflate, br&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;accept-language&#39;</span><span class="p">:</span> <span class="s1">&#39;zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;referer&#39;</span><span class="p">:</span> <span class="s1">&#39;https://www.sjqhedu.cn/&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;sec-ch-ua&#39;</span><span class="p">:</span> <span class="s1">&#39;&#34; Not;A Brand&#34;;v=&#34;99&#34;, &#34;Microsoft Edge&#34;;v=&#34;91&#34;, &#34;Chromium&#34;;v=&#34;91&#34;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;sec-ch-ua-mobile&#39;</span><span class="p">:</span> <span class="s1">&#39;30&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;sec-fetch-dest&#39;</span><span class="p">:</span> <span class="s1">&#39;script&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;sec-fetch-mode&#39;</span><span class="p">:</span> <span class="s1">&#39;no-cors&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;sec-fetch-site&#39;</span><span class="p">:</span> <span class="s1">&#39;cross-site&#39;</span>
+</span></span><span class="line"><span class="cl">     <span class="p">}</span>
+</span></span><span class="line"><span class="cl">     <span class="n">parameter</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;vid&#34;</span><span class="p">:</span> <span class="n">vid</span><span class="p">,</span>     <span class="c1"># 课程url(其实就是视频id号)</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;sid&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;render&#34;</span><span class="p">:</span> <span class="s2">&#34;jsonp&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;client_type&#34;</span><span class="p">:</span> <span class="s2">&#34;flash&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;ver&#34;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;token&#34;</span><span class="p">:</span> <span class="n">tk</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;callback&#34;</span><span class="p">:</span> <span class="s2">&#34;jQuery00000000_10000000009&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;_&#34;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))),</span>
+</span></span><span class="line"><span class="cl">     <span class="p">}</span>
+</span></span><span class="line"><span class="cl">     <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">params</span><span class="o">=</span><span class="n">parameter</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="n">dick_str</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;jQuery00000000_10000000009(&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;)&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">dick_str</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="0x4-批量下载">0x4 批量下载</h2>
+<blockquote>
+<p>机智的小刘同学认为：如果无法批量实现上面的操作下载视频，那么一切都是白费。</p>
+</blockquote>
+<p>稳妥的小刘同学决定先整理一下现在的思路</p>
+<ol>
+<li>获取当前课程全部视频的课程 ID 和 url</li>
+<li>通过这两个参数获取 token</li>
+<li>通过课程的 url 和 token 获取到加密视频直链</li>
+<li>通过解密加密的直链获取到真正的视频直链地址</li>
+<li>下载视频</li>
+</ol>
+<p>正是因为细心的小刘同学首先发现刚打开课程目录时候，就会返回所有课程的信息，这才有了他批量操作的信心。</p>
+<p>刚打开课程首页，通过搜索课程的名称，机智的小刘同学发现了这个关键信息。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-12-06T232043.png"
+        data-srcset="2021-12-06T232043.png, 2021-12-06T232043.png 1.5x, 2021-12-06T232043.png 2x"
+        data-sizes="auto"
+        alt="2021-12-06T232043.png"
+        title="2021-12-06T232043" /></p>
+<p>懒惰的小刘没有再打算通过 api 获取这个 json 结果，而是直接复制的全部内容保存到了本地 json 文件。通过读取本地的 json 文件加载全部课程。</p>
+<p>上面的结果保存到本地后，直接用 python 读取：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">getCourseList</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;list1.json&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&#34;utf8&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">t</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">t</span><span class="p">[</span><span class="s1">&#39;syllabus&#39;</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>到此为止我们就基本完成了全部的关键代码。</p>
+<p>让我们最后实现 main 方法吧：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">http</span> <span class="o">=</span> <span class="n">urllib3</span><span class="o">.</span><span class="n">PoolManager</span><span class="p">()</span>    <span class="c1">#下载视频使用urllib3库</span>
+</span></span><span class="line"><span class="cl">    <span class="n">course_list</span> <span class="o">=</span> <span class="n">getCourseList</span><span class="p">()</span>    <span class="c1"># 获取全部课程</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># with open(&#34;test.txt&#34;, &#34;w&#34;) as f:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">courses</span> <span class="ow">in</span> <span class="n">course_list</span><span class="p">:</span>    <span class="c1"># 遍历课程（1级目录）</span>
+</span></span><span class="line"><span class="cl">           <span class="n">path</span> <span class="o">=</span> <span class="n">courses</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">           <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">              <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>        <span class="c1"># 创建文件夹保存视频</span>
+</span></span><span class="line"><span class="cl">              <span class="k">for</span> <span class="n">course</span> <span class="ow">in</span> <span class="n">courses</span><span class="p">[</span><span class="s2">&#34;list&#34;</span><span class="p">]:</span><span class="c1"># 遍历课程（2级目录）/视频</span>
+</span></span><span class="line"><span class="cl">                   <span class="c1"># print(course)</span>
+</span></span><span class="line"><span class="cl">                   <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">course</span><span class="p">[</span><span class="s2">&#34;list&#34;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                       <span class="n">token</span> <span class="o">=</span> <span class="n">videoPlayerToken</span><span class="p">(</span><span class="n">courseId</span><span class="o">=</span><span class="n">course</span><span class="p">[</span><span class="s2">&#34;courseId&#34;</span><span class="p">],</span> <span class="n">video_id</span><span class="o">=</span><span class="n">course</span><span class="p">[</span><span class="s2">&#34;url&#34;</span><span class="p">])</span>    <span class="c1"># 获取token</span>
+</span></span><span class="line"><span class="cl">                       <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                           <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                      <span class="n">json_url</span> <span class="o">=</span> <span class="n">getAllFormatPlayUrl</span><span class="p">(</span><span class="n">course</span><span class="p">[</span><span class="s2">&#34;url&#34;</span><span class="p">],</span> <span class="n">token</span><span class="p">)</span>    <span class="c1"># 获取加密的直链</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                      <span class="n">mp4</span> <span class="o">=</span> <span class="n">json_url</span><span class="p">[</span><span class="s2">&#34;data&#34;</span><span class="p">][</span><span class="s2">&#34;all_format_play_info&#34;</span><span class="p">][</span><span class="s2">&#34;mp4&#34;</span><span class="p">]</span><span class="c1"># 加密的直链的MP4的内容</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                      <span class="k">if</span> <span class="s1">&#39;superHD&#39;</span> <span class="ow">in</span> <span class="n">mp4</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">d_url</span> <span class="o">=</span> <span class="n">mp4</span><span class="p">[</span><span class="s2">&#34;superHD&#34;</span><span class="p">][</span><span class="s2">&#34;cdn_list&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;enc_url&#34;</span><span class="p">]</span>    <span class="c1"># 获取其中一个加密的地址</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">r_url</span> <span class="o">=</span> <span class="n">js_code</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&#34;decodeUrl&#34;</span><span class="p">,</span> <span class="n">d_url</span><span class="p">)</span>           <span class="c1"># 获取真实直链</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">f_path</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&#34;/&#34;</span> <span class="o">+</span> <span class="n">course</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34;.mp4&#34;</span>        <span class="c1"># 下载视频病保存</span>
+</span></span><span class="line"><span class="cl">                          <span class="c1"># wget.download(r_url, path)# 下载</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">r</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="n">r_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                          <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                           <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">              <span class="c1"># 下面内容重复就不再有注释了</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                      <span class="k">if</span> <span class="s1">&#39;high&#39;</span> <span class="ow">in</span> <span class="n">mp4</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">d_url</span> <span class="o">=</span> <span class="n">mp4</span><span class="p">[</span><span class="s2">&#34;high&#34;</span><span class="p">][</span><span class="s2">&#34;cdn_list&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;enc_url&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">r_url</span> <span class="o">=</span> <span class="n">js_code</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&#34;decodeUrl&#34;</span><span class="p">,</span> <span class="n">d_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">f_path</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&#34;/&#34;</span> <span class="o">+</span> <span class="n">course</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34;.mp4&#34;</span>
+</span></span><span class="line"><span class="cl">                          <span class="c1"># wget.download(r_url, path)# 下载</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">r</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="n">r_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                          <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                           <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                      <span class="k">if</span> <span class="s1">&#39;720p&#39;</span> <span class="ow">in</span> <span class="n">mp4</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">d_url</span> <span class="o">=</span> <span class="n">mp4</span><span class="p">[</span><span class="s2">&#34;720p&#34;</span><span class="p">][</span><span class="s2">&#34;cdn_list&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;enc_url&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">r_url</span> <span class="o">=</span> <span class="n">js_code</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&#34;decodeUrl&#34;</span><span class="p">,</span> <span class="n">d_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">f_path</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&#34;/&#34;</span> <span class="o">+</span> <span class="n">course</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34;.mp4&#34;</span>
+</span></span><span class="line"><span class="cl">                          <span class="c1"># wget.download(r_url, path)# 下载</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">r</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="n">r_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                          <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                              <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                   <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                      <span class="n">path</span> <span class="o">=</span> <span class="n">courses</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&#34;/&#34;</span> <span class="o">+</span> <span class="n">course</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                      <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                          <span class="c1"># print(courses[&#34;name&#34;].strip()+&#34;/&#34;+course[&#34;name&#34;].strip())</span>
+</span></span><span class="line"><span class="cl">                      <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">course</span><span class="p">[</span><span class="s2">&#34;list&#34;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">token</span> <span class="o">=</span> <span class="n">videoPlayerToken</span><span class="p">(</span><span class="n">courseId</span><span class="o">=</span><span class="n">c</span><span class="p">[</span><span class="s2">&#34;courseId&#34;</span><span class="p">],</span> <span class="n">video_id</span><span class="o">=</span><span class="n">c</span><span class="p">[</span><span class="s2">&#34;url&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                          <span class="k">if</span> <span class="n">token</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                              <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">content</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34; &#34;</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="s2">&#34;courseId&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34; &#34;</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="s2">&#34;url&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34; &#34;</span> <span class="o">+</span> <span class="n">token</span>
+</span></span><span class="line"><span class="cl">                          <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                          <span class="c1"># worksheet.write(i, 0, label=c[&#34;name&#34;])</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">json_url</span> <span class="o">=</span> <span class="n">getAllFormatPlayUrl</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&#34;url&#34;</span><span class="p">],</span> <span class="n">token</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                          <span class="n">mp4</span> <span class="o">=</span> <span class="n">json_url</span><span class="p">[</span><span class="s2">&#34;data&#34;</span><span class="p">][</span><span class="s2">&#34;all_format_play_info&#34;</span><span class="p">][</span><span class="s2">&#34;mp4&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                          <span class="nb">print</span><span class="p">(</span><span class="n">mp4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                          <span class="k">if</span> <span class="s1">&#39;superHD&#39;</span> <span class="ow">in</span> <span class="n">mp4</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                              <span class="n">d_url</span> <span class="o">=</span> <span class="n">mp4</span><span class="p">[</span><span class="s2">&#34;superHD&#34;</span><span class="p">][</span><span class="s2">&#34;cdn_list&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;enc_url&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                              <span class="n">r_url</span> <span class="o">=</span> <span class="n">js_code</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&#34;decodeUrl&#34;</span><span class="p">,</span> <span class="n">d_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                              <span class="n">f_path</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&#34;/&#34;</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34;.mp4&#34;</span>
+</span></span><span class="line"><span class="cl">                              <span class="c1"># wget.download(r_url, path)# 下载</span>
+</span></span><span class="line"><span class="cl">                              <span class="n">r</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="n">r_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                              <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                          <span class="k">if</span> <span class="s1">&#39;high&#39;</span> <span class="ow">in</span> <span class="n">mp4</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                              <span class="n">d_url</span> <span class="o">=</span> <span class="n">mp4</span><span class="p">[</span><span class="s2">&#34;high&#34;</span><span class="p">][</span><span class="s2">&#34;cdn_list&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;enc_url&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                              <span class="n">r_url</span> <span class="o">=</span> <span class="n">js_code</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&#34;decodeUrl&#34;</span><span class="p">,</span> <span class="n">d_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                              <span class="n">f_path</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&#34;/&#34;</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34;.mp4&#34;</span>
+</span></span><span class="line"><span class="cl">                              <span class="c1"># wget.download(r_url, path)# 下载</span>
+</span></span><span class="line"><span class="cl">                              <span class="n">r</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="n">r_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                              <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                                  <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                          <span class="k">if</span> <span class="s1">&#39;720p&#39;</span> <span class="ow">in</span> <span class="n">mp4</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                              <span class="n">d_url</span> <span class="o">=</span> <span class="n">mp4</span><span class="p">[</span><span class="s2">&#34;720p&#34;</span><span class="p">][</span><span class="s2">&#34;cdn_list&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;enc_url&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                              <span class="n">r_url</span> <span class="o">=</span> <span class="n">js_code</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&#34;decodeUrl&#34;</span><span class="p">,</span> <span class="n">d_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                              <span class="n">f_path</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&#34;/&#34;</span> <span class="o">+</span> <span class="n">course</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&#34;.mp4&#34;</span>
+</span></span><span class="line"><span class="cl">                              <span class="c1"># wget.download(r_url, path)# 下载</span>
+</span></span><span class="line"><span class="cl">                              <span class="n">r</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="n">r_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                              <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                                  <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">finally</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span><span class="o">.</span><span class="n">release_conn</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-12-06T232103.png"
+        data-srcset="2021-12-06T232103.png, 2021-12-06T232103.png 1.5x, 2021-12-06T232103.png 2x"
+        data-sizes="auto"
+        alt="2021-12-06T232103.png"
+        title="2021-12-06T232103" /></p>
+<p>最终，机智的小刘同学下载完成的全部的视频。</p>
+<h2 id="0x5-总结">0x5 总结</h2>
+<p>整个过程中最关键的步骤就是获取到视频的加密真实链接的 API。<br>
+获取到关键的 API 后，我们需要做的就是凑齐 API 的参数，然后解密。</p>
+<p>功夫不负有心人，机智的小刘同学完成了全部的需求。</p>
+<h2 id="来源">来源</h2>
+<p><a href="http://bbss99.xyz/index.php/2021/07/30/" target="_blank" rel="noopener noreffer ">http://bbss99.xyz/index.php/2021/07/30/</a>某成在线获取真实视频地址/</p>
+<p>另一篇关于在线视频加密的文章：https://blog.csdn.net/PM_605/article/details/80076850?utm_source=blogxgwz0</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-12-06</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E6%9F%90%E6%88%90%E5%9C%A8%E7%BA%BF%E8%8E%B7%E5%8F%96%E7%9C%9F%E5%AE%9E%E8%A7%86%E9%A2%91%E5%9C%B0%E5%9D%80%E8%BD%AC%E8%BD%BD%E5%A4%87%E4%BB%BD/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E6%9F%90%E6%88%90%E5%9C%A8%E7%BA%BF%E8%8E%B7%E5%8F%96%E7%9C%9F%E5%AE%9E%E8%A7%86%E9%A2%91%E5%9C%B0%E5%9D%80%E8%BD%AC%E8%BD%BD%E5%A4%87%E4%BB%BD/" data-title="某成在线获取真实视频地址【转载备份】"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E6%9F%90%E6%88%90%E5%9C%A8%E7%BA%BF%E8%8E%B7%E5%8F%96%E7%9C%9F%E5%AE%9E%E8%A7%86%E9%A2%91%E5%9C%B0%E5%9D%80%E8%BD%AC%E8%BD%BD%E5%A4%87%E4%BB%BD/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E6%9F%90%E6%88%90%E5%9C%A8%E7%BA%BF%E8%8E%B7%E5%8F%96%E7%9C%9F%E5%AE%9E%E8%A7%86%E9%A2%91%E5%9C%B0%E5%9D%80%E8%BD%AC%E8%BD%BD%E5%A4%87%E4%BB%BD/" data-title="某成在线获取真实视频地址【转载备份】"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E6%9F%90%E6%88%90%E5%9C%A8%E7%BA%BF%E8%8E%B7%E5%8F%96%E7%9C%9F%E5%AE%9E%E8%A7%86%E9%A2%91%E5%9C%B0%E5%9D%80%E8%BD%AC%E8%BD%BD%E5%A4%87%E4%BB%BD/" data-title="某成在线获取真实视频地址【转载备份】"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E6%9F%90%E6%88%90%E5%9C%A8%E7%BA%BF%E8%8E%B7%E5%8F%96%E7%9C%9F%E5%AE%9E%E8%A7%86%E9%A2%91%E5%9C%B0%E5%9D%80%E8%BD%AC%E8%BD%BD%E5%A4%87%E4%BB%BD/" data-title="某成在线获取真实视频地址【转载备份】"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/hugo%E4%B8%BB%E9%A2%98%E7%AD%9B%E9%80%89%E8%BF%87%E7%A8%8B/" class="prev" rel="prev" title="Hugo主题筛选过程"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Hugo主题筛选过程</a>
+            <a href="/%E7%A6%81%E7%94%A8%E5%8D%8E%E4%B8%BA%E7%B3%BB%E6%89%8B%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%9B%B4%E6%96%B0/" class="next" rel="next" title="禁用华为系手机系统更新">禁用华为系手机系统更新<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.116.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

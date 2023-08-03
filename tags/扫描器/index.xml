@@ -1,0 +1,19 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>扫描器 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E6%89%AB%E6%8F%8F%E5%99%A8/</link>
+        <description>扫描器 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="http://example.org/tags/%E6%89%AB%E6%8F%8F%E5%99%A8/" rel="self" type="application/rss+xml" /><item>
+    <title>部署巡风[xunfeng]</title>
+    <link>http://example.org/%E9%83%A8%E7%BD%B2%E5%B7%A1%E9%A3%8Exunfeng/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E9%83%A8%E7%BD%B2%E5%B7%A1%E9%A3%8Exunfeng/</guid>
+    <description><![CDATA[https://github.com/ysrc/xunfeng/blob/master/docs/install/Docker.md
+dokcer容器实验摸索结果：
+/opt/xunfeng目录下含配置文件，其中Config.py定义web前端的登录账号密码及数据库端口、账号密码，内容如下 1 2 3 4 5 6 7 8 9 10 class Config(object): ACCOUNT = &#39;admin&#39; PASSWORD = &#39;xunfeng321&#39; class ProductionConfig(Config): DB = &#39;127.0.0.1&#39; PORT = 65521 DBUSERNAME = &#39;scan&#39; DBPASSWORD = &#39;scanlol66&#39; DBNAME = &#39;xunfeng&#39; /data用于存放MongoDB数据库文件，扫描历史结果、POC漏洞插件设置情况等等都在此。 为了持久化扫描结果数据，建议将/data目录映射到宿主机
+故启动参数如下：
+1 2 3 4 5 docker run -d --name=xunfeng \ -p 8118:80 \ -p 2717:65521 \ -v /userdatas/Sandisk/xunfeng:/data \ ysrc/xunfeng:latest ]]></description>
+</item>
+</channel>
+</rss>

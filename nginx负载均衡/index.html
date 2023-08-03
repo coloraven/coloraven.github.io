@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Nginx负载均衡 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Nginx负载均衡" />
+<meta property="og:description" content="一、Nginx负载均衡 1、示意图 2、好处 均摊请求，让服务端整体吞吐率提高，满足不断增长的业务需求。
+相比于单点服务，当其中一台服务器挂掉后，还可以继续让剩下的服务器继续服务，提高了容灾性。
+二、负载均衡的分类 1、GSLB（全局负载均衡） 一般是以国家或省为单位进行全局负载的。
+示意图如下：
+2、SLB 示意图： 三、基于LVS的中间件架构 LVS（Linux Virtual Server ）Linux 虚拟服务器
+1、四层负载均衡 即在OSI七层模型中的传输层。因为第四层支持TCP/IP协议。四层负载均衡只需要对客户端的请求进行TCP/IP协议的包转发就能实现负载均衡。
+优势 非常快，只需要最底层进行应用处理，不需要进行一些复杂的逻辑，值需要负责包的转发即可。
+示意图 2、七层负载均衡 因为是在应用层，因此可以完成很多应用方面的协议请求，比如HTTP协议的负载均衡可以实现HTTP信息的改写，头信息的改写，安全应用规则的控制，转发，rewrite等等方面的规则控制。因此在七层负载均衡里面可以做的事情就更多一些，Nginx就是一个典型的七层负载均衡的SLB。
+SLB（Server Load Balancing）服务器负载均衡。
+示意图 Nginx负载均衡实现原理 通过 proxy_pass 转发到后端的服务器上，只是不是转发到一台，而是一组虚拟的服务池（即 upstream server）。在upstream 组里面实现了对于多台服务器请求的不断轮询。
+当用户的请求过来后，就会通过 upstream_module 这个模块将用户的请求分发到不同的服务上，从而实现负载均衡。
+故 proxy_pass 和 upstream 是两个核心的配置。
+示意图 配置语法 ngx_http_upstream_module官方文档 ： http://nginx.org/en/docs/http/ngx_http_upstream_module.html
+1 2 3 Syntax: upstream name { ... } Default: — Context: http 示例： a、用一台服务器来实现负载均衡，配置如下： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 upstream chrdai { server 192." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-08-14T15:42:45+00:00" />
+<meta property="article:modified_time" content="2021-08-14T15:42:45+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Nginx负载均衡"/>
+<meta name="twitter:description" content="一、Nginx负载均衡 1、示意图 2、好处 均摊请求，让服务端整体吞吐率提高，满足不断增长的业务需求。
+相比于单点服务，当其中一台服务器挂掉后，还可以继续让剩下的服务器继续服务，提高了容灾性。
+二、负载均衡的分类 1、GSLB（全局负载均衡） 一般是以国家或省为单位进行全局负载的。
+示意图如下：
+2、SLB 示意图： 三、基于LVS的中间件架构 LVS（Linux Virtual Server ）Linux 虚拟服务器
+1、四层负载均衡 即在OSI七层模型中的传输层。因为第四层支持TCP/IP协议。四层负载均衡只需要对客户端的请求进行TCP/IP协议的包转发就能实现负载均衡。
+优势 非常快，只需要最底层进行应用处理，不需要进行一些复杂的逻辑，值需要负责包的转发即可。
+示意图 2、七层负载均衡 因为是在应用层，因此可以完成很多应用方面的协议请求，比如HTTP协议的负载均衡可以实现HTTP信息的改写，头信息的改写，安全应用规则的控制，转发，rewrite等等方面的规则控制。因此在七层负载均衡里面可以做的事情就更多一些，Nginx就是一个典型的七层负载均衡的SLB。
+SLB（Server Load Balancing）服务器负载均衡。
+示意图 Nginx负载均衡实现原理 通过 proxy_pass 转发到后端的服务器上，只是不是转发到一台，而是一组虚拟的服务池（即 upstream server）。在upstream 组里面实现了对于多台服务器请求的不断轮询。
+当用户的请求过来后，就会通过 upstream_module 这个模块将用户的请求分发到不同的服务上，从而实现负载均衡。
+故 proxy_pass 和 upstream 是两个核心的配置。
+示意图 配置语法 ngx_http_upstream_module官方文档 ： http://nginx.org/en/docs/http/ngx_http_upstream_module.html
+1 2 3 Syntax: upstream name { ... } Default: — Context: http 示例： a、用一台服务器来实现负载均衡，配置如下： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 upstream chrdai { server 192."/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" /><link rel="prev" href="http://example.org/ssh%E8%87%AA%E5%8A%A8%E7%99%BB%E9%99%86%E7%9A%84%E5%AE%9E%E7%8E%B0/" /><link rel="next" href="http://example.org/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Nginx负载均衡",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1\/"
+        },"genre": "posts","keywords": "linux, nginx","wordcount":  528 ,
+        "url": "http:\/\/example.org\/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1\/","datePublished": "2021-08-14T15:42:45+00:00","dateModified": "2021-08-14T15:42:45+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Nginx负载均衡</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/nginx/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Nginx</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-08-14">2021-08-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;528 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一nginx负载均衡">一、Nginx负载均衡</a>
+      <ul>
+        <li><a href="#1示意图">1、示意图</a></li>
+        <li><a href="#2好处">2、好处</a></li>
+      </ul>
+    </li>
+    <li><a href="#二负载均衡的分类">二、负载均衡的分类</a>
+      <ul>
+        <li><a href="#1gslb全局负载均衡">1、GSLB（全局负载均衡）</a></li>
+        <li><a href="#2slb">2、SLB</a>
+          <ul>
+            <li><a href="#示意图">示意图：</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#三基于lvs的中间件架构">三、基于LVS的中间件架构</a>
+      <ul>
+        <li><a href="#1四层负载均衡">1、四层负载均衡</a>
+          <ul>
+            <li><a href="#优势">优势</a></li>
+            <li><a href="#示意图-1">示意图</a></li>
+          </ul>
+        </li>
+        <li><a href="#2七层负载均衡">2、七层负载均衡</a>
+          <ul>
+            <li><a href="#示意图-2">示意图</a></li>
+          </ul>
+        </li>
+        <li><a href="#nginx负载均衡实现原理">Nginx负载均衡实现原理</a></li>
+        <li><a href="#示意图-3">示意图</a></li>
+        <li><a href="#配置语法">配置语法</a></li>
+        <li><a href="#示例">示例：</a></li>
+        <li><a href="#a用一台服务器来实现负载均衡配置如下">a、用一台服务器来实现负载均衡，配置如下：</a></li>
+        <li><a href="#b-另外三台真实服务器的配置如下">b、 另外三台真实服务器的配置如下：</a></li>
+        <li><a href="#c分别在三台真实服务器当然我这里是在一台服务器中用三个端口模拟的的项目目录下建立indexhtml文件">c、分别在三台真实服务器（当然我这里是在一台服务器中用三个端口模拟的）的项目目录下建立index.html文件。</a></li>
+        <li><a href="#c刷新页面发现页面可以在三个站点间轮询显示">c、刷新页面，发现页面可以在三个站点间轮询显示。‘</a></li>
+      </ul>
+    </li>
+    <li><a href="#heading"></a>
+      <ul>
+        <li><a href="#示例-1">示例：</a></li>
+        <li><a href="#结论">结论：</a></li>
+      </ul>
+    </li>
+    <li><a href="#五nginx的调度算法">五、Nginx的调度算法</a></li>
+    <li><a href="#调度算法">调度算法</a>
+      <ul>
+        <li><a href="#1加权轮询示例">1、加权轮询示例：</a></li>
+        <li><a href="#2ip_has策略示例">2、ip_has策略示例：</a></li>
+        <li><a href="#3hash关键数值轮询策略">3、hash关键数值轮询策略</a></li>
+        <li><a href="#配置语法-1">配置语法：</a></li>
+        <li><a href="#4url_hash-示例">4、url_hash 示例：</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结：</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="一nginx负载均衡">一、Nginx负载均衡</h2>
+<h3 id="1示意图">1、示意图</h3>
+<img src="1064872-20190822222926586-494023196.png" />
+<h3 id="2好处">2、好处</h3>
+<p>均摊请求，让服务端整体吞吐率提高，满足不断增长的业务需求。</p>
+<p>相比于单点服务，当其中一台服务器挂掉后，还可以继续让剩下的服务器继续服务，提高了容灾性。</p>
+<h2 id="二负载均衡的分类">二、负载均衡的分类</h2>
+<h3 id="1gslb全局负载均衡">1、GSLB（全局负载均衡）</h3>
+<p>一般是以国家或省为单位进行全局负载的。</p>
+<p>示意图如下：</p>
+<img src="1064872-20190822223632669-2146465718.png" />
+<h3 id="2slb">2、SLB</h3>
+<h4 id="示意图">示意图：</h4>
+<img src="1064872-20190822223748732-1609962668.png" style="zoom:80%;" />
+<h2 id="三基于lvs的中间件架构">三、基于LVS的中间件架构</h2>
+<p>LVS（Linux Virtual Server ）Linux 虚拟服务器</p>
+<h3 id="1四层负载均衡">1、四层负载均衡</h3>
+<p>即在OSI七层模型中的传输层。因为第四层支持TCP/IP协议。四层负载均衡只需要对客户端的请求进行TCP/IP协议的包转发就能实现负载均衡。</p>
+<h4 id="优势">优势</h4>
+<p>非常快，只需要最底层进行应用处理，不需要进行一些复杂的逻辑，值需要负责包的转发即可。</p>
+<h4 id="示意图-1">示意图</h4>
+<img src="1064872-20190822223923295-378840731.png" style="zoom:80%;" />
+<h3 id="2七层负载均衡">2、七层负载均衡</h3>
+<p>因为是在应用层，因此可以完成很多应用方面的协议请求，比如HTTP协议的负载均衡可以实现HTTP信息的改写，头信息的改写，安全应用规则的控制，转发，rewrite等等方面的规则控制。因此在七层负载均衡里面可以做的事情就更多一些，Nginx就是一个典型的七层负载均衡的SLB。</p>
+<p>SLB（Server Load Balancing）服务器负载均衡。</p>
+<h4 id="示意图-2">示意图</h4>
+<img src="1064872-20190822224245131-1931059622.png" style="zoom:80%;" />
+<h3 id="nginx负载均衡实现原理">Nginx负载均衡实现原理</h3>
+<p>通过 proxy_pass 转发到后端的服务器上，只是不是转发到一台，而是一组虚拟的服务池（即 upstream server）。在upstream 组里面实现了对于多台服务器请求的不断轮询。</p>
+<p>当用户的请求过来后，就会通过 upstream_module 这个模块将用户的请求分发到不同的服务上，从而实现负载均衡。</p>
+<p>故 proxy_pass 和 upstream 是两个核心的配置。</p>
+<h3 id="示意图-3">示意图</h3>
+<img src="1064872-20190822225332595-918442128.png" style="zoom:80%;" />
+<h3 id="配置语法">配置语法</h3>
+<p>ngx_http_upstream_module官方文档 ：<a href="http://nginx.org/en/docs/http/ngx_http_upstream_module.html" target="_blank" rel="noopener noreffer "> </a><a href="http://nginx.org/en/docs/http/ngx_http_upstream_module.html" target="_blank" rel="noopener noreffer ">http://nginx.org/en/docs/http/ngx_http_upstream_module.html</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">Syntax:</span>    <span class="s">upstream</span> <span class="s">name</span> <span class="p">{</span> <span class="kn">...</span> <span class="err">}</span>
+</span></span><span class="line"><span class="cl"><span class="s">Default:</span>    <span class="s">—</span>
+</span></span><span class="line"><span class="cl"><span class="s">Context:</span>    <span class="s">http</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="示例">示例：</h3>
+<h3 id="a用一台服务器来实现负载均衡配置如下">a、用一台服务器来实现负载均衡，配置如下：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">upstream</span> <span class="s">chrdai</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8002</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8003</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">server</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">listen</span>       <span class="mi">80</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server_name</span>  <span class="s">localhost</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">#charset koi8-r;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">access_log</span>  <span class="s">/var/log/nginx/proxy_cache_access.log</span>  <span class="s">main</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">proxy_pass</span> <span class="s">http://chrdai</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kn">include</span> <span class="s">proxy_params</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="b-另外三台真实服务器的配置如下">b、 另外三台真实服务器的配置如下：</h3>
+<p>我这里是通过同一台服务器的不同端口模拟的。</p>
+<p>第一台（/etc/nginx/conf.d/realserver1.conf）：</p>
+<img src="1064872-20190815223816947-958158317.png" style="zoom:80%;" />
+<p>第二台（/etc/nginx/conf.d/realserver2.conf）：</p>
+ <img src="1064872-20190815223857577-1323905603.png" style="zoom:80%;" />
+<p>第三台（/etc/nginx/conf.d/realserver3.conf）：</p>
+<img src="1064872-20190815223946234-1049199222.png" style="zoom:80%;" />
+<h3 id="c分别在三台真实服务器当然我这里是在一台服务器中用三个端口模拟的的项目目录下建立indexhtml文件">c、分别在三台真实服务器（当然我这里是在一台服务器中用三个端口模拟的）的项目目录下建立index.html文件。</h3>
+<p>第一台（/opt/app/code1）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>upstream<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Test upstream1<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>第二台（/opt/app/code2）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>upstream<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Test upstream2<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>第三台（/opt/app/code3）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>upstream<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Test upstream3<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="c刷新页面发现页面可以在三个站点间轮询显示">c、刷新页面，发现页面可以在三个站点间轮询显示。‘</h3>
+<img src="1064872-20190825121115497-1376805093.png" />
+<img src="1064872-20190825121127864-1392128562.png" />
+<img src="1064872-20190825121138941-1076691950.png" />
+<p>说明我们的负载均衡配置成功。</p>
+<p><strong>注意</strong>：upstream只能配置在 http 这一层，即 server 层的外面。</p>
+<p>下面我们来模拟其中一台服务器挂掉后，负载均衡是如何工作的。</p>
+<p>如果是真实服务器，可以将nginx进程kill掉，但是由于我这里是在同一台服务器下面的三个端口来模拟的，所以不能直接kill掉Nginx进程。</p>
+<p>我这里通过在 iptables 中添加一条规则来将所有来自 8002 端口的请求都 drop 掉，即不在对外提供 8002 端口的服务。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">iptables</span> <span class="s">-I</span> <span class="s">INPUT</span> <span class="s">-p</span> <span class="s">tcp</span> <span class="s">--dport</span> <span class="mi">8002</span> <span class="s">-j</span> <span class="s">DROP</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时我们在来访问页面，发现只会显示 upstream1 和 upstream3，upstream2已经被略过了。</p>
+<img src="1064872-20190825121115497-1376805093-162893272909716.png" />
+<img src="1064872-20190825121138941-1076691950-162893273815218.png" />
+<p><strong>说明当我们的负载均衡发现如果有一台服务器挂掉后，会自动略过这台服务器。打他提高了容灾性。</strong></p>
+<h2 id="heading"></h2>
+<p>四、负载均衡调度中的状态</p>
+<table>
+<thead>
+<tr>
+<th><strong>状态</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>down</td>
+<td>当前的server暂时不参与负载均衡</td>
+</tr>
+<tr>
+<td>backup</td>
+<td>预留的备份服务器</td>
+</tr>
+<tr>
+<td>max_fails</td>
+<td>允许请求失败的次数</td>
+</tr>
+<tr>
+<td>fail_timeout</td>
+<td>经过max_fails失败后，服务暂停的时间（默认是10秒）</td>
+</tr>
+<tr>
+<td>max_conns</td>
+<td>限制最大的接收连接数</td>
+</tr>
+</tbody>
+</table>
+<p>max_conns的应用场景是，当我们把两个不同配置的服务器加在了同一个upstream下时，比如一个是四核，一个是8核的服务器，总不能让两台服务器承受相同的请求连接数吧，默认的轮询策略会均匀分配，这时我们就可以通过这个参数来限制后端服务最大的请求数。</p>
+<h3 id="示例-1">示例：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">upstream</span> <span class="s">chrdai</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">//8001不启用</span>
+</span></span><span class="line"><span class="cl">    <span class="s">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8001</span> <span class="s">down</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">//8002设为备份机</span>
+</span></span><span class="line"><span class="cl">    <span class="s">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8002</span> <span class="s">backup</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8003</span> <span class="s">max_fails=1</span> <span class="s">fail_timeout=10s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">server</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">listen</span>       <span class="mi">80</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server_name</span>  <span class="s">localhost</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">#charset koi8-r;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">access_log</span>  <span class="s">/var/log/nginx/proxy_cache_access.log</span>  <span class="s">main</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">proxy_pass</span> <span class="s">http://chrdai</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kn">include</span> <span class="s">proxy_params</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时我们在访问，发现只有8003 在提供服务。</p>
+<img src="1064872-20190825124436150-312011919.png" />
+<p>下面我们用iptables规则来限制来自8003的请求，看8002能否从备份状态恢复为提供服务状态。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iptables -I INPUT -p tcp --dport <span class="m">8003</span> -j DROP
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>服务端经过一段时间的尝试，发现8003挂了，果然将8002转正了。</p>
+<img src="1064872-20190825124930465-387096860.png" />
+<p>我们再次刷新页面，在8003没有恢复之前，都是访问的8002。</p>
+<p>下面我们来将8003的服务恢复过来。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">iptables -F
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>再次刷新页面，发现又是由8003来提供服务了，8002继续轮为备胎。</p>
+<img src="1064872-20190825125216057-767692264.png" />
+<h3 id="结论">结论：</h3>
+<ul>
+<li>当我们负载均衡中其中一台服务器挂掉后，会略过该服务器，剩下的服务器继续提供服务。</li>
+<li>当所有的主服务器都挂掉后，备用服务器会转正。</li>
+<li>当主服务器恢复后，继续由主服务器提供服务，备用服务器继续轮为备胎。</li>
+</ul>
+<h2 id="五nginx的调度算法">五、Nginx的调度算法</h2>
+<h2 id="调度算法">调度算法</h2>
+<table>
+<thead>
+<tr>
+<th>调度算法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>轮询</td>
+<td>按时间顺序逐一分配到不同的后端服务器</td>
+</tr>
+<tr>
+<td>加权轮询</td>
+<td>weight值越大，分配到的访问几率越高</td>
+</tr>
+<tr>
+<td>ip_hash</td>
+<td>每个请求按访问IP的的hash结果分配，这样来自同一个IP的固定访问一个后端服务器</td>
+</tr>
+<tr>
+<td>url_hash</td>
+<td>按照访问的url的hash结果来分配请求，使每个url定向到同一个后端服务器</td>
+</tr>
+<tr>
+<td>least_conn</td>
+<td>最少链接数，哪个机器连接数少，就分给哪个机器</td>
+</tr>
+<tr>
+<td>hash关键数值</td>
+<td>hash自定义的key</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1加权轮询示例">1、加权轮询示例：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">upstream</span> <span class="s">chrdai</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8002</span> <span class="s">weight=5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8003</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">//理论上来讲，如果请求7次，应该有</span> <span class="mi">5</span> <span class="s">次会请求</span> <span class="mi">8002</span> <span class="s">所对应的这台服务器</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2ip_has策略示例">2、ip_has策略示例：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">upstream</span> <span class="s">chrdai</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">ip_hash</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8002</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8003</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>服务器会根据 REMOTE_ADDR 做hash，同一个ip的请求，不管请求多少次，都会请求相同的一台服务器。</p>
+<p>它的缺点是，如果中间有一层代理，那么取到的就不是客户端真实的ip，这样就无法基于用户真实的ip来做轮询了。而会跟代理服务器的ip来固定走一台服务器。</p>
+<p>如果按照ip来分配，往往取不到用户端真实的ip。还有一个问题就是当服务端使用了缓存，假如一个用户先访问了服务器1，服务器1缓存了一部分资源，下一次访问的时候被轮询到了服务器2，那么上一次的缓存就无效了，Nginx又增加了更加友好的hash策略。</p>
+<h3 id="3hash关键数值轮询策略">3、hash关键数值轮询策略</h3>
+<h3 id="配置语法-1">配置语法：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">//version&gt;1.7.2Syntax：hash</span> <span class="s">key</span> <span class="s">[consistent]</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">Default：-</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">Context：upstream</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4url_hash-示例">4、url_hash 示例：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">upstream</span> <span class="s">chrdai</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">hash</span> <span class="nv">$request_uri</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8002</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server</span> <span class="n">192.168.0.133</span><span class="p">:</span><span class="mi">8003</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 /opt/app/cod1 目录下新建三个文件。</p>
+<p><strong>url1.html</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>upstream<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>server1 url1<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>url2.html</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>upstream<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>server1 url2<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>url3.html</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&#34;en&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>upstream<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>server1 url3<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>/opt/app/code2 和 /opt/app/code3 目录下也创建三个 urlx.html，页面内容和上面同理，修改一下 server的值和url的值即可。</p>
+<p>此时由于我们的hash策略是根据 reques_uri 来的，所以会有如下结果。</p>
+<p>a、当我们访问 http://192.168.0.133/url1.html 时，由于一开始就进入了 server1 这台服务器，不管怎么刷新，以后也永远进入server1这台服务器，因为它是根据 request_uri来做的hash。</p>
+<img src="1064872-20190826224416325-1184809982.png" style="zoom:100%;" />
+<p>b、当我们访问 <a href="http://192.168.0.133/url1.html" target="_blank" rel="noopener noreffer ">http://192.168.0.133/url2.html</a> 时，由于一开始就进入了 server3 这台服务器，不管怎么刷新，以后也永远进入server3这台服务器。</p>
+<img src="1064872-20190826225446505-1452035951.png" style="zoom:100%;" />
+<p>c、当我们访问 <a href="http://192.168.0.133/url1.html" target="_blank" rel="noopener noreffer ">http://192.168.0.133/url3.html</a> 时，由于一开始就进入了 server2 这台服务器，不管怎么刷新，以后也永远进入server3这台服务器。</p>
+ <img src="1064872-20190826225524188-2103759996.png" />
+<h2 id="总结">总结：</h2>
+<ul>
+<li>加权轮询和轮询都是基于请求来进行分配的。</li>
+<li>ip_hash策略，当中间有代理服务或者有设置缓存都有一定的局限性。</li>
+<li>通常使用自定义的 url_hash策略来控制轮询。</li>
+<li>当加权轮询策略和ip_hash 或者 url_hash 策略混用的时候，因为weight控制的是轮询策略下的权重，ip_hash是根据请求来源的ip加入轮询的算法。所以用了ip_hash或者url_hash的策略，就不需要添加weight的参数了。</li>
+</ul>
+<p>本文为袋鼠学习中的总结，如有转载请注明出处：https://www.cnblogs.com/chrdai/protected/p/11397397.html</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-08-14</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" data-title="Nginx负载均衡" data-hashtags="linux,nginx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" data-hashtag="linux"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" data-title="Nginx负载均衡"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" data-title="Nginx负载均衡"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" data-title="Nginx负载均衡"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/nginx/">nginx</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/ssh%E8%87%AA%E5%8A%A8%E7%99%BB%E9%99%86%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="prev" rel="prev" title="ssh自动登陆的实现"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>ssh自动登陆的实现</a>
+            <a href="/nextcloud%E5%AE%89%E8%A3%85%E6%94%B9%E9%80%A0%E6%94%AF%E6%8C%81%E8%A7%86%E9%A2%91%E7%BC%A9%E7%95%A5%E5%9B%BE%E5%92%8C%E6%8C%82%E8%BD%BDsamba%E4%B8%8A%E4%BC%A0%E5%8A%A0%E9%80%9F/" class="next" rel="next" title="NextCloud安装、改造，支持视频缩略图和、挂载Samba、上传加速">NextCloud安装、改造，支持视频缩略图和、挂载Samba、上传加速<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.116.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

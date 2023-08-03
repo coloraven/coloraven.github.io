@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Python pip 离线安装 package 方法总结（以 TensorFlow 为例） - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）" />
+<meta property="og:description" content="文章背景 Python 环境安装 package，一般采用 pip 命令在线从 PyPI 是安装，这也是最方便的途径。但在某些情况下，要为一台离线的机器（比如在内网运行的一台生产服务器）安装 package，根本就连不上 PyPI。当然，大厂一般都有内网 PyPI 代理，只要改一下 --index-url 参数即可；但若代理也没有，只能手工将所有依赖到的 package 离线下载下来，放到离线的机器上安装。
+下面是说明了整个探索过程。最终总结的方法，直接看文末的 “推荐方法” 即可。
+心路历程 手工下载 之前我只是傻了吧唧，将要安装的 package（比如 tensorflow）从 PyPI 网站手工下载下来，放到内网机器直接安装，当然立马就会报 xxx 依赖不存在导致安装失败；根据报错提示再到 PyPI 上再下载这个 xxx 的 package 安装。而这个 xxx 可能又依赖另外一个 yyy。如此反复，整个过程有 30 个左右的多层依赖，搞了一下午，痛苦不堪。
+读取 requirement 后来，我发现这些 package 里面都有 requirements 的声明文件，于是我就先解压出来看 requirement，这样至少直接依赖的 package 一下子都知道了。总比根据报错再一个一个下载快了。
+但这还是不行，诉诸网络，发现了 pip download 可以解决这个问题，不过实际操作中还是有不少问题，下面以 TensorFlow 的离线安装为例说明。
+pip download 总的思路是:
+在 online 机器，通过 pip download tensorflow 命令（与 pip install 的区别就是，前者只下载不安装），将要安装的 xxx_package 以及所有依赖都下载到本地" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-02T22:12:44+00:00" />
+<meta property="article:modified_time" content="2022-03-02T22:12:44+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）"/>
+<meta name="twitter:description" content="文章背景 Python 环境安装 package，一般采用 pip 命令在线从 PyPI 是安装，这也是最方便的途径。但在某些情况下，要为一台离线的机器（比如在内网运行的一台生产服务器）安装 package，根本就连不上 PyPI。当然，大厂一般都有内网 PyPI 代理，只要改一下 --index-url 参数即可；但若代理也没有，只能手工将所有依赖到的 package 离线下载下来，放到离线的机器上安装。
+下面是说明了整个探索过程。最终总结的方法，直接看文末的 “推荐方法” 即可。
+心路历程 手工下载 之前我只是傻了吧唧，将要安装的 package（比如 tensorflow）从 PyPI 网站手工下载下来，放到内网机器直接安装，当然立马就会报 xxx 依赖不存在导致安装失败；根据报错提示再到 PyPI 上再下载这个 xxx 的 package 安装。而这个 xxx 可能又依赖另外一个 yyy。如此反复，整个过程有 30 个左右的多层依赖，搞了一下午，痛苦不堪。
+读取 requirement 后来，我发现这些 package 里面都有 requirements 的声明文件，于是我就先解压出来看 requirement，这样至少直接依赖的 package 一下子都知道了。总比根据报错再一个一个下载快了。
+但这还是不行，诉诸网络，发现了 pip download 可以解决这个问题，不过实际操作中还是有不少问题，下面以 TensorFlow 的离线安装为例说明。
+pip download 总的思路是:
+在 online 机器，通过 pip download tensorflow 命令（与 pip install 的区别就是，前者只下载不安装），将要安装的 xxx_package 以及所有依赖都下载到本地"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" /><link rel="prev" href="http://example.org/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" /><link rel="next" href="http://example.org/%E5%86%85%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BD%BF%E7%94%A8docker%E9%95%9C%E5%83%8F/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Python pip 离线安装 package 方法总结（以 TensorFlow 为例）",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B\/"
+        },"genre": "posts","keywords": "Python, pip, 编程","wordcount":  606 ,
+        "url": "http:\/\/example.org\/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B\/","datePublished": "2022-03-02T22:12:44+00:00","dateModified": "2022-03-02T22:12:44+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Python pip 离线安装 package 方法总结（以 TensorFlow 为例）</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%BC%96%E7%A8%8B/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>编程</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-02">2022-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;606 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#文章背景">文章背景</a></li>
+    <li><a href="#心路历程">心路历程</a>
+      <ul>
+        <li><a href="#手工下载">手工下载</a></li>
+        <li><a href="#读取-requirement">读取 requirement</a></li>
+        <li><a href="#pip-download">pip download</a>
+          <ul>
+            <li><a href="#online-和-offline-机器架构完全相同">online 和 offline 机器架构完全相同</a></li>
+            <li><a href="#online-和-offline-机器架构不同">online 和 offline 机器架构不同</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#推荐方法pyenvdocker">推荐方法：pyenv+docker</a>
+      <ul>
+        <li><a href="#1--如果-online-和-offline-的机器架构完全一样">1.  如果 online 和 offline 的机器架构完全一样</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="文章背景">文章背景</h2>
+<p><code>Python</code> 环境安装<code> package</code>，一般采用 <code>pip</code> 命令在线从 <code>PyPI</code> 是安装，这也是最方便的途径。但在某些情况下，<strong>要为一台离线的机器（比如在内网运行的一台生产服务器）安装 <code>package</code></strong>，根本就连不上 <code>PyPI</code>。当然，大厂一般都有内网 PyPI 代理，只要改一下 <code>--index-url</code> 参数即可；但若代理也没有，只能<strong>手工将所有依赖到的 <code>package</code> 离线下载下来，放到离线的机器上安装</strong>。</p>
+<p>下面是说明了整个探索过程。最终总结的方法，直接看文末的 “推荐方法” 即可。</p>
+<h2 id="心路历程">心路历程</h2>
+<h3 id="手工下载">手工下载</h3>
+<p>之前我只是傻了吧唧，将要安装的 <code>package</code>（比如 <code>tensorflow</code>）从 <code>PyPI</code> 网站手工下载下来，放到内网机器直接安装，当然立马就会报 xxx 依赖不存在导致安装失败；根据报错提示再到 PyPI 上再下载这个 xxx 的 <code>package</code> 安装。而这个 xxx 可能又依赖另外一个 yyy。如此反复，整个过程有 30 个左右的多层依赖，搞了一下午，痛苦不堪。</p>
+<h3 id="读取-requirement">读取 requirement</h3>
+<p>后来，我发现这些 <code>package</code> 里面都有 <code>requirements</code> 的声明文件，于是我就先解压出来看 <code>requirement</code>，这样至少直接依赖的 <code>package</code> 一下子都知道了。总比根据报错再一个一个下载快了。</p>
+<p>但这还是不行，诉诸网络，发现了 <code>pip download</code> 可以解决这个问题，不过实际操作中还是有不少问题，下面以 <code>TensorFlow</code> 的离线安装为例说明。</p>
+<h3 id="pip-download">pip download</h3>
+<p>总的思路是:</p>
+<ol>
+<li>
+<p>在 online 机器，通过 <code>pip download tensorflow</code> 命令（与 <code>pip install</code> 的区别就是，前者只下载不安装），将要安装的 xxx_package 以及所有依赖都下载到本地</p>
+</li>
+<li>
+<p>然后拷贝到目标 offline 机器的某个目录（比如 /offline_package_dir），并通过如下命令安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pip install --no-index --find-links=file:/offline_package_dir tensorflow
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<p>看起来很美好，但如果两台机器架构不一样，则十分痛苦。
+根据 online 和 offline 机器的架构是否相同（即 OS 是否一样，Python 版本是否一样），分别如下：</p>
+<h4 id="online-和-offline-机器架构完全相同">online 和 offline 机器架构完全相同</h4>
+<p>这种情况比较简单：</p>
+<ol>
+<li>
+<p>直接在 online 机器执行如下命令，下载所有依赖 package 到当前目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pip download tensorflow
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>将目录内容拷贝到目标 offline 机器（比如 /offline_package_dir），并目标 offline 机器执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pip install --no-index --find-links=file:/offline_package_dir tensorflow
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<p>由于两个机器架构完全一样，因此 download 的 package 在目标机器一定可以安装。</p>
+<h4 id="online-和-offline-机器架构不同">online 和 offline 机器架构不同</h4>
+<p>这种情况比较复杂，<strong>因为机器架构不同，直接用 <code>pip download tensorflow</code> 下载的 package 在目标机器很可能不适用</strong>。</p>
+<p>以 <a href="https://pypi.org/project/tensorflow/#files" target="_blank" rel="noopener noreffer ">TensorFlow</a> 为例，PyPI 上看到的 wheel 文件，至少根据 OS、Python 版本以及 CPU 架构做了区分：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.imshuai.com/images/2018/06/Screen-Shot-2018-06-13-at-22.05.38.jpg"
+        data-srcset="https://cdn.imshuai.com/images/2018/06/Screen-Shot-2018-06-13-at-22.05.38.jpg, https://cdn.imshuai.com/images/2018/06/Screen-Shot-2018-06-13-at-22.05.38.jpg 1.5x, https://cdn.imshuai.com/images/2018/06/Screen-Shot-2018-06-13-at-22.05.38.jpg 2x"
+        data-sizes="auto"
+        alt="https://cdn.imshuai.com/images/2018/06/Screen-Shot-2018-06-13-at-22.05.38.jpg"
+        title="Screen-Shot-2018-06-13-at-22.05.38" /></p>
+<p>PyPI 上 package 有好几种格式：</p>
+<ol>
+<li>源文件（一般是<code>.tar.gz</code> 或<code>.zip</code> 文件，用 <code>pip</code> 安装，与机器架构无关，但某些 package 可能涉及到 C/C++ 编译）</li>
+<li>wheel 文件（二进制文件，拓展名为<code>.whl</code>，用 <code>pip</code> 安装，无需编译，但与机器架构相关）</li>
+<li><code>.egg</code> 文件（二进制文件，用 <code>easy_install</code> 安装，无需编译，但与机器架构相关）</li>
+</ol>
+<p><strong>不幸的是 PiPY 并没有规定一个 package 必须提供的安装格式，有的只有 wheel 没有源文件，有的只有源文件没有 wheel 或 egg。</strong> 这也是导致下文 <code>pip download</code> 失败的原因。</p>
+<p>首先，根据 <a href="https://pip.pypa.io/en/stable/reference/pip_download/" target="_blank" rel="noopener noreffer ">pip 官方 Reference Guide</a>，可以在执行 <code>download</code> 命令时，添加参数，指明要下载 package 对应的架构：</p>
+<blockquote>
+<p>pip download with the <code>--platform</code>, <code>--python-version</code>, <code>--implementation</code>, and <code>--abi</code> options provides the ability to fetch dependencies for an interpreter and system other than the ones that pip is running on.<code>--only-binary=:all:</code>or <code>--no-deps</code> is required when using any of these options. It is important to note that these options all default to the current system/interpreter, and not to the most restrictive constraints (e.g. platform any, abi none, etc). To avoid fetching dependencies that happen to match the constraint of the current interpreter (but not your target one), it is recommended to specify all of these options if you are specifying one of them. Generic dependencies (e.g. universal wheels, or dependencies with no platform, abi, or implementation constraints) will still match an over- constrained download requirement.</p>
+</blockquote>
+<p>看起来，只要指定 <code>--platform</code>, <code>--python-version</code>, <code>--implementation</code>, and <code>--abi</code> 即可，比如我在 macOS 上，为 offline 的 suse linux 下载 TensorFlow，目标机器安装了 Python 2.7， 64 位机器，则这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pip download \
+</span></span><span class="line"><span class="cl">    --only-binary=:all: \ # 只下载二进制package（即wheel或egg）
+</span></span><span class="line"><span class="cl">    --platform linux_x86_64 \ # 说明是linux 64位架构
+</span></span><span class="line"><span class="cl">    --python-version 27 \ # Python 2.7
+</span></span><span class="line"><span class="cl">    --implementation cp \ # cpython，一般都是这个
+</span></span><span class="line"><span class="cl">    --abi cp27mu
+</span></span><span class="line"><span class="cl">    tensorflow # 要下载的package名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这些参数含义和可能的值，可参考：<a href="https://www.python.org/dev/peps/pep-0425/" target="_blank" rel="noopener noreffer ">PEP 425 – Compatibility Tags for Built Distributions</a></p>
+<p>刚开始都正常，但下载到一半的时候就报错：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Could not find a version that satisfies the requirement absl-py&gt;=0.1.6 (from tensorflow) (from versions: )
+</span></span><span class="line"><span class="cl">No matching distribution found for absl-py&gt;=0.1.6 (from tensorflow)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这是因为参数 <code>--only-binary=:all:</code> 只下载二进制版，而 tensorflow 依赖的 absl-py 在 PyPI 中只有.tar.gz 的源码版，没有二进制版。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.imshuai.com/images/2018/06/Screen-Shot-2018-06-14-at-16.02.10.jpg"
+        data-srcset="https://cdn.imshuai.com/images/2018/06/Screen-Shot-2018-06-14-at-16.02.10.jpg, https://cdn.imshuai.com/images/2018/06/Screen-Shot-2018-06-14-at-16.02.10.jpg 1.5x, https://cdn.imshuai.com/images/2018/06/Screen-Shot-2018-06-14-at-16.02.10.jpg 2x"
+        data-sizes="auto"
+        alt="https://cdn.imshuai.com/images/2018/06/Screen-Shot-2018-06-14-at-16.02.10.jpg"
+        title="Screen-Shot-2018-06-14-at-16.02.10" /></p>
+<p>那能不能不限制 <code>--only-binary=:all:</code>？不行，一旦指定具体的架构，就必须设置 <code>--only-binary=:all:</code>，或者不下载依赖，这是 pip install 用法的规定，可参考官方 Reference： <a href="https://pip.pypa.io/en/stable/reference/pip_download/" target="_blank" rel="noopener noreffer ">https://pip.pypa.io/en/stable/reference/pip_download/</a></p>
+<blockquote>
+<p><code>–only-binary=:all:</code>or <code>–no-deps</code> is required when using any of these options.</p>
+</blockquote>
+<p>这真蛋疼！</p>
+<p>那就干脆不下载二进制 package，用 <code>pip download --only-binary=:none: tensorflow</code>，但坑爹是 tensorflow 只提供二进制包，或者说就算 tensorflow 提供了源码版 package，你也无法保证所有依赖的包都有源码版。<strong>所以这条路也行不通，进入了一个死胡同</strong>。</p>
+<p>这个时候，怎么办呢？那手工将这个包下载下来吧：
+<code>pip download --no-deps &quot;absl-py&gt;=0.1.6&quot;</code>
+这里要注意，加上–no-deps，即不下载 absl-py 的依赖。因为即便你下载的依赖也可能是不符合目标架构的。</p>
+<p>问题是，重新执行 tensorflow 的下载，还是阻塞在 absl-py 上。所以后面没有下载的 package 都要回退到手工模式。</p>
+<p><strong>归根结底，是 pip install 命令，一旦指定了平台相关的参数，就只能下载二进制 package，我很奇怪为什么不能同时下载源代码，至少 install 命令，都是优先选择二进制，没有二进制的时候也能用源代码版。</strong></p>
+<p>网上很多办法是，使用 virtualenv 做一个干净的 Python 环境，然后 install 再用 <code>pip freeze &gt; require.txt</code> 导出 requirement 依赖清单，然后再用 <code>pip download -r require.txt</code> 下载。但这个方法还是逃脱不了目标平台架构不一样的问题。</p>
+<p><strong>到这个地步，若不想手工做，只有一条路：保证 online 和 offline 机器架构一样。</strong> 所谓架构一样，其实就是四个参数一样：<code>--platform</code>, <code>--python-version</code>, <code>--implementation</code>, and <code>--abi</code></p>
+<ul>
+<li>platform 即操作系统，这个可以通过虚拟机或 docker 解决</li>
+<li>python-version，可以通过 pipenv 解决</li>
+<li>implementation，目前一般只考虑 cpython</li>
+<li>abi，通过虚拟机或 docker 吧</li>
+</ul>
+<h2 id="推荐方法pyenvdocker">推荐方法：pyenv+docker</h2>
+<p>经过上面的分析总结，首先需要让 online 和 offline 机器架构一样。</p>
+<h3 id="1--如果-online-和-offline-的机器架构完全一样">1.  如果 online 和 offline 的机器架构完全一样</h3>
+<p><strong>OS 一样、Python 版本一样</strong>，非常简单：</p>
+<ol>
+<li>
+<p>先在 online 机器执行 download，下载所有依赖 package 到当前目录：<code>pip download tensorflow</code></p>
+</li>
+<li>
+<p>将目录内容拷贝到目标 offline 机器（比如 /offline_package_dir），并目标 offline 机器执行<code>pip install --no-index --find-links=file:目录路径 tensorflow</code></p>
+</li>
+<li>
+<p>如果 online 和 offline 架构不一样
+可以先尝试用 download 指定参数试一下是否能成功下载，如果不能再考虑下面的做法。
+具体分为两种情况：</p>
+<ol>
+<li>
+<p>仅 Python 版本不一样</p>
+<ol>
+<li>通过 pyenv 安装指定版本的 python 2.7.13
+<code>curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash</code>
+<code>pyenv install 2.7.13</code></li>
+<li>切换 Python 版本
+<code>pyenv global 2.7.13</code></li>
+<li>接下来同第 1 中情况的步骤</li>
+</ol>
+</li>
+<li>
+<p>OS 不一样
+使用 docker 创建一个和目标机器架构相同的容器，在容器内安装和目标机器一样的 Python 版本，然后在容器内按第 1 种情况处理。
+以我的例子:</p>
+</li>
+</ol>
+<pre><code>1.  先启动目标系统的 docker 镜像（这里以 Ubuntu 为例），并映射 package 下载目录
+     `docker run -it -v /offline_tensorflow_py3:/package ubuntu /bin/bash`
+2.  在容器内安装 python
+     `apt-get update &amp;&amp; apt-get install python python-pip`
+3.  接下来同 2.1 步骤一样</code></pre>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-03-02</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-title="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）" data-hashtags="Python,pip,编程"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-title="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-title="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/python-pip-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85-package-%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E4%BB%A5-tensorflow-%E4%B8%BA%E4%BE%8B/" data-title="Python pip 离线安装 package 方法总结（以 TensorFlow 为例）"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/python/">Python</a>,&nbsp;<a href="/tags/pip/">pip</a>,&nbsp;<a href="/tags/%E7%BC%96%E7%A8%8B/">编程</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/vscode%E6%8F%92%E4%BB%B6remote-ssh%E9%85%8D%E7%BD%AE/" class="prev" rel="prev" title="VSCODE插件Remote-SSH配置"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>VSCODE插件Remote-SSH配置</a>
+            <a href="/%E5%86%85%E7%BD%91%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BD%BF%E7%94%A8docker%E9%95%9C%E5%83%8F/" class="next" rel="next" title="内网环境中使用Docker镜像">内网环境中使用Docker镜像<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.116.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

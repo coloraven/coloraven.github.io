@@ -1,0 +1,17 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>博客 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E5%8D%9A%E5%AE%A2/</link>
+        <description>博客 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 25 Jul 2023 22:44:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/%E5%8D%9A%E5%AE%A2/" rel="self" type="application/rss+xml" /><item>
+    <title>sonic博客试用</title>
+    <link>http://example.org/sonic%E5%8D%9A%E5%AE%A2%E8%AF%95%E7%94%A8/</link>
+    <pubDate>Tue, 25 Jul 2023 22:44:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/sonic%E5%8D%9A%E5%AE%A2%E8%AF%95%E7%94%A8/</guid>
+    <description><![CDATA[为了搭建知识库网站，最近都在找一个合适的框架，需要满足以下几个要求：
+方便移植：以文件或者sqlite数据库作为数据储存引擎； 多平台适用； 支持全文检索，且检索时命中关键词部分前后的文章内容会展示在搜索结果中； 支持在线增删改查，而不是像hexo、hugo等静态渲染的博客系统； 资源占用低。 最后被俺找到两个`go语言`(低资源占用的代名词)开发的博客系统：[`sonic`](https://github.com/go-sonic/sonic)和[`journey`](https://github.com/kabukky/journey) journey 超级简陋，自定义项目较少。
+sonic sonic是中国人开发的，更易上手。功能较多，且因为作者是中国人，使用遇到问题交流起来无障碍。]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,19 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>AWVS - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/awvs/</link>
+        <description>AWVS - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="http://example.org/tags/awvs/" rel="self" type="application/rss+xml" /><item>
+    <title>AWVS扫描器的部署</title>
+    <link>http://example.org/awvs%E6%89%AB%E6%8F%8F%E5%99%A8%E7%9A%84%E9%83%A8%E7%BD%B2/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/awvs%E6%89%AB%E6%8F%8F%E5%99%A8%E7%9A%84%E9%83%A8%E7%BD%B2/</guid>
+    <description><![CDATA[[AWVS14 Docker](https://blog.zygd.site/go.html?u=https://blog.zygd.site/AWVS14 Docker.html) 注：如认为本破解补丁存在某些后门或转载删版权者，请勿使用！
+由于传播、利用此文所提供的信息而造成的任何直接或者间接的后果及损失，均由使用者本人负责，文章作者不为此承担任何责任。
+XRSec 拥有对此文章的修改和解释权如欲转载或传播此文章，必须保证此文章的完整性，包括版权声明等全部内容。未经作者允许，不得任意修改或者增减此文章内容，不得以任何方式将其用于商业目的
+INFO Version 14 build 14.3.210628104 for Windows, Linux and macOS – 28th June 2021
+Updates Target Knowledgebase will be reset when Target Settings are changed Updated SSL/TLS Certificate expiry threshold notification from 30 days to 60 days Fixes Fixed: OWASP compliance report template to not be available in some Editions Fixed: Some scripts where not observing Excluded paths configured in Target settings 1 2 3 ip:3443 awvs@awvs.]]></description>
+</item>
+</channel>
+</rss>

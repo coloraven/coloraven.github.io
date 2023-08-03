@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Python修改Windows系统代理的方法 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Python修改Windows系统代理的方法" />
+<meta property="og:description" content="来源：https://www.jianshu.com/p/49c444d9a435
+&gt; 声明下：不同于网络上千百篇方法，下文是经过各种严格测试都通过的，同时也是一个实验的过程，排除了各种不靠谱的方法。有需要的可以评论来讨论，想要源码和相关参考文献或笔记的，也可以找我。 思路及启发 先说一下我这一路实验的思路吧，这个至关重要。之前一直在用Python做爬虫抓取数据，发现本机IP的问题不解决，爬虫相当于白费了。然后各种百度，不管是用urllib2还是requests的代理设置，都不管用。然后又各种搜索Python更改windows代理的设置，还需要接触windos底层API，有复杂又不好实现。于是爬虫的学习就放弃了好长一段时间。
+最近因为一直在用AutoHotkey大大加快电脑操作效率，各种快捷键和代替手动操作一些常规系统设置。突发奇想，想让它自动打开IE的Internet设置，然后自动点击“局域网设置”，在自动在代理框里输入IP地址，按回车完成设置。这真是个好主意~
+不过失败了。。。因为AHK在IE设置弹出的框框中选择某一个输入框，很麻烦，我也没法实现。所以就在想另一个办法，因为AHK操作Windows的cmd命令很方便，所以在想能不能用它打开cmd然后用命令设置IE呢？
+然后又各种百度。发现这是可以通过reg add注册表设置来实现的！于是，就开启了reg命令的百度之旅。
+按照网上各种方法，都指向了注册表的这个地方:
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings
+大家都说在这个路径下，有这么3个项非常重要：
+ProxyEnable - 使用代理
+ProxyServer - 代理IP的地址及端口号
+AutoConfigURL - 自动配置脚本（PAC）的地址
+于是试着用reg add命令操作：
+1 2 reg add &#34;HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings&#34; /v ProxyEnable /tREG_DWORD /d 1 /f reg add &#34;HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings&#34; /v ProxyServer /d&#34;192.168.1.1:8080&#34; /f 这两句第一个是打开“代理”，第二个是设置代理的IP地址。
+先在命令行里敲了下命令，然后打开regedit注册表，刷新下看，还真改了！
+然后手动打开IE设置，发现里面的内容也确实改变了。然后再打开浏览器，打开IP查询的网址，自己的IP真的变了！
+至此以为大功告成了。结果再用时，发现大错特错——
+再次用命令行改我指定的IP地址后，网页打不开了。。。
+来回反复调试查错之后，我发现一个“大秘密”：如果不手动打开IE设置里的局域网设置窗口的话，所有代理设置是不生效的。这是为什么呢？
+百度里搜索不到。
+于是我就用英文到Stackoverflow去搜，结果发现实际影响本机代理的注册表项目并不是之前的那几个！（真怀疑网上那些人说自己用这个项达到定时设置代理的人是不是玩真的。。。）
+而是这个位置的项：
+HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections
+其中的DefaultConnectionSettings才是真正需要改的东西。打开以后各种乱码，原来是二进制值。
+不过用编辑器看二进制值，确实发现代理IP地址和自动配置脚本的地址都在里面。
+那怎么办呢？AHK可不会操作二进制，也没什么方法能用reg add命令行直接把二进制值注入。
+然后又进入无尽的百度模式。
+注册表的二进制项修改方式的突发奇想 忘了什么启发的我吧，好像是自己无聊到在注册表上乱点，发现我刻意导出注册表。
+然后导出了下试试，发现是个.reg文件。然后无聊双击一下，发现可以把这个文件导入到注册表！
+于是灵光一闪，赶紧用文本编辑器打开这个.reg文件，发现里面是文字画的十六进制码，类似这样的：
+1 2 3 4 5 6 7 8 9 10 11 12 Windows Registry Editor Version 5." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-18T22:48:59+00:00" />
+<meta property="article:modified_time" content="2021-11-18T22:48:59+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python修改Windows系统代理的方法"/>
+<meta name="twitter:description" content="来源：https://www.jianshu.com/p/49c444d9a435
+&gt; 声明下：不同于网络上千百篇方法，下文是经过各种严格测试都通过的，同时也是一个实验的过程，排除了各种不靠谱的方法。有需要的可以评论来讨论，想要源码和相关参考文献或笔记的，也可以找我。 思路及启发 先说一下我这一路实验的思路吧，这个至关重要。之前一直在用Python做爬虫抓取数据，发现本机IP的问题不解决，爬虫相当于白费了。然后各种百度，不管是用urllib2还是requests的代理设置，都不管用。然后又各种搜索Python更改windows代理的设置，还需要接触windos底层API，有复杂又不好实现。于是爬虫的学习就放弃了好长一段时间。
+最近因为一直在用AutoHotkey大大加快电脑操作效率，各种快捷键和代替手动操作一些常规系统设置。突发奇想，想让它自动打开IE的Internet设置，然后自动点击“局域网设置”，在自动在代理框里输入IP地址，按回车完成设置。这真是个好主意~
+不过失败了。。。因为AHK在IE设置弹出的框框中选择某一个输入框，很麻烦，我也没法实现。所以就在想另一个办法，因为AHK操作Windows的cmd命令很方便，所以在想能不能用它打开cmd然后用命令设置IE呢？
+然后又各种百度。发现这是可以通过reg add注册表设置来实现的！于是，就开启了reg命令的百度之旅。
+按照网上各种方法，都指向了注册表的这个地方:
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings
+大家都说在这个路径下，有这么3个项非常重要：
+ProxyEnable - 使用代理
+ProxyServer - 代理IP的地址及端口号
+AutoConfigURL - 自动配置脚本（PAC）的地址
+于是试着用reg add命令操作：
+1 2 reg add &#34;HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings&#34; /v ProxyEnable /tREG_DWORD /d 1 /f reg add &#34;HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings&#34; /v ProxyServer /d&#34;192.168.1.1:8080&#34; /f 这两句第一个是打开“代理”，第二个是设置代理的IP地址。
+先在命令行里敲了下命令，然后打开regedit注册表，刷新下看，还真改了！
+然后手动打开IE设置，发现里面的内容也确实改变了。然后再打开浏览器，打开IP查询的网址，自己的IP真的变了！
+至此以为大功告成了。结果再用时，发现大错特错——
+再次用命令行改我指定的IP地址后，网页打不开了。。。
+来回反复调试查错之后，我发现一个“大秘密”：如果不手动打开IE设置里的局域网设置窗口的话，所有代理设置是不生效的。这是为什么呢？
+百度里搜索不到。
+于是我就用英文到Stackoverflow去搜，结果发现实际影响本机代理的注册表项目并不是之前的那几个！（真怀疑网上那些人说自己用这个项达到定时设置代理的人是不是玩真的。。。）
+而是这个位置的项：
+HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections
+其中的DefaultConnectionSettings才是真正需要改的东西。打开以后各种乱码，原来是二进制值。
+不过用编辑器看二进制值，确实发现代理IP地址和自动配置脚本的地址都在里面。
+那怎么办呢？AHK可不会操作二进制，也没什么方法能用reg add命令行直接把二进制值注入。
+然后又进入无尽的百度模式。
+注册表的二进制项修改方式的突发奇想 忘了什么启发的我吧，好像是自己无聊到在注册表上乱点，发现我刻意导出注册表。
+然后导出了下试试，发现是个.reg文件。然后无聊双击一下，发现可以把这个文件导入到注册表！
+于是灵光一闪，赶紧用文本编辑器打开这个.reg文件，发现里面是文字画的十六进制码，类似这样的：
+1 2 3 4 5 6 7 8 9 10 11 12 Windows Registry Editor Version 5."/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/" /><link rel="prev" href="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" /><link rel="next" href="http://example.org/%E6%92%B8%E9%A3%9E%E9%B8%9F%E5%8A%A0%E9%80%9F%E5%99%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Python修改Windows系统代理的方法",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95\/"
+        },"genre": "posts","keywords": "Python, 代理","wordcount":  978 ,
+        "url": "http:\/\/example.org\/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95\/","datePublished": "2021-11-18T22:48:59+00:00","dateModified": "2021-11-18T22:48:59+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Python修改Windows系统代理的方法</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E4%BB%A3%E7%90%86/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>代理</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-11-18">2021-11-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;978 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#思路及启发">思路及启发</a></li>
+    <li><a href="#注册表的二进制项修改方式的突发奇想">注册表的二进制项修改方式的突发奇想</a>
+      <ul>
+        <li><a href="#于是最终答案就出来了这里开始有python介入">于是最终答案就出来了（这里开始有Python介入）</a></li>
+      </ul>
+    </li>
+    <li><a href="#defaultconnectionsettings十六进制值的分析">DefaultConnectionSettings十六进制值的分析</a></li>
+    <li><a href="#增加更方便的功能">增加更方便的功能</a></li>
+    <li><a href="#在autohotkey中调用极其方便极其傻瓜式操作">在Autohotkey中调用——极其方便极其傻瓜式操作！</a></li>
+    <li><a href="#python脚本的源码setproxypy">Python脚本的源码(setProxy.py)</a></li>
+    <li><a href="#autohotkey源码">Autohotkey源码</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>来源：https://www.jianshu.com/p/49c444d9a435</p>
+<pre><code>&gt; 声明下：不同于网络上千百篇方法，下文是经过各种严格测试都通过的，同时也是一个实验的过程，排除了各种不靠谱的方法。有需要的可以评论来讨论，想要源码和相关参考文献或笔记的，也可以找我。
+</code></pre>
+<h2 id="思路及启发">思路及启发</h2>
+<p>先说一下我这一路实验的思路吧，这个至关重要。之前一直在用Python做爬虫抓取数据，发现本机IP的问题不解决，爬虫相当于白费了。然后各种百度，不管是用urllib2还是requests的代理设置，都不管用。然后又各种搜索Python更改windows代理的设置，还需要接触windos底层API，有复杂又不好实现。于是爬虫的学习就放弃了好长一段时间。<br>
+最近因为一直在用<code>AutoHotkey</code>大大加快电脑操作效率，各种快捷键和代替手动操作一些常规系统设置。突发奇想，想让它自动打开IE的Internet设置，然后自动点击“局域网设置”，在自动在代理框里输入IP地址，按回车完成设置。这真是个好主意~<br>
+不过失败了。。。因为AHK在IE设置弹出的框框中选择某一个输入框，很麻烦，我也没法实现。所以就在想另一个办法，因为AHK操作Windows的cmd命令很方便，所以在想能不能用它打开cmd然后用命令设置IE呢？<br>
+然后又各种百度。发现这是可以通过<code>reg add</code>注册表设置来实现的！于是，就开启了<code>reg</code>命令的百度之旅。<br>
+按照网上各种方法，都指向了注册表的这个地方:<br>
+<code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings</code><br>
+大家都说在这个路径下，有这么3个项非常重要：</p>
+<ul>
+<li>
+<p><code>ProxyEnable</code> - 使用代理</p>
+</li>
+<li>
+<p><code>ProxyServer</code> - 代理IP的地址及端口号</p>
+</li>
+<li>
+<p><code>AutoConfigURL</code> - 自动配置脚本（PAC）的地址</p>
+<p>于是试着用<code>reg add</code>命令操作：</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bat" data-lang="bat"><span class="line"><span class="cl">reg add <span class="s2">&#34;HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings&#34;</span> /v ProxyEnable /tREG_DWORD /d 1 /f
+</span></span><span class="line"><span class="cl">reg add <span class="s2">&#34;HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings&#34;</span> /v ProxyServer /d<span class="s2">&#34;192.168.1.1:8080&#34;</span> /f
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这两句第一个是打开“代理”，第二个是设置代理的IP地址。<br>
+先在命令行里敲了下命令，然后打开<code>regedit</code>注册表，刷新下看，还真改了！<br>
+然后手动打开IE设置，发现里面的内容也确实改变了。然后再打开浏览器，打开IP查询的网址，自己的IP真的变了！<br>
+至此以为大功告成了。结果再用时，发现大错特错——<br>
+再次用命令行改我指定的IP地址后，网页打不开了。。。<br>
+来回反复调试查错之后，我发现一个“大秘密”：如果不手动打开IE设置里的局域网设置窗口的话，所有代理设置是不生效的。这是为什么呢？<br>
+百度里搜索不到。<br>
+于是我就用英文到Stackoverflow去搜，结果发现实际影响本机代理的注册表项目并不是之前的那几个！（真怀疑网上那些人说自己用这个项达到定时设置代理的人是不是玩真的。。。）<br>
+而是这个位置的项：<br>
+<code>HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections</code><br>
+其中的<code>DefaultConnectionSettings</code>才是真正需要改的东西。打开以后各种乱码，原来是二进制值。<br>
+不过用编辑器看二进制值，确实发现代理IP地址和自动配置脚本的地址都在里面。<br>
+那怎么办呢？AHK可不会操作二进制，也没什么方法能用<code>reg add</code>命令行直接把二进制值注入。<br>
+然后又进入无尽的百度模式。</p>
+<h2 id="注册表的二进制项修改方式的突发奇想">注册表的二进制项修改方式的突发奇想</h2>
+<p>忘了什么启发的我吧，好像是自己无聊到在注册表上乱点，发现我刻意导出注册表。<br>
+然后导出了下试试，发现是个.reg文件。然后无聊双击一下，发现可以把这个文件导入到注册表！<br>
+于是灵光一闪，赶紧用文本编辑器打开这个.reg文件，发现里面是文字画的十六进制码，类似这样的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-r" data-lang="r"><span class="line"><span class="cl"><span class="n">Windows</span> <span class="n">Registry</span> <span class="n">Editor</span> <span class="n">Version</span> <span class="m">5.00</span>
+</span></span><span class="line"><span class="cl"><span class="n">[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet</span> <span class="n">Settings\Connections]</span>
+</span></span><span class="line"><span class="cl"><span class="s">&#34;DefaultConnectionSettings&#34;</span><span class="o">=</span><span class="n">hex</span><span class="o">:</span><span class="m">46</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">03</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">07</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">0</span><span class="n">e</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="n">\</span>
+</span></span><span class="line"><span class="cl">    <span class="m">00</span><span class="p">,</span><span class="m">31</span><span class="p">,</span><span class="m">39</span><span class="p">,</span><span class="m">32</span><span class="p">,</span><span class="m">2</span><span class="n">e</span><span class="p">,</span><span class="m">31</span><span class="p">,</span><span class="m">36</span><span class="p">,</span><span class="m">38</span><span class="p">,</span><span class="m">2</span><span class="n">e</span><span class="p">,</span><span class="m">31</span><span class="p">,</span><span class="m">2</span><span class="n">e</span><span class="p">,</span><span class="m">31</span><span class="p">,</span><span class="m">3</span><span class="n">a</span><span class="p">,</span><span class="m">38</span><span class="p">,</span><span class="m">30</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">21</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">68</span><span class="p">,</span><span class="m">74</span><span class="p">,</span><span class="n">\</span>
+</span></span><span class="line"><span class="cl">    <span class="m">74</span><span class="p">,</span><span class="m">70</span><span class="p">,</span><span class="m">3</span><span class="n">a</span><span class="p">,</span><span class="m">2</span><span class="n">f</span><span class="p">,</span><span class="m">2</span><span class="n">f</span><span class="p">,</span><span class="m">78</span><span class="p">,</span><span class="m">64</span><span class="p">,</span><span class="m">75</span><span class="p">,</span><span class="m">6</span><span class="n">f</span><span class="p">,</span><span class="m">74</span><span class="p">,</span><span class="m">61</span><span class="p">,</span><span class="m">69</span><span class="p">,</span><span class="m">2</span><span class="n">e</span><span class="p">,</span><span class="m">63</span><span class="p">,</span><span class="m">6</span><span class="n">f</span><span class="p">,</span><span class="m">6</span><span class="n">d</span><span class="p">,</span><span class="m">2</span><span class="n">f</span><span class="p">,</span><span class="m">70</span><span class="p">,</span><span class="m">52</span><span class="p">,</span><span class="m">73</span><span class="p">,</span><span class="m">4</span><span class="n">f</span><span class="p">,</span><span class="m">33</span><span class="p">,</span><span class="m">4</span><span class="n">e</span><span class="p">,</span><span class="m">47</span><span class="p">,</span><span class="m">52</span><span class="p">,</span><span class="n">\</span>
+</span></span><span class="line"><span class="cl">    <span class="m">33</span><span class="p">,</span><span class="m">2</span><span class="n">d</span><span class="p">,</span><span class="m">2</span><span class="n">e</span><span class="p">,</span><span class="m">70</span><span class="p">,</span><span class="m">61</span><span class="p">,</span><span class="m">63</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="n">\</span>
+</span></span><span class="line"><span class="cl">    <span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span>
+</span></span><span class="line"><span class="cl"><span class="s">&#34;SavedLegacySettings&#34;</span><span class="o">=</span><span class="n">hex</span><span class="o">:</span><span class="m">46</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="m">0</span><span class="n">c</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">07</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">0</span><span class="n">e</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">31</span><span class="p">,</span><span class="n">\</span>
+</span></span><span class="line"><span class="cl">    <span class="m">39</span><span class="p">,</span><span class="m">32</span><span class="p">,</span><span class="m">2</span><span class="n">e</span><span class="p">,</span><span class="m">31</span><span class="p">,</span><span class="m">36</span><span class="p">,</span><span class="m">38</span><span class="p">,</span><span class="m">2</span><span class="n">e</span><span class="p">,</span><span class="m">31</span><span class="p">,</span><span class="m">2</span><span class="n">e</span><span class="p">,</span><span class="m">31</span><span class="p">,</span><span class="m">3</span><span class="n">a</span><span class="p">,</span><span class="m">38</span><span class="p">,</span><span class="m">30</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">21</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">68</span><span class="p">,</span><span class="m">74</span><span class="p">,</span><span class="m">74</span><span class="p">,</span><span class="m">70</span><span class="p">,</span><span class="n">\</span>
+</span></span><span class="line"><span class="cl">    <span class="m">3</span><span class="n">a</span><span class="p">,</span><span class="m">2</span><span class="n">f</span><span class="p">,</span><span class="m">2</span><span class="n">f</span><span class="p">,</span><span class="m">78</span><span class="p">,</span><span class="m">64</span><span class="p">,</span><span class="m">75</span><span class="p">,</span><span class="m">6</span><span class="n">f</span><span class="p">,</span><span class="m">74</span><span class="p">,</span><span class="m">61</span><span class="p">,</span><span class="m">69</span><span class="p">,</span><span class="m">2</span><span class="n">e</span><span class="p">,</span><span class="m">63</span><span class="p">,</span><span class="m">6</span><span class="n">f</span><span class="p">,</span><span class="m">6</span><span class="n">d</span><span class="p">,</span><span class="m">2</span><span class="n">f</span><span class="p">,</span><span class="m">70</span><span class="p">,</span><span class="m">52</span><span class="p">,</span><span class="m">73</span><span class="p">,</span><span class="m">4</span><span class="n">f</span><span class="p">,</span><span class="m">33</span><span class="p">,</span><span class="m">4</span><span class="n">e</span><span class="p">,</span><span class="m">47</span><span class="p">,</span><span class="m">52</span><span class="p">,</span><span class="m">33</span><span class="p">,</span><span class="m">2</span><span class="n">d</span><span class="p">,</span><span class="n">\</span>
+</span></span><span class="line"><span class="cl">    <span class="m">2</span><span class="n">e</span><span class="p">,</span><span class="m">70</span><span class="p">,</span><span class="m">61</span><span class="p">,</span><span class="m">63</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="n">\</span>
+</span></span><span class="line"><span class="cl">    <span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span><span class="p">,</span><span class="m">00</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="于是最终答案就出来了这里开始有python介入">于是最终答案就出来了（这里开始有Python介入）</h3>
+<p>这个时候我还不知道这是正确答案，只是想试一试：<br>
+用Python组成一段有效的二进制码（其实是十六进制） -&gt; 把注册表值封装为reg文件 -&gt; 通过命令行的<code>reg import</code>命令导入reg文件 -&gt; 成功！<br>
+然后问题就在于怎么安装正确的格式组成</p>
+<h2 id="defaultconnectionsettings十六进制值的分析">DefaultConnectionSettings十六进制值的分析</h2>
+<p>于是继续到Stackoverflow上搜索<code>DefaultConnectionSettings</code>这个项中十六进制的读取问题。<br>
+发现有一个人大概总结了每一位字节是代表什么，不过不够详细。地址在这里【<a href="https://link.jianshu.com/?t=http://stackoverflow.com/questions/1564627/how-to-set-automatic-configuration-script-for-a-dial-up-connection-programmati" target="_blank" rel="noopener noreffer ">How to set &lsquo;automatic configuration script&rsquo; for a dial-up connection programmatically?</a>】<br>
+然后开始做笔记：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-11-18T225142.png"
+        data-srcset="2021-11-18T225142.png, 2021-11-18T225142.png 1.5x, 2021-11-18T225142.png 2x"
+        data-sizes="auto"
+        alt="2021-11-18T225142.png"
+        title="How to set &amp;lsquo;automatic configuration script&amp;rsquo; for a dial-up connection programmatically?" /></p>
+<p>接着开始尝试对照着那段二进制值看一看。于是我把这段十六进制码做成PDF，方便做笔记，大概是这样的：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-11-18T225211.png"
+        data-srcset="2021-11-18T225211.png, 2021-11-18T225211.png 1.5x, 2021-11-18T225211.png 2x"
+        data-sizes="auto"
+        alt="2021-11-18T225211.png"
+        title="Windows代理设置注册表值的十六进制分析DefaultConnectionSettings" /></p>
+<p>实际的十六进制值果然和网上的不同。经过实验，后面一大段画删除线的，都是没用的，删除也没关系。实际上，它只有在你手动打开IE设置面板时，才自动加上的。不管它，实际上有用的十六进制并不长。总结下也就这么几位：<br>
+<code>46 00 00 00 00 00 00 00 开关 00 00 00 IP长度 00 00 00 IP地址 00 00 00 是否跳过本地代理 21 00 00 00 PAC地址</code></p>
+<p>其中，通过规律发现每个信息的分隔符是三个00，即<code>00 00 00</code>。上面有7个00的，因为没什么用我就不讲了（其实第四个代表自增数，直接为00就好了）</p>
+<p>当然，其中汉字的部分是十六进制格式的。</p>
+<p>这几个汉字，是其中最重要的信息，具体如下：</p>
+<ul>
+<li>
+<p>开关(switcher): 主要代表IE设置中复选框的选中情况，你可以打开IE设置看看。以下是所有可用的值（括号中是我用的别名）：</p>
+<p>0F全部开启(ALL)；01全部禁用(Off)</p>
+<p>03使用代理服务器(ProxyOnly)；05使用自动脚本(PacOnly)；</p>
+<p>07使用脚本和代理(ProxyAndPac)；09打开自动检测设置(D)；</p>
+<p>0B打开自动检测并使用代理(DIP)；0D打开自动检测并使用脚本(DS)；</p>
+</li>
+<li>
+<p>IP长度：必须是十六进制的，0就是00，7就是07,10就是0a,11是0b。在Python中，格式是<code>0xa</code>，所以需要把格式统一为注册表的标准。</p>
+</li>
+<li>
+<p>IP地址：直接把IP安装每个字符转十六进制就好了。如果IP为空的话，就直接为00。这时会看到switcher后面跟了11个00。。。</p>
+</li>
+<li>
+<p>是否跳过本地代理：这段有点复杂，实际上我们几乎不用。如果不用的话直接为00就好了。但是用的话，就必须写为：<code>附加信息长度00 00 00 附加信息</code>这样的。</p>
+<ul>
+<li>附加信息：只能是这句话：<code>&lt;local&gt;</code></li>
+<li>附加信息长度：因为附加信息是固定的，所以共7位，写为07就好了。</li>
+</ul>
+</li>
+<li>
+<p>PAC地址：这个简单，直接把PAC地址翻译为十六进制就好了。如果没有则什么都不写。</p>
+</li>
+</ul>
+<p>至此这段十六进制值就全部解析完毕了。<br>
+剩下的就是把你需要的代理IP地址和PAC地址作为参数传进去就好了。然后把这段值封装到reg文件中的对应位置就完全ok了~这步太简单，就不用多说了。</p>
+<h2 id="增加更方便的功能">增加更方便的功能</h2>
+<p>各种测试成功后，非常高兴。但是还有点余味不足，就想着多添加点方便的功能。<br>
+这个Python文件的最后成品可以做到这些事：</p>
+<ul>
+<li>直接通过命令行传参数达到各种设置代理的效果。这个很自豪~第一次用系统参数功能，哈哈哈！</li>
+<li>在文件夹中直接双击达到效果</li>
+<li>在别的Python文件中（如爬虫）作为模块被使用</li>
+<li>被AHK调用</li>
+</ul>
+<h2 id="在autohotkey中调用极其方便极其傻瓜式操作">在Autohotkey中调用——极其方便极其傻瓜式操作！</h2>
+<p>不忘初心嘛~<br>
+python处理一切完成后，又回到了AHK中。<br>
+这一步可能也就写了几分钟，让AHK直接带参数打开python脚本就做到了。比如设置一个代理IP地址：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Autohotkey" data-lang="Autohotkey"><span class="line"><span class="cl"><span class="n">path</span> <span class="o">=</span> <span class="s">&#34;D:\setRegProxy.py&#34;</span><span class="c1"> ;这里是python脚本的地址，随便放哪都行。</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="n">key</span>   <span class="o">=</span> <span class="s">&#34;0.0.0.0:80&#34;</span><span class="c1">  ;这里根据需要设置为代理地址</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">Run</span> <span class="o">%</span> <span class="n">path</span> <span class="s">&#34; -o ProxyOnly &#34;</span> <span class="n">key</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样就齐活了~<br>
+当然，我的AHK脚本实现的功能比这个还要爽快——弹出一个小输入框，直接粘贴一个ip地址，按回车就能实现代理设置。</p>
+<h2 id="python脚本的源码setproxypy">Python脚本的源码(setProxy.py)</h2>
+<p>只要机器上安装了Python 2.x版本就行，不需要依赖安装和设置其他任何东西。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># coding:utf-8</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">  # Title   : setRegProxy
+</span></span></span><span class="line"><span class="cl"><span class="s1">  # Author  : Solomon Xie
+</span></span></span><span class="line"><span class="cl"><span class="s1">  # Utility : Via Registry key of windows, change proxy settings of IE on Windows.
+</span></span></span><span class="line"><span class="cl"><span class="s1">  # Require : Python 2.x, Windows 7
+</span></span></span><span class="line"><span class="cl"><span class="s1">  # Reg Path: HKUC\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections
+</span></span></span><span class="line"><span class="cl"><span class="s1">  # Anlysis : 注册表的二进制值(及关键信息)如下：&#34;46 00 00 00 00 00 00 00 开关 00 00 00 IP长度 00 00 00 IP地址 00 00 00 是否跳过本地代理 21 00 00 00 PAC地址&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">  # Method  : 通过在cmd中导入reg文件的方式执行并立即生效。
+</span></span></span><span class="line"><span class="cl"><span class="s1">  # Notes   : - 二进制值的设置选项在代码中已经体现了。本代码可以根据需要自动设置代理。
+</span></span></span><span class="line"><span class="cl"><span class="s1">  # switcher: 开关：0F全部开启(ALL)；01全部禁用(Off)
+</span></span></span><span class="line"><span class="cl"><span class="s1">              03使用代理服务器(ProxyOnly)；05使用自动脚本(PacOnly)；
+</span></span></span><span class="line"><span class="cl"><span class="s1">              07使用脚本和代理(ProxyAndPac)；09自动检测设置(D)；
+</span></span></span><span class="line"><span class="cl"><span class="s1">              0B自动检测并使用代理(DIP)；0D自动检测并使用脚本(DS)；
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">re</span><span class="o">,</span> <span class="nn">getopt</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">regIESettings</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">noLocal</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">pac</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    # 根据需求生成Windows代理设置注册表的.reg文件内容
+</span></span></span><span class="line"><span class="cl"><span class="s1">    # DefaultConnectionSettings项是二进制项
+</span></span></span><span class="line"><span class="cl"><span class="s1">    # 而具体这个二进制文件怎么解析，在收藏的PDF中有详细解释。
+</span></span></span><span class="line"><span class="cl"><span class="s1">  &#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="ow">not</span> <span class="n">op</span> <span class="p">:</span> <span class="k">return</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># 如果是设置IP代理的模式 则检查IP地址的有效性(允许为空，但不允许格式错误)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="s1">&#39;Proxy&#39;</span> <span class="ow">in</span> <span class="n">op</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">ip</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">    <span class="c1"># if len(extractIp(ip))==0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})\s*:{0,1}\s*([0-9]{1,5}){0,1}&#39;</span><span class="p">,</span><span class="n">ip</span><span class="p">))</span> <span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">print</span> <span class="s1">&#39;---Unexpected IP Address:</span><span class="si">%s</span><span class="s1">---&#39;</span><span class="o">%</span><span class="n">ip</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span>
+</span></span><span class="line"><span class="cl">  <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;On&#39;</span><span class="p">:</span><span class="s1">&#39;0F&#39;</span><span class="p">,</span><span class="s1">&#39;Off&#39;</span><span class="p">:</span><span class="s1">&#39;01&#39;</span><span class="p">,</span><span class="s1">&#39;ProxyOnly&#39;</span><span class="p">:</span><span class="s1">&#39;03&#39;</span><span class="p">,</span><span class="s1">&#39;PacOnly&#39;</span><span class="p">:</span><span class="s1">&#39;05&#39;</span><span class="p">,</span><span class="s1">&#39;ProxyAndPac&#39;</span><span class="p">:</span><span class="s1">&#39;07&#39;</span><span class="p">,</span><span class="s1">&#39;D&#39;</span><span class="p">:</span><span class="s1">&#39;09&#39;</span><span class="p">,</span><span class="s1">&#39;DIP&#39;</span><span class="p">:</span><span class="s1">&#39;0B&#39;</span><span class="p">,</span><span class="s1">&#39;DS&#39;</span><span class="p">:</span><span class="s1">&#39;0D&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="s1">&#39;Off&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">reg_value</span> <span class="o">=</span> <span class="s1">&#39;46,00,00,00,00,00,00,00,01&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">switcher</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">op</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">switcher</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">---Unexpected Option. Please check the value after [-o]---</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="n">skipLocal</span> <span class="o">=</span> <span class="s1">&#39;07,00,00,00,</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">__toHex</span><span class="p">(</span><span class="s1">&#39;&lt;local&gt;&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">noLocal</span> <span class="k">else</span> <span class="s1">&#39;00&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">reg_value</span> <span class="o">=</span> <span class="s1">&#39;46,00,00,00,00,00,00,00,</span><span class="si">%(switcher)s</span><span class="s1">,00,00,00,</span><span class="si">%(ipLen)s</span><span class="s1">,00,00,00,</span><span class="si">%(ip)s</span><span class="s1">00,00,00,</span><span class="si">%(skipLocal)s</span><span class="s1">,21,00,00,00</span><span class="si">%(pac)s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">({</span> <span class="s1">&#39;switcher&#39;</span><span class="p">:</span><span class="n">switcher</span><span class="p">,</span><span class="s1">&#39;ipLen&#39;</span><span class="p">:</span><span class="n">__toHex</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ip</span><span class="p">)),</span><span class="s1">&#39;ip&#39;</span><span class="p">:</span><span class="n">__toHex</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;,&#39;</span> <span class="k">if</span> <span class="n">ip</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;infoLen&#39;</span><span class="p">:</span><span class="n">__toHex</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="s1">&#39;&lt;local&gt;&#39;</span><span class="p">)),</span><span class="s1">&#39;skipLocal&#39;</span><span class="p">:</span><span class="n">skipLocal</span><span class="p">,</span><span class="s1">&#39;pac&#39;</span><span class="p">:</span><span class="s1">&#39;,&#39;</span><span class="o">+</span><span class="n">__toHex</span><span class="p">(</span><span class="n">pac</span><span class="p">)</span> <span class="k">if</span> <span class="n">pac</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="n">settings</span> <span class="o">=</span> <span class="s1">&#39;Windows Registry Editor Version 5.00</span><span class="se">\n</span><span class="s1">[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections]</span><span class="se">\n</span><span class="s1">&#34;DefaultConnectionSettings&#34;=hex:</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">reg_value</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># print &#39;Using proxy address: %s&#39; % ip</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="n">pac</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="n">op</span><span class="p">]</span> <span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span> <span class="n">__toHex</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span> <span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span> <span class="n">__toHex</span><span class="p">(</span><span class="n">pac</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># === 生成reg文件并导入到注册表中 ===</span>
+</span></span><span class="line"><span class="cl">  <span class="n">filePath</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">\DefaultConnectionSettings.reg&#39;</span><span class="o">%</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filePath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span> <span class="n">settings</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;reg import &#34;</span><span class="si">%s</span><span class="s1">&#34;&#39;</span> <span class="o">%</span><span class="n">filePath</span>
+</span></span><span class="line"><span class="cl">  <span class="n">result</span>  <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">readlines</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---Successfully import proxy into Registry on this machine.---&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">__toHex</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span>   <span class="n">obj</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span> <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">obj</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span> <span class="ow">or</span> <span class="n">obj</span> <span class="o">==</span> <span class="s1">&#39;00&#39;</span><span class="p">:</span> <span class="k">return</span> <span class="s1">&#39;00&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rehex</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">s</span><span class="p">)))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rehex</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">num</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;0&#39;</span><span class="o">+</span><span class="n">num</span> <span class="c1"># 如果是一位数则自动补上0，7为07，e为0e</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># 获取文件外部参数</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># 用法：在命令行中输入setRegProxy.py -o &#34;ProxyOnly&#34; -l --proxy&#34;0.0.0.0:80&#34; -l</span>
+</span></span><span class="line"><span class="cl">  <span class="n">opts</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">getopt</span><span class="o">.</span><span class="n">getopt</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="s1">&#39;o:p:a:l&#39;</span><span class="p">,[</span><span class="s1">&#39;option=&#39;</span><span class="p">,</span><span class="s1">&#39;proxy=&#39;</span><span class="p">,</span><span class="s1">&#39;pac=&#39;</span><span class="p">,</span><span class="s1">&#39;local&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">(</span><span class="n">opts</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="c1">#调试用</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">op</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="n">pac</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">noLocal</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">o</span><span class="p">,</span><span class="n">a</span> <span class="ow">in</span> <span class="n">opts</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span>   <span class="n">o</span> <span class="o">==</span> <span class="s1">&#39;-o&#39;</span> <span class="ow">or</span> <span class="n">o</span> <span class="o">==</span> <span class="s1">&#39;--option&#39;</span><span class="p">:</span>  <span class="n">op</span> <span class="o">=</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl">      <span class="k">elif</span> <span class="n">o</span> <span class="o">==</span> <span class="s1">&#39;-p&#39;</span> <span class="ow">or</span> <span class="n">o</span> <span class="o">==</span> <span class="s1">&#39;--proxy&#39;</span> <span class="p">:</span>  <span class="n">ip</span> <span class="o">=</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl">      <span class="k">elif</span> <span class="n">o</span> <span class="o">==</span> <span class="s1">&#39;-a&#39;</span> <span class="ow">or</span> <span class="n">o</span> <span class="o">==</span> <span class="s1">&#39;--pac&#39;</span>   <span class="p">:</span> <span class="n">pac</span> <span class="o">=</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl">      <span class="k">elif</span> <span class="n">o</span> <span class="o">==</span> <span class="s1">&#39;-l&#39;</span> <span class="ow">or</span> <span class="n">o</span> <span class="o">==</span> <span class="s1">&#39;--local&#39;</span> <span class="p">:</span> <span class="n">noLocal</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pac</span> <span class="o">=</span> <span class="s1">&#39;http://xduotai.com/pRsO3NGR3-.pac&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pac</span> <span class="k">else</span> <span class="n">pac</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="s1">&#39;ProxyOff&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">regIESettings</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="s1">&#39;Off&#39;</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">pac</span><span class="o">=</span><span class="n">pac</span><span class="p">,</span> <span class="n">noLocal</span><span class="o">=</span><span class="n">noLocal</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="n">regIESettings</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="s1">&#39;PacOnly&#39;</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">pac</span><span class="o">=</span><span class="n">pac</span><span class="p">,</span> <span class="n">noLocal</span><span class="o">=</span><span class="n">noLocal</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">op</span> <span class="o">==</span> <span class="s1">&#39;PacOff&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">regIESettings</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="s1">&#39;Off&#39;</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">pac</span><span class="o">=</span><span class="n">pac</span><span class="p">,</span> <span class="n">noLocal</span><span class="o">=</span><span class="n">noLocal</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="n">regIESettings</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="s1">&#39;ProxyOnly&#39;</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">pac</span><span class="o">=</span><span class="n">pac</span><span class="p">,</span> <span class="n">noLocal</span><span class="o">=</span><span class="n">noLocal</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">regIESettings</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">op</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">pac</span><span class="o">=</span><span class="n">pac</span><span class="p">,</span> <span class="n">noLocal</span><span class="o">=</span><span class="n">noLocal</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="autohotkey源码">Autohotkey源码</h2>
+<p>Autohotkey怎么用呢？太简单了，傻到爆！<br>
+直接官网下载安装一个Autohotkey软件，也就几M。然后呢，新建一个文本文件，把下面内容粘贴进去。把文件名后缀改为<code>.ahk</code>，然后双击就启动了脚本哈哈！<br>
+这时你试着按一下键盘上的ScrollLock键，就会弹出来一个对话框。效果是这样的：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-11-18T225328.png"
+        data-srcset="2021-11-18T225328.png, 2021-11-18T225328.png 1.5x, 2021-11-18T225328.png 2x"
+        data-sizes="auto"
+        alt="2021-11-18T225328.png"
+        title="按下ScrollLock键后弹出的框框" /></p>
+<p>你可以在这里输入改代理的命令~ 我设计的命令都非常简单，如下：</p>
+<ul>
+<li>输入<code>proxy</code>，就会打开IE设置的窗口</li>
+<li>输入<code>proxy 192.168.1.1:8080</code> ，就会把代理设置为这个IP</li>
+<li>输入<code>proxy on</code>，就会打开代理（但是IP为空）</li>
+<li>输入<code>proxy off</code>，就会关闭代理</li>
+<li>输入<code>pac http://abc.com/123.pac</code>，就开启某自动代理设置脚本</li>
+<li>输入<code>pac off</code>，就会关闭自动脚本</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-11-18T225347.png"
+        data-srcset="2021-11-18T225347.png, 2021-11-18T225347.png 1.5x, 2021-11-18T225347.png 2x"
+        data-sizes="auto"
+        alt="2021-11-18T225347.png"
+        title="输入指令的样子" /></p>
+<p>注意：</p>
+<ol>
+<li>我这里注册的键是键盘上的ScrollLock按钮，按一下就有了。也可以自己设定一个。</li>
+<li>下面的代码是处理过的，实际上这个按键远比它要方便的多：它是我的快速操作杀手锏，一条命令实现巨多功能。如有感兴趣的可以联系我讨论，或者看我的下一篇专门针对AHK的文章（如果我不犯懒写了的话）。</li>
+<li>我设定的指令是<code>proxy ??</code>这样的，如果嫌长或者不方便，可以改为别的自己用着舒服的。甚至不用弹出框，直接按一下F1之类的就完成设置都可以。不过这就需要稍微了解下AHK语法啦~（也不难）</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-Autohotkey" data-lang="Autohotkey"><span class="line"><span class="cl"><span class="nl">ScrollLock::</span> <span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">{</span><span class="c1">
+</span></span></span><span class="line"><span class="cl"><span class="c1">    ; --- 获取指令及关键词 ---</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="nb">InputBox</span><span class="p">,</span> <span class="n">fullCommand</span><span class="p">,</span> <span class="p">(</span><span class="n">Command</span> <span class="n">Line</span> <span class="n">Interface</span><span class="p">),</span> <span class="n">Please</span> <span class="n">give</span> <span class="n">me</span> <span class="n">a</span> <span class="n">command</span><span class="o">:</span><span class="p">,</span> <span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">130</span><span class="c1"> ;获取命令</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="n">if</span> <span class="p">(</span><span class="n">fullcommand</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="nb">Return</span><span class="c1">
+</span></span></span><span class="line"><span class="cl"><span class="c1">    ; -- 解析命令 ---</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="n">split</span>  <span class="o">:=</span> <span class="s">&#34; &#34;</span> <span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="nb">StringGetPos</span> <span class="p">,</span> <span class="n">posi</span><span class="p">,</span> <span class="n">fullCommand</span><span class="p">,</span> <span class="nv">%split%</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="n">if</span> <span class="p">(</span><span class="n">posi</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="nb">StringMid</span><span class="p">,</span> <span class="n">eng</span><span class="p">,</span> <span class="n">fullCommand</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span> <span class="n">posi</span><span class="c1"> ;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="nb">StringMid</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">fullCommand</span><span class="p">,</span> <span class="n">posi</span><span class="o">+</span><span class="mi">2</span> <span class="p">,</span> <span class="nf">StrLen</span><span class="p">(</span><span class="n">fullCommand</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="nb">else</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="n">eng</span> <span class="o">:=</span> <span class="n">fullCommand</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="n">key</span> <span class="o">:=</span> <span class="s">&#34;&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="p">}</span><span class="c1">
+</span></span></span><span class="line"><span class="cl"><span class="c1">        ; === 打开IE设置窗口的命令 ===</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="n">ieSettings</span> <span class="o">:=</span> <span class="s">&#34;rundll32.exe shell32.dll, Control_RunDLL inetcpl.cpl, ,4L&#34;</span><span class="c1">
+</span></span></span><span class="line"><span class="cl"><span class="c1">        ; === python脚本的地址 ===</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="n">path</span>  <span class="o">:=</span> <span class="s">&#34;D:\Solomon Xie\Workspace\setRegProxy.py&#34;</span><span class="c1"> ;Python设置代理脚本，可接收命令行参数
+</span></span></span><span class="line"><span class="cl"><span class="c1">    ; ---开始执行操作---</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="n">if</span>      <span class="p">(</span><span class="n">eng</span> <span class="o">=</span> <span class="s">&#34;&#34;</span> <span class="ow">and</span> <span class="n">fullcommand</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="nb">Run</span> <span class="o">%</span> <span class="n">ieSettings</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="nb">else</span> <span class="n">if</span> <span class="p">(</span><span class="n">eng</span> <span class="o">=</span> <span class="s">&#34;Proxy&#34;</span><span class="p">){</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="n">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>            <span class="nb">Return</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="nb">else</span> <span class="n">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="s">&#34;Off&#34;</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>            <span class="nb">Run</span> <span class="o">%</span> <span class="n">path</span> <span class="s">&#34; -o Off &#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="nb">else</span><span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>            <span class="n">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="s">&#34;On&#34;</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>                <span class="n">key</span> <span class="o">:=</span> <span class="s">&#34;&#34;</span><span class="c1"> ;“获取”历史IP值太麻烦 先为空吧</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>            <span class="nb">else</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>                <span class="n">key</span> <span class="o">=</span> <span class="s">&#34;--proxy &#34;</span> <span class="nv">%key%</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>            <span class="nb">Run</span> <span class="o">%</span> <span class="n">path</span>  <span class="s">&#34; -o ProxyOnly &#34;</span> <span class="n">key</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="nb">else</span> <span class="n">if</span> <span class="p">(</span><span class="n">eng</span> <span class="o">=</span> <span class="s">&#34;Pac&#34;</span> <span class="ow">and</span> <span class="n">key</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="n">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="s">&#34;&#34;</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">=</span> <span class="s">&#34;On&#34;</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>            <span class="n">key</span> <span class="o">=</span> <span class="s">&#34;http://xduotai.com/pRsO3NGR3-.pac&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="n">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">=</span> <span class="s">&#34;Off&#34;</span><span class="p">)</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>            <span class="nb">Run</span> <span class="o">%</span> <span class="n">path</span>  <span class="s">&#34; -o Off &#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="nb">else</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>            <span class="n">key</span> <span class="o">=</span> <span class="s">&#34;%key%&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>            <span class="nb">Run</span> <span class="o">%</span> <span class="n">path</span> <span class="s">&#34; -o PacOnly --pac &#34;</span> <span class="n">key</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="nb">Return</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></article>
+<p><em><svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" class=""><use xlink:href="#ic-like"></use></svg><em>63人点赞</em><svg viewBox="64 64 896 896" focusable="false" class="" data-icon="right" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path></svg></em></p>
+<p><em><svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" class=""><use xlink:href="#ic-dislike"></use></svg></em></p>
+<p><a href="https://www.jianshu.com/nb/33143703" target="_blank" rel="noopener noreffer ">_<svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" class=""><use xlink:href="#ic-notebook"></use></svg>_Python学习笔记</a></p>
+<p><em><svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" class=""><use xlink:href="#ic-others"></use></svg></em></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-11-18</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/" data-title="Python修改Windows系统代理的方法" data-hashtags="Python,代理"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/" data-title="Python修改Windows系统代理的方法"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/" data-title="Python修改Windows系统代理的方法"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/" data-title="Python修改Windows系统代理的方法"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/python/">Python</a>,&nbsp;<a href="/tags/%E4%BB%A3%E7%90%86/">代理</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" class="prev" rel="prev" title="【转载】Python遭遇代理错误的解决办法"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>【转载】Python遭遇代理错误的解决办法</a>
+            <a href="/%E6%92%B8%E9%A3%9E%E9%B8%9F%E5%8A%A0%E9%80%9F%E5%99%A8/" class="next" rel="next" title="撸飞鸟加速器">撸飞鸟加速器<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.116.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

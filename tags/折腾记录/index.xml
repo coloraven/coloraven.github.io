@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>折腾记录 - Tag - 我的全新 Hugo 网站</title>
+        <link>http://example.org/tags/%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95/</link>
+        <description>折腾记录 - Tag - 我的全新 Hugo 网站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 19 Aug 2021 17:18:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95/" rel="self" type="application/rss+xml" /><item>
+    <title>背景图地址备份</title>
+    <link>http://example.org/%E8%83%8C%E6%99%AF%E5%9B%BE%E5%9C%B0%E5%9D%80%E5%A4%87%E4%BB%BD/</link>
+    <pubDate>Thu, 19 Aug 2021 17:18:00 &#43;0000</pubDate>
+    <author>五彩斑斓的黑</author>
+    <guid>http://example.org/%E8%83%8C%E6%99%AF%E5%9B%BE%E5%9C%B0%E5%9D%80%E5%A4%87%E4%BB%BD/</guid>
+    <description><![CDATA[ ]]></description>
+</item>
+</channel>
+</rss>

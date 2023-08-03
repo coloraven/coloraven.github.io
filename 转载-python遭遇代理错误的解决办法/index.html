@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>【转载】Python遭遇代理错误的解决办法 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="【转载】Python遭遇代理错误的解决办法" />
+<meta property="og:description" content="来源：https://zhuanlan.zhihu.com/p/350015032
+最近遇到的一个问题，在搞清楚之后才发现这么多年的 HTTPS_PROXY 都配置错了！
+起因 想用 Python 在网上下载一些图片素材，结果 requests 报 requests.exceptions.ProxyError，具体的错误信息见下面。当然第一时间是把系统代理关了，结果访问就正常了。
+如果只是这样，可能我就觉得是代理有问题，然后关了用就行了，但是偏偏想要下载的资源里是必须要走代理的，所以只能想办法解决。
+下面先介绍一下具体的情况：
+解决过程 操作系统：Windows 10
+Python: 3.8（有虚拟环境）
+requests 通过代理访问外网时报错如下：
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 Traceback (most recent call last): File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connectionpool.py&#34;, line 696, in urlopen self._prepare_proxy(conn) File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connectionpool.py&#34;, line 964, in _prepare_proxy conn.connect() File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connection.py&#34;, line 359, in connect conn = self._connect_tls_proxy(hostname, conn) File &#34;E:\code\Python\." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-18T16:41:40+00:00" />
+<meta property="article:modified_time" content="2021-11-18T16:41:40+00:00" /><meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="【转载】Python遭遇代理错误的解决办法"/>
+<meta name="twitter:description" content="来源：https://zhuanlan.zhihu.com/p/350015032
+最近遇到的一个问题，在搞清楚之后才发现这么多年的 HTTPS_PROXY 都配置错了！
+起因 想用 Python 在网上下载一些图片素材，结果 requests 报 requests.exceptions.ProxyError，具体的错误信息见下面。当然第一时间是把系统代理关了，结果访问就正常了。
+如果只是这样，可能我就觉得是代理有问题，然后关了用就行了，但是偏偏想要下载的资源里是必须要走代理的，所以只能想办法解决。
+下面先介绍一下具体的情况：
+解决过程 操作系统：Windows 10
+Python: 3.8（有虚拟环境）
+requests 通过代理访问外网时报错如下：
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 Traceback (most recent call last): File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connectionpool.py&#34;, line 696, in urlopen self._prepare_proxy(conn) File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connectionpool.py&#34;, line 964, in _prepare_proxy conn.connect() File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connection.py&#34;, line 359, in connect conn = self._connect_tls_proxy(hostname, conn) File &#34;E:\code\Python\."/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" /><link rel="prev" href="http://example.org/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/" /><link rel="next" href="http://example.org/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "【转载】Python遭遇代理错误的解决办法",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95\/"
+        },"genre": "posts","keywords": "Python, 代理","wordcount":  713 ,
+        "url": "http:\/\/example.org\/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95\/","datePublished": "2021-11-18T16:41:40+00:00","dateModified": "2021-11-18T16:41:40+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">【转载】Python遭遇代理错误的解决办法</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E4%BB%A3%E7%90%86/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>代理</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-11-18">2021-11-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;713 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#起因">起因</a></li>
+    <li><a href="#解决过程">解决过程</a></li>
+    <li><a href="#问题根源">问题根源</a>
+      <ul>
+        <li><a href="#同样遭遇代理错误的-pip">同样遭遇代理错误的 <code>pip</code></a></li>
+        <li><a href="#urllib3-更新了啥"><code>urllib3</code> 更新了啥</a></li>
+      </ul>
+    </li>
+    <li><a href="#代理到底该咋配">代理到底该咋配</a>
+      <ul>
+        <li><a href="#手动给-requests-传入代理配置">手动给 <code>requests</code> 传入代理配置</a></li>
+        <li><a href="#谁解析的系统代理配置">谁解析的系统代理配置</a></li>
+        <li><a href="#在-windows-中如何配置代理">在 Windows 中如何配置代理</a></li>
+        <li><a href="#我的疑惑">我的疑惑</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>来源：https://zhuanlan.zhihu.com/p/350015032</p>
+<p>最近遇到的一个问题，在搞清楚之后才发现这么多年的 <code>HTTPS_PROXY</code> 都配置错了！</p>
+<h2 id="起因">起因</h2>
+<p>想用 Python 在网上下载一些图片素材，结果 <code>requests</code> 报 <code>requests.exceptions.ProxyError</code>，具体的错误信息见下面。当然第一时间是把系统代理关了，结果访问就正常了。</p>
+<p>如果只是这样，可能我就觉得是代理有问题，然后关了用就行了，但是偏偏想要下载的资源里是必须要走代理的，所以只能想办法解决。</p>
+<p>下面先介绍一下具体的情况：</p>
+<h2 id="解决过程">解决过程</h2>
+<p>操作系统：Windows 10</p>
+<p>Python: 3.8（有虚拟环境）</p>
+<p><code>requests</code> 通过代理访问外网时报错如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Traceback (most recent call last):
+</span></span><span class="line"><span class="cl">  File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connectionpool.py&#34;, line 696, in urlopen
+</span></span><span class="line"><span class="cl">    self._prepare_proxy(conn)
+</span></span><span class="line"><span class="cl">  File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connectionpool.py&#34;, line 964, in _prepare_proxy
+</span></span><span class="line"><span class="cl">    conn.connect()
+</span></span><span class="line"><span class="cl">  File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connection.py&#34;, line 359, in connect
+</span></span><span class="line"><span class="cl">    conn = self._connect_tls_proxy(hostname, conn)
+</span></span><span class="line"><span class="cl">  File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\connection.py&#34;, line 496, in _connect_tls_proxy
+</span></span><span class="line"><span class="cl">    return ssl_wrap_socket(
+</span></span><span class="line"><span class="cl">  File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\util\ssl_.py&#34;, line 432, in ssl_wrap_socket
+</span></span><span class="line"><span class="cl">    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls)
+</span></span><span class="line"><span class="cl">  File &#34;E:\code\Python\.venv\smalltools\lib\site-packages\urllib3\util\ssl_.py&#34;, line 474, in _ssl_wrap_socket_impl
+</span></span><span class="line"><span class="cl">    return ssl_context.wrap_socket(sock)
+</span></span><span class="line"><span class="cl">  File &#34;C:\Users\Davy\AppData\Local\Programs\Python\python8\lib\ssl.py&#34;, line 500, in wrap_socket
+</span></span><span class="line"><span class="cl">    return self.sslsocket_class._create(
+</span></span><span class="line"><span class="cl">  File &#34;C:\Users\Davy\AppData\Local\Programs\Python\python8\lib\ssl.py&#34;, line 1041, in _create
+</span></span><span class="line"><span class="cl">    self.do_handshake()
+</span></span><span class="line"><span class="cl">  File &#34;C:\Users\Davy\AppData\Local\Programs\Python\python8\lib\ssl.py&#34;, line 1310, in do_handshake
+</span></span><span class="line"><span class="cl">    self._sslobj.do_handshake()
+</span></span><span class="line"><span class="cl">OSError: [Errno 0] Error
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>因为浏览器访问是没有问题的，代理本身应该没有问题。</p>
+<p>按照这个错误信息在网上搜了一下，比较接近的帖子给的解决方案有安装 <code>ssl</code> 模块之类，都照着检查了一遍，问题还是没有解决。</p>
+<p>因为网上的内容有些年头了，并且我觉得使用代理是非常常见的场景，既然没多少人报这个问题，那么很可能只是偶然的 bug，于是想着把版本再升级试试。</p>
+<p>升级到 python 3.9 ，错误仍然存在，提示略有变化：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Traceback (most recent call last):
+</span></span><span class="line"><span class="cl">  File &#34;C:\Users\Davy\AppData\Local\Programs\Python\python9\lib\site-packages\urllib3\connectionpool.py&#34;, line 696, in urlopen
+</span></span><span class="line"><span class="cl">    self._prepare_proxy(conn)
+</span></span><span class="line"><span class="cl">  File &#34;C:\Users\Davy\AppData\Local\Programs\Python\python9\lib\site-packages\urllib3\connectionpool.py&#34;, line 964, in _prepare_proxy
+</span></span><span class="line"><span class="cl">    conn.connect()
+</span></span><span class="line"><span class="cl">  File &#34;C:\Users\Davy\AppData\Local\Programs\Python\python9\lib\site-packages\urllib3\connection.py&#34;, line 359, in connect
+</span></span><span class="line"><span class="cl">    conn = self._connect_tls_proxy(hostname, conn)
+</span></span><span class="line"><span class="cl">  File &#34;C:\Users\Davy\AppData\Local\Programs\Python\python9\lib\site-packages\urllib3\connection.py&#34;, line 496, in _connect_tls_proxy
+</span></span><span class="line"><span class="cl">    return ssl_wrap_socket(
+</span></span><span class="line"><span class="cl">  File &#34;C:\Users\Davy\AppData\Local\Programs\Python\python9\lib\site-packages\urllib3\util\ssl_.py&#34;, line 432, in ssl_wrap_socket
+</span></span><span class="line"><span class="cl">    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls)
+</span></span><span class="line"><span class="cl">  File &#34;C:\Users\Davy\AppData\Local\Programs\Python\python9\lib\site-packages\urllib3\util\ssl_.py&#34;, line 474, in _ssl_wrap_socket_impl
+</span></span><span class="line"><span class="cl">    return ssl_context.wrap_socket(sock)
+</span></span><span class="line"><span class="cl">  File &#34;C:\Users\Davy\AppData\Local\Programs\Python\python9\lib\ssl.py&#34;, line 500, in wrap_socket
+</span></span><span class="line"><span class="cl">    return self.sslsocket_class._create(
+</span></span><span class="line"><span class="cl">  File &#34;C:\Users\Davy\AppData\Local\Programs\Python\python9\lib\ssl.py&#34;, line 1040, in _create
+</span></span><span class="line"><span class="cl">    self.do_handshake()
+</span></span><span class="line"><span class="cl">  File &#34;C:\Users\Davy\AppData\Local\Programs\Python\python9\lib\ssl.py&#34;, line 1309, in do_handshake
+</span></span><span class="line"><span class="cl">    self._sslobj.do_handshake()
+</span></span><span class="line"><span class="cl">ssl.SSLEOFError: EOF occurred in violation of protocol (_ssl.c:1122)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>好歹错误信息有点变化，于是按照最下面 <code>ssl.SSLEOFError: EOF occurred in violation of protocol (_ssl.c:1122)</code> 去谷歌，并没有找到解决办法，但是发现有人在不久前遇到了相同的问题，并且通过降级 Python 3.7 解决了。</p>
+<p>参见：https://v2ex.com/t/738031</p>
+<p>先重新安装 Python 3.7 试了一下果然可行，并且意外地发现在 Python 3.8 环境下也是可行的，也就是可以排除 Python 版本的问题，那么自然就怀疑是某个包引发的。</p>
+<p>通过简单地对比和排除，很快就发现了问题所在：</p>
+<p>模块 <code>urllib3</code> 的版本，报错的是 <code>1.26.3</code>，没报错的是 <code>1.25.11</code></p>
+<p>在原报错环境中使用下面命令重装低版本 <code>urllib3</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install <span class="nv">urllib3</span><span class="o">==</span>1.25.11
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后测试果然就没问题了。</p>
+<h2 id="问题根源">问题根源</h2>
+<p>先查了一下 <code>urllib3</code> 的更新日志，应该是 <code>1.26.0</code> 的修改导致的：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-11-18T165640.png"
+        data-srcset="2021-11-18T165640.png, 2021-11-18T165640.png 1.5x, 2021-11-18T165640.png 2x"
+        data-sizes="auto"
+        alt="2021-11-18T165640.png"
+        title="2021-11-18T165640" /></p>
+<p>按照这个更新日志，明明应该是增加了 <code>HTTPS</code> 的支持，怎么反而让它失效了呢？</p>
+<p>我一时搞不明白这个问题，但是想起了我最近遭遇到了另一个问题，然后意外地找到了真相：</p>
+<h3 id="同样遭遇代理错误的-pip">同样遭遇代理错误的 <code>pip</code></h3>
+<p>同样是在这个环境中，其实在一开始我就遭遇了 <code>pip install</code> 安装包失败的问题，报错信息是：</p>
+<p>​    &lsquo;ProxyError(&lsquo;Cannot connect to proxy.&rsquo;, FileNotFoundError(2, &lsquo;No such file or directory&rsquo;))&rsquo;</p>
+<p>同样是取消系统代理就能正常安装，就没太在意了。</p>
+<p>但是在降级 <code>urllib3</code> 解决了 <code>requests</code> 的 <code>ProxyError</code> 之后，我开始怀疑 <code>pip</code> 安装是不是也是这个问题呢？</p>
+<p>直接在降级了 <code>urllib3</code> 的环境中测试了一下，错误仍然存在，但是版本整体较低的环境中，是没有问题的！</p>
+<p>于是继续对比版本包，结果在 <code>pip</code> 包的路径下发现有一个 <code>_vendor\urllib3</code> 目录，原来 <code>pip</code> 是直接把 <code>urllib3</code> 集成到了自己的包里面，不受系统安装包的影响。检查其中的 <code>_version.py</code> 里的版本信息，果然也是 <code>1.26.x</code>。</p>
+<p>出错的 <code>pip</code> 的版本是 <code>20.3</code>，把 <code>pip</code> 也降级到 <code>20.2</code> 以下，就没有问题了。</p>
+<p>显然，鉴于 <code>pip</code>  的高频使用，这种致命的问题不可能没人报，所以在 <code>pip</code> 项目的 <code>issue</code> 列表里很快就找到了相关讨论：</p>
+<p><a href="https://github.com/pypa/pip/issues/9216" target="_blank" rel="noopener noreffer ">https://github.com/pypa/pip/issues/9216</a>​</p>
+<h3 id="urllib3-更新了啥"><code>urllib3</code> 更新了啥</h3>
+<p>根据 <a href="https://github.com/pypa/pip/issues/9216#issuecomment-741836058" target="_blank" rel="noopener noreffer ">https://github.com/pypa/pip/issues/9216#issuecomment-741836058</a> 所说，更改代理配置可以解决问题：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-11-18T165702.png"
+        data-srcset="2021-11-18T165702.png, 2021-11-18T165702.png 1.5x, 2021-11-18T165702.png 2x"
+        data-sizes="auto"
+        alt="2021-11-18T165702.png"
+        title="2021-11-18T165702" /></p>
+<p>绕了好大一圈大概明白是怎么回事了：</p>
+<p>以前 <code>urllib3</code> 其实并<strong>不支持</strong> <code>https</code> 代理，也就是说代理服务器的地址虽然大家配置的是 <code>https</code>，但是一直都是悄无声息地就按照 <code>http</code> 连接的，刚好代理服务器确实也只支持 <code>http</code>，所以皆大欢喜。</p>
+<p>现在 <code>urllib3</code> 要支持 <code>https</code> 代理了，那么既然配置代理是 <code>https</code> 就尝试用 <code>https</code> 的方式去连接，但是由于代理服务器其实只支持 <code>http</code>，所以没法处理请求，<code>ssl</code> 握手阶段就出错了。</p>
+<blockquote>
+<p>注意，这里的 <code>https</code> 是指代理服务器自己的，和我们要访问的目标网站无关。</p>
+</blockquote>
+<p>因为目标网站的协议和代理服务器的协议并不要求一样，所以只需要更改代理配置 ，将访问 <code>https</code> 网站的代理服务器地址改为 <code>http</code> 即可，也就是这样：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">HTTPS_PROXY=http://proxy_ip:proxy_port
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>前面的 <code>HTTPS_</code> 表示，如果访问的站点是 <code>https</code> 的，需要走这里配置的代理服务器；后面的 <code>http://</code> 则表示这个代理服务器自己只支持 <code>http</code>。</p>
+<p>而我们一直以来看到的配置建议，这两者前后通常都是保持一致的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">HTTP_PROXY=http://proxy_ip:proxy_port
+</span></span><span class="line"><span class="cl">HTTPS_PROXY=https://proxy_ip:proxy_port
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>这个是错误的！</strong></p>
+<h2 id="代理到底该咋配">代理到底该咋配</h2>
+<p>Windows 10 中的代理服务器设置如下，并没有区分什么 <code>http</code> 和 <code>https</code>:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-11-18T165722.png"
+        data-srcset="2021-11-18T165722.png, 2021-11-18T165722.png 1.5x, 2021-11-18T165722.png 2x"
+        data-sizes="auto"
+        alt="2021-11-18T165722.png"
+        title="2021-11-18T165722" /></p>
+<h3 id="手动给-requests-传入代理配置">手动给 <code>requests</code> 传入代理配置</h3>
+<p><code>requests</code> 的请求参数中是支持指定代理服务器的，刚开始的代码没有指定：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>前面在尝试解决问题的时候，也试过了传入代理服务器配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">proxies</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;http&#39;</span><span class="p">:</span> <span class="s1">&#39;http://127.0.0.1:7890&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;https&#39;</span><span class="p">:</span> <span class="s1">&#39;https://127.0.0.1:7890&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="n">proxies</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面两种写法的效果其实是差不多一样的，结果当然也是一样出错。</p>
+<p>按照上面 <code>issue</code> 中的修改建议改为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">proxies</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;http&#39;</span><span class="p">:</span> <span class="s1">&#39;http://127.0.0.1:7890&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;https&#39;</span><span class="p">:</span> <span class="s1">&#39;http://127.0.0.1:7890&#39;</span>  <span class="c1"># https -&gt; http</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="n">proxies</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行结果就 OK 了。</p>
+<p>好了，现在我们可以不用降级版本了，但是却要多出一段配置，要改代码，总归还是不爽。</p>
+<p>其实，如果是 Linux 系统是没这个问题的，本来代理配置就是通过环境变量 <code>HTTP_PROXY</code> 和 <code>HTTPS_PROXY</code> 来设置的，改一下环境变量的值就可以了，麻烦还是在 Windows 系统中。</p>
+<p>要搞明白 Python 代码是如何获取 Windows 系统中的代理服务器设置的。</p>
+<h3 id="谁解析的系统代理配置">谁解析的系统代理配置</h3>
+<p>在代码中不难发现，当用户有传入 <code>proxies</code> 参数时，<code>requests</code> 是通过标准库提供的 <code>getproxies</code> 函数来获取系统代理服务器配置的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="c1"># 如果是 python 2，则是 from urllib import getproxies </span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">getproxies</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">getproxies</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s1">&#39;http&#39;</span><span class="p">:</span> <span class="s1">&#39;http://127.0.0.1:7890&#39;</span><span class="p">,</span> <span class="s1">&#39;https&#39;</span><span class="p">:</span> <span class="s1">&#39;https://127.0.0.1:7890&#39;</span><span class="p">,</span> <span class="s1">&#39;ftp&#39;</span><span class="p">:</span> <span class="s1">&#39;ftp://127.0.0.1:7890&#39;</span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面显示的结果就是对应到截图中的代理配置。</p>
+<blockquote>
+<p>注意，<code>urllib</code> 和 <code>urllib3</code> 不是一个库，前者是 Python 标准库自带。</p>
+</blockquote>
+<p>继续看代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">getproxies</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;Return a dictionary of scheme -&gt; proxy server URL mappings.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Returns settings gathered from the environment, if specified,
+</span></span></span><span class="line"><span class="cl"><span class="s2">        or the registry.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">getproxies_environment</span><span class="p">()</span> <span class="ow">or</span> <span class="n">getproxies_registry</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 Windows 系统中，先从环境变量获取，如果没有则从注册表获取。</p>
+<p><code>getproxies_environment</code> 的逻辑比较简单，基本和 Linux 系统是一致的，就是环境变量配置成啥样就是啥样。这里我并没有配置环境变量，自然结果是空，最终的结果要看 <code>getproxies_registry</code>。按照其中的代码，从注册表中获取的配置如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-11-18T165738.png"
+        data-srcset="2021-11-18T165738.png, 2021-11-18T165738.png 1.5x, 2021-11-18T165738.png 2x"
+        data-sizes="auto"
+        alt="2021-11-18T165738.png"
+        title="2021-11-18T165738" /></p>
+<p>代码里有两个处理逻辑：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">proxyServer</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">winreg</span><span class="o">.</span><span class="n">QueryValueEx</span><span class="p">(</span><span class="n">internetSettings</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                                       <span class="s1">&#39;ProxyServer&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="s1">&#39;=&#39;</span> <span class="ow">in</span> <span class="n">proxyServer</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1"># Per-protocol settings</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">proxyServer</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">protocol</span><span class="p">,</span> <span class="n">address</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="c1"># See if address has a type:// prefix</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="k">match</span><span class="p">(</span><span class="s1">&#39;(?:[^/:]+)://&#39;</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">address</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">://</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">protocol</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">proxies</span><span class="p">[</span><span class="n">protocol</span><span class="p">]</span> <span class="o">=</span> <span class="n">address</span>
+</span></span><span class="line"><span class="cl">                <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1"># Use one setting for all protocols</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="n">proxyServer</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;http:&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">proxies</span><span class="p">[</span><span class="s1">&#39;http&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">proxyServer</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">proxies</span><span class="p">[</span><span class="s1">&#39;http&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;http://</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">proxyServer</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">proxies</span><span class="p">[</span><span class="s1">&#39;https&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;https://</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">proxyServer</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">proxies</span><span class="p">[</span><span class="s1">&#39;ftp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ftp://</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">proxyServer</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中第一种是「<strong>每种协议各自配置</strong>」，下面第二种情况是「<strong>所有协议一个配置</strong>」。</p>
+<p>在第二种情况中，如果带了 <code>http:</code> 就只配置 <code>http</code> 协议，否则（也就是我们现在的场景），针对同一个 proxyServer，添加 3 种协议。</p>
+<h3 id="在-windows-中如何配置代理">在 Windows 中如何配置代理</h3>
+<p><strong>第一种方法：通过环境变量设置</strong>：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-11-18T165754.png"
+        data-srcset="2021-11-18T165754.png, 2021-11-18T165754.png 1.5x, 2021-11-18T165754.png 2x"
+        data-sizes="auto"
+        alt="2021-11-18T165754.png"
+        title="2021-11-18T165754" /></p>
+<p>结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">getproxies</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="s1">&#39;https&#39;</span><span class="p">:</span> <span class="s1">&#39;http://127.0.0.1:7890&#39;</span><span class="p">,</span> <span class="s1">&#39;http&#39;</span><span class="p">:</span> <span class="s1">&#39;http://127.0.0.1:7890&#39;</span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一旦设置了环境变量，程序就直接从环境变量获取，系统的配置也就失效了。</p>
+<p><strong>第二种方法：按照上面的代码倒推出来系统配置</strong>：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-11-18T165804.png"
+        data-srcset="2021-11-18T165804.png, 2021-11-18T165804.png 1.5x, 2021-11-18T165804.png 2x"
+        data-sizes="auto"
+        alt="2021-11-18T165804.png"
+        title="2021-11-18T165804" /></p>
+<p>其中的地址框里的内容是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">http=http://127.0.0.1:1080;https=http://127.0.0.1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中最后的端口只对最后面的那个地址有效，分号前面的地址需要加上端口。</p>
+<p>对应的注册表中的值是：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="2021-11-18T165814.png"
+        data-srcset="2021-11-18T165814.png, 2021-11-18T165814.png 1.5x, 2021-11-18T165814.png 2x"
+        data-sizes="auto"
+        alt="2021-11-18T165814.png"
+        title="2021-11-18T165814" /></p>
+<p>显然这种方式有点诡异和麻烦，目前也没看到有相关的说明，不确定是否会影响其它程序的判断。</p>
+<p>如此看来，还是第一种方法比较靠谱，就是不能利用系统配置有点遗憾。</p>
+<h3 id="我的疑惑">我的疑惑</h3>
+<p>那么，在用户只给出了代理服务器的 IP 和 端口的情况下，原有的处理逻辑是不是错误，我也不敢断言。</p>
+<p>回到最初犯错的地方：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">HTTP_PROXY=http://proxy_ip:proxy_port
+</span></span><span class="line"><span class="cl">HTTPS_PROXY=https://proxy_ip:proxy_port
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我现在还有一个疑惑点是，真的会存在一个代理服务器，能够在同一个端口同时支持 <code>http</code> 和 <code>https</code> 么？如果是那样的话，为啥平常的 web 服务器还要有 80 和 443 两个端口对应不同的服务。</p>
+<p>反过来，如果一个端口不可以同时支持两个协议的话，那么上面的配置的错误则更加明显，处理逻辑也就很有问题。</p>
+<p>你对此有什么看法和理解，欢迎在评论区讨论！</p>
+<h2 id="总结">总结</h2>
+<p>通过解决代理服务器错误，对 Python 是如何处理代理服务器配置有了更深入的了解。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-11-18</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-title="【转载】Python遭遇代理错误的解决办法" data-hashtags="Python,代理"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-hashtag="Python"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-title="【转载】Python遭遇代理错误的解决办法"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-title="【转载】Python遭遇代理错误的解决办法"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/%E8%BD%AC%E8%BD%BD-python%E9%81%AD%E9%81%87%E4%BB%A3%E7%90%86%E9%94%99%E8%AF%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" data-title="【转载】Python遭遇代理错误的解决办法"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/python/">Python</a>,&nbsp;<a href="/tags/%E4%BB%A3%E7%90%86/">代理</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0python%E4%BE%9D%E8%B5%96%E5%8C%85%E5%AE%89%E8%A3%85%E6%89%93%E5%8C%85%E8%BF%87%E7%A8%8B/" class="prev" rel="prev" title="腾讯云函数Python依赖包安装打包过程"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>腾讯云函数Python依赖包安装打包过程</a>
+            <a href="/python%E4%BF%AE%E6%94%B9windows%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/" class="next" rel="next" title="Python修改Windows系统代理的方法">Python修改Windows系统代理的方法<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.116.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

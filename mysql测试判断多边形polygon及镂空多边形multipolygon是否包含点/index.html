@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>MySQL测试判断多边形（Polygon）及镂空多边形（MultiPolygon）是否包含点 - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="MySQL测试判断多边形（Polygon）及镂空多边形（MultiPolygon）是否包含点" />
+<meta property="og:description" content="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 -- 1.创建测试表 CREATE TABLE zone ( id int(10) unsigned NOT NULL AUTO_INCREMENT, polygongeo geometry NOT NULL, PRIMARY KEY (id) ) ENGINE=MYISAM DEFAULT CHARSET=utf8; -- 2.插入多边形数据 insert into zone(polygongeo) values(ST_GeomFromText(&#39;POLYGON((1 1,1 5,5 5,5 1,1 1))&#39;)); -- 3.判断点是否在多边形区域 -- 3.1 测试 POINT(3, 4)，在多边形内 select ST_AsText(polygongeo) from zone where MBRWithin(ST_GeomFromText(&#39;POINT(3 4)&#39;),polygongeo); -- 3.2 测试 POINT(6, 1) 在多边形外 select ST_AsText(polygongeo) from zone where MBRWithin(ST_GeomFromText(&#39;POINT(6 1)&#39;),polygongeo); 不入库，直接测试" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/mysql%E6%B5%8B%E8%AF%95%E5%88%A4%E6%96%AD%E5%A4%9A%E8%BE%B9%E5%BD%A2polygon%E5%8F%8A%E9%95%82%E7%A9%BA%E5%A4%9A%E8%BE%B9%E5%BD%A2multipolygon%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%82%B9/" /><meta property="article:section" content="posts" />
+
+<meta property="og:site_name" content="我的网站" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MySQL测试判断多边形（Polygon）及镂空多边形（MultiPolygon）是否包含点"/>
+<meta name="twitter:description" content="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 -- 1.创建测试表 CREATE TABLE zone ( id int(10) unsigned NOT NULL AUTO_INCREMENT, polygongeo geometry NOT NULL, PRIMARY KEY (id) ) ENGINE=MYISAM DEFAULT CHARSET=utf8; -- 2.插入多边形数据 insert into zone(polygongeo) values(ST_GeomFromText(&#39;POLYGON((1 1,1 5,5 5,5 1,1 1))&#39;)); -- 3.判断点是否在多边形区域 -- 3.1 测试 POINT(3, 4)，在多边形内 select ST_AsText(polygongeo) from zone where MBRWithin(ST_GeomFromText(&#39;POINT(3 4)&#39;),polygongeo); -- 3.2 测试 POINT(6, 1) 在多边形外 select ST_AsText(polygongeo) from zone where MBRWithin(ST_GeomFromText(&#39;POINT(6 1)&#39;),polygongeo); 不入库，直接测试"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql%E6%B5%8B%E8%AF%95%E5%88%A4%E6%96%AD%E5%A4%9A%E8%BE%B9%E5%BD%A2polygon%E5%8F%8A%E9%95%82%E7%A9%BA%E5%A4%9A%E8%BE%B9%E5%BD%A2multipolygon%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%82%B9/" /><link rel="prev" href="http://example.org/nginx-%E5%A4%9A%E5%AE%B9%E5%99%A8/" /><link rel="next" href="http://example.org/mysql%E6%88%96%E8%80%85postgresql%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E7%82%B9%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E4%BA%8Emultipolygon-%E5%A4%9A%E5%A4%9A%E8%BE%B9%E5%BD%A2/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MySQL测试判断多边形（Polygon）及镂空多边形（MultiPolygon）是否包含点",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/mysql%E6%B5%8B%E8%AF%95%E5%88%A4%E6%96%AD%E5%A4%9A%E8%BE%B9%E5%BD%A2polygon%E5%8F%8A%E9%95%82%E7%A9%BA%E5%A4%9A%E8%BE%B9%E5%BD%A2multipolygon%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%82%B9\/"
+        },"genre": "posts","keywords": "MySQL, GIS","wordcount":  168 ,
+        "url": "http:\/\/example.org\/mysql%E6%B5%8B%E8%AF%95%E5%88%A4%E6%96%AD%E5%A4%9A%E8%BE%B9%E5%BD%A2polygon%E5%8F%8A%E9%95%82%E7%A9%BA%E5%A4%9A%E8%BE%B9%E5%BD%A2multipolygon%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%82%B9\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "五彩斑斓的黑"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">MySQL测试判断多边形（Polygon）及镂空多边形（MultiPolygon）是否包含点</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>五彩斑斓的黑</a></span>&nbsp;<span class="post-category">included in <a href="/categories/gis/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>GIS</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;168 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#判断点是否在镂空多边形内直接测试">判断点是否在镂空多边形内，直接测试</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 1.创建测试表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">zone</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="n">unsigned</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">polygongeo</span><span class="w"> </span><span class="n">geometry</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">MYISAM</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 2.插入多边形数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="k">zone</span><span class="p">(</span><span class="n">polygongeo</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POLYGON((1 1,1 5,5 5,5 1,1 1))&#39;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 3.判断点是否在多边形区域
+</span></span></span><span class="line"><span class="cl"><span class="c1">--   3.1 测试 POINT(3, 4)，在多边形内
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="n">ST_AsText</span><span class="p">(</span><span class="n">polygongeo</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">zone</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">MBRWithin</span><span class="p">(</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(3 4)&#39;</span><span class="p">),</span><span class="n">polygongeo</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">--   3.2 测试 POINT(6, 1)  在多边形外
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">select</span><span class="w"> </span><span class="n">ST_AsText</span><span class="p">(</span><span class="n">polygongeo</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">zone</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">MBRWithin</span><span class="p">(</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(6 1)&#39;</span><span class="p">),</span><span class="n">polygongeo</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>不入库，直接测试</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">ST_Contains</span><span class="p">(</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;MULTIPOLYGON(((103.236631342762 28.8176761290501,103.223402196754 28.8067721559103,103.209070714842 28.8142367294416,103.180091207643 28.798947455161,103.14654213721 28.824723076309,103.130331635197 28.828001337192,103.134297395409 28.8452254641839,103.167231778324 28.8643948670295,103.176539598724 28.8840813692598,103.169919000262 28.9045950607135,103.172633909627 28.932211552721,103.146715816082 28.9448446028962,103.13471930785 28.9692321042783,103.150374074704 28.9703423083509,103.161580849577 28.9891424738461,103.15734975159 29.0005456111911,103.177684162294 29.032308821395,103.176350962327 29.0694099108388,103.160365421227 29.0944466696781,103.180453467154 29.1056188206521,103.2017136031 29.1071235950779,103.201687387863 29.0940476602714,103.191523992039 29.0799538880615,103.199963856947 29.0731856649865,103.219618568142 29.0694447325884,103.227025387212 29.0507195660552,103.259157118007 29.0312680863532,103.281320228146 28.996955444738,103.274604182837 28.9814130607642,103.25969996678 28.9740033773541,103.245668694754 28.9457143516361,103.251277767255 28.9258500057732,103.245698980324 28.915184451901,103.272321285299 28.8964177393872,103.246358179786 28.870089342749,103.228214409667 28.8654235673438,103.236631342762 28.8176761290501)))&#39;</span><span class="p">),</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(103.2366313 28.81767612)&#39;</span><span class="p">))</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="判断点是否在镂空多边形内直接测试">判断点是否在镂空多边形内，直接测试</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">ST_Contains</span><span class="p">(</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;MULTIPOLYGON(((98.9208984375  30.41078179084589,97.327880859375  28.825425374477224,98.052978515625  28.120438687101064,97.7783203125  26.303264239389534,99.151611328125  25.997549919572112,100.535888671875  26.303264239389534,101.865234375  27.235094607795503,103.095703125  26.391869671769022,103.89770507812499  27.712710260887476,103.60107421874999  28.700224692776988,101.88720703125  30.14512718337613,100.51391601562499  30.92107637538488,101.129150390625  28.9120147012556,100.0634765625  28.033197847676377,99.90966796875  29.6594160549124,98.9208984375  30.41078179084589),(101.7059326171875 28.023500048883022,102.72766113281249 28.023500048883022,102.72766113281249 28.700224692776988,101.7059326171875 28.700224692776988,101.7059326171875 28.023500048883022)))&#39;</span><span class="p">),</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(101.854248046875 29.084976575985912)&#39;</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">--点1：101.854248046875 29.084976575985912    输出： 1
+</span></span></span><span class="line"><span class="cl"><span class="c1">--点2：100.5029296875 28.969700808694157      输出： 0
+</span></span></span><span class="line"><span class="cl"><span class="c1">--点3：103.91555786132812 27.70784710660343   输出： 0
+</span></span></span><span class="line"><span class="cl"><span class="c1">--点4：102.26074218749999 28.372068829631633  输出： 0
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><img src="3793956811.png" alt="点的位置" style="zoom:80%;" />
+<img src="2355939894.png" alt="点3位置" style="zoom:80%;" />
+<p>上面测试中的镂空多边形geojson数据如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span><span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;FeatureCollection&#34;</span><span class="p">,</span><span class="nt">&#34;features&#34;</span><span class="p">:[{</span><span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;Feature&#34;</span><span class="p">,</span><span class="nt">&#34;properties&#34;</span><span class="p">:{},</span><span class="nt">&#34;geometry&#34;</span><span class="p">:{</span><span class="nt">&#34;type&#34;</span><span class="p">:</span><span class="s2">&#34;Polygon&#34;</span><span class="p">,</span><span class="nt">&#34;coordinates&#34;</span><span class="p">:[[[</span><span class="mf">98.9208984375</span><span class="p">,</span><span class="mf">30.41078179084589</span><span class="p">],[</span><span class="mf">97.327880859375</span><span class="p">,</span><span class="mf">28.825425374477224</span><span class="p">],[</span><span class="mf">98.052978515625</span><span class="p">,</span><span class="mf">28.120438687101064</span><span class="p">],[</span><span class="mf">97.7783203125</span><span class="p">,</span><span class="mf">26.303264239389534</span><span class="p">],[</span><span class="mf">99.151611328125</span><span class="p">,</span><span class="mf">25.997549919572112</span><span class="p">],[</span><span class="mf">100.535888671875</span><span class="p">,</span><span class="mf">26.303264239389534</span><span class="p">],[</span><span class="mf">101.865234375</span><span class="p">,</span><span class="mf">27.235094607795503</span><span class="p">],[</span><span class="mf">103.095703125</span><span class="p">,</span><span class="mf">26.391869671769022</span><span class="p">],[</span><span class="mf">103.89770507812499</span><span class="p">,</span><span class="mf">27.712710260887476</span><span class="p">],[</span><span class="mf">103.60107421874999</span><span class="p">,</span><span class="mf">28.700224692776988</span><span class="p">],[</span><span class="mf">101.88720703125</span><span class="p">,</span><span class="mf">30.14512718337613</span><span class="p">],[</span><span class="mf">100.51391601562499</span><span class="p">,</span><span class="mf">30.92107637538488</span><span class="p">],[</span><span class="mf">101.129150390625</span><span class="p">,</span><span class="mf">28.9120147012556</span><span class="p">],[</span><span class="mf">100.0634765625</span><span class="p">,</span><span class="mf">28.033197847676377</span><span class="p">],[</span><span class="mf">99.90966796875</span><span class="p">,</span><span class="mf">29.6594160549124</span><span class="p">],[</span><span class="mf">98.9208984375</span><span class="p">,</span><span class="mf">30.41078179084589</span><span class="p">]],[[</span><span class="mf">101.7059326171875</span><span class="p">,</span><span class="mf">28.023500048883022</span><span class="p">],[</span><span class="mf">102.72766113281249</span><span class="p">,</span><span class="mf">28.023500048883022</span><span class="p">],[</span><span class="mf">102.72766113281249</span><span class="p">,</span><span class="mf">28.700224692776988</span><span class="p">],[</span><span class="mf">101.7059326171875</span><span class="p">,</span><span class="mf">28.700224692776988</span><span class="p">],[</span><span class="mf">101.7059326171875</span><span class="p">,</span><span class="mf">28.023500048883022</span><span class="p">]]]}}]}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 0001-01-01</span>
+            </div><div class="post-info-license">
+                <span>false</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/mysql%E6%B5%8B%E8%AF%95%E5%88%A4%E6%96%AD%E5%A4%9A%E8%BE%B9%E5%BD%A2polygon%E5%8F%8A%E9%95%82%E7%A9%BA%E5%A4%9A%E8%BE%B9%E5%BD%A2multipolygon%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%82%B9/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/mysql%E6%B5%8B%E8%AF%95%E5%88%A4%E6%96%AD%E5%A4%9A%E8%BE%B9%E5%BD%A2polygon%E5%8F%8A%E9%95%82%E7%A9%BA%E5%A4%9A%E8%BE%B9%E5%BD%A2multipolygon%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%82%B9/" data-title="MySQL测试判断多边形（Polygon）及镂空多边形（MultiPolygon）是否包含点" data-hashtags="MySQL,GIS"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/mysql%E6%B5%8B%E8%AF%95%E5%88%A4%E6%96%AD%E5%A4%9A%E8%BE%B9%E5%BD%A2polygon%E5%8F%8A%E9%95%82%E7%A9%BA%E5%A4%9A%E8%BE%B9%E5%BD%A2multipolygon%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%82%B9/" data-hashtag="MySQL"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/mysql%E6%B5%8B%E8%AF%95%E5%88%A4%E6%96%AD%E5%A4%9A%E8%BE%B9%E5%BD%A2polygon%E5%8F%8A%E9%95%82%E7%A9%BA%E5%A4%9A%E8%BE%B9%E5%BD%A2multipolygon%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%82%B9/" data-title="MySQL测试判断多边形（Polygon）及镂空多边形（MultiPolygon）是否包含点"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/mysql%E6%B5%8B%E8%AF%95%E5%88%A4%E6%96%AD%E5%A4%9A%E8%BE%B9%E5%BD%A2polygon%E5%8F%8A%E9%95%82%E7%A9%BA%E5%A4%9A%E8%BE%B9%E5%BD%A2multipolygon%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%82%B9/" data-title="MySQL测试判断多边形（Polygon）及镂空多边形（MultiPolygon）是否包含点"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/mysql%E6%B5%8B%E8%AF%95%E5%88%A4%E6%96%AD%E5%A4%9A%E8%BE%B9%E5%BD%A2polygon%E5%8F%8A%E9%95%82%E7%A9%BA%E5%A4%9A%E8%BE%B9%E5%BD%A2multipolygon%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E7%82%B9/" data-title="MySQL测试判断多边形（Polygon）及镂空多边形（MultiPolygon）是否包含点"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/mysql/">MYSQL</a>,&nbsp;<a href="/tags/gis/">GIS</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/nginx-%E5%A4%9A%E5%AE%B9%E5%99%A8/" class="prev" rel="prev" title="nginx 多容器"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>nginx 多容器</a>
+            <a href="/mysql%E6%88%96%E8%80%85postgresql%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E7%82%B9%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E4%BA%8Emultipolygon-%E5%A4%9A%E5%A4%9A%E8%BE%B9%E5%BD%A2/" class="next" rel="next" title="Mysql或者Postgresql判断一个点是否存在于MULTIPOLYGON(多多边形)">Mysql或者Postgresql判断一个点是否存在于MULTIPOLYGON(多多边形)<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.116.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
